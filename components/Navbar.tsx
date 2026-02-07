@@ -3,10 +3,10 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <div className="sticky top-0 isolate z-50 bg-[#f5f5ee]">
-      <div className="bg-black text-[#f5f5ee] text-center py-2.5 px-4">
+      <div className="bg-[#ff6600] text-white text-center py-2.5 px-4">
         <Link
           href="/apply"
-          className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-sm font-light tracking-wide hover:opacity-80 transition-opacity no-underline text-[#f5f5ee]"
+          className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-sm font-light tracking-wide hover:opacity-80 transition-opacity no-underline text-white"
         >
           Apply for Spring 2026 by February 9
           <svg
@@ -28,8 +28,8 @@ export default function Navbar() {
       </div>
 
       <nav className="bg-[#f5f5ee]">
-        <div className="relative hidden min-[1024px]:flex items-center w-full max-w-[1400px] mx-auto gap-10 px-5 py-2">
-          <div className="flex flex-1 items-center justify-end gap-8">
+        <div className="relative hidden min-[1024px]:flex items-center w-full max-w-[1400px] mx-auto gap-10 px-8 py-3.5">
+          <div className="flex flex-1 items-center justify-end gap-12">
             <div className="nav-item relative">
               <button className="nav-link flex items-center gap-1">
                 About
@@ -114,8 +114,8 @@ export default function Navbar() {
 
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
             <svg
-              width="40"
-              height="40"
+              width="48"
+              height="48"
               viewBox="0 0 48 48"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,7 @@ export default function Navbar() {
             </svg>
           </Link>
 
-          <div className="flex flex-1 items-center justify-start gap-8">
+          <div className="flex flex-1 items-center justify-start gap-12">
             <Link href="/partners" className="nav-link">
               Partners
             </Link>
@@ -157,17 +157,32 @@ export default function Navbar() {
               </button>
               <div className="dropdown-menu hidden">
                 <div className="dropdown-container">
-                  <Link href="/library" className="dropdown-item">
-                    Startup Library
+                  <Link href="/startup-school" className="dropdown-item">
+                    Startup School
+                  </Link>
+                  <Link href="/newsletter" className="dropdown-item">
+                    Newsletter
+                  </Link>
+                  <Link href="/rfs" className="dropdown-item">
+                    Requests for Startups
                   </Link>
                   <Link href="/investors" className="dropdown-item">
-                    Investors
+                    For Investors
+                  </Link>
+                  <Link href="/verify" className="dropdown-item">
+                    Verify Founders
+                  </Link>
+                  <Link href="https://news.ycombinator.com" className="dropdown-item">
+                    Hacker News
+                  </Link>
+                  <Link href="/bookface" className="dropdown-item">
+                    Bookface
                   </Link>
                   <Link href="/safe" className="dropdown-item">
-                    SAFE & Fundraising
+                    Safe
                   </Link>
-                  <Link href="/news" className="dropdown-item">
-                    Startup News
+                  <Link href="/cofounder-matching" className="dropdown-item">
+                    Find a Co-Founder
                   </Link>
                 </div>
               </div>
@@ -180,17 +195,17 @@ export default function Navbar() {
 
           <Link
             href="/apply"
-            className="absolute right-5 flex h-10 items-center justify-center rounded-full bg-black px-5 pb-[2px] font-['Source_Serif_4',serif] text-sm font-normal italic tracking-[0.015rem] text-white transition-opacity hover:opacity-80"
+            className="absolute right-8 flex h-10 items-center justify-center rounded-full bg-[#ff6600] px-5 pb-[2px] font-['Source_Serif_4',serif] text-sm font-normal italic tracking-[0.015rem] text-white transition-opacity hover:opacity-80"
           >
             Apply
           </Link>
         </div>
 
         <div className="relative flex min-[1024px]:hidden items-center justify-center px-2 py-2">
-          <Link href="/" className="inline-block h-[40px] w-[40px]">
+          <Link href="/" className="inline-block h-[48px] w-[48px]">
             <svg
-              width="40"
-              height="40"
+              width="48"
+              height="48"
               viewBox="0 0 48 48"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

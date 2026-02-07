@@ -255,7 +255,7 @@ export default function CompanyShowcase() {
         {logos.map((logo, i) => (
           <div
             key={`${side}-logo-${logo.name}`}
-            className="flex h-20 items-center justify-center overflow-hidden bg-transparent p-0 transition-transform duration-300"
+            className="flex h-14 items-center justify-center overflow-hidden bg-transparent p-0 transition-transform duration-300"
             style={{
               opacity: showLogos ? 1 : 0,
               transition: showLogos
@@ -266,7 +266,7 @@ export default function CompanyShowcase() {
             <img
               src={logo.src}
               alt={logo.name}
-              className="h-[90px] w-[85%] object-contain object-center"
+              className="h-[55px] w-[80%] object-contain object-center"
               loading="lazy"
             />
           </div>

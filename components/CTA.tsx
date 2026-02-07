@@ -22,7 +22,7 @@ export default function CTA() {
           href="/apply"
           className="mt-10 flex h-20 items-center justify-center rounded-full bg-[#16140f] px-14 font-['Source_Serif_4',serif] text-[1.75rem] italic text-[#f5f5ee] transition-opacity hover:opacity-90"
         >
-          Apply
+          Apply to YC
         </a>
 
         <div className="mt-20 flex w-full gap-3">
