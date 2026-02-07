@@ -195,7 +195,7 @@ export default function Navbar() {
 
           <Link
             href="/apply"
-            className="absolute right-8 flex h-10 items-center justify-center rounded-full bg-[#ff6600] px-5 pb-[2px] font-['Source_Serif_4',serif] text-sm font-normal italic tracking-[0.015rem] text-white transition-opacity hover:opacity-80"
+            className="absolute right-8 flex h-10 items-center justify-center rounded-full bg-black px-5 pb-[2px] font-['Source_Serif_4',serif] text-sm font-normal italic tracking-[0.015rem] text-white transition-opacity hover:opacity-80"
           >
             Apply
           </Link>
