@@ -28,8 +28,8 @@ export default function Navbar() {
       </div>
 
       <nav className="bg-[#f5f5ee]">
-        <div className="relative hidden min-[1024px]:flex items-center w-full max-w-[1400px] mx-auto gap-10 px-8 py-3.5">
-          <div className="flex flex-1 items-center justify-end gap-12">
+        <div className="relative hidden min-[1024px]:flex items-center justify-center w-full max-w-[1400px] mx-auto px-8 py-3.5">
+          <div className="flex items-center gap-16">
             <div className="nav-item relative">
               <button className="nav-link flex items-center gap-1">
                 About
@@ -112,7 +112,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+          <Link href="/" className="mx-10 shrink-0">
             <svg
               width="48"
               height="48"
@@ -131,7 +131,7 @@ export default function Navbar() {
             </svg>
           </Link>
 
-          <div className="flex flex-1 items-center justify-start gap-12">
+          <div className="flex items-center gap-16">
             <Link href="/partners" className="nav-link">
               Partners
             </Link>
