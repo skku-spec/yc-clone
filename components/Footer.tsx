@@ -1,31 +1,33 @@
+import Link from "next/link";
+
 export default function Footer() {
   const footerLinks = {
     programs: [
-      "YC Program",
-      "Startup School",
-      "Work at a Startup",
-      "Co-Founder Matching",
+      { label: "YC Program", href: "/about" },
+      { label: "Startup School", href: "https://www.startupschool.org" },
+      { label: "Work at a Startup", href: "/jobs" },
+      { label: "Co-Founder Matching", href: "/cofounder-matching" },
     ],
     resources: [
-      "Startup Directory",
-      "Startup Library",
-      "Investors",
-      "Demo Day",
-      "Safe",
-      "Hacker News",
-      "Launch YC",
-      "YC Deals",
+      { label: "Startup Directory", href: "/companies" },
+      { label: "Startup Library", href: "/library" },
+      { label: "Investors", href: "/investors" },
+      { label: "Demo Day", href: "/demoday" },
+      { label: "Safe", href: "/documents" },
+      { label: "Hacker News", href: "https://news.ycombinator.com" },
+      { label: "Launch YC", href: "/launches" },
+      { label: "YC Deals", href: "https://deals.ycombinator.com" },
     ],
     company: [
-      "YC Blog",
-      "Contact",
-      "Press",
-      "People",
-      "Careers",
-      "Privacy Policy",
-      "Notice at Collection",
-      "Security",
-      "Terms of Use",
+      { label: "YC Blog", href: "/blog" },
+      { label: "Contact", href: "/contact" },
+      { label: "Press", href: "/press" },
+      { label: "People", href: "/people" },
+      { label: "Careers", href: "/careers" },
+      { label: "Privacy Policy", href: "/legal#privacy" },
+      { label: "Notice at Collection", href: "/legal#notice-at-collection" },
+      { label: "Security", href: "/security" },
+      { label: "Terms of Use", href: "/legal#tou" },
     ],
   };
 
@@ -50,69 +52,61 @@ export default function Footer() {
                 fill="white"
               />
             </svg>
-            <p className="font-['Outfit',sans-serif] text-sm font-light text-[#f5f5ee]/80">
+            <h3 className="font-['Outfit',sans-serif] text-base font-light text-[#f5f5ee]">
               Make something people want.
-            </p>
+            </h3>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:gap-16">
-            <div className="flex flex-col gap-4">
-              <h4 className="font-['Outfit',sans-serif] text-sm font-medium tracking-wider text-[#f5f5ee]">
-                Programs
-              </h4>
-              <div className="flex flex-col gap-2">
-                {footerLinks.programs.map((link, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="font-['Outfit',sans-serif] text-sm font-light text-[#f5f5ee]/70 transition-colors hover:text-white"
-                  >
-                    {link}
-                  </a>
-                ))}
+            {(
+              [
+                { key: "programs", title: "Programs" },
+                { key: "resources", title: "Resources" },
+                { key: "company", title: "Company" },
+              ] as const
+            ).map((section) => (
+              <div key={section.key} className="flex flex-col gap-4">
+                <h3 className="font-['Outfit',sans-serif] text-sm font-medium tracking-wider text-[#f5f5ee]">
+                  {section.title}
+                </h3>
+                <div className="flex flex-col gap-2">
+                  {footerLinks[section.key].map((link) => {
+                    const isExternal = link.href.startsWith("http");
+                    if (isExternal) {
+                      return (
+                        <a
+                          key={link.label}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-['Outfit',sans-serif] text-sm font-light text-[#f5f5ee]/70 transition-colors hover:text-white"
+                        >
+                          {link.label}
+                        </a>
+                      );
+                    }
+                    return (
+                      <Link
+                        key={link.label}
+                        href={link.href}
+                        className="font-['Outfit',sans-serif] text-sm font-light text-[#f5f5ee]/70 transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <h4 className="font-['Outfit',sans-serif] text-sm font-medium tracking-wider text-[#f5f5ee]">
-                Resources
-              </h4>
-              <div className="flex flex-col gap-2">
-                {footerLinks.resources.map((link, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="font-['Outfit',sans-serif] text-sm font-light text-[#f5f5ee]/70 transition-colors hover:text-white"
-                  >
-                    {link}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <h4 className="font-['Outfit',sans-serif] text-sm font-medium tracking-wider text-[#f5f5ee]">
-                Company
-              </h4>
-              <div className="flex flex-col gap-2">
-                {footerLinks.company.map((link, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="font-['Outfit',sans-serif] text-sm font-light text-[#f5f5ee]/70 transition-colors hover:text-white"
-                  >
-                    {link}
-                  </a>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-gray-700 pt-8 sm:flex-row">
           <div className="flex gap-4">
             <a
-              href="#"
+              href="https://twitter.com/ycombinator"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#f5f5ee]/70 transition-colors hover:text-white"
               aria-label="Twitter"
             >
@@ -125,7 +119,9 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/YCombinator"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#f5f5ee]/70 transition-colors hover:text-white"
               aria-label="Facebook"
             >
@@ -138,7 +134,9 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/ycombinator"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#f5f5ee]/70 transition-colors hover:text-white"
               aria-label="Instagram"
             >
@@ -151,7 +149,9 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/company/y-combinator"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#f5f5ee]/70 transition-colors hover:text-white"
               aria-label="LinkedIn"
             >
@@ -164,7 +164,9 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.youtube.com/c/ycombinator"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#f5f5ee]/70 transition-colors hover:text-white"
               aria-label="YouTube"
             >

@@ -7,12 +7,12 @@ export default function Hero() {
       <div className="flex h-[90vh] flex-col items-center justify-center px-6">
         <div className="flex max-w-[1000px] flex-col items-center gap-12 mx-auto">
           <h1
-            className="text-center font-['Source_Serif_4',serif] font-normal leading-[1.1] text-[#16140f]"
+            className="text-center font-['Source_Serif_4',serif] font-normal leading-[1.1] tracking-normal text-[#16140f]"
             style={{ fontSize: 'clamp(2.5rem, 5vw + 1rem, 5.25rem)' }}
           >
-            YC turns builders
+            <span className="not-italic">YC turns builders</span>
             <br />
-            into <em className="italic">formidable founders</em>
+            <span className="not-italic">into </span><em className="italic">formidable founders</em>
             <sup className="ml-1 align-super font-normal not-italic" style={{ fontSize: 'clamp(0.875rem, 2vw + 0.25rem, 1.125rem)' }}>
               [1]
             </sup>
@@ -30,7 +30,7 @@ export default function Hero() {
               &ldquo;A formidable person is one who seems like they&apos;ll get what they want, regardless of whatever obstacles are in the way.&rdquo;
             </p>
             <cite
-              className="mt-2 block text-right font-['Source_Serif_4',serif] italic not-italic leading-[1.6] text-[#16140f]"
+              className="mt-2 block text-left font-['Source_Serif_4',serif] italic leading-[1.6] text-[#16140f]"
               style={{ fontSize: 'clamp(1rem, 2vw + 0.25rem, 1.125rem)' }}
             >
               &mdash; Paul Graham

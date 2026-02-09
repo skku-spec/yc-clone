@@ -3,10 +3,10 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <div className="sticky top-0 isolate z-50 bg-[#f5f5ee]">
-      <div className="bg-[#ff6600] text-white text-center py-2.5 px-4">
+      <div className="bg-black text-[#f5f5ee] text-center py-[10px] px-[6px]">
         <Link
           href="/apply"
-          className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-sm font-light tracking-wide hover:opacity-80 transition-opacity no-underline text-white"
+          className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-sm font-normal tracking-wide hover:opacity-80 transition-opacity no-underline text-[#f5f5ee]"
         >
           Apply for Spring 2026 by February 9
           <svg
@@ -51,13 +51,13 @@ export default function Navbar() {
               </button>
               <div className="dropdown-menu hidden">
                 <div className="dropdown-container">
-                  <Link href="/what-happens-at-yc" className="dropdown-item">
+                  <Link href="/about" className="dropdown-item">
                     What Happens at YC?
                   </Link>
                   <Link href="/apply" className="dropdown-item">
                     Apply
                   </Link>
-                  <Link href="/yc-interview-guide" className="dropdown-item">
+                  <Link href="/interviews" className="dropdown-item">
                     YC Interview Guide
                   </Link>
                   <Link href="/faq" className="dropdown-item">
@@ -100,7 +100,7 @@ export default function Navbar() {
                   <Link href="/founders" className="dropdown-item">
                     Founder Directory
                   </Link>
-                  <Link href="/launch" className="dropdown-item">
+                  <Link href="/launches" className="dropdown-item">
                     Launch YC
                   </Link>
                 </div>
@@ -160,7 +160,7 @@ export default function Navbar() {
                   <Link href="/startup-school" className="dropdown-item">
                     Startup School
                   </Link>
-                  <Link href="/newsletter" className="dropdown-item">
+                  <Link href="/subscribe" className="dropdown-item">
                     Newsletter
                   </Link>
                   <Link href="/rfs" className="dropdown-item">
@@ -172,13 +172,13 @@ export default function Navbar() {
                   <Link href="/verify" className="dropdown-item">
                     Verify Founders
                   </Link>
-                  <Link href="https://news.ycombinator.com" className="dropdown-item">
-                    Hacker News
-                  </Link>
-                  <Link href="/bookface" className="dropdown-item">
-                    Bookface
-                  </Link>
-                  <Link href="/safe" className="dropdown-item">
+                   <a href="https://news.ycombinator.com" className="dropdown-item" target="_blank" rel="noopener noreferrer">
+                     Hacker News
+                   </a>
+                   <a href="https://bookface.ycombinator.com" className="dropdown-item" target="_blank" rel="noopener noreferrer">
+                     Bookface
+                   </a>
+                  <Link href="/documents" className="dropdown-item">
                     Safe
                   </Link>
                   <Link href="/cofounder-matching" className="dropdown-item">
@@ -195,7 +195,7 @@ export default function Navbar() {
 
           <Link
             href="/apply"
-            className="absolute right-8 flex h-10 items-center justify-center rounded-full bg-black px-5 pb-[2px] font-['Source_Serif_4',serif] text-sm font-normal italic tracking-[0.015rem] text-white transition-opacity hover:opacity-80"
+            className="absolute right-8 flex h-10 items-center justify-center rounded-full bg-black px-5 pb-[2px] font-['Source_Serif_4',serif] text-sm font-normal italic tracking-normal text-white transition-opacity hover:opacity-80"
           >
             Apply
           </Link>

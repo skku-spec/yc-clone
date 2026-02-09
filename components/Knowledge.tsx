@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Knowledge() {
   const videoArticles = [
     {
@@ -36,17 +38,17 @@ export default function Knowledge() {
   return (
     <section className="py-[120px]">
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="mb-[60px] text-center font-['Source_Serif_4',serif] text-5xl italic text-[#16140f]">
+        <h2 className="mb-[60px] text-center font-['Source_Serif_4',serif] text-5xl font-normal italic text-[#16140f]">
           Knowledge & News
         </h2>
 
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-12">
           <div className="flex flex-col gap-8 lg:w-2/3">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <div className="flex flex-col gap-4 sm:flex-row">
               {videoArticles.map((article, index) => (
-                <a
+                <Link
                   key={index}
-                  href="#"
+                  href="/library"
                   className="group flex flex-col gap-3"
                 >
                   <div className="aspect-video overflow-hidden rounded-xl">
@@ -60,11 +62,11 @@ export default function Knowledge() {
                   <h3 className="font-['Outfit',sans-serif] text-base font-light text-[#16140f]">
                     {article.title}
                   </h3>
-                </a>
+                </Link>
               ))}
             </div>
 
-            <a href="#" className="group flex flex-col gap-6 sm:flex-row">
+            <Link href="/library" className="group flex flex-col gap-6 sm:flex-row">
               <div className="aspect-video overflow-hidden rounded-xl sm:w-1/2">
                 <img
                   src="https://bookface-static.ycombinator.com/assets/ycdc/knowledge/contrarian-bets-thumbnail-7338837a6c93d5ad4e5132173591a960a893ee96d2ba82617be6cab60aa20898.jpg"
@@ -74,60 +76,60 @@ export default function Knowledge() {
                 />
               </div>
               <div className="flex flex-col justify-center gap-3 sm:w-1/2">
-                <span className="font-['Outfit',sans-serif] text-xs font-medium uppercase tracking-wider text-[#16140f]">
+                <span className="font-['Outfit',sans-serif] text-[11px] font-light uppercase tracking-[0.55px] text-[#16140f]">
                   LIGHTCONE PODCAST
                 </span>
-                <h3 className="font-['Source_Serif_4',serif] text-3xl font-normal text-[#16140f]">
+                <h3 className="font-['Source_Serif_4',serif] text-[22px] font-normal text-[#16140f]">
                   Billion-Dollar Unpopular Startup Ideas
                 </h3>
-                <p className="font-['Outfit',sans-serif] text-base font-light text-[#16140f]">
+                <p className="font-['Outfit',sans-serif] text-sm font-light text-[#16140f] leading-[1.6]">
                   The Lightcone team discusses contrarian startup ideas that
                   became billion-dollar companies, and why the best
                   opportunities often look bad at first.
                 </p>
               </div>
-            </a>
+            </Link>
           </div>
 
           <div className="flex flex-col gap-10 lg:w-1/3">
             <div className="flex flex-col gap-4">
-              <h4 className="font-['Outfit',sans-serif] text-xs font-medium uppercase italic tracking-wider text-[#16140f]">
+              <h4 className="font-['Source_Serif_4',serif] text-[13px] font-normal italic uppercase tracking-[0.55px] text-[#16140f]">
                 Startup News
               </h4>
-              <div className="flex flex-col gap-3">
-                {startupNews.map((news, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="group flex items-center justify-between font-['Outfit',sans-serif] text-sm font-light text-[#16140f] transition-colors hover:text-[#ff5a00]"
-                  >
-                    <span>{news}</span>
-                    <span className="ml-2 transition-transform group-hover:translate-x-1">
-                      ›
-                    </span>
-                  </a>
-                ))}
-              </div>
+               <div className="flex flex-col gap-3">
+                 {startupNews.map((news, index) => (
+                   <Link
+                     key={index}
+                     href="/blog"
+                     className="group flex items-center justify-between font-['Outfit',sans-serif] text-sm font-light text-[#16140f] transition-colors hover:text-[#ff5a00]"
+                   >
+                     <span>{news}</span>
+                     <span className="ml-2 transition-transform group-hover:translate-x-1">
+                       ›
+                     </span>
+                   </Link>
+                 ))}
+               </div>
             </div>
 
             <div className="flex flex-col gap-4">
-              <h4 className="font-['Outfit',sans-serif] text-xs font-medium uppercase italic tracking-wider text-[#16140f]">
+              <h4 className="font-['Source_Serif_4',serif] text-[13px] font-normal italic uppercase tracking-[0.55px] text-[#16140f]">
                 Paul Graham Essays
               </h4>
-              <div className="flex flex-col gap-3">
-                {paulGrahamEssays.map((essay, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="group flex items-center justify-between font-['Outfit',sans-serif] text-sm font-light text-[#16140f] transition-colors hover:text-[#ff5a00]"
-                  >
-                    <span>{essay}</span>
-                    <span className="ml-2 transition-transform group-hover:translate-x-1">
-                      ›
-                    </span>
-                  </a>
-                ))}
-              </div>
+               <div className="flex flex-col gap-3">
+                 {paulGrahamEssays.map((essay, index) => (
+                   <Link
+                     key={index}
+                     href="/library"
+                     className="group flex items-center justify-between font-['Outfit',sans-serif] text-sm font-light text-[#16140f] transition-colors hover:text-[#ff5a00]"
+                   >
+                     <span>{essay}</span>
+                     <span className="ml-2 transition-transform group-hover:translate-x-1">
+                       ›
+                     </span>
+                   </Link>
+                 ))}
+               </div>
             </div>
           </div>
         </div>

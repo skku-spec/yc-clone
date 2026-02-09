@@ -162,10 +162,10 @@ export default function InTheRoom() {
           className="text-5xl text-center mb-[60px] italic"
           style={{ fontFamily: "'Source Serif 4', serif" }}
         >
-          Be in the room with ...
+          Be in the room with …
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1400px] mx-auto">
           {founderCards.map((founder) => (
             <div
               key={founder.name}
@@ -229,7 +229,7 @@ export default function InTheRoom() {
             <a
               key={partner.name}
               href={`/people/${partner.slug}`}
-              className="rounded-xl overflow-hidden relative block group"
+              className="overflow-hidden relative block group"
               style={{
                 backgroundColor: "#444",
                 aspectRatio: "3 / 3.5",

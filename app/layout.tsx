@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Y Combinator",
@@ -29,7 +31,15 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <div className="relative w-full max-w-[100vw] overflow-x-clip font-['Source_Serif_4',serif]">
+          <div className="relative z-10 bg-[#f5f5ee]">
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </div>
+      </body>
     </html>
   );
 }

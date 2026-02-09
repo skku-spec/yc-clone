@@ -14,8 +14,9 @@ html {
 
 body {
   background: #f5f5ee;
-  color: #000;
-  font-family: "Source Serif 4", serif;
+  color: #333;
+  font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 200;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

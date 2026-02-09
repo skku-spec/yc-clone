@@ -143,6 +143,7 @@ export default function CompanyShowcase() {
   const rafRef = useRef<number>(0);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [sectionVisible, setSectionVisible] = useState(false);
+  const [pastCompanies, setPastCompanies] = useState(false);
 
   /* ── Mobile click state ── */
   const [mobileIndex, setMobileIndex] = useState(0);
@@ -173,6 +174,7 @@ export default function CompanyShowcase() {
       if (sectionRect.bottom < viewportH * 0.3 || sectionRect.top > viewportH * 0.7) {
         setActiveIndex(-1);
         setSectionVisible(false);
+        setPastCompanies(false);
         return;
       }
 
@@ -194,6 +196,15 @@ export default function CompanyShowcase() {
       });
 
       setActiveIndex(closestDist > 200 ? -1 : closestIdx);
+
+      // Only show logos in the narrow window after last company, before section exits
+      const lastEl = nameRefs.current[companies.length - 1];
+      if (lastEl) {
+        const lastRect = lastEl.getBoundingClientRect();
+        const isPastLastCompany = lastRect.bottom < viewportCenter;
+        const sectionStillInView = sectionRect.bottom > viewportH * 0.45;
+        setPastCompanies(isPastLastCompany && sectionStillInView);
+      }
     });
   }, [sectionVisible]);
 
@@ -206,7 +217,7 @@ export default function CompanyShowcase() {
     };
   }, [handleScroll]);
 
-  const showLogos = activeIndex === -1;
+   const showLogos = (activeIndex === -1 && pastCompanies) || activeIndex === companies.length;
 
   /* ── Render helpers ── */
   const renderCard = (
@@ -322,34 +333,45 @@ export default function CompanyShowcase() {
               ref={(el) => {
                 nameRefs.current[index] = el;
               }}
-              className={`flex cursor-pointer flex-col items-center gap-0 py-2.5 font-['Source_Serif_4',serif] text-[2rem] tracking-[-0.02em] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:py-3.5 lg:py-[18px] lg:text-[2.5rem] xl:py-5 xl:text-[3rem] 2xl:py-[22px] 2xl:text-[3.5rem] ${
-                activeIndex === index
-                  ? "scale-110 font-normal text-[#16140f] opacity-100"
-                  : "scale-100 font-normal text-[#8a8575] opacity-[0.15]"
-              }`}
+               className={`flex cursor-pointer flex-col items-center gap-0 py-2.5 font-['Source_Serif_4',serif] text-[2rem] tracking-[-0.02em] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:py-3.5 lg:py-[18px] lg:text-[2.5rem] xl:py-5 xl:text-[3rem] 2xl:py-[22px] 2xl:text-[3.5rem] ${
+                 activeIndex === index
+                   ? "scale-[1.08] font-[500] text-[#16140F] opacity-100"
+                   : "scale-100 font-normal text-[#8a8575] opacity-[0.15]"
+               }`}
             >
               {company.name}
             </div>
           ))}
 
-          {/* $1.3 Trillion */}
-          <div className="mt-12 flex scale-100 cursor-default flex-col items-center gap-0 py-2.5 font-['Source_Serif_4',serif] text-[2rem] font-normal tracking-[-0.02em] text-[#8a8575] opacity-[0.15] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:py-3.5 lg:mt-16 lg:py-[18px] lg:text-[2.5rem] xl:py-5 xl:text-[3rem] 2xl:py-[22px] 2xl:text-[3.5rem]">
-            $1.3 Trillion
-            <span className="block text-[0.6rem] font-[350] italic tracking-normal lg:text-[0.95rem] xl:text-base 2xl:text-xl">
-              in combined valuation
-            </span>
-          </div>
+           {/* $1.3 Trillion */}
+           <div
+             ref={(el) => {
+               nameRefs.current[companies.length] = el;
+             }}
+             className={`mt-12 flex cursor-pointer flex-col items-center gap-0 py-2.5 font-['Source_Serif_4',serif] text-[2rem] tracking-[-0.02em] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:py-3.5 lg:mt-16 lg:py-[18px] lg:text-[2.5rem] xl:py-5 xl:text-[3rem] 2xl:py-[22px] 2xl:text-[3.5rem] ${
+               activeIndex === companies.length
+                 ? "scale-[1.08] font-[500] text-[#16140F] opacity-100"
+                 : "scale-100 font-normal text-[#8a8575] opacity-[0.15]"
+             }`}
+           >
+             $1.3 Trillion
+             <span className="block text-[0.6rem] font-[350] italic tracking-normal lg:text-[0.95rem] xl:text-base 2xl:text-xl">
+               in combined valuation
+             </span>
+           </div>
 
-          {/* All companies link */}
-          <a
-            href="https://www.ycombinator.com/companies"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex h-[52px] cursor-pointer items-center justify-center gap-1.5 self-center rounded-full border-none bg-transparent px-8 font-['Source_Serif_4',serif] text-[17px] font-normal italic text-[#16140F] underline decoration-[rgba(22,20,15,0.05)] underline-offset-[3px] opacity-30 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-transparent hover:text-[#16140F] hover:decoration-[rgba(22,20,15,1)] hover:opacity-100"
-          >
-            All companies
-            {chevronSvg}
-          </a>
+           {/* All companies link */}
+           <a
+             href="https://www.ycombinator.com/companies"
+             target="_blank"
+             rel="noopener noreferrer"
+             className={`mt-4 inline-flex h-[52px] cursor-pointer items-center justify-center gap-1.5 self-center rounded-full border-none bg-transparent px-8 font-['Source_Serif_4',serif] text-[17px] font-normal italic text-[#16140F] underline decoration-[rgba(22,20,15,0.05)] underline-offset-[3px] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-transparent hover:text-[#16140F] hover:decoration-[rgba(22,20,15,1)] hover:opacity-100 ${
+               activeIndex === companies.length ? "opacity-100" : "opacity-30"
+             }`}
+           >
+             All companies
+             {chevronSvg}
+           </a>
         </div>
 
         {/* ── Right Fixed Panel (Now) ── */}

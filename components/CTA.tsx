@@ -10,7 +10,7 @@ export default function CTA() {
   return (
     <section className="pb-8 pt-0">
       <div className="mx-auto flex max-w-4xl flex-col items-center px-6">
-        <h2 className="text-center font-['Source_Serif_4',serif] text-[3.75rem] italic leading-tight text-[#16140f]">
+        <h2 className="text-center font-['Source_Serif_4',serif] text-[3.75rem] font-normal italic leading-[1.1] text-[#16140f]">
           It&apos;s never too early to apply.
         </h2>
 
@@ -20,24 +20,24 @@ export default function CTA() {
 
         <a
           href="/apply"
-          className="mt-10 flex h-20 items-center justify-center rounded-full bg-[#16140f] px-14 font-['Source_Serif_4',serif] text-[1.75rem] italic text-[#f5f5ee] transition-opacity hover:opacity-90"
+          className="mt-10 flex h-20 items-center justify-center rounded-full bg-black px-10 pb-1 font-['Source_Serif_4',serif] text-[1.75rem] font-normal italic text-[#f5f5ee] transition-opacity hover:opacity-90"
         >
-          Apply to YC
+          Apply
         </a>
 
-        <div className="mt-20 flex w-full gap-3">
-          {founderPhotos.map((src, index) => (
-            <img
-              key={index}
-              src={src}
-              alt=""
-              loading="lazy"
-              className={`aspect-square min-w-0 flex-1 rounded-lg object-cover ${
-                index >= 3 ? "max-md:hidden" : ""
-              }`}
-            />
-          ))}
-        </div>
+         <div className="mt-20 flex w-full gap-3">
+           {founderPhotos.map((src, index) => (
+             <img
+               key={index}
+               src={src}
+               alt="YC community"
+               loading="lazy"
+               className={`aspect-square min-w-0 flex-1 rounded-lg object-cover ${
+                 index >= 3 ? "max-md:hidden" : ""
+               }`}
+             />
+           ))}
+         </div>
       </div>
     </section>
   );
