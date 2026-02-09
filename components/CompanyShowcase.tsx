@@ -237,7 +237,10 @@ export default function CompanyShowcase() {
         style={{ opacity: isActive ? 1 : 0, zIndex: 1 }}
       >
         <div className="relative flex w-full flex-col items-center">
-          <div className="mb-1.5 text-center font-['Source_Serif_4',serif] text-base font-normal italic text-[#16140f] lg:mb-2 lg:text-lg xl:text-xl">
+          <div className={side === "during" 
+            ? "mb-1.5 text-center font-['Source_Serif_4',serif] text-base font-normal italic text-[#16140f] lg:mb-2 lg:text-lg xl:text-xl"
+            : "mb-1.5 text-center font-['Outfit',sans-serif] text-[11.2px] font-medium text-[#16140f] lg:mb-2"
+          }>
             {label}
           </div>
           <img
@@ -247,9 +250,9 @@ export default function CompanyShowcase() {
             loading="lazy"
           />
         </div>
-        <p className="absolute left-1/2 top-full m-0 mt-3 w-[90%] -translate-x-1/2 text-center font-['Outfit',sans-serif] text-[13px] font-light leading-[1.5] text-[#16140f] opacity-90 lg:text-sm">
-          {text}
-        </p>
+         <p className="absolute left-1/2 top-full m-0 mt-3 w-[90%] -translate-x-1/2 text-left font-['Outfit',sans-serif] text-[14px] font-light leading-[1.5] text-white lg:text-sm">
+           {text}
+         </p>
       </div>
     );
   };
@@ -266,7 +269,7 @@ export default function CompanyShowcase() {
         {logos.map((logo, i) => (
           <div
             key={`${side}-logo-${logo.name}`}
-            className="flex h-14 items-center justify-center overflow-hidden bg-transparent p-0 transition-transform duration-300"
+             className="flex h-[90px] items-center justify-center overflow-hidden bg-transparent p-0 transition-transform duration-300"
             style={{
               opacity: showLogos ? 1 : 0,
               transition: showLogos
@@ -274,12 +277,12 @@ export default function CompanyShowcase() {
                 : "opacity 0.1s ease-out",
             }}
           >
-            <img
-              src={logo.src}
-              alt={logo.name}
-              className="h-[55px] w-[80%] object-contain object-center"
-              loading="lazy"
-            />
+             <img
+               src={logo.src}
+               alt={logo.name}
+               className="h-[90px] w-[80%] object-contain object-center"
+               loading="lazy"
+             />
           </div>
         ))}
       </div>
@@ -333,11 +336,11 @@ export default function CompanyShowcase() {
               ref={(el) => {
                 nameRefs.current[index] = el;
               }}
-               className={`flex cursor-pointer flex-col items-center gap-0 py-2.5 font-['Source_Serif_4',serif] text-[2rem] tracking-[-0.02em] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:py-3.5 lg:py-[18px] lg:text-[2.5rem] xl:py-5 xl:text-[3rem] 2xl:py-[22px] 2xl:text-[3.5rem] ${
+                className={`flex cursor-pointer flex-col items-center gap-0 py-2.5 font-['Source_Serif_4',serif] text-[2rem] tracking-[-0.02em] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:py-3.5 lg:py-[18px] lg:text-[2.5rem] xl:py-5 xl:text-[3rem] 2xl:py-[22px] 2xl:text-[3.5rem] ${
                  activeIndex === index
-                   ? "scale-[1.08] font-[500] text-[#16140F] opacity-100"
-                   : "scale-100 font-normal text-[#8a8575] opacity-[0.15]"
-               }`}
+                   ? "font-[500] text-[#16140F] opacity-100"
+                   : "font-normal text-[#8a8575] opacity-[0.15]"
+                }`}
             >
               {company.name}
             </div>
@@ -348,11 +351,11 @@ export default function CompanyShowcase() {
              ref={(el) => {
                nameRefs.current[companies.length] = el;
              }}
-             className={`mt-12 flex cursor-pointer flex-col items-center gap-0 py-2.5 font-['Source_Serif_4',serif] text-[2rem] tracking-[-0.02em] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:py-3.5 lg:mt-16 lg:py-[18px] lg:text-[2.5rem] xl:py-5 xl:text-[3rem] 2xl:py-[22px] 2xl:text-[3.5rem] ${
-               activeIndex === companies.length
-                 ? "scale-[1.08] font-[500] text-[#16140F] opacity-100"
-                 : "scale-100 font-normal text-[#8a8575] opacity-[0.15]"
-             }`}
+              className={`mt-12 flex cursor-pointer flex-col items-center gap-0 py-2.5 font-['Source_Serif_4',serif] text-[2rem] tracking-[-0.02em] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:py-3.5 lg:mt-16 lg:py-[18px] lg:text-[2.5rem] xl:py-5 xl:text-[3rem] 2xl:py-[22px] 2xl:text-[3.5rem] ${
+                activeIndex === companies.length
+                  ? "font-[500] text-[#16140F] opacity-100"
+                  : "font-normal text-[#8a8575] opacity-[0.15]"
+              }`}
            >
              $1.3 Trillion
              <span className="block text-[0.6rem] font-[350] italic tracking-normal lg:text-[0.95rem] xl:text-base 2xl:text-xl">
@@ -365,9 +368,9 @@ export default function CompanyShowcase() {
              href="https://www.ycombinator.com/companies"
              target="_blank"
              rel="noopener noreferrer"
-             className={`mt-4 inline-flex h-[52px] cursor-pointer items-center justify-center gap-1.5 self-center rounded-full border-none bg-transparent px-8 font-['Source_Serif_4',serif] text-[17px] font-normal italic text-[#16140F] underline decoration-[rgba(22,20,15,0.05)] underline-offset-[3px] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-transparent hover:text-[#16140F] hover:decoration-[rgba(22,20,15,1)] hover:opacity-100 ${
-               activeIndex === companies.length ? "opacity-100" : "opacity-30"
-             }`}
+              className={`mt-4 inline-flex h-[52px] cursor-pointer items-center justify-center gap-1.5 self-center rounded-full border-none bg-transparent px-8 font-['Source_Serif_4',serif] text-[17px] font-normal italic text-[#16140F] underline decoration-[rgba(22,20,15,0.35)] underline-offset-[3px] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-transparent hover:text-[#16140F] hover:decoration-[rgba(22,20,15,1)] hover:opacity-100 ${
+                activeIndex === companies.length ? "opacity-100" : "opacity-30"
+              }`}
            >
              All companies
              {chevronSvg}

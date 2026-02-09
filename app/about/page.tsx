@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 };
 
 const sidebarLinks = [
-  { label: "The YC Program", href: "#the-yc-program" },
-  { label: "Advice", href: "#advice" },
-  { label: "Community", href: "#community" },
-  { label: "Brand", href: "#brand" },
-  { label: "Hiring", href: "#hiring" },
+  { label: "About", href: "/about" },
+  { label: "What Happens at YC?", href: "/about" },
+  { label: "People", href: "/people" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Press", href: "/press" },
 ];
 
 const pClass =
@@ -28,30 +28,30 @@ const spanClass =
 
 export default function AboutPage() {
   return (
-    <main className="flex-1 px-4 pb-4 pt-12 md:pb-10 md:pt-16">
-      <div className="mx-auto max-w-[640px]">
-        <h1 className="mb-2 font-['Source_Serif_4',serif] text-[clamp(2.5rem,5vw,3.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f] md:mb-4">
+    <main className="flex-1 px-4 pb-10 pt-16">
+      <div className="mx-auto max-w-[640px] mb-12">
+        <h1 className="font-['Source_Serif_4',serif] text-[clamp(2.5rem,5vw,3.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
           What Happens at YC
         </h1>
       </div>
 
       <div className="mx-auto flex max-w-[1100px] gap-0">
         {/* Sidebar Navigation */}
-        <div className="hidden justify-end pr-8 md:flex">
-          <nav className="sticky top-24 z-10 hidden w-40 self-start md:block">
-            <ul className="space-y-2 font-['Outfit',sans-serif] text-sm font-normal tracking-[0.025rem]">
-              {sidebarLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="block leading-relaxed text-[#16140f] transition-colors hover:text-orange-600"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+         <div className="hidden w-[352px] shrink-0 justify-end pr-8 md:flex">
+           <nav className="sticky top-24 z-10 hidden w-40 self-start md:block">
+             <ul className="space-y-2 font-['Outfit',sans-serif] text-sm font-light tracking-[0.3px]">
+               {sidebarLinks.map((link) => (
+                 <li key={link.href}>
+                   <Link
+                     href={link.href}
+                     className="block leading-relaxed text-[#16140f] transition-colors hover:text-orange-600"
+                   >
+                     {link.label}
+                   </Link>
+                 </li>
+               ))}
+             </ul>
+           </nav>
         </div>
 
         {/* Main Content */}
@@ -351,9 +351,6 @@ export default function AboutPage() {
             </section>
           </article>
         </div>
-
-        {/* Spacer for symmetry */}
-        <div className="hidden md:block" />
       </div>
     </main>
   );

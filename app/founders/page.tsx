@@ -58,30 +58,39 @@ export default function FoundersPage() {
 
   return (
     <div className="min-h-screen px-4 pb-16 pt-12 md:px-8 md:pt-16">
-      <div className="mx-auto max-w-[1200px]">
-        <div className="mb-8">
+      <div className="mx-auto max-w-[1068px]">
+        {/* Hero Section — centered */}
+        <div className="mb-10 text-center">
           <h1
-            className="mb-3 font-['Source_Serif_4',serif] font-medium italic tracking-tight text-[#16140f]"
+            className="font-['Source_Serif_4',serif] font-medium italic tracking-tight text-black"
             style={{ fontSize: 60, lineHeight: "75px" }}
           >
             Founder Directory
           </h1>
-          <p className="max-w-[640px] font-['Outfit',sans-serif] text-[17px] font-light leading-relaxed text-[#16140f]/70">
+          <p className="mx-auto mt-6 max-w-[672px] font-['Outfit',sans-serif] text-[18px] font-extralight leading-[32px] text-black">
             Since 2005, we have invested in over 9,000 founders. Discover YC
             founders by batch, industry, region, and background.
+          </p>
+          <p className="mx-auto mt-4 font-['Outfit',sans-serif] text-[15px] font-extralight text-black/60">
+            Do you know a YC founder?{" "}
+            <Link href="/login" className="underline text-[#ff6600] hover:text-[#e55c00]">
+              Sign in
+            </Link>{" "}
+            to check.
           </p>
         </div>
 
         <div className="flex gap-8">
-          <aside className="hidden w-[260px] shrink-0 lg:block">
-            <div className="sticky top-24 space-y-5 rounded-xl border border-[#16140f]/8 bg-white p-5 shadow-sm">
+          {/* Sidebar Filters */}
+          <aside className="hidden w-[300px] shrink-0 lg:block">
+            <div className="sticky top-24 space-y-5 rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5">
               <div>
                 <input
                   type="text"
                   placeholder="Search for a title..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full font-['Outfit',sans-serif] text-[#16140f] outline-none transition-all placeholder:text-[#16140f]/40 focus:ring-1 focus:ring-[#ff6600]/10"
+                  className="w-full font-['Outfit',sans-serif] text-black outline-none transition-all placeholder:text-black/40 focus:ring-1 focus:ring-[#ff6600]/10"
                   style={{
                     height: 30.5,
                     borderRadius: 4,
@@ -93,21 +102,21 @@ export default function FoundersPage() {
                 />
               </div>
 
-              <div className="h-px bg-[#16140f]/8" />
+              <div className="h-px bg-[#c6c6c6]" />
 
-              <label className="flex cursor-pointer items-center gap-2.5 rounded-md px-1 py-1.5 transition-colors hover:bg-[#16140f]/3">
+              <label className="flex cursor-pointer items-center gap-2.5 rounded-md px-1 py-1.5 transition-colors hover:bg-black/3">
                 <input
                   type="checkbox"
                   checked={topFoundersOnly}
                   onChange={() => setTopFoundersOnly(!topFoundersOnly)}
-                  className="h-4 w-4 shrink-0 cursor-pointer rounded border-[#16140f]/20 text-[#ff6600] accent-[#ff6600] focus:ring-[#ff6600]/30"
+                  className="h-4 w-4 shrink-0 cursor-pointer rounded border-black/20 text-[#ff6600] accent-[#ff6600] focus:ring-[#ff6600]/30"
                 />
-                <span className="font-['Outfit',sans-serif] text-[14px] font-normal text-[#16140f]/80">
+                <span className="font-['Outfit',sans-serif] text-[14px] font-normal text-black/80">
                   Top Company Founder
                 </span>
               </label>
 
-              <div className="h-px bg-[#16140f]/8" />
+              <div className="h-px bg-[#c6c6c6]" />
 
               <FilterSelect
                 label="Batch"
@@ -135,10 +144,10 @@ export default function FoundersPage() {
 
               {hasActiveFilters && (
                 <>
-                  <div className="h-px bg-[#16140f]/8" />
+                  <div className="h-px bg-[#c6c6c6]" />
                   <button
                     onClick={clearFilters}
-                    className="w-full rounded-lg border border-[#16140f]/10 bg-[#16140f]/3 py-2 font-['Outfit',sans-serif] text-[13px] font-medium text-[#16140f]/60 transition-all hover:bg-[#16140f]/5 hover:text-[#16140f]"
+                    className="w-full rounded-lg border border-black/10 bg-black/3 py-2 font-['Outfit',sans-serif] text-[13px] font-medium text-black/60 transition-all hover:bg-black/5 hover:text-black"
                   >
                     Clear all filters
                   </button>
@@ -147,14 +156,16 @@ export default function FoundersPage() {
             </div>
           </aside>
 
+          {/* Main Content */}
           <div className="flex-1">
+            {/* Mobile Filters */}
             <div className="mb-4 flex flex-wrap items-center gap-3 lg:hidden">
               <input
                 type="text"
                 placeholder="Search for a title..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full font-['Outfit',sans-serif] text-[#16140f] outline-none placeholder:text-[#16140f]/40"
+                className="w-full font-['Outfit',sans-serif] text-black outline-none placeholder:text-black/40"
                 style={{
                   height: 30.5,
                   borderRadius: 4,
@@ -164,14 +175,14 @@ export default function FoundersPage() {
                   border: "none",
                 }}
               />
-              <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#16140f]/10 bg-white px-3 py-2 transition-colors hover:border-[#ff6600]/30">
+              <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 transition-colors hover:border-[#ff6600]/30">
                 <input
                   type="checkbox"
                   checked={topFoundersOnly}
                   onChange={() => setTopFoundersOnly(!topFoundersOnly)}
-                  className="h-3.5 w-3.5 cursor-pointer rounded border-[#16140f]/20 accent-[#ff6600]"
+                  className="h-3.5 w-3.5 cursor-pointer rounded border-black/20 accent-[#ff6600]"
                 />
-                <span className="font-['Outfit',sans-serif] text-[12px] font-medium text-[#16140f]/70">
+                <span className="font-['Outfit',sans-serif] text-[12px] font-medium text-black/70">
                   Top
                 </span>
               </label>
@@ -195,14 +206,14 @@ export default function FoundersPage() {
               />
             </div>
 
-            <p className="mb-4 font-['Outfit',sans-serif] text-[14px] font-normal text-[#16140f]/60">
+            <p className="mb-4 font-['Outfit',sans-serif] text-[14px] font-normal text-black/60">
               Showing {filtered.length} of {totalFounders.toLocaleString()}+ founders
             </p>
 
             {filtered.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[#16140f]/15 py-20">
+              <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#c6c6c6] py-20">
                 <svg
-                  className="mb-4 h-12 w-12 text-[#16140f]/20"
+                  className="mb-4 h-12 w-12 text-black/20"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -214,14 +225,19 @@ export default function FoundersPage() {
                     d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
                   />
                 </svg>
-                <p className="font-['Outfit',sans-serif] text-[15px] font-light text-[#16140f]/50">
+                <p className="font-['Outfit',sans-serif] text-[15px] font-light text-black/50">
                   No founders match your search.
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {filtered.map((founder) => (
-                  <FounderCard key={founder.id} founder={founder} />
+              <div className="overflow-hidden rounded-lg border border-[#c6c6c6]">
+                {filtered.map((founder, index) => (
+                  <FounderRow
+                    key={founder.id}
+                    founder={founder}
+                    isFirst={index === 0}
+                    isLast={index === filtered.length - 1}
+                  />
                 ))}
               </div>
             )}
@@ -232,55 +248,50 @@ export default function FoundersPage() {
   );
 }
 
-function FounderCard({ founder }: { founder: Founder }) {
+function FounderRow({
+  founder,
+  isFirst,
+  isLast,
+}: {
+  founder: Founder;
+  isFirst: boolean;
+  isLast: boolean;
+}) {
   const roleText = extractRole(founder.oneLiner);
+
+  const roundingClass = isFirst && isLast
+    ? "rounded-lg"
+    : isFirst
+      ? "rounded-t-lg"
+      : isLast
+        ? "rounded-b-lg"
+        : "";
 
   return (
     <Link
       href={`/people/${founder.slug}`}
-      className="group flex gap-4 rounded-xl border border-[#16140f]/6 bg-white p-4 shadow-sm transition-all hover:border-[#ff6600]/20 hover:shadow-md"
+      className={`flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
     >
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#ff6600]/15 to-[#ff6600]/5 ring-1 ring-[#ff6600]/10">
-        <span className="font-['Outfit',sans-serif] text-[14px] font-bold text-[#ff6600]">
+      {/* Avatar */}
+      <div className="flex h-[78px] w-[78px] shrink-0 items-center justify-center rounded-full bg-[#efefe8]">
+        <span className="font-['Outfit',sans-serif] text-[18px] font-bold text-[#8a8575]">
           {founder.photoPlaceholder}
         </span>
       </div>
 
+      {/* Info */}
       <div className="min-w-0 flex-1">
-        <div className="flex items-start gap-2">
-          <h3
-            className="font-['Outfit',sans-serif] text-[#16140f] transition-colors group-hover:text-[#ff6600]"
-            style={{ fontSize: 18, fontWeight: 200 }}
-          >
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="font-['Outfit',sans-serif] text-[18px] font-extralight text-black">
             {founder.name}
-          </h3>
-          {founder.isTopCompanyFounder && (
-            <span className="mt-0.5 shrink-0 text-[12px]" title="Top Company Founder">
-              💎
-            </span>
-          )}
-        </div>
-        <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
-          <span
-            className="font-['Outfit',sans-serif] text-[#16140f]/70"
-            style={{ fontSize: 13, fontWeight: 200 }}
-          >
+          </span>
+          <span className="font-['Outfit',sans-serif] text-[18px] font-extralight text-black">
             {roleText} at {founder.company}
           </span>
-          <span className="text-[#16140f]/25">·</span>
-          <span
-            className="font-['Outfit',sans-serif] text-[#16140f]/60"
-            style={{ fontSize: 13, fontWeight: 200 }}
-          >
+          <span className="rounded bg-[#e6e6dd] px-2.5 py-1 font-['Outfit',sans-serif] text-[10px] font-medium text-[#333]">
             {founder.batch}
           </span>
         </div>
-        <p
-          className="mt-1.5 line-clamp-2 font-['Outfit',sans-serif] leading-relaxed text-[#16140f]/55"
-          style={{ fontSize: 12, fontWeight: 200 }}
-        >
-          {founder.oneLiner}
-        </p>
       </div>
     </Link>
   );
@@ -321,7 +332,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-[#16140f]/10 bg-[#f5f5ee]/50 px-3 py-2 font-['Outfit',sans-serif] text-[13px] font-normal text-[#16140f]/80 outline-none transition-all focus:border-[#ff6600]/30 focus:ring-1 focus:ring-[#ff6600]/10"
+        className="w-full rounded-lg border border-[#c6c6c6] bg-[#f5f5ee]/50 px-3 py-2 font-['Outfit',sans-serif] text-[13px] font-normal text-black/80 outline-none transition-all focus:border-[#ff6600]/30 focus:ring-1 focus:ring-[#ff6600]/10"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
@@ -349,7 +360,7 @@ function MobileFilterSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded-lg border border-[#16140f]/10 bg-white px-3 py-2 font-['Outfit',sans-serif] text-[12px] font-medium text-[#16140f]/70 outline-none transition-all focus:border-[#ff6600]/30"
+      className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 font-['Outfit',sans-serif] text-[12px] font-medium text-black/70 outline-none transition-all focus:border-[#ff6600]/30"
     >
       <option value="">{placeholder}</option>
       {options.map((opt) => (

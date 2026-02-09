@@ -26,53 +26,6 @@ function SearchIcon({ className }: { className?: string }) {
   );
 }
 
-function PlayIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
-      <path d="M8 5v14l11-7z" />
-    </svg>
-  );
-}
-
-function ChevronLeftIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="15 18 9 12 15 6" />
-    </svg>
-  );
-}
-
-function ChevronRightIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="9 18 15 12 9 6" />
-    </svg>
-  );
-}
-
 function timeAgo(dateStr: string): string {
   const monthMap: Record<string, number> = {
     January: 0, February: 1, March: 2, April: 3, May: 4, June: 5,
@@ -130,7 +83,7 @@ function CarouselCard({ item }: { item: LibraryItem }) {
       style={{ width: 340 }}
     >
       <div
-        className="relative overflow-hidden rounded-[4px]"
+        className="relative overflow-hidden rounded-[6px]"
         style={{ width: 340, height: 191 }}
       >
         {hasYouTube ? (
@@ -153,21 +106,19 @@ function CarouselCard({ item }: { item: LibraryItem }) {
           </div>
         )}
 
-        {item.duration && (
-          <div className="absolute right-2 bottom-2 flex items-center gap-1 rounded-[2px] bg-black/80 px-1.5 py-0.5 text-[12px] font-medium leading-none text-white font-['Outfit',sans-serif]">
-            {item.type === "Video" && <PlayIcon className="h-2.5 w-2.5" />}
-            {item.duration}
-          </div>
-        )}
-
         <div className="absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/5" />
       </div>
 
       <div className="pt-2.5" style={{ width: 340 }}>
-        <h3 className="mb-1 font-['Outfit',sans-serif] text-[15px] font-medium leading-snug text-[#16140f] transition-colors group-hover:text-[#ff6600] line-clamp-2">
+        {item.duration && (
+          <p className="mb-0.5 font-['Outfit',sans-serif] text-[16px] font-extralight text-black">
+            {item.duration}
+          </p>
+        )}
+        <h3 className="mb-1 font-['Outfit',sans-serif] text-[14px] font-medium leading-snug text-[#16140f] group-hover:underline line-clamp-2">
           {item.title}
         </h3>
-        <div className="flex items-center gap-1.5 font-['Outfit',sans-serif] text-[13px] font-light text-[#16140f]/50">
+        <div className="flex items-center gap-1.5 font-['Outfit',sans-serif] text-[14px] font-extralight text-[#16140f]/50">
           {item.views && <span>{formatViews(item.views)}</span>}
           {item.views && item.date && <span>&middot;</span>}
           {item.date && <span>{timeAgo(item.date)}</span>}
@@ -183,10 +134,10 @@ function FeaturedCard({ item }: { item: LibraryItem }) {
   return (
     <Link
       href={`/library/${item.slug}`}
-      className="group block overflow-hidden rounded-[4px] border border-[#e5e5e5] bg-white"
+      className="group block"
     >
       <div className="flex flex-col md:flex-row">
-        <div className="relative aspect-video w-full overflow-hidden md:aspect-auto md:h-auto md:w-7/12">
+        <div className="relative aspect-video w-full overflow-hidden rounded-[6px] md:aspect-auto md:h-auto md:w-7/12">
           {hasYouTube ? (
             <img
               src={getYouTubeThumbnail(item.youtubeId!)}
@@ -195,33 +146,18 @@ function FeaturedCard({ item }: { item: LibraryItem }) {
             />
           ) : (
             <div
-              className="relative h-full w-full min-h-[260px]"
+              className="relative h-full w-full min-h-[260px] rounded-[6px]"
               style={{ backgroundColor: item.thumbnailColor }}
-            >
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-['Source_Serif_4',serif] text-lg font-medium text-[#16140f]/40">
-                  Featured
-                </span>
-              </div>
-            </div>
-          )}
-          {item.duration && (
-            <div className="absolute right-3 bottom-3 flex items-center gap-1.5 rounded-[2px] bg-black/80 px-2 py-1 text-[13px] font-medium text-white font-['Outfit',sans-serif]">
-              {item.type === "Video" && <PlayIcon className="h-3 w-3" />}
-              {item.duration}
-            </div>
+            />
           )}
           <div className="absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/5" />
         </div>
 
-        <div className="flex flex-col justify-center p-6 md:w-5/12 md:p-8">
-          <span className="mb-2 inline-block font-['Outfit',sans-serif] text-[12px] font-semibold uppercase tracking-wider text-[#ff6600]">
-            Featured
-          </span>
-          <h2 className="mb-2 font-['Outfit',sans-serif] text-[24px] font-medium leading-tight text-[#16140f] transition-colors group-hover:text-[#ff6600]">
+        <div className="flex flex-col justify-center py-4 md:w-5/12 md:pl-8 md:py-0">
+          <h2 className="mb-2 font-['Outfit',sans-serif] text-[24px] font-medium leading-tight text-[#16140f] group-hover:underline">
             {item.title}
           </h2>
-          <p className="mb-3 font-['Outfit',sans-serif] text-[14px] font-light leading-relaxed text-[#16140f]/70 line-clamp-3">
+          <p className="mb-3 font-['Outfit',sans-serif] text-[16px] font-extralight leading-relaxed text-[#16140f]/70 line-clamp-3">
             {item.description}
           </p>
           <div className="flex items-center gap-2 font-['Outfit',sans-serif] text-[13px] text-[#16140f]/50">
@@ -254,39 +190,14 @@ function Carousel({
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const amount = 360;
-    scrollRef.current.scrollBy({
-      left: dir === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
-  };
-
   if (items.length === 0) return null;
 
   return (
-    <div className="mb-10">
+    <div className="mb-0 pt-3">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-['Outfit',sans-serif] text-[20px] font-semibold text-[#16140f]">
+        <h2 className="font-['Outfit',sans-serif] text-[24px] font-normal text-[#16140f]">
           {title}
         </h2>
-        <div className="flex items-center gap-1">
-          <button
-            onClick={() => scroll("left")}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e5e5e5] bg-white text-[#16140f]/60 transition-colors hover:bg-[#f5f5f5] hover:text-[#16140f]"
-            aria-label="Scroll left"
-          >
-            <ChevronLeftIcon className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => scroll("right")}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e5e5e5] bg-white text-[#16140f]/60 transition-colors hover:bg-[#f5f5f5] hover:text-[#16140f]"
-            aria-label="Scroll right"
-          >
-            <ChevronRightIcon className="h-4 w-4" />
-          </button>
-        </div>
       </div>
 
       <div
@@ -323,12 +234,12 @@ export default function LibraryPage() {
     });
 
     const categoryGroups: { title: string; category: Category }[] = [
-      { title: "AI & Machine Learning", category: "AI" },
-      { title: "Product & Strategy", category: "Product" },
+      { title: "AI", category: "AI" },
+      { title: "Product", category: "Product" },
       { title: "Growth", category: "Growth" },
       { title: "Fundraising", category: "Fundraising" },
       { title: "Founder Stories", category: "Founder Stories" },
-      { title: "Leadership & Culture", category: "Leadership" },
+      { title: "Leadership", category: "Leadership" },
       { title: "Engineering", category: "Engineering" },
       { title: "Design", category: "Design" },
       { title: "Sales", category: "Sales" },
@@ -352,20 +263,32 @@ export default function LibraryPage() {
   }, []);
 
   return (
-    <section className="px-4 pb-20 pt-10 md:pt-14">
-      <div className="mx-auto max-w-[1200px]">
-        <div className="mb-2 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-          <h1
-            className="font-['Outfit',sans-serif] font-semibold tracking-tight"
-            style={{
-              fontSize: 60,
-              lineHeight: "75px",
-              color: "rgb(0,0,0)",
-            }}
-          >
-            YC Library
-          </h1>
+    <section className="bg-[#f5f5ee] px-4 pb-20 pt-6">
+      <div className="mx-auto max-w-[1100px]">
+        <h1
+          className="text-center font-['Source_Serif_4',serif] font-medium tracking-[-1.5px] mb-[50px]"
+          style={{
+            fontSize: 60,
+            lineHeight: "75px",
+            color: "rgb(0,0,0)",
+          }}
+        >
+          YC Library
+        </h1>
 
+        <p className="text-center mx-auto max-w-screen-md -mt-2 mb-4 font-['Outfit',sans-serif] text-[18px] font-extralight leading-[32px] text-black">
+          Watch videos, listen to podcasts, and read essays for startup
+          founders. Peruse the full library archive{" "}
+          <Link
+            href="/library/search"
+            className="text-black no-underline hover:underline"
+          >
+            here
+          </Link>
+          .
+        </p>
+
+        <div className="flex justify-center mt-4 mb-8">
           <Link
             href="/library/search"
             className="relative flex items-center"
@@ -373,25 +296,13 @@ export default function LibraryPage() {
           >
             <SearchIcon className="absolute left-3 h-4 w-4 text-[#16140f]/40" />
             <div
-              className="flex h-full w-full items-center rounded-[4px] border border-[#d4d4d4] bg-white font-['Outfit',sans-serif] text-[16px] font-light text-[#16140f]/40"
+              className="flex h-full w-full items-center rounded-[4px] border border-[#6a7282] bg-white font-['Outfit',sans-serif] text-[16px] font-light text-[#16140f]/40"
               style={{ padding: "8px 12px 8px 36px" }}
             >
               Search...
             </div>
           </Link>
         </div>
-
-        <p className="mb-10 max-w-2xl font-['Outfit',sans-serif] text-[16px] font-light leading-relaxed text-[#16140f]/60">
-          Watch videos, listen to podcasts, and read essays for startup
-          founders. Peruse the full library archive{" "}
-          <Link
-            href="/library/search"
-            className="text-[#ff6600] underline underline-offset-2 decoration-[#ff6600]/40 hover:decoration-[#ff6600]"
-          >
-            here
-          </Link>
-          .
-        </p>
 
         <div className="mb-10">
           <FeaturedCard item={featured} />
