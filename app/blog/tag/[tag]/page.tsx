@@ -96,13 +96,13 @@ export default async function TagPage({
         <div className="mx-auto flex max-w-[1200px] items-center gap-4 px-6 py-4">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 font-['Outfit',sans-serif] text-[14px] text-[#6b6b5e] transition-colors hover:text-[#ff6600]"
+            className="inline-flex items-center gap-2 font-['Outfit',sans-serif] text-[14px] text-[#6b6b5e] transition-colors hover:text-[#FF6C0F]"
           >
             <ArrowLeftIcon />
             All Posts
           </Link>
           <span className="text-[#c5c3b8]">/</span>
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#ff6600] px-3.5 py-1 font-['Outfit',sans-serif] text-[13px] font-medium text-white">
+          <div className="inline-flex items-center gap-2 rounded-full bg-[#FF6C0F] px-3.5 py-1 font-['Outfit',sans-serif] text-[13px] font-medium text-white">
             {label}
             <Link
               href="/blog"
@@ -137,7 +137,7 @@ export default async function TagPage({
                   <article key={post.slug} className="py-7 first:pt-0">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="group mb-1 block font-['Source_Serif_4',serif] text-[20px] font-semibold leading-snug text-[#16140f] transition-colors hover:text-[#ff6600]"
+                      className="group mb-1 block font-['Source_Serif_4',serif] text-[20px] font-semibold leading-snug text-[#16140f] transition-colors hover:text-[#FF6C0F]"
                     >
                       {post.title}
                     </Link>
@@ -156,8 +156,8 @@ export default async function TagPage({
                           href={`/blog/tag/${postTag}`}
                           className={`rounded-full px-2.5 py-0.5 font-['Outfit',sans-serif] text-[11px] font-medium transition-colors ${
                             postTag === tag
-                              ? "bg-[#ff6600] text-white"
-                              : "bg-[#e8e6dc] text-[#4a4a40] hover:bg-[#ff6600] hover:text-white"
+                              ? "bg-[#FF6C0F] text-white"
+                              : "bg-[#e8e6dc] text-[#4a4a40] hover:bg-[#FF6C0F] hover:text-white"
                           }`}
                         >
                           {TAGS.find((t) => t.slug === postTag)?.label ??
@@ -167,7 +167,7 @@ export default async function TagPage({
                     </div>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[13px] font-medium text-[#ff6600] transition-opacity hover:opacity-70"
+                      className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[13px] font-medium text-[#FF6C0F] transition-opacity hover:opacity-70"
                     >
                       Read More <ArrowIcon />
                     </Link>
@@ -188,7 +188,7 @@ export default async function TagPage({
                   href={`/blog/tag/${t.slug}`}
                   className={`rounded-lg px-3 py-1.5 font-['Outfit',sans-serif] text-[14px] transition-colors ${
                     t.slug === tag
-                      ? "bg-[#ff6600] font-medium text-white"
+                      ? "bg-[#FF6C0F] font-medium text-white"
                       : "text-[#4a4a40] hover:bg-[#e8e6dc] hover:text-[#16140f]"
                   }`}
                 >

@@ -32,7 +32,7 @@ export default function EarlyDecisionPage() {
           Sneha and Anushka, founders of{" "}
           <Link
             href="/companies/spur"
-            className="text-[#ff6600] underline decoration-[#ff6600]/30 underline-offset-2 hover:decoration-[#ff6600]"
+            className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
           >
             Spur (S24)
           </Link>
@@ -125,13 +125,13 @@ export default function EarlyDecisionPage() {
           </div>
         </section>
 
-        <section className="rounded-2xl bg-[#ff6600] px-8 py-10 text-center text-white">
+        <section className="rounded-2xl bg-[#FF6C0F] px-8 py-10 text-center text-white">
           <p className="mb-4 font-['Outfit',sans-serif] text-lg font-light">
             Apply now and secure your spot in a future YC batch.
           </p>
           <a
             href="https://apply.ycombinator.com/home"
-            className="inline-flex items-center rounded-full bg-white px-8 py-3 font-['Outfit',sans-serif] text-base font-medium text-[#ff6600] transition-opacity hover:opacity-90"
+            className="inline-flex items-center rounded-full bg-white px-8 py-3 font-['Outfit',sans-serif] text-base font-medium text-[#FF6C0F] transition-opacity hover:opacity-90"
           >
             Apply for Early Decision
           </a>

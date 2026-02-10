@@ -216,7 +216,7 @@ export default function InterviewsPage() {
                href="https://www.ycombinator.com/blog/tips-for-yc-interviews/"
                target="_blank"
                rel="noopener noreferrer"
-               className="text-[#ff6600] underline decoration-[#ff6600]/30 underline-offset-2 hover:decoration-[#ff6600]"
+               className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
              >
                Tips for YC Interviews
              </a>{" "}
@@ -229,7 +229,7 @@ export default function InterviewsPage() {
                href="https://www.youtube.com/watch?v=rfTgzA6iKZc"
                target="_blank"
                rel="noopener noreferrer"
-               className="text-[#ff6600] underline decoration-[#ff6600]/30 underline-offset-2 hover:decoration-[#ff6600]"
+               className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
              >
                3 Tips to Nail the Y Combinator Interview
              </a>{" "}
@@ -242,7 +242,7 @@ export default function InterviewsPage() {
                href="https://twitter.com/mwseibel/status/660557656927563776"
                target="_blank"
                rel="noopener noreferrer"
-               className="text-[#ff6600] underline decoration-[#ff6600]/30 underline-offset-2 hover:decoration-[#ff6600]"
+               className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
              >
                My 10 pieces of advice for preparing for a YC interview
              </a>{" "}

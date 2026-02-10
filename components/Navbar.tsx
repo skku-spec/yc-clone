@@ -2,13 +2,13 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="sticky top-0 isolate z-50 bg-[#f5f5ee]">
-      <div className="bg-black text-[#f5f5ee] text-center py-[10px] px-[6px]">
+    <div className="sticky top-0 isolate z-50 bg-transparent">
+      <div className="bg-[#FF6C0F] text-[#FCFCF8] text-center py-[10px] px-[6px]">
         <Link
           href="/apply"
-          className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-sm font-normal tracking-wide hover:opacity-80 transition-opacity no-underline text-[#f5f5ee]"
+          className="inline-flex items-center gap-1.5 font-['Pretendard',sans-serif] text-sm font-normal tracking-wide hover:opacity-80 transition-opacity no-underline text-white"
         >
-          Apply for Spring 2026 by February 9
+          2026 봄학기 신규 회원 모집 중
           <svg
             width="12"
             height="12"
@@ -27,12 +27,12 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <nav className="bg-[#f5f5ee]">
+      <nav className="bg-transparent">
         <div className="relative hidden min-[1024px]:flex items-center justify-center w-full max-w-[1400px] mx-auto px-8 py-3.5">
           <div className="flex items-center gap-16">
             <div className="nav-item relative">
-              <button className="nav-link flex items-center gap-1">
-                About
+              <button className="nav-link text-white hover:text-white/80 flex items-center gap-1 font-['Pretendard',sans-serif] text-sm">
+                소개
                 <svg
                   width="10"
                   height="10"
@@ -50,32 +50,26 @@ export default function Navbar() {
                 </svg>
               </button>
               <div className="dropdown-menu hidden">
-                <div className="dropdown-container">
-                  <Link href="/about" className="dropdown-item">
-                    What Happens at YC?
+                <div className="dropdown-container bg-black/90 backdrop-blur-sm rounded-lg p-2 mt-2 border border-white/10">
+                  <Link href="/about" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    SPEC 소개
                   </Link>
-                  <Link href="/apply" className="dropdown-item">
-                    Apply
+                  <Link href="/apply" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    지원하기
                   </Link>
-                  <Link href="/interviews" className="dropdown-item">
-                    YC Interview Guide
+                  <Link href="/people" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    멤버
                   </Link>
-                  <Link href="/faq" className="dropdown-item">
-                    FAQ
-                  </Link>
-                  <Link href="/people" className="dropdown-item">
-                    People
-                  </Link>
-                  <Link href="/blog" className="dropdown-item">
-                    YC Blog
+                  <Link href="/blog" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    블로그
                   </Link>
                 </div>
               </div>
             </div>
 
             <div className="nav-item relative">
-              <button className="nav-link flex items-center gap-1">
-                Companies
+              <button className="nav-link text-white hover:text-white/80 flex items-center gap-1 font-['Pretendard',sans-serif] text-sm">
+                프로젝트
                 <svg
                   width="10"
                   height="10"
@@ -93,52 +87,37 @@ export default function Navbar() {
                 </svg>
               </button>
               <div className="dropdown-menu hidden">
-                <div className="dropdown-container">
-                  <Link href="/companies" className="dropdown-item">
-                    Startup Directory
+                <div className="dropdown-container bg-black/90 backdrop-blur-sm rounded-lg p-2 mt-2 border border-white/10">
+                  <Link href="/companies" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    프로젝트 목록
                   </Link>
-                  <Link href="/founders" className="dropdown-item">
-                    Founder Directory
+                  <Link href="/founders" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    팀원 디렉토리
                   </Link>
-                  <Link href="/launches" className="dropdown-item">
-                    Launch YC
+                  <Link href="/launches" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    런칭 소식
                   </Link>
                 </div>
               </div>
             </div>
 
-            <Link href="/library" className="nav-link">
-              Library
+            <Link href="/library" className="nav-link text-white hover:text-white/80 font-['Pretendard',sans-serif] text-sm">
+              라이브러리
             </Link>
           </div>
 
           <Link href="/" className="mx-10 shrink-0">
-            <svg
-              width="48"
-              height="48"
-              viewBox="0 0 48 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M47.9985 47.9994H0V8.61853e-07H47.9985V47.9994Z"
-                fill="#FF6600"
-              />
-              <path
-                d="M13.9012 11.7843H17.6595L22.4961 21.5325C23.203 22.9836 23.7984 24.3976 23.7984 24.3976C23.7984 24.3976 24.4313 23.021 25.175 21.5325L30.0868 11.7843H33.5843L25.2865 27.3746V37.309H22.1244V27.1884L13.9012 11.7843Z"
-                fill="white"
-              />
-            </svg>
+            <img src="/logo.png" alt="SPEC" className="h-12 w-auto" />
           </Link>
 
           <div className="flex items-center gap-16">
-            <Link href="/partners" className="nav-link">
-              Partners
+            <Link href="/partners" className="nav-link text-white hover:text-white/80 font-['Pretendard',sans-serif] text-sm">
+              파트너
             </Link>
 
             <div className="nav-item relative">
-              <button className="nav-link flex items-center gap-1">
-                Resources
+              <button className="nav-link text-white hover:text-white/80 flex items-center gap-1 font-['Pretendard',sans-serif] text-sm">
+                리소스
                 <svg
                   width="10"
                   height="10"
@@ -156,72 +135,39 @@ export default function Navbar() {
                 </svg>
               </button>
               <div className="dropdown-menu hidden">
-                <div className="dropdown-container">
-                  <Link href="/startup-school" className="dropdown-item">
-                    Startup School
+                <div className="dropdown-container bg-black/90 backdrop-blur-sm rounded-lg p-2 mt-2 border border-white/10">
+                  <Link href="/startup-school" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    스타트업 스쿨
                   </Link>
-                  <Link href="/subscribe" className="dropdown-item">
-                    Newsletter
+                  <Link href="/subscribe" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    뉴스레터
                   </Link>
-                  <Link href="/rfs" className="dropdown-item">
-                    Requests for Startups
-                  </Link>
-                  <Link href="/investors" className="dropdown-item">
-                    For Investors
-                  </Link>
-                  <Link href="/verify" className="dropdown-item">
-                    Verify Founders
-                  </Link>
-                   <a href="https://news.ycombinator.com" className="dropdown-item" target="_blank" rel="noopener noreferrer">
-                     Hacker News
-                   </a>
-                   <a href="https://bookface.ycombinator.com" className="dropdown-item" target="_blank" rel="noopener noreferrer">
-                     Bookface
-                   </a>
-                  <Link href="/documents" className="dropdown-item">
-                    Safe
-                  </Link>
-                  <Link href="/cofounder-matching" className="dropdown-item">
-                    Find a Co-Founder
+                  <Link href="/cofounder-matching" className="dropdown-item block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded text-sm font-['Pretendard',sans-serif]">
+                    팀원 찾기
                   </Link>
                 </div>
               </div>
             </div>
 
-            <Link href="/jobs" className="nav-link">
-              Startup Jobs
+            <Link href="/jobs" className="nav-link text-white hover:text-white/80 font-['Pretendard',sans-serif] text-sm">
+              채용
             </Link>
           </div>
 
           <Link
             href="/apply"
-            className="absolute right-8 flex h-10 items-center justify-center rounded-full bg-black px-5 pb-[2px] font-['Source_Serif_4',serif] text-sm font-normal italic tracking-normal text-white transition-opacity hover:opacity-80"
+            className="absolute right-8 flex h-10 items-center justify-center rounded-full bg-[#FF6C0F] px-5 pb-[2px] font-['MaruBuri',serif] text-sm font-normal italic tracking-normal text-[#FCFCF8] transition-all hover:brightness-90"
           >
             Apply
           </Link>
         </div>
 
         <div className="relative flex min-[1024px]:hidden items-center justify-center px-2 py-2">
-          <Link href="/" className="inline-block h-[48px] w-[48px]">
-            <svg
-              width="48"
-              height="48"
-              viewBox="0 0 48 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M47.9985 47.9994H0V8.61853e-07H47.9985V47.9994Z"
-                fill="#FF6600"
-              />
-              <path
-                d="M13.9012 11.7843H17.6595L22.4961 21.5325C23.203 22.9836 23.7984 24.3976 23.7984 24.3976C23.7984 24.3976 24.4313 23.021 25.175 21.5325L30.0868 11.7843H33.5843L25.2865 27.3746V37.309H22.1244V27.1884L13.9012 11.7843Z"
-                fill="white"
-              />
-            </svg>
+          <Link href="/" className="inline-block h-[48px]">
+            <img src="/logo.png" alt="SPEC" className="h-12 w-auto" />
           </Link>
           <button
-            className="absolute right-2 inline-flex items-center justify-center rounded-md bg-white p-2 text-[#16140f]"
+            className="absolute right-2 inline-flex items-center justify-center rounded-md bg-white/10 p-2 text-white"
             aria-label="Open menu"
           >
             <svg

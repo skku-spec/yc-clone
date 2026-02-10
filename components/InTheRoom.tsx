@@ -157,21 +157,21 @@ const partnerCards = [
 export default function InTheRoom() {
   return (
     <>
-      <section className="py-[120px] px-6">
+      <section className="py-[120px] px-6 bg-transparent">
         <h2
-          className="text-5xl text-center mb-[60px] italic"
-          style={{ fontFamily: "'Source Serif 4', serif" }}
+          className="text-5xl text-center mb-[60px] font-black uppercase text-white"
+          style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
         >
-          Be in the room with …
+          Learn From The Best
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1400px] mx-auto">
           {founderCards.map((founder) => (
             <div
               key={founder.name}
-              className="rounded-xl overflow-hidden relative"
+              className="rounded-xl overflow-hidden relative border border-white/10"
               style={{
-                backgroundColor: "#444",
+                backgroundColor: "#1a1a1a",
                 aspectRatio: "16 / 9",
               }}
             >
@@ -179,13 +179,13 @@ export default function InTheRoom() {
                 src={founder.poster}
                 alt={`${founder.name} - ${founder.company}`}
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover opacity-80"
               />
 
               <div
                 className="absolute bottom-0 left-0 right-0 h-[120px]"
                 style={{
-                  background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)",
+                  background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)",
                 }}
               />
 
@@ -193,7 +193,7 @@ export default function InTheRoom() {
                 <p
                   className="text-white font-normal"
                   style={{
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Pretendard', sans-serif",
                     fontSize: "clamp(1.125rem, 1.2vw + 0.5rem, 1.25rem)",
                     textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   }}
@@ -201,9 +201,9 @@ export default function InTheRoom() {
                   {founder.name}
                 </p>
                 <p
-                  className="text-white font-light"
+                  className="text-white/80 font-light"
                   style={{
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Pretendard', sans-serif",
                     fontSize: "clamp(0.875rem, 1vw + 0.25rem, 1rem)",
                     textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   }}
@@ -216,12 +216,12 @@ export default function InTheRoom() {
         </div>
       </section>
 
-      <section className="py-[120px] px-6">
+      <section className="py-[120px] px-6 bg-transparent">
         <h2
-          className="text-5xl text-center mb-[60px] italic"
-          style={{ fontFamily: "'Source Serif 4', serif" }}
+          className="text-5xl text-center mb-[60px] font-black uppercase text-white"
+          style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
         >
-          All partners were YC founders first
+          All Mentors Were Founders First
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1400px] mx-auto">
@@ -229,9 +229,9 @@ export default function InTheRoom() {
             <a
               key={partner.name}
               href={`/people/${partner.slug}`}
-              className="overflow-hidden relative block group"
+              className="overflow-hidden relative block group rounded-xl border border-white/10"
               style={{
-                backgroundColor: "#444",
+                backgroundColor: "#1a1a1a",
                 aspectRatio: "3 / 3.5",
               }}
             >
@@ -239,13 +239,13 @@ export default function InTheRoom() {
                 src={partner.photo}
                 alt={partner.name}
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105 opacity-80"
               />
 
               <div
                 className="absolute inset-0"
                 style={{
-                  background: "linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0.7) 100%)",
+                  background: "linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.7) 85%, rgba(0,0,0,0.9) 100%)",
                 }}
               />
 
@@ -256,7 +256,7 @@ export default function InTheRoom() {
                 <p
                   className="text-white font-normal"
                   style={{
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Pretendard', sans-serif",
                     fontSize: "clamp(1.125rem, 1.2vw + 0.5rem, 1.25rem)",
                     textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   }}
@@ -264,18 +264,18 @@ export default function InTheRoom() {
                   {partner.name}
                 </p>
                 <p
-                  className="text-white font-light mb-2"
+                  className="text-[#FF6C0F] font-light mb-2"
                   style={{
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Pretendard', sans-serif",
                     textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   }}
                 >
                   {partner.batch}
                 </p>
                 <p
-                  className="text-white font-light"
+                  className="text-white/80 font-light"
                   style={{
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Pretendard', sans-serif",
                     fontSize: "clamp(0.875rem, 1vw + 0.25rem, 1rem)",
                     textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                     lineHeight: 1.5,

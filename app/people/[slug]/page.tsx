@@ -53,7 +53,7 @@ export default async function PersonPage({ params }: PageProps) {
       <div className="mx-auto max-w-[800px]">
         <Link
           href="/people"
-          className="mb-8 inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[0.875rem] font-medium text-[#ff6600] transition-colors hover:text-[#e55c00]"
+          className="mb-8 inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[0.875rem] font-medium text-[#FF6C0F] transition-colors hover:text-[#e55c00]"
         >
           <svg
             width="16"
@@ -88,7 +88,7 @@ export default async function PersonPage({ params }: PageProps) {
             <h1 className="mb-1 font-['Source_Serif_4',serif] text-[clamp(2rem,4vw,3rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
               {person.name}
             </h1>
-            <p className="mb-1 font-['Outfit',sans-serif] text-[1.125rem] font-normal text-[#ff6600]">
+            <p className="mb-1 font-['Outfit',sans-serif] text-[1.125rem] font-normal text-[#FF6C0F]">
               {person.title}
             </p>
             {person.ycCompany && (

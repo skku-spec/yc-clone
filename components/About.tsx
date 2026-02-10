@@ -9,51 +9,49 @@ export default function About() {
 
   const founders = {
     aman: {
-      name: "Aman Mishra",
-      batch: "F25",
-      bio: "Founder of Unsiloed AI (F25)",
+      name: "김민수",
+      batch: "2024 가을",
+      bio: "AI 스타트업 파운더",
       photo: "https://bookface-static.ycombinator.com/assets/ycdc/about/aman-mishra-compressed-f86a1a0caaa317ed5e8770981a0ebb253846a406837c88fe89137ed0c85a7a47.jpg",
     },
     adith: {
-      name: "Adith Reddi",
-      batch: "S25",
-      bio: "Founder of Riff (S25)",
+      name: "이서연",
+      batch: "2025 봄",
+      bio: "에듀테크 팀 리더",
       photo: "https://bookface-static.ycombinator.com/assets/ycdc/about/adith-reddi-compressed-1c81fcfa8ef9cf7a23b35d0c34648d1b79ab613b0fdced3ea015d23ffb984cdc.jpg",
     },
     bishesh: {
-      name: "Bishesh Khadka",
-      batch: "S25",
-      bio: "Co-founder of Flux (S25)",
+      name: "박준혁",
+      batch: "2025 봄",
+      bio: "핀테크 프로젝트 공동창업자",
       photo: "https://bookface-static.ycombinator.com/assets/ycdc/about/bishesh-khadka-compressed-76f09ec549bbfdb8c7fa25d8ac0e943f2e3bc593cb5cc43af5b7fc5b8ad3ee9c.jpg",
     },
     justin: {
-      name: "Justin Lee",
-      batch: "S25",
-      bio: "Co-founder of Momentum (S25)",
+      name: "최유진",
+      batch: "2025 봄",
+      bio: "헬스케어 스타트업 공동창업자",
       photo: "https://bookface-static.ycombinator.com/assets/ycdc/about/justin-lee-compressed-d28010cde316d6846b799904d8c9fd74ea60e799a781aa782693ae4e72f38f2b.jpg",
     },
     fern: {
-      name: "Fern Morrison",
-      batch: "F24",
-      bio: "Founder of Atlas (F24)",
+      name: "정하늘",
+      batch: "2024 가을",
+      bio: "커머스 플랫폼 파운더",
       photo: "https://bookface-static.ycombinator.com/assets/ycdc/about/fern-morrison-compressed-77abc8bb3419c4876f47ec4740fa41af61265d824a093af7d3537ac10f15b898.jpg",
     },
   };
 
   return (
-    <section className="py-20">
+    <section className="py-20 bg-transparent">
       <div className="mx-auto flex max-w-[550px] flex-col gap-7 px-5">
         <div className="flex flex-col gap-7">
-          <p className="font-['Source_Serif_4',serif] text-[1.2rem] leading-[1.7] text-[#16140F] first-letter:float-left first-letter:mr-3 first-letter:text-[7.6rem] first-letter:font-bold first-letter:leading-[0.75] first-letter:text-[#16140F]">
-            In 2005, Y Combinator developed a new model of startup funding. Four
-            times a year we invest $500k in a select group of startups. They
-            move to San Francisco for three months, where we work intensively
-            with them to get the company into the best possible shape, before
-            they present to a large audience of investors on Demo Day.
+          <p className="font-['MaruBuri',serif] text-[1.2rem] leading-[1.7] text-white first-letter:float-left first-letter:mr-3 first-letter:text-[7.6rem] first-letter:font-bold first-letter:leading-[0.75] first-letter:text-[#FF6C0F]">
+            SPEC은 성균관대학교의 창업 학회입니다. 매 학기 열정적인 학생들을 모집하여
+            아이디어를 현실로 만드는 여정을 함께합니다. 3개월간의 집중 프로그램을 통해
+            팀을 구성하고, 프로덕트를 만들고, 데모데이에서 결과를 발표합니다.
           </p>
-          <p className="font-['Source_Serif_4',serif] text-[1.2rem] leading-[1.7] text-[#16140F]">
-            But YC doesn&apos;t end on Demo Day. We and the YC alumni network
-            continue to help founders for the life of their company, and beyond.
+          <p className="font-['MaruBuri',serif] text-[1.2rem] leading-[1.7] text-white/90">
+            하지만 SPEC은 데모데이에서 끝나지 않습니다. 우리는 알럼니 네트워크와 함께
+            멤버들의 창업 여정을 계속해서 지원합니다.
           </p>
         </div>
 
@@ -72,14 +70,14 @@ export default function About() {
         </div>
 
         <div className="flex flex-col gap-6">
-          <h2 className="font-['Outfit',sans-serif] text-[0.7rem] font-normal uppercase tracking-[0.15em] text-[#16140F]">
-            In Founders&apos; Words
+          <h2 className="font-['Pretendard',sans-serif] text-[0.7rem] font-normal uppercase tracking-[0.15em] text-white/70">
+            멤버들의 이야기
           </h2>
 
           <div className="flex flex-col gap-7">
             <div className="relative m-0">
-              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['Source_Serif_4',serif] underline decoration-[rgba(255,90,0,0.6)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
-                YC compresses months of growth into weeks.
+              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['MaruBuri',serif] text-white underline decoration-[rgba(255,102,0,0.6)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+                SPEC은 몇 달치 성장을 몇 주로 압축합니다.
               </span>
               <span className="group/avatar relative inline-block align-middle mx-1.5">
                 <button
@@ -103,9 +101,9 @@ export default function About() {
                   </div>
                 </div>
               </span>
-              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['Source_Serif_4',serif] underline decoration-[rgba(255,90,0,0.25)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
-                The sense of urgency is so infectious among founders that it
-                becomes the most productive period in most people&apos;s lives.
+              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['MaruBuri',serif] text-white/80 underline decoration-[rgba(255,102,0,0.25)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+                창업가들 사이의 긴장감과 열정이 너무나 전염성이 있어서
+                대부분의 사람들에게 인생에서 가장 생산적인 시기가 됩니다.
               </span>
               <span className="group/avatar relative inline-block align-middle mx-1.5">
                 <button
@@ -132,9 +130,8 @@ export default function About() {
             </div>
 
             <div className="relative m-0">
-              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['Source_Serif_4',serif] underline decoration-[rgba(255,90,0,0.6)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
-                It&apos;s a community of founders that you can&apos;t find
-                anywhere else.
+              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['MaruBuri',serif] text-white underline decoration-[rgba(255,102,0,0.6)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+                다른 곳에서는 찾을 수 없는 창업가들의 커뮤니티입니다.
               </span>
               <span className="group/avatar relative inline-block align-middle mx-1.5">
                 <button
@@ -158,9 +155,8 @@ export default function About() {
                   </div>
                 </div>
               </span>
-              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['Source_Serif_4',serif] underline decoration-[rgba(255,90,0,0.25)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
-                It feels like having the entire world at your back—from Partners
-                to batchmates.
+              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['MaruBuri',serif] text-white/80 underline decoration-[rgba(255,102,0,0.25)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+                파트너부터 동기들까지, 온 세상이 내 등을 밀어주는 느낌입니다.
               </span>
               <span className="group/avatar relative inline-block align-middle mx-1.5">
                 <button
@@ -187,9 +183,8 @@ export default function About() {
             </div>
 
             <div className="relative m-0">
-              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['Source_Serif_4',serif] underline decoration-[rgba(255,90,0,0.6)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
-                Being surrounded by the top 1% of founders in the world just
-                completely resets the bar.
+              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['MaruBuri',serif] text-white underline decoration-[rgba(255,102,0,0.6)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+                세계 최고의 창업가들과 함께하는 것만으로도 기준이 완전히 바뀝니다.
               </span>
               <span className="group/avatar relative inline-block align-middle mx-1.5">
                 <button
@@ -213,9 +208,8 @@ export default function About() {
                   </div>
                 </div>
               </span>
-              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['Source_Serif_4',serif] underline decoration-[rgba(255,90,0,0.25)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
-                You leave with a completely new sense of how fast
-                &quot;fast&quot; can be.
+              <span className="inline py-1.5 text-[1.2rem] font-normal leading-[1.7] font-['MaruBuri',serif] text-white/80 underline decoration-[rgba(255,102,0,0.25)] underline-offset-[3px] transition-all duration-200 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+                &quot;빠름&quot;이 무엇인지 완전히 새로운 감각으로 깨닫게 됩니다.
               </span>
               <span className="group/avatar relative inline-block align-middle mx-1.5">
                 <button

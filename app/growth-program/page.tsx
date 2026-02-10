@@ -92,7 +92,7 @@ export default function GrowthProgramPage() {
     <div className="overflow-hidden">
       <section className="px-4 pb-16 pt-12 sm:pt-20 lg:pt-24">
         <div className="mx-auto max-w-[900px] text-center">
-          <p className="mb-4 font-['Outfit',sans-serif] text-sm font-medium uppercase tracking-widest text-[#ff6600]">
+          <p className="mb-4 font-['Outfit',sans-serif] text-sm font-medium uppercase tracking-widest text-[#FF6C0F]">
             For YC Alumni
           </p>
           <h1 className="font-['Source_Serif_4',serif] text-4xl font-bold tracking-tight text-[#16140f] sm:text-5xl lg:text-6xl">
@@ -106,7 +106,7 @@ export default function GrowthProgramPage() {
           <div className="mt-8 flex items-center justify-center gap-4">
             <Link
               href="/apply"
-              className="rounded-full bg-[#ff6600] px-8 py-3 font-['Outfit',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="rounded-full bg-[#FF6C0F] px-8 py-3 font-['Outfit',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
               Apply Now
             </Link>
@@ -124,7 +124,7 @@ export default function GrowthProgramPage() {
         <div className="mx-auto grid max-w-[1100px] gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="font-['Source_Serif_4',serif] text-4xl font-bold text-[#ff6600] sm:text-5xl">
+              <p className="font-['Source_Serif_4',serif] text-4xl font-bold text-[#FF6C0F] sm:text-5xl">
                 {stat.value}
               </p>
               <p className="mt-2 font-['Outfit',sans-serif] text-sm font-light text-white/70">
@@ -178,11 +178,11 @@ export default function GrowthProgramPage() {
                 className="relative flex gap-6 pb-10 last:pb-0"
               >
                 <div className="flex flex-col items-center">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#ff6600] font-['Outfit',sans-serif] text-sm font-bold text-white">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FF6C0F] font-['Outfit',sans-serif] text-sm font-bold text-white">
                     {index + 1}
                   </div>
                   {index < timeline.length - 1 && (
-                    <div className="mt-2 h-full w-px bg-[#ff6600]/20" />
+                    <div className="mt-2 h-full w-px bg-[#FF6C0F]/20" />
                   )}
                 </div>
                 <div className="pt-1.5">
@@ -190,7 +190,7 @@ export default function GrowthProgramPage() {
                     <h3 className="font-['Outfit',sans-serif] text-base font-semibold text-[#16140f]">
                       {step.phase}
                     </h3>
-                    <span className="font-['Outfit',sans-serif] text-xs font-medium text-[#ff6600]">
+                    <span className="font-['Outfit',sans-serif] text-xs font-medium text-[#FF6C0F]">
                       {step.duration}
                     </span>
                   </div>
@@ -217,7 +217,7 @@ export default function GrowthProgramPage() {
             {eligibility.map((item) => (
               <li key={item} className="flex items-start gap-3">
                 <svg
-                  className="mt-0.5 h-5 w-5 shrink-0 text-[#ff6600]"
+                  className="mt-0.5 h-5 w-5 shrink-0 text-[#FF6C0F]"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -236,7 +236,7 @@ export default function GrowthProgramPage() {
         </div>
       </section>
 
-      <section className="bg-[#ff6600] px-4 py-16 text-center sm:py-20">
+      <section className="bg-[#FF6C0F] px-4 py-16 text-center sm:py-20">
         <div className="mx-auto max-w-[600px]">
           <h2 className="font-['Source_Serif_4',serif] text-3xl font-bold text-white sm:text-4xl">
             Ready to scale?
@@ -247,7 +247,7 @@ export default function GrowthProgramPage() {
           </p>
           <Link
             href="/apply"
-            className="mt-8 inline-block rounded-full bg-white px-10 py-3.5 font-['Outfit',sans-serif] text-sm font-semibold text-[#ff6600] transition-opacity hover:opacity-90"
+            className="mt-8 inline-block rounded-full bg-white px-10 py-3.5 font-['Outfit',sans-serif] text-sm font-semibold text-[#FF6C0F] transition-opacity hover:opacity-90"
           >
             Apply to Growth Program
           </Link>

@@ -11,10 +11,10 @@ export default function SoftwarePage() {
   return (
     <div className="mx-auto max-w-[1100px] px-4 pb-24">
       <div className="mb-16">
-        <h1 className="mb-2 font-sans text-[80px] font-bold leading-[80px] text-[#ff6600]">
+        <h1 className="mb-2 font-sans text-[80px] font-bold leading-[80px] text-[#FF6C0F]">
           Software at YC
         </h1>
-        <p className="font-sans text-base text-[#ff6600]">
+        <p className="font-sans text-base text-[#FF6C0F]">
           Build the software that runs YC
         </p>
       </div>
@@ -172,7 +172,7 @@ export default function SoftwarePage() {
 
           <Link
             href="/careers"
-            className="inline-flex items-center rounded-full bg-[#ff6600] px-8 py-4 font-sans text-base font-medium text-white transition-opacity hover:opacity-90"
+            className="inline-flex items-center rounded-full bg-[#FF6C0F] px-8 py-4 font-sans text-base font-medium text-white transition-opacity hover:opacity-90"
           >
             See open positions
           </Link>

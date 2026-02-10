@@ -202,7 +202,7 @@ export default function CofounderMatchingPage() {
             />
           </div>
           <h1 className="font-['Source_Serif_4',serif] text-4xl font-bold tracking-tight text-[#16140f] sm:text-5xl lg:text-6xl">
-            <span className="font-['Outfit',sans-serif] text-lg font-medium tracking-wider text-[#ff6600] sm:text-xl">
+            <span className="font-['Outfit',sans-serif] text-lg font-medium tracking-wider text-[#FF6C0F] sm:text-xl">
               Y Combinator
             </span>
             <br />
@@ -216,7 +216,7 @@ export default function CofounderMatchingPage() {
                href="https://startupschool.org/users/sign_in?sign_up=true&continue_url=%2Fcofounder-matching%2Fdashboard"
                target="_blank"
                rel="noopener noreferrer"
-               className="rounded-full bg-[#ff6600] px-8 py-3 font-['Outfit',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
+               className="rounded-full bg-[#FF6C0F] px-8 py-3 font-['Outfit',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
              >
                Sign up
              </a>
@@ -368,7 +368,7 @@ export default function CofounderMatchingPage() {
                        href={t.companyHref}
                        target="_blank"
                        rel="noopener noreferrer"
-                       className="font-['Outfit',sans-serif] text-xs font-light text-[#ff6600] hover:underline"
+                       className="font-['Outfit',sans-serif] text-xs font-light text-[#FF6C0F] hover:underline"
                      >
                        {t.company}
                      </a>
@@ -380,12 +380,12 @@ export default function CofounderMatchingPage() {
         </div>
       </section>
 
-       <section className="bg-[#ff6600] px-4 py-12 text-center">
+       <section className="bg-[#FF6C0F] px-4 py-12 text-center">
          <a
            href="https://startupschool.org/users/sign_in?sign_up=true&continue_url=%2Fcofounder-matching%2Fdashboard"
            target="_blank"
            rel="noopener noreferrer"
-           className="inline-block rounded-full bg-white px-10 py-3.5 font-['Outfit',sans-serif] text-sm font-semibold text-[#ff6600] transition-opacity hover:opacity-90"
+           className="inline-block rounded-full bg-white px-10 py-3.5 font-['Outfit',sans-serif] text-sm font-semibold text-[#FF6C0F] transition-opacity hover:opacity-90"
          >
            Sign up now
          </a>
@@ -399,7 +399,7 @@ export default function CofounderMatchingPage() {
           <div className="space-y-8">
             {howItWorksSteps.map((step) => (
               <div key={step.num} className="flex items-start gap-6">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#ff6600] font-['Outfit',sans-serif] text-lg font-bold text-white">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FF6C0F] font-['Outfit',sans-serif] text-lg font-bold text-white">
                   {step.num}
                 </div>
                 <p className="pt-2 font-['Outfit',sans-serif] text-base font-light text-[#16140f]/80">
@@ -460,12 +460,12 @@ export default function CofounderMatchingPage() {
         </div>
       </section>
 
-       <section className="bg-[#ff6600] px-4 py-12 text-center">
+       <section className="bg-[#FF6C0F] px-4 py-12 text-center">
          <a
            href="https://startupschool.org/users/sign_in?sign_up=true&continue_url=%2Fcofounder-matching%2Fdashboard"
            target="_blank"
            rel="noopener noreferrer"
-           className="inline-block rounded-full bg-white px-10 py-3.5 font-['Outfit',sans-serif] text-sm font-semibold text-[#ff6600] transition-opacity hover:opacity-90"
+           className="inline-block rounded-full bg-white px-10 py-3.5 font-['Outfit',sans-serif] text-sm font-semibold text-[#FF6C0F] transition-opacity hover:opacity-90"
          >
            Sign up now
          </a>

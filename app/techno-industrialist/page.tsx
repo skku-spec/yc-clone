@@ -11,7 +11,7 @@ export default function TechnoIndustrialistPage() {
   return (
     <>
       <header className="px-4 pt-12 text-center md:pt-16">
-        <p className="mb-3 font-['Outfit',sans-serif] text-sm font-medium uppercase tracking-widest text-[#ff6600]">
+        <p className="mb-3 font-['Outfit',sans-serif] text-sm font-medium uppercase tracking-widest text-[#FF6C0F]">
           Requests for Startups
         </p>
         <h1 className="font-['Source_Serif_4',serif] text-[clamp(2.5rem,5vw,3.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
@@ -36,7 +36,7 @@ export default function TechnoIndustrialistPage() {
         <div className="mt-8">
           <Link
             href="/rfs"
-            className="inline-flex items-center gap-2 font-['Outfit',sans-serif] text-sm font-medium text-[#ff6600] transition-opacity hover:opacity-80"
+            className="inline-flex items-center gap-2 font-['Outfit',sans-serif] text-sm font-medium text-[#FF6C0F] transition-opacity hover:opacity-80"
           >
             View all requests for startups
             <svg

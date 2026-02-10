@@ -44,7 +44,7 @@ export default function BreakthroughCompaniesPage() {
               href={tab.href}
               className={`border-b-2 px-5 py-3 font-['Outfit',sans-serif] text-[14px] font-medium transition-colors ${
                 tab.href === "/topcompanies/breakthrough"
-                  ? "border-[#ff6600] text-[#ff6600]"
+                  ? "border-[#FF6C0F] text-[#FF6C0F]"
                   : "border-transparent text-[#16140f]/50 hover:text-[#16140f]/80"
               }`}
             >
@@ -68,7 +68,7 @@ export default function BreakthroughCompaniesPage() {
             placeholder="Search breakthrough companies..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full max-w-md rounded-lg border border-[#16140f]/10 bg-white py-3 pl-12 pr-4 font-['Outfit',sans-serif] text-[15px] font-light text-[#16140f] shadow-sm outline-none transition-all placeholder:text-[#16140f]/35 focus:border-[#ff6600]/40 focus:ring-2 focus:ring-[#ff6600]/10"
+            className="w-full max-w-md rounded-lg border border-[#16140f]/10 bg-white py-3 pl-12 pr-4 font-['Outfit',sans-serif] text-[15px] font-light text-[#16140f] shadow-sm outline-none transition-all placeholder:text-[#16140f]/35 focus:border-[#FF6C0F]/40 focus:ring-2 focus:ring-[#FF6C0F]/10"
           />
         </div>
 
@@ -94,22 +94,22 @@ function BreakthroughCompanyCard({ company }: { company: Company }) {
   return (
     <Link
       href={`/companies/${company.slug}`}
-      className="group flex flex-col rounded-xl border border-[#16140f]/8 bg-white p-5 shadow-sm transition-all hover:border-[#ff6600]/20 hover:shadow-md"
+      className="group flex flex-col rounded-xl border border-[#16140f]/8 bg-white p-5 shadow-sm transition-all hover:border-[#FF6C0F]/20 hover:shadow-md"
     >
       <div className="mb-3 flex items-start gap-3">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-[#16140f]/8 bg-[#f5f5ee]">
-          <span className="font-['Outfit',sans-serif] text-[16px] font-bold text-[#ff6600]">
+          <span className="font-['Outfit',sans-serif] text-[16px] font-bold text-[#FF6C0F]">
             {company.name.charAt(0)}
           </span>
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <h3 className="font-['Outfit',sans-serif] text-[15px] font-semibold text-[#16140f] transition-colors group-hover:text-[#ff6600]">
+            <h3 className="font-['Outfit',sans-serif] text-[15px] font-semibold text-[#16140f] transition-colors group-hover:text-[#FF6C0F]">
               {company.name}
             </h3>
             <span className="text-[12px]">🚀</span>
           </div>
-          <span className="font-['Outfit',sans-serif] text-[12px] font-medium text-[#ff6600]/70">
+          <span className="font-['Outfit',sans-serif] text-[12px] font-medium text-[#FF6C0F]/70">
             {company.batch}
           </span>
         </div>

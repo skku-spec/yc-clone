@@ -18,14 +18,14 @@ export default function HandshakePage() {
         <nav className="shrink-0 md:w-[200px]">
           <ul className="sticky top-24 space-y-3 font-sans text-sm">
             <li>
-              <a href="#intro" className="text-[#ff6600] hover:opacity-70">
+              <a href="#intro" className="text-[#FF6C0F] hover:opacity-70">
                 Intro
               </a>
             </li>
             <li>
               <a
                 href="#the-problem"
-                className="text-[#ff6600] hover:opacity-70"
+                className="text-[#FF6C0F] hover:opacity-70"
               >
                 The Problem
               </a>
@@ -33,7 +33,7 @@ export default function HandshakePage() {
             <li>
               <a
                 href="#the-protocol"
-                className="text-[#ff6600] hover:opacity-70"
+                className="text-[#FF6C0F] hover:opacity-70"
               >
                 The Protocol
               </a>
@@ -41,7 +41,7 @@ export default function HandshakePage() {
             <li>
               <a
                 href="#audit-trail"
-                className="text-[#ff6600] hover:opacity-70"
+                className="text-[#FF6C0F] hover:opacity-70"
               >
                 Audit Trail
               </a>
@@ -49,7 +49,7 @@ export default function HandshakePage() {
             <li>
               <a
                 href="#avoids-ambiguity"
-                className="text-[#ff6600] hover:opacity-70"
+                className="text-[#FF6C0F] hover:opacity-70"
               >
                 Avoids Ambiguity
               </a>
@@ -171,7 +171,7 @@ export default function HandshakePage() {
               of the{" "}
               <Link
                 href="/documents"
-                className="text-[#ff6600] underline hover:opacity-70"
+                className="text-[#FF6C0F] underline hover:opacity-70"
               >
                 standard documents
               </Link>{" "}

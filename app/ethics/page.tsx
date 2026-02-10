@@ -75,7 +75,7 @@ export default function EthicsPage() {
               Keeping your word, including honoring{" "}
               <Link
                 href="/handshake"
-                className="text-[#ff6600] underline hover:opacity-70"
+                className="text-[#FF6C0F] underline hover:opacity-70"
               >
                 handshake deals
               </Link>
@@ -120,13 +120,13 @@ export default function EthicsPage() {
               <li>
                 <Link
                   href="/about"
-                  className="text-[#ff6600] hover:opacity-70"
+                  className="text-[#FF6C0F] hover:opacity-70"
                 >
                   About Y Combinator
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-[#ff6600] hover:opacity-70">
+                <Link href="/faq" className="text-[#FF6C0F] hover:opacity-70">
                   Frequently Asked Questions
                 </Link>
               </li>

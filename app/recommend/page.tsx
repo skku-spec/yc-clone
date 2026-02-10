@@ -23,7 +23,7 @@ export default function RecommendPage() {
                href="https://bookface.ycombinator.com/recommendations"
                target="_blank"
                rel="noopener noreferrer"
-               className="text-[#ff6600] underline decoration-[#ff6600]/30 underline-offset-2 hover:decoration-[#ff6600]"
+               className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
              >
                via Bookface
              </a>
@@ -52,7 +52,7 @@ export default function RecommendPage() {
                 <li>
                   <Link
                     href="/apply"
-                    className="text-[#16140f]/70 transition-colors hover:text-[#ff6600]"
+                    className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                   >
                     Apply to Y Combinator
                   </Link>
@@ -67,7 +67,7 @@ export default function RecommendPage() {
                 <li>
                   <Link
                     href="/about"
-                    className="text-[#16140f]/70 transition-colors hover:text-[#ff6600]"
+                    className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                   >
                     About Y Combinator
                   </Link>
@@ -75,7 +75,7 @@ export default function RecommendPage() {
                 <li>
                   <Link
                     href="/faq"
-                    className="text-[#16140f]/70 transition-colors hover:text-[#ff6600]"
+                    className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                   >
                     Frequently Asked Questions
                   </Link>

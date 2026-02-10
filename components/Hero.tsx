@@ -4,38 +4,27 @@ export default function Hero() {
       id="hero"
       className="relative -ml-[calc(50vw-50%)] w-screen overflow-hidden"
     >
-      <div className="flex h-[90vh] flex-col items-center justify-center px-6">
-        <div className="flex max-w-[1000px] flex-col items-center gap-12 mx-auto">
+      <div className="relative flex h-[90vh] flex-col items-center justify-center px-6">
+        <div className="flex max-w-[1200px] flex-col items-center gap-8 mx-auto">
           <h1
-            className="text-center font-['Source_Serif_4',serif] font-normal leading-[1.1] tracking-normal text-[#16140f]"
-            style={{ fontSize: 'clamp(2.5rem, 5vw + 1rem, 5.25rem)' }}
+            className="text-center font-black uppercase leading-[0.95] tracking-[-0.03em] text-white"
+            style={{ 
+              fontSize: 'clamp(3rem, 10vw + 1rem, 8rem)',
+              fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+              textShadow: '0 4px 30px rgba(0,0,0,0.5)'
+            }}
           >
-            <span className="not-italic">YC turns builders</span>
+            Execution
             <br />
-            <span className="not-italic">into </span><em className="italic">formidable founders</em>
-            <sup className="ml-1 align-super font-normal not-italic" style={{ fontSize: 'clamp(0.875rem, 2vw + 0.25rem, 1.125rem)' }}>
-              [1]
-            </sup>
+            Is Everything.
           </h1>
 
-          <div
-            className="text-center"
-            style={{ maxWidth: 'clamp(280px, 60vw, 420px)' }}
+          <p
+            className="text-center font-['Pretendard'] font-light tracking-wide text-white/70 mt-4"
+            style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}
           >
-            <p
-              className="text-left font-['Source_Serif_4',serif] italic leading-[1.6] text-[#16140f]"
-              style={{ fontSize: 'clamp(1rem, 2vw + 0.25rem, 1.125rem)' }}
-            >
-              <span className="not-italic">[1]</span>{' '}
-              &ldquo;A formidable person is one who seems like they&apos;ll get what they want, regardless of whatever obstacles are in the way.&rdquo;
-            </p>
-            <cite
-              className="mt-2 block text-left font-['Source_Serif_4',serif] italic leading-[1.6] text-[#16140f]"
-              style={{ fontSize: 'clamp(1rem, 2vw + 0.25rem, 1.125rem)' }}
-            >
-              &mdash; Paul Graham
-            </cite>
-          </div>
+            SKKU SPEC — 성균관대학교 창업 학회
+          </p>
         </div>
 
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-[bounce_2.5s_ease-in-out_infinite]">
@@ -45,7 +34,7 @@ export default function Hero() {
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="text-[#16140f]"
+            className="text-white/70"
           >
             <path
               d="M6 8L10 12L14 8"

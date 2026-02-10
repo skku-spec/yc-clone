@@ -74,7 +74,7 @@ function SearchResultCard({ item }: { item: LibraryItem }) {
   return (
     <Link
       href={`/library/${item.slug}`}
-      className="group flex gap-4 rounded-xl border border-[#16140f]/6 bg-white p-4 transition-all hover:border-[#ff6600]/20 hover:shadow-sm"
+      className="group flex gap-4 rounded-xl border border-[#16140f]/6 bg-white p-4 transition-all hover:border-[#FF6C0F]/20 hover:shadow-sm"
     >
       <div
         className="relative hidden h-24 w-40 shrink-0 overflow-hidden rounded-lg sm:block"
@@ -105,7 +105,7 @@ function SearchResultCard({ item }: { item: LibraryItem }) {
             </span>
           ))}
         </div>
-        <h3 className="mb-1 truncate font-['Source_Serif_4',serif] text-[1rem] font-semibold leading-snug text-[#16140f] transition-colors group-hover:text-[#ff6600]">
+        <h3 className="mb-1 truncate font-['Source_Serif_4',serif] text-[1rem] font-semibold leading-snug text-[#16140f] transition-colors group-hover:text-[#FF6C0F]">
           {item.title}
         </h3>
         <p className="line-clamp-1 text-[13px] font-['Outfit',sans-serif] font-light text-[#16140f]/50">
@@ -156,7 +156,7 @@ export default function LibrarySearchPage() {
       <div className="mx-auto max-w-[720px]">
         <Link
           href="/library"
-          className="mb-6 inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[13px] font-medium text-[#16140f]/50 transition-colors hover:text-[#ff6600]"
+          className="mb-6 inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[13px] font-medium text-[#16140f]/50 transition-colors hover:text-[#FF6C0F]"
         >
           <ArrowLeftIcon className="h-3.5 w-3.5" />
           Back to Library
@@ -174,7 +174,7 @@ export default function LibrarySearchPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search articles, videos, podcasts..."
-            className="w-full rounded-2xl border border-[#16140f]/12 bg-white py-4 pr-4 pl-12 font-['Outfit',sans-serif] text-[16px] font-light text-[#16140f] shadow-sm outline-none transition-all placeholder:text-[#16140f]/35 focus:border-[#ff6600]/40 focus:ring-2 focus:ring-[#ff6600]/10"
+            className="w-full rounded-2xl border border-[#16140f]/12 bg-white py-4 pr-4 pl-12 font-['Outfit',sans-serif] text-[16px] font-light text-[#16140f] shadow-sm outline-none transition-all placeholder:text-[#16140f]/35 focus:border-[#FF6C0F]/40 focus:ring-2 focus:ring-[#FF6C0F]/10"
           />
         </div>
 
@@ -188,7 +188,7 @@ export default function LibrarySearchPage() {
                 <button
                   key={term}
                   onClick={() => setQuery(term)}
-                  className="rounded-full border border-[#16140f]/10 bg-white px-4 py-1.5 font-['Outfit',sans-serif] text-[13px] font-light text-[#16140f]/60 transition-all hover:border-[#ff6600]/30 hover:text-[#ff6600]"
+                  className="rounded-full border border-[#16140f]/10 bg-white px-4 py-1.5 font-['Outfit',sans-serif] text-[13px] font-light text-[#16140f]/60 transition-all hover:border-[#FF6C0F]/30 hover:text-[#FF6C0F]"
                 >
                   {term}
                 </button>
@@ -223,7 +223,7 @@ export default function LibrarySearchPage() {
               Try different keywords or browse the{" "}
               <Link
                 href="/library"
-                className="text-[#ff6600] underline underline-offset-2"
+                className="text-[#FF6C0F] underline underline-offset-2"
               >
                 full library
               </Link>

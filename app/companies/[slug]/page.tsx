@@ -50,11 +50,11 @@ export default async function CompanyDetailPage({ params }: PageProps) {
       <div className="mx-auto max-w-[1100px]">
         {/* Breadcrumb */}
         <nav className="mb-8 flex items-center gap-2 font-['Outfit',sans-serif] text-[13px] font-normal text-[#16140f]/50">
-          <Link href="/" className="transition-colors hover:text-[#ff6600]">
+          <Link href="/" className="transition-colors hover:text-[#FF6C0F]">
             Home
           </Link>
           <span className="text-[#16140f]/30">&rsaquo;</span>
-          <Link href="/companies" className="transition-colors hover:text-[#ff6600]">
+          <Link href="/companies" className="transition-colors hover:text-[#FF6C0F]">
             Companies
           </Link>
           <span className="text-[#16140f]/30">&rsaquo;</span>
@@ -68,7 +68,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
             <div className="mb-6">
               <div className="mb-4 flex items-center gap-5">
                 <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-xl border border-[#16140f]/8 bg-white shadow-sm">
-                  <span className="font-['Outfit',sans-serif] text-[28px] font-bold text-[#ff6600]">
+                  <span className="font-['Outfit',sans-serif] text-[28px] font-bold text-[#FF6C0F]">
                     {company.name.charAt(0)}
                   </span>
                 </div>
@@ -86,7 +86,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
               <div className="flex flex-wrap items-center gap-2">
                 <Link
                   href={`/companies?batch=${encodeURIComponent(company.batchSeason)}`}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#ff6600]/10 px-3 py-1 font-['Outfit',sans-serif] text-[12px] font-medium text-[#ff6600] transition-colors hover:bg-[#ff6600]/20"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#FF6C0F]/10 px-3 py-1 font-['Outfit',sans-serif] text-[12px] font-medium text-[#FF6C0F] transition-colors hover:bg-[#FF6C0F]/20"
                 >
                   <YCLogoSmall />
                   {company.batchSeason}
@@ -110,7 +110,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
             <div className="mb-6 border-y border-[#16140f]/8 py-3">
               <div className="flex items-center justify-between">
                 <div className="flex gap-6 font-['Outfit',sans-serif] text-[14px] font-medium">
-                  <span className="border-b-2 border-[#ff6600] pb-1 text-[#ff6600]">Company</span>
+                  <span className="border-b-2 border-[#FF6C0F] pb-1 text-[#FF6C0F]">Company</span>
                   {company.jobs.length > 0 && (
                     <span className="flex items-center gap-1 text-[#16140f]/60">
                       Jobs
@@ -124,7 +124,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                   href={company.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 font-['Outfit',sans-serif] text-[13px] font-medium text-[#16140f]/60 transition-colors hover:text-[#ff6600]"
+                  className="flex items-center gap-1.5 font-['Outfit',sans-serif] text-[13px] font-medium text-[#16140f]/60 transition-colors hover:text-[#FF6C0F]"
                 >
                   <ExternalLinkIcon />
                   {company.website.replace(/^https?:\/\//, "")}
@@ -152,7 +152,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                         href={item.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-['Outfit',sans-serif] text-[14px] font-normal text-[#16140f] underline decoration-[#16140f]/20 underline-offset-2 transition-colors hover:text-[#ff6600] hover:decoration-[#ff6600]/40"
+                        className="font-['Outfit',sans-serif] text-[14px] font-normal text-[#16140f] underline decoration-[#16140f]/20 underline-offset-2 transition-colors hover:text-[#FF6C0F] hover:decoration-[#FF6C0F]/40"
                       >
                         {item.title}
                       </a>
@@ -189,7 +189,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                           <span>{job.experience}</span>
                         </div>
                       </div>
-                      <span className="shrink-0 rounded-md bg-[#ff6600]/10 px-3 py-1.5 font-['Outfit',sans-serif] text-[12px] font-medium text-[#ff6600] transition-colors hover:bg-[#ff6600]/20">
+                      <span className="shrink-0 rounded-md bg-[#FF6C0F]/10 px-3 py-1.5 font-['Outfit',sans-serif] text-[12px] font-medium text-[#FF6C0F] transition-colors hover:bg-[#FF6C0F]/20">
                         Apply Now &rsaquo;
                       </span>
                     </div>
@@ -262,7 +262,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
               <div className="rounded-xl border border-[#16140f]/8 bg-white p-5 shadow-sm">
                 <div className="mb-4 flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#16140f]/8 bg-[#f5f5ee]">
-                    <span className="font-['Outfit',sans-serif] text-[16px] font-bold text-[#ff6600]">
+                    <span className="font-['Outfit',sans-serif] text-[16px] font-bold text-[#FF6C0F]">
                       {company.name.charAt(0)}
                     </span>
                   </div>
@@ -336,15 +336,15 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                     <Link
                       key={r.slug}
                       href={`/companies/${r.slug}`}
-                      className="group flex items-center gap-3 rounded-md p-1 transition-colors hover:bg-[#ff6600]/5"
+                      className="group flex items-center gap-3 rounded-md p-1 transition-colors hover:bg-[#FF6C0F]/5"
                     >
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[#16140f]/8 bg-[#f5f5ee]">
-                        <span className="font-['Outfit',sans-serif] text-[12px] font-bold text-[#ff6600]">
+                        <span className="font-['Outfit',sans-serif] text-[12px] font-bold text-[#FF6C0F]">
                           {r.name.charAt(0)}
                         </span>
                       </div>
                       <div className="min-w-0">
-                        <p className="font-['Outfit',sans-serif] text-[13px] font-semibold text-[#16140f] transition-colors group-hover:text-[#ff6600]">
+                        <p className="font-['Outfit',sans-serif] text-[13px] font-semibold text-[#16140f] transition-colors group-hover:text-[#FF6C0F]">
                           {r.name}
                         </p>
                         <p className="truncate font-['Outfit',sans-serif] text-[11px] font-light text-[#16140f]/50">
@@ -397,7 +397,7 @@ function StatusBadge({ status }: { status: CompanyDetail["status"] }) {
 function YCLogoSmall() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-      <rect width="24" height="24" rx="4" fill="#ff6600" />
+      <rect width="24" height="24" rx="4" fill="#FF6C0F" />
       <path d="M7 6l5 8v4h-1v-4L6 6h1zm4 8l5-8h1l-5 8v4h-1v-4z" fill="white" />
     </svg>
   );

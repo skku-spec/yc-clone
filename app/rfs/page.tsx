@@ -258,7 +258,7 @@ export default function RFSPage() {
             onClick={() => setActiveBatch(index)}
             className={`rounded-full px-5 py-2 font-['Outfit',sans-serif] text-sm font-medium transition-all ${
               activeBatch === index
-                ? "bg-[#ff6600] text-white"
+                ? "bg-[#FF6C0F] text-white"
                 : "bg-[#e8e8e0] text-[#16140f] hover:bg-[#ddddd3]"
             }`}
           >
@@ -297,7 +297,7 @@ export default function RFSPage() {
               </h3>
               <Link
                 href={entry.authorHref}
-                className="mt-2 inline-block font-['Outfit',sans-serif] text-sm font-medium text-[#ff6600] hover:underline"
+                className="mt-2 inline-block font-['Outfit',sans-serif] text-sm font-medium text-[#FF6C0F] hover:underline"
               >
                 {entry.author}
               </Link>

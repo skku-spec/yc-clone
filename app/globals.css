@@ -1,11 +1,21 @@
 @import "tailwindcss";
 
+/*
+ * SPEC Brand Colors
+ * PRIMARY: #FF6C0F | BLACK: #202020 | WHITE: #FCFCF8
+ * Hover: 자연스럽게 brightness/opacity 조절
+ */
+
 @theme inline {
-  --color-beige-light: #f5f5ee;
-  --color-yc-dark: #16140f;
-  --color-yc-orange: #ff6600;
+  --color-primary: #FF6C0F;
+  --color-black: #202020;
+  --color-white: #FCFCF8;
+  
+  /* Fonts */
   --font-serif: "Source Serif 4", serif;
   --font-sans: "Outfit", sans-serif;
+  --font-korean-serif: "MaruBuri", "Source Serif 4", serif;
+  --font-korean-sans: "Pretendard", "Outfit", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html {
@@ -13,10 +23,10 @@ html {
 }
 
 body {
-  background: #f5f5ee;
-  color: #333;
-  font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  font-weight: 200;
+  background: #202020;
+  color: #FCFCF8;
+  font-family: "Pretendard", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -42,16 +52,16 @@ body {
 
 /* nav link styles */
 .nav-link {
-  font-family: "Outfit", sans-serif;
+  font-family: "Pretendard", "Outfit", sans-serif;
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.4px;
-  color: #16140f;
+  color: #ffffff;
   text-decoration: none;
   transition: opacity 0.2s;
 }
 .nav-link:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 /* dropdown */
@@ -67,25 +77,28 @@ body {
   display: block !important;
 }
 .dropdown-container {
-  background: white;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 8px 0;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
   min-width: 200px;
 }
 .dropdown-item {
   display: block;
   padding: 8px 20px;
-  font-family: "Outfit", sans-serif;
+  font-family: "Pretendard", "Outfit", sans-serif;
   font-size: 14px;
   font-weight: 300;
-  color: #16140f;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.15s;
+  transition: all 0.15s;
 }
 .dropdown-item:hover {
-  background: #f5f5ee;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
 /* first letter drop cap */

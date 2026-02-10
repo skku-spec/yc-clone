@@ -20,7 +20,7 @@ export default function SecurityPage() {
                href="https://news.ycombinator.com/security.html"
                target="_blank"
                rel="noopener noreferrer"
-               className="text-[#ff6600] underline hover:opacity-70"
+               className="text-[#FF6C0F] underline hover:opacity-70"
              >
                https://news.ycombinator.com/security.html
              </a>
@@ -198,7 +198,7 @@ function SecurityEntry({
         <strong>{date}</strong>{" "}
         <a
           href={url}
-          className="text-[#ff6600] underline hover:opacity-70"
+          className="text-[#FF6C0F] underline hover:opacity-70"
           target="_blank"
           rel="noopener noreferrer"
         >

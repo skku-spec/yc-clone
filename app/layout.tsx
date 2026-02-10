@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Y Combinator",
-  description: "Y Combinator - Apply, learn, and grow your startup.",
+  title: "SPEC | 성균관대학교 창업 학회",
+  description: "SPEC - 성균관대학교 창업 학회. 만드는 사람이 세상을 바꾼다.",
 };
 
 export default function RootLayout({
@@ -30,10 +30,18 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+          rel="stylesheet"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/gh/webfontworld/MaruBuri/MaruBuri.css"
+          rel="stylesheet"
+        />
       </head>
       <body>
         <div className="relative w-full max-w-[100vw] overflow-x-clip font-['Source_Serif_4',serif]">
-          <div className="relative z-10 bg-[#f5f5ee]">
+          <div className="relative z-10">
             <Navbar />
             <main>{children}</main>
             <Footer />

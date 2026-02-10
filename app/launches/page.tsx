@@ -101,7 +101,7 @@ export default function LaunchesPage() {
             placeholder="Search for a company"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full border border-[#ddd] bg-white font-['Outfit',sans-serif] text-[#16140f] outline-none transition-all placeholder:text-[#16140f]/40 focus:border-[#ff6600]/40 focus:ring-2 focus:ring-[#ff6600]/10"
+            className="w-full border border-[#ddd] bg-white font-['Outfit',sans-serif] text-[#16140f] outline-none transition-all placeholder:text-[#16140f]/40 focus:border-[#FF6C0F]/40 focus:ring-2 focus:ring-[#FF6C0F]/10"
             style={{
               height: 54,
               borderRadius: 10,
@@ -181,7 +181,7 @@ export default function LaunchesPage() {
                style={{
                  background:
                    selectedCategory === cat.label
-                     ? "#ff6600"
+                     ? "#FF6C0F"
                      : "rgb(234,234,222)",
                  borderRadius: 20,
                  padding: "4px 14px",
@@ -250,19 +250,19 @@ function LaunchCard({
   onVote: () => void;
 }) {
   return (
-    <article className="group flex items-center gap-4 border-b border-[#16140f]/6 py-3 transition-colors hover:bg-[#ff6600]/[0.02]">
+    <article className="group flex items-center gap-4 border-b border-[#16140f]/6 py-3 transition-colors hover:bg-[#FF6C0F]/[0.02]">
       <div
         className="flex shrink-0 items-center justify-center border border-[#16140f]/8 bg-white"
         style={{ width: 40, height: 40, borderRadius: 0 }}
       >
-        <span className="font-['Outfit',sans-serif] text-[14px] font-bold text-[#ff6600]">
+        <span className="font-['Outfit',sans-serif] text-[14px] font-bold text-[#FF6C0F]">
           {launch.company.charAt(0)}
         </span>
       </div>
 
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
-          <h2 className="font-['Outfit',sans-serif] text-[15px] font-semibold text-[#16140f] transition-colors group-hover:text-[#ff6600]">
+          <h2 className="font-['Outfit',sans-serif] text-[15px] font-semibold text-[#16140f] transition-colors group-hover:text-[#FF6C0F]">
             {launch.company}
           </h2>
           <span className="font-['Outfit',sans-serif] text-[14px] font-light text-[#16140f]/70">
@@ -297,7 +297,7 @@ function LaunchCard({
         onClick={onVote}
         className="flex shrink-0 items-center gap-1 transition-colors"
         aria-label={`Upvote ${launch.company}`}
-        style={{ color: hasVoted ? "#ff6600" : "rgb(170,184,194)" }}
+        style={{ color: hasVoted ? "#FF6C0F" : "rgb(170,184,194)" }}
       >
         <svg
           className="h-3.5 w-3.5"

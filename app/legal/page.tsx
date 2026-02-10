@@ -23,7 +23,7 @@ export default function LegalPage() {
             <li>
               <a
                 href="#privacy"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
               >
                 Privacy Policy
               </a>
@@ -31,7 +31,7 @@ export default function LegalPage() {
             <li>
               <a
                 href="#tou"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
               >
                 Terms of Use
               </a>
@@ -39,7 +39,7 @@ export default function LegalPage() {
             <li>
               <a
                 href="#trademarks"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
               >
                 Trademarks
               </a>
@@ -80,7 +80,7 @@ export default function LegalPage() {
               how we use and disclose that data, and your choices concerning our
               data practices. This Privacy Policy is incorporated into and forms
               part of our{" "}
-              <a href="#tou" className="text-[#ff6600] hover:underline">
+              <a href="#tou" className="text-[#FF6C0F] hover:underline">
                 Terms of Use
               </a>
               .
@@ -97,7 +97,7 @@ export default function LegalPage() {
               For California residents (defined below), please click{" "}
               <a
                 href="#notice-at-collection"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
               >
                 here
               </a>{" "}
@@ -261,7 +261,7 @@ export default function LegalPage() {
                         <strong>Cookies:</strong> Please see the{" "}
                         <a
                           href="#cookies"
-                          className="text-[#ff6600] hover:underline"
+                          className="text-[#FF6C0F] hover:underline"
                         >
                           <strong>&ldquo;Cookies&rdquo;</strong>
                         </a>{" "}
@@ -306,7 +306,7 @@ export default function LegalPage() {
               more details on cookies please visit{" "}
               <a
                 href="https://allaboutcookies.org/"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -330,7 +330,7 @@ export default function LegalPage() {
               Google uses this data, go to{" "}
               <a
                 href="https://www.google.com/policies/privacy/partners/"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -364,7 +364,7 @@ export default function LegalPage() {
               <li>
                 <a
                   href="http://windows.microsoft.com/en-gb/internet-explorer/delete-manage-cookies#ie=ie-11"
-                  className="text-[#ff6600] hover:underline"
+                  className="text-[#FF6C0F] hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -374,7 +374,7 @@ export default function LegalPage() {
               <li>
                 <a
                   href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences?esab=a&s=cookies&r=6&as=s"
-                  className="text-[#ff6600] hover:underline"
+                  className="text-[#FF6C0F] hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -384,7 +384,7 @@ export default function LegalPage() {
               <li>
                 <a
                   href="https://support.google.com/accounts/answer/61416?hl=en"
-                  className="text-[#ff6600] hover:underline"
+                  className="text-[#FF6C0F] hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -394,7 +394,7 @@ export default function LegalPage() {
               <li>
                 <a
                   href="https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac"
-                  className="text-[#ff6600] hover:underline"
+                  className="text-[#FF6C0F] hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -418,7 +418,7 @@ export default function LegalPage() {
               Initiative&apos;s online resources at{" "}
               <a
                 href="http://www.networkadvertising.org/"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -940,7 +940,7 @@ export default function LegalPage() {
             <p className="mb-4">
               For more information about our privacy practices, please review
               our entire{" "}
-              <a href="#privacy" className="text-[#ff6600] hover:underline">
+              <a href="#privacy" className="text-[#FF6C0F] hover:underline">
                 Privacy Policy
               </a>
               .
@@ -954,7 +954,7 @@ export default function LegalPage() {
               The following disclosures are intended to provide additional
               information about (1) the categories of Personal Information we
               have collected in the preceding 12 months (as listed in{" "}
-              <a href="#section1" className="text-[#ff6600] hover:underline">
+              <a href="#section1" className="text-[#FF6C0F] hover:underline">
                 Information We Collect
               </a>
               ), (2) the source of the Personal Information, (3) the business or
@@ -1355,7 +1355,7 @@ export default function LegalPage() {
               Policy, please click{" "}
               <a
                 href="https://s3.us-west-2.amazonaws.com/static.ycombinator.com/yc-privacy-policy.pdf"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1420,14 +1420,14 @@ export default function LegalPage() {
               applicable to the Site or such components of the Site that may be
               posted on the Site from time to time, including, without
               limitation, the Privacy Policy located{" "}
-              <a href="#privacy" className="text-[#ff6600] hover:underline">
+              <a href="#privacy" className="text-[#FF6C0F] hover:underline">
                 www.ycombinator.com/legal#privacy
               </a>{" "}
               and any Guidelines applicable to any components of the Site (e.g.,
               the Hacker News Guidelines located at{" "}
               <a
                 href="https://news.ycombinator.com/newsguidelines.html"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1436,7 +1436,7 @@ export default function LegalPage() {
               , Bookface Guidelines located at{" "}
               <a
                 href="https://bookface.ycombinator.com/docs/forum/guidelines"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1666,7 +1666,7 @@ export default function LegalPage() {
               otherwise use your User Content for any Y Combinator-related
               purpose in any form, medium or technology now known or later
               developed. However, please review the Privacy Policy located{" "}
-              <a href="#privacy" className="text-[#ff6600] hover:underline">
+              <a href="#privacy" className="text-[#FF6C0F] hover:underline">
                 here
               </a>{" "}
               for more information on how we treat information included in
@@ -1981,7 +1981,7 @@ export default function LegalPage() {
               to the user&apos;s satisfaction by emailing us at{" "}
               <a
                 href="mailto:yclegal@ycombinator.com"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
               >
                 yclegal@ycombinator.com
               </a>
@@ -2196,7 +2196,7 @@ export default function LegalPage() {
               Please contact us at{" "}
               <a
                 href="mailto:yclegal@ycombinator.com"
-                className="text-[#ff6600] hover:underline"
+                className="text-[#FF6C0F] hover:underline"
               >
                 yclegal@ycombinator.com
               </a>{" "}

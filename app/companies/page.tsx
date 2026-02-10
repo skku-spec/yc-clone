@@ -82,7 +82,7 @@ export default function CompaniesPage() {
          <p className="mx-auto mb-8 max-w-[640px] font-['Outfit',sans-serif] text-[15px] font-light leading-relaxed text-[#16140f]/60">
            Since 2005, we have invested in over 5,000 companies that have a combined
            valuation of over $1T. To find jobs at a YC startup, visit{" "}
-           <Link href="/jobs" className="text-[#16140f] hover:text-[#ff6600]">
+           <Link href="/jobs" className="text-[#16140f] hover:text-[#FF6C0F]">
              Work at a Startup
            </Link>
            .
@@ -141,7 +141,7 @@ export default function CompaniesPage() {
                  setSearchQuery(e.target.value);
                  setVisibleCount(ITEMS_PER_PAGE);
                }}
-               className="w-full border border-[#16140f]/10 bg-white px-4 py-3 font-['Outfit',sans-serif] text-[15px] font-light text-[#16140f] shadow-sm outline-none transition-all placeholder:text-[#16140f]/35 focus:border-[#ff6600]/40 focus:ring-2 focus:ring-[#ff6600]/10"
+               className="w-full border border-[#16140f]/10 bg-white px-4 py-3 font-['Outfit',sans-serif] text-[15px] font-light text-[#16140f] shadow-sm outline-none transition-all placeholder:text-[#16140f]/35 focus:border-[#FF6C0F]/40 focus:ring-2 focus:ring-[#FF6C0F]/10"
                style={{ borderRadius: "4px" }}
              />
            </div>
@@ -157,7 +157,7 @@ export default function CompaniesPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as "default" | "launch")}
-                className="border border-[#16140f]/10 bg-white px-3 py-1.5 font-['Outfit',sans-serif] text-[13px] font-normal text-[#16140f] outline-none focus:border-[#ff6600]/40"
+                className="border border-[#16140f]/10 bg-white px-3 py-1.5 font-['Outfit',sans-serif] text-[13px] font-normal text-[#16140f] outline-none focus:border-[#FF6C0F]/40"
                 style={{ borderRadius: "4px" }}
               >
                 <option value="default">Default</option>
@@ -180,7 +180,7 @@ export default function CompaniesPage() {
             <div className="mt-8 flex justify-center">
               <button
                 onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}
-                className="border border-[#ff6600]/20 bg-[#ff6600]/5 px-8 py-3 font-['Outfit',sans-serif] text-[14px] font-medium text-[#ff6600] transition-all hover:border-[#ff6600]/40 hover:bg-[#ff6600]/10"
+                className="border border-[#FF6C0F]/20 bg-[#FF6C0F]/5 px-8 py-3 font-['Outfit',sans-serif] text-[14px] font-medium text-[#FF6C0F] transition-all hover:border-[#FF6C0F]/40 hover:bg-[#FF6C0F]/10"
                 style={{ borderRadius: "4px" }}
               >
                 Load more companies
@@ -197,7 +197,7 @@ function CompanyCard({ company }: { company: Company }) {
   return (
     <Link
       href={`/companies/${company.slug}`}
-      className="group flex gap-4 border-b border-[#16140f]/6 transition-colors hover:bg-[#ff6600]/3"
+      className="group flex gap-4 border-b border-[#16140f]/6 transition-colors hover:bg-[#FF6C0F]/3"
       style={{
         background: "rgb(253,253,248)",
         borderRadius: "8px 8px 0 0",
@@ -205,7 +205,7 @@ function CompanyCard({ company }: { company: Company }) {
       }}
     >
       <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#16140f]/8 bg-white shadow-sm">
-        <span className="font-['Outfit',sans-serif] text-[18px] font-bold text-[#ff6600]">
+        <span className="font-['Outfit',sans-serif] text-[18px] font-bold text-[#FF6C0F]">
           {company.name.charAt(0)}
         </span>
       </div>
@@ -213,7 +213,7 @@ function CompanyCard({ company }: { company: Company }) {
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
           <h3
-            className="font-['Outfit',sans-serif] text-[#16140f] transition-colors group-hover:text-[#ff6600]"
+            className="font-['Outfit',sans-serif] text-[#16140f] transition-colors group-hover:text-[#FF6C0F]"
             style={{ fontSize: "18px", fontWeight: 500 }}
           >
             {company.name}
@@ -262,7 +262,7 @@ function FilterCheckbox({
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="h-4 w-4 shrink-0 cursor-pointer rounded border-[#16140f]/20 text-[#ff6600] accent-[#ff6600] focus:ring-[#ff6600]/30"
+        className="h-4 w-4 shrink-0 cursor-pointer rounded border-[#16140f]/20 text-[#FF6C0F] accent-[#FF6C0F] focus:ring-[#FF6C0F]/30"
       />
       <span className={`font-['Outfit',sans-serif] font-normal text-[#16140f]/80 ${small ? "text-[13px]" : "text-[14px]"}`}>
         {label}

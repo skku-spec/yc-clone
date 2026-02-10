@@ -12,7 +12,7 @@ import type { Job } from "../../jobsData";
 
 function JobCard({ job }: { job: Job }) {
   return (
-    <div className="group flex items-start gap-4 rounded-lg border border-[#d4d4cc] bg-white px-5 py-4 transition-all hover:border-[#ff6600]/30 hover:shadow-md sm:items-center sm:px-6 sm:py-5">
+    <div className="group flex items-start gap-4 rounded-lg border border-[#d4d4cc] bg-white px-5 py-4 transition-all hover:border-[#FF6C0F]/30 hover:shadow-md sm:items-center sm:px-6 sm:py-5">
       <div
         className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-sm font-bold text-white sm:h-12 sm:w-12 sm:text-base"
         style={{ backgroundColor: job.logoColor }}
@@ -46,7 +46,7 @@ function JobCard({ job }: { job: Job }) {
       </div>
 
       <div className="shrink-0 self-center">
-        <span className="inline-flex items-center rounded-md border border-[#d4d4cc] px-3 py-1.5 font-sans text-xs font-medium text-[#16140f] transition-colors group-hover:border-[#ff6600] group-hover:bg-[#ff6600] group-hover:text-white">
+        <span className="inline-flex items-center rounded-md border border-[#d4d4cc] px-3 py-1.5 font-sans text-xs font-medium text-[#16140f] transition-colors group-hover:border-[#FF6C0F] group-hover:bg-[#FF6C0F] group-hover:text-white">
           View
         </span>
       </div>
@@ -93,7 +93,7 @@ export default function RoleClient({ params }: { params: Promise<{ role: string 
       <section className="border-b border-[#d4d4cc] bg-[#f5f5ee] px-4 pb-8 pt-12 md:pb-10 md:pt-16">
         <div className="mx-auto max-w-[900px]">
           <div className="mb-3 font-sans text-sm font-light text-[#16140f]/50">
-            <Link href="/jobs" className="hover:text-[#ff6600]">
+            <Link href="/jobs" className="hover:text-[#FF6C0F]">
               Jobs
             </Link>{" "}
             <span className="mx-1">&rsaquo;</span> {roleLabel}
@@ -126,7 +126,7 @@ export default function RoleClient({ params }: { params: Promise<{ role: string 
                 placeholder={`Search ${roleLabel.toLowerCase()} jobs\u2026`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-lg border border-[#d4d4cc] bg-white py-3 pl-11 pr-4 font-sans text-sm font-light text-[#16140f] shadow-sm outline-none transition-shadow placeholder:text-[#16140f]/35 focus:border-[#ff6600]/40 focus:shadow-md"
+                className="w-full rounded-lg border border-[#d4d4cc] bg-white py-3 pl-11 pr-4 font-sans text-sm font-light text-[#16140f] shadow-sm outline-none transition-shadow placeholder:text-[#16140f]/35 focus:border-[#FF6C0F]/40 focus:shadow-md"
               />
             </div>
           </div>
@@ -143,13 +143,13 @@ export default function RoleClient({ params }: { params: Promise<{ role: string 
                 href={`/jobs/role/${cat.slug}`}
                 className={`group relative shrink-0 px-4 py-3.5 font-sans text-[13px] font-medium transition-colors ${
                   role === cat.slug
-                    ? "text-[#ff6600]"
+                    ? "text-[#FF6C0F]"
                     : "text-[#16140f]/60 hover:text-[#16140f]"
                 }`}
               >
                 {cat.label}
                 {role === cat.slug && (
-                  <span className="absolute inset-x-0 bottom-0 h-[2px] bg-[#ff6600]" />
+                  <span className="absolute inset-x-0 bottom-0 h-[2px] bg-[#FF6C0F]" />
                 )}
               </Link>
             ))}
@@ -170,7 +170,7 @@ export default function RoleClient({ params }: { params: Promise<{ role: string 
                     onClick={() => setActiveLocation(loc.slug)}
                     className={`rounded-md px-3 py-1.5 text-left font-sans text-[13px] transition-colors lg:rounded-none lg:border-l-2 lg:py-2 ${
                       activeLocation === loc.slug
-                        ? "border-[#ff6600] bg-[#ff6600]/5 font-medium text-[#ff6600]"
+                        ? "border-[#FF6C0F] bg-[#FF6C0F]/5 font-medium text-[#FF6C0F]"
                         : "border-transparent font-light text-[#16140f]/70 hover:bg-[#16140f]/5 hover:text-[#16140f]"
                     }`}
                   >
@@ -185,7 +185,7 @@ export default function RoleClient({ params }: { params: Promise<{ role: string 
               <div className="mt-6 hidden border-t border-[#d4d4cc] pt-4 lg:block">
                 <Link
                   href="/jobs"
-                  className="font-sans text-[13px] font-medium text-[#ff6600] hover:underline"
+                  className="font-sans text-[13px] font-medium text-[#FF6C0F] hover:underline"
                 >
                   &larr; All Jobs
                 </Link>
@@ -214,7 +214,7 @@ export default function RoleClient({ params }: { params: Promise<{ role: string 
                       setActiveLocation("all");
                       setSearchQuery("");
                     }}
-                    className="mt-4 font-sans text-sm font-medium text-[#ff6600] hover:underline"
+                    className="mt-4 font-sans text-sm font-medium text-[#FF6C0F] hover:underline"
                   >
                     Clear filters
                   </button>

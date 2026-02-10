@@ -78,7 +78,7 @@ export default function DocumentsPage() {
             <li>
               <a
                 href="#downloads"
-                className="text-[#ff6600] hover:opacity-70"
+                className="text-[#FF6C0F] hover:opacity-70"
               >
                 Downloads
               </a>
@@ -86,7 +86,7 @@ export default function DocumentsPage() {
             <li>
               <a
                 href="#about-the-safe"
-                className="text-[#ff6600] hover:opacity-70"
+                className="text-[#FF6C0F] hover:opacity-70"
               >
                 About the Safe
               </a>
@@ -112,7 +112,7 @@ export default function DocumentsPage() {
                 <li key={doc.file}>
                   <a
                     href={`${SAFE_BASE}/${doc.file}`}
-                    className="text-[#ff6600] underline hover:opacity-70"
+                    className="text-[#FF6C0F] underline hover:opacity-70"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -137,7 +137,7 @@ export default function DocumentsPage() {
                 <li key={doc.file}>
                   <a
                     href={`${SAFE_BASE}/${doc.file}`}
-                    className="text-[#ff6600] underline hover:opacity-70"
+                    className="text-[#FF6C0F] underline hover:opacity-70"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -201,7 +201,7 @@ export default function DocumentsPage() {
                 It allows for{" "}
                 <a
                   href="http://www.paulgraham.com/hiresfund.html"
-                  className="text-[#ff6600] underline hover:opacity-70"
+                  className="text-[#FF6C0F] underline hover:opacity-70"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -231,7 +231,7 @@ export default function DocumentsPage() {
               familiar with safes, we recommend reviewing our{" "}
               <a
                 href={SAFE_USER_GUIDE_URL}
-                className="text-[#ff6600] underline hover:opacity-70"
+                className="text-[#FF6C0F] underline hover:opacity-70"
                 target="_blank"
                 rel="noopener noreferrer"
               >

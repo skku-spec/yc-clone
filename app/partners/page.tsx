@@ -42,7 +42,7 @@ export default function PartnersPage() {
                 <h3 className="font-['Source_Serif_4',serif] text-[1.25rem] font-semibold leading-tight text-[#16140f]">
                   {person.name}
                 </h3>
-                <p className="font-['Outfit',sans-serif] text-[0.875rem] font-normal text-[#ff6600]">
+                <p className="font-['Outfit',sans-serif] text-[0.875rem] font-normal text-[#FF6C0F]">
                   {person.title}
                 </p>
                 {person.ycCompany && (

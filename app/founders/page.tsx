@@ -73,7 +73,7 @@ export default function FoundersPage() {
           </p>
           <p className="mx-auto mt-4 font-['Outfit',sans-serif] text-[15px] font-extralight text-black/60">
             Do you know a YC founder?{" "}
-            <Link href="/login" className="underline text-[#ff6600] hover:text-[#e55c00]">
+            <Link href="/login" className="underline text-[#FF6C0F] hover:text-[#e55c00]">
               Sign in
             </Link>{" "}
             to check.
@@ -90,7 +90,7 @@ export default function FoundersPage() {
                   placeholder="Search for a title..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full font-['Outfit',sans-serif] text-black outline-none transition-all placeholder:text-black/40 focus:ring-1 focus:ring-[#ff6600]/10"
+                  className="w-full font-['Outfit',sans-serif] text-black outline-none transition-all placeholder:text-black/40 focus:ring-1 focus:ring-[#FF6C0F]/10"
                   style={{
                     height: 30.5,
                     borderRadius: 4,
@@ -109,7 +109,7 @@ export default function FoundersPage() {
                   type="checkbox"
                   checked={topFoundersOnly}
                   onChange={() => setTopFoundersOnly(!topFoundersOnly)}
-                  className="h-4 w-4 shrink-0 cursor-pointer rounded border-black/20 text-[#ff6600] accent-[#ff6600] focus:ring-[#ff6600]/30"
+                  className="h-4 w-4 shrink-0 cursor-pointer rounded border-black/20 text-[#FF6C0F] accent-[#FF6C0F] focus:ring-[#FF6C0F]/30"
                 />
                 <span className="font-['Outfit',sans-serif] text-[14px] font-normal text-black/80">
                   Top Company Founder
@@ -175,12 +175,12 @@ export default function FoundersPage() {
                   border: "none",
                 }}
               />
-              <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 transition-colors hover:border-[#ff6600]/30">
+              <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 transition-colors hover:border-[#FF6C0F]/30">
                 <input
                   type="checkbox"
                   checked={topFoundersOnly}
                   onChange={() => setTopFoundersOnly(!topFoundersOnly)}
-                  className="h-3.5 w-3.5 cursor-pointer rounded border-black/20 accent-[#ff6600]"
+                  className="h-3.5 w-3.5 cursor-pointer rounded border-black/20 accent-[#FF6C0F]"
                 />
                 <span className="font-['Outfit',sans-serif] text-[12px] font-medium text-black/70">
                   Top
@@ -332,7 +332,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-[#c6c6c6] bg-[#f5f5ee]/50 px-3 py-2 font-['Outfit',sans-serif] text-[13px] font-normal text-black/80 outline-none transition-all focus:border-[#ff6600]/30 focus:ring-1 focus:ring-[#ff6600]/10"
+        className="w-full rounded-lg border border-[#c6c6c6] bg-[#f5f5ee]/50 px-3 py-2 font-['Outfit',sans-serif] text-[13px] font-normal text-black/80 outline-none transition-all focus:border-[#FF6C0F]/30 focus:ring-1 focus:ring-[#FF6C0F]/10"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
@@ -360,7 +360,7 @@ function MobileFilterSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 font-['Outfit',sans-serif] text-[12px] font-medium text-black/70 outline-none transition-all focus:border-[#ff6600]/30"
+      className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 font-['Outfit',sans-serif] text-[12px] font-medium text-black/70 outline-none transition-all focus:border-[#FF6C0F]/30"
     >
       <option value="">{placeholder}</option>
       {options.map((opt) => (

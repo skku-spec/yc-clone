@@ -12,7 +12,7 @@ export default function VerifyPage() {
         <div className="mx-auto max-w-[800px]">
           <h1 className="inline-flex items-center justify-center gap-3 font-['Source_Serif_4',serif] text-3xl font-bold text-[#16140f] sm:text-4xl">
             <svg
-              className="h-8 w-8 text-[#ff6600] sm:h-9 sm:w-9"
+              className="h-8 w-8 text-[#FF6C0F] sm:h-9 sm:w-9"
               viewBox="0 0 512 512"
               fill="currentColor"
             >
@@ -60,7 +60,7 @@ export default function VerifyPage() {
               href="https://bookface.ycombinator.com/verify"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block rounded-lg bg-[#ff6600] px-5 py-2.5 font-['Outfit',sans-serif] text-sm font-medium text-white transition-colors hover:bg-[#e55c00]"
+              className="inline-block rounded-lg bg-[#FF6C0F] px-5 py-2.5 font-['Outfit',sans-serif] text-sm font-medium text-white transition-colors hover:bg-[#e55c00]"
             >
               Create Verification Link
             </Link>
@@ -87,7 +87,7 @@ export default function VerifyPage() {
                 placeholder="Enter verification code or URL..."
                 value={verificationCode}
                 onChange={(e) => setVerificationCode(e.target.value)}
-                className="flex-1 rounded-lg border border-[#e8e8e0] bg-white px-4 py-3 font-['Outfit',sans-serif] text-sm font-light text-[#16140f] placeholder:text-[#16140f]/40 focus:border-[#ff6600] focus:outline-none focus:ring-1 focus:ring-[#ff6600]"
+                className="flex-1 rounded-lg border border-[#e8e8e0] bg-white px-4 py-3 font-['Outfit',sans-serif] text-sm font-light text-[#16140f] placeholder:text-[#16140f]/40 focus:border-[#FF6C0F] focus:outline-none focus:ring-1 focus:ring-[#FF6C0F]"
               />
               <button
                 className="shrink-0 rounded-lg bg-[#16140f] px-5 py-3 font-['Outfit',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-80"
@@ -193,7 +193,7 @@ export default function VerifyPage() {
               If you have questions about YC Founder Verification, please{" "}
               <Link
                 href="/contact"
-                className="font-medium text-[#ff6600] hover:underline"
+                className="font-medium text-[#FF6C0F] hover:underline"
               >
                 contact us
               </Link>

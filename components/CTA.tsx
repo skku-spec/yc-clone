@@ -8,21 +8,25 @@ export default function CTA() {
   ];
 
   return (
-    <section className="pb-8 pt-0">
+    <section className="pb-8 pt-0 bg-transparent">
       <div className="mx-auto flex max-w-4xl flex-col items-center px-6">
-        <h2 className="text-center font-['Source_Serif_4',serif] text-[3.75rem] font-normal italic leading-[1.1] text-[#16140f]">
-          It&apos;s never too early to apply.
+        <h2 
+          className="text-center text-[3.75rem] font-black uppercase leading-[1.1] text-white"
+          style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+        >
+          Ready to Build?
         </h2>
 
-        <p className="mt-6 w-3/4 text-center font-['Outfit',sans-serif] text-lg font-light text-[#16140f]">
-          We fund companies with no revenue, product, or fully baked idea.
+        <p className="mt-6 w-3/4 text-center font-['Pretendard',sans-serif] text-lg font-light text-white/80">
+          All you need is an idea. Let's make it happen.
         </p>
 
         <a
           href="/apply"
-          className="mt-10 flex h-20 items-center justify-center rounded-full bg-black px-10 pb-1 font-['Source_Serif_4',serif] text-[1.75rem] font-normal italic text-[#f5f5ee] transition-opacity hover:opacity-90"
+          className="mt-10 flex h-20 items-center justify-center rounded-full bg-[#FF6C0F] px-10 pb-1 text-[1.75rem] font-bold uppercase text-[#FCFCF8] transition-all hover:brightness-90 hover:scale-105"
+          style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
         >
-          Apply
+          Apply Now
         </a>
 
          <div className="mt-20 flex w-full gap-3">
@@ -30,9 +34,9 @@ export default function CTA() {
              <img
                key={index}
                src={src}
-               alt="YC community"
+               alt="SPEC 커뮤니티"
                loading="lazy"
-               className={`aspect-square min-w-0 flex-1 rounded-lg object-cover ${
+               className={`aspect-square min-w-0 flex-1 rounded-lg object-cover opacity-80 ${
                  index >= 3 ? "max-md:hidden" : ""
                }`}
              />

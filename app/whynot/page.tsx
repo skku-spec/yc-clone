@@ -70,7 +70,7 @@ export default function WhyNotPage() {
               <li>
                 <Link
                   href="/about"
-                  className="text-[#16140f]/70 transition-colors hover:text-[#ff6600]"
+                  className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                 >
                   About Y Combinator
                 </Link>
@@ -78,7 +78,7 @@ export default function WhyNotPage() {
               <li>
                 <Link
                   href="/faq"
-                  className="text-[#16140f]/70 transition-colors hover:text-[#ff6600]"
+                  className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                 >
                   Frequently Asked Questions
                 </Link>

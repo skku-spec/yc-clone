@@ -113,7 +113,7 @@ export default function DemoDayTipsPage() {
               ))}
             </dl>
 
-            <div className="mt-12 rounded-lg border border-[#ff6600]/20 bg-[#ff6600]/5 p-6">
+            <div className="mt-12 rounded-lg border border-[#FF6C0F]/20 bg-[#FF6C0F]/5 p-6">
               <p className="mb-3 font-['Outfit',sans-serif] text-[15px] font-semibold text-[#16140f]">
                 Have more questions?
               </p>
@@ -121,7 +121,7 @@ export default function DemoDayTipsPage() {
                 Check out the{" "}
                 <Link
                   href="/demoday/faq"
-                  className="font-medium text-[#ff6600] underline decoration-[#ff6600]/30 underline-offset-2 transition-all hover:decoration-[#ff6600]"
+                  className="font-medium text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 transition-all hover:decoration-[#FF6C0F]"
                 >
                   Demo Day FAQ
                 </Link>{" "}

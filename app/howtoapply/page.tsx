@@ -34,7 +34,7 @@ export default function HowToApplyPage() {
                href="http://www.ycombinator.com/apply/"
                target="_blank"
                rel="noopener noreferrer"
-               className="text-[#ff6600] underline hover:opacity-70"
+               className="text-[#FF6C0F] underline hover:opacity-70"
              >
                applications
              </a>{" "}
@@ -96,7 +96,7 @@ export default function HowToApplyPage() {
             immune to marketing-speak; to us it&apos;s just noise.
             <a
               href="#n1"
-              className="ml-0.5 text-[#ff6600] hover:opacity-70"
+              className="ml-0.5 text-[#FF6C0F] hover:opacity-70"
             >
               1.
             </a>{" "}
@@ -318,7 +318,7 @@ export default function HowToApplyPage() {
             only a 1% chance of working, it would be worth backing.
             <a
               href="#n2"
-              className="ml-0.5 text-[#ff6600] hover:opacity-70"
+              className="ml-0.5 text-[#FF6C0F] hover:opacity-70"
             >
               2.
             </a>
@@ -357,7 +357,7 @@ export default function HowToApplyPage() {
              I&apos;ll take a look at the{" "}
              <Link
                href="/library"
-               className="text-[#ff6600] underline hover:opacity-70"
+               className="text-[#FF6C0F] underline hover:opacity-70"
              >
                video
              </Link>
@@ -460,7 +460,7 @@ export default function HowToApplyPage() {
             Here&apos;s an example of a successful application:{" "}
             <Link
               href="/apply/dropbox"
-              className="text-[#ff6600] underline hover:opacity-70"
+              className="text-[#FF6C0F] underline hover:opacity-70"
             >
               Dropbox&apos;s Summer 2007 application
             </Link>
@@ -479,7 +479,7 @@ export default function HowToApplyPage() {
               language with experienced investors. They&apos;ve heard so much of
               it that it no longer has any effect on them, except to confuse and
               annoy them.{" "}
-              <a href="#r1" className="text-[#ff6600] hover:opacity-70">
+              <a href="#r1" className="text-[#FF6C0F] hover:opacity-70">
                 ↪
               </a>
             </li>
@@ -493,7 +493,7 @@ export default function HowToApplyPage() {
               ideas about that. I wouldn&apos;t expect to be able to figure out
               the right answer, just as I wouldn&apos;t have expected anyone to
               figure out in 1990 what would make Microsoft irrelevant.{" "}
-              <a href="#r2" className="text-[#ff6600] hover:opacity-70">
+              <a href="#r2" className="text-[#FF6C0F] hover:opacity-70">
                 ↪
               </a>
             </li>
@@ -513,14 +513,14 @@ export default function HowToApplyPage() {
             </p>
             <ul className="mb-6 space-y-2">
               <li>
-                <a href="#intro" className="text-[#ff6600] hover:opacity-70">
+                <a href="#intro" className="text-[#FF6C0F] hover:opacity-70">
                   Introduction
                 </a>
               </li>
               <li>
                 <a
                   href="#matteroffact"
-                  className="text-[#ff6600] hover:opacity-70"
+                  className="text-[#FF6C0F] hover:opacity-70"
                 >
                   Matter of Fact Answers
                 </a>
@@ -528,20 +528,20 @@ export default function HowToApplyPage() {
               <li>
                 <a
                   href="#thefounders"
-                  className="text-[#ff6600] hover:opacity-70"
+                  className="text-[#FF6C0F] hover:opacity-70"
                 >
                   The Founders
                 </a>
               </li>
               <li>
-                <a href="#insight" className="text-[#ff6600] hover:opacity-70">
+                <a href="#insight" className="text-[#FF6C0F] hover:opacity-70">
                   Insight
                 </a>
               </li>
               <li>
                 <a
                   href="#exploration"
-                  className="text-[#ff6600] hover:opacity-70"
+                  className="text-[#FF6C0F] hover:opacity-70"
                 >
                   Further Exploration
                 </a>
@@ -549,25 +549,25 @@ export default function HowToApplyPage() {
               <li>
                 <a
                   href="#wildcard"
-                  className="text-[#ff6600] hover:opacity-70"
+                  className="text-[#FF6C0F] hover:opacity-70"
                 >
                   The Wildcard
                 </a>
               </li>
               <li>
-                <a href="#helpout" className="text-[#ff6600] hover:opacity-70">
+                <a href="#helpout" className="text-[#FF6C0F] hover:opacity-70">
                   Help Us Out
                 </a>
               </li>
               <li>
-                <a href="#example" className="text-[#ff6600] hover:opacity-70">
+                <a href="#example" className="text-[#FF6C0F] hover:opacity-70">
                   Example Application
                 </a>
               </li>
               <li>
                 <a
                   href="#footnotes"
-                  className="text-[#ff6600] hover:opacity-70"
+                  className="text-[#FF6C0F] hover:opacity-70"
                 >
                   Notes
                 </a>
@@ -581,20 +581,20 @@ export default function HowToApplyPage() {
               <li>
                 <Link
                   href="/apply"
-                  className="text-[#ff6600] hover:opacity-70"
+                  className="text-[#FF6C0F] hover:opacity-70"
                 >
                   Apply to Y Combinator
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-[#ff6600] hover:opacity-70">
+                <Link href="/faq" className="text-[#FF6C0F] hover:opacity-70">
                   Frequently Asked Questions
                 </Link>
               </li>
               <li>
                 <Link
                   href="/whynot"
-                  className="text-[#ff6600] hover:opacity-70"
+                  className="text-[#FF6C0F] hover:opacity-70"
                 >
                   Why Groups Aren&apos;t Invited
                 </Link>

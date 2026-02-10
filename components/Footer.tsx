@@ -3,70 +3,50 @@ import Link from "next/link";
 export default function Footer() {
   const footerLinks = {
     programs: [
-      { label: "YC Program", href: "/about" },
-      { label: "Startup School", href: "https://www.startupschool.org" },
-      { label: "Work at a Startup", href: "/jobs" },
-      { label: "Co-Founder Matching", href: "/cofounder-matching" },
+      { label: "SPEC 프로그램", href: "/about" },
+      { label: "스타트업 스쿨", href: "/startup-school" },
+      { label: "채용 정보", href: "/jobs" },
+      { label: "팀원 찾기", href: "/cofounder-matching" },
     ],
     resources: [
-      { label: "Startup Directory", href: "/companies" },
-      { label: "Startup Library", href: "/library" },
-      { label: "Investors", href: "/investors" },
-      { label: "Demo Day", href: "/demoday" },
-      { label: "Safe", href: "/documents" },
-      { label: "Hacker News", href: "https://news.ycombinator.com" },
-      { label: "Launch YC", href: "/launches" },
-      { label: "YC Deals", href: "https://deals.ycombinator.com" },
+      { label: "프로젝트 목록", href: "/companies" },
+      { label: "라이브러리", href: "/library" },
+      { label: "파트너", href: "/partners" },
+      { label: "데모데이", href: "/demoday" },
+      { label: "런칭 소식", href: "/launches" },
     ],
     company: [
-      { label: "YC Blog", href: "/blog" },
-      { label: "Contact", href: "/contact" },
-      { label: "Press", href: "/press" },
-      { label: "People", href: "/people" },
-      { label: "Careers", href: "/careers" },
-      { label: "Privacy Policy", href: "/legal#privacy" },
-      { label: "Notice at Collection", href: "/legal#notice-at-collection" },
-      { label: "Security", href: "/security" },
-      { label: "Terms of Use", href: "/legal#tou" },
+      { label: "블로그", href: "/blog" },
+      { label: "문의하기", href: "/contact" },
+      { label: "멤버", href: "/people" },
+      { label: "개인정보처리방침", href: "/legal#privacy" },
+      { label: "이용약관", href: "/legal#tou" },
     ],
   };
 
   return (
-    <footer className="bg-black px-6 py-12 text-[#f5f5ee] lg:py-16">
+    <footer className="bg-black/90 border-t border-white/10 px-6 py-12 text-white lg:py-16">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-12 lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-4">
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 48 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M47.9985 47.9994H0V8.61853e-07H47.9985V47.9994Z"
-                fill="#FF6600"
-              />
-              <path
-                d="M13.9012 11.7843H17.6595L22.4961 21.5325C23.203 22.9836 23.7984 24.3976 23.7984 24.3976C23.7984 24.3976 24.4313 23.021 25.175 21.5325L30.0868 11.7843H33.5843L25.2865 27.3746V37.309H22.1244V27.1884L13.9012 11.7843Z"
-                fill="white"
-              />
-            </svg>
-            <h3 className="font-['Outfit',sans-serif] text-base font-light text-[#f5f5ee]">
-              Make something people want.
+            <div className="w-10 h-10 bg-[#FF6C0F] rounded-lg flex items-center justify-center">
+              <span className="text-white font-['MaruBuri',serif] font-bold text-lg">S</span>
+            </div>
+            <h3 className="font-['Pretendard',sans-serif] text-base font-light text-white/90">
+              만드는 사람이 세상을 바꾼다.
             </h3>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:gap-16">
             {(
               [
-                { key: "programs", title: "Programs" },
-                { key: "resources", title: "Resources" },
-                { key: "company", title: "Company" },
+                { key: "programs", title: "프로그램" },
+                { key: "resources", title: "리소스" },
+                { key: "company", title: "SPEC" },
               ] as const
             ).map((section) => (
               <div key={section.key} className="flex flex-col gap-4">
-                <h3 className="font-['Outfit',sans-serif] text-sm font-medium tracking-wider text-[#f5f5ee]">
+                <h3 className="font-['Pretendard',sans-serif] text-sm font-medium tracking-wider text-white">
                   {section.title}
                 </h3>
                 <div className="flex flex-col gap-2">
@@ -79,7 +59,7 @@ export default function Footer() {
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-['Outfit',sans-serif] text-sm font-light text-[#f5f5ee]/70 transition-colors hover:text-white"
+                          className="font-['Pretendard',sans-serif] text-sm font-light text-white/60 transition-colors hover:text-white"
                         >
                           {link.label}
                         </a>
@@ -89,7 +69,7 @@ export default function Footer() {
                       <Link
                         key={link.label}
                         href={link.href}
-                        className="font-['Outfit',sans-serif] text-sm font-light text-[#f5f5ee]/70 transition-colors hover:text-white"
+                        className="font-['Pretendard',sans-serif] text-sm font-light text-white/60 transition-colors hover:text-white"
                       >
                         {link.label}
                       </Link>
@@ -101,43 +81,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-gray-700 pt-8 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
           <div className="flex gap-4">
             <a
-              href="https://twitter.com/ycombinator"
+              href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#f5f5ee]/70 transition-colors hover:text-white"
-              aria-label="Twitter"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-            <a
-              href="https://www.facebook.com/YCombinator"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#f5f5ee]/70 transition-colors hover:text-white"
-              aria-label="Facebook"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-            </a>
-            <a
-              href="https://www.instagram.com/ycombinator"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#f5f5ee]/70 transition-colors hover:text-white"
+              className="text-white/50 transition-colors hover:text-white"
               aria-label="Instagram"
             >
               <svg
@@ -149,10 +99,10 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://www.linkedin.com/company/y-combinator"
+              href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#f5f5ee]/70 transition-colors hover:text-white"
+              className="text-white/50 transition-colors hover:text-white"
               aria-label="LinkedIn"
             >
               <svg
@@ -164,10 +114,10 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://www.youtube.com/c/ycombinator"
+              href="https://youtube.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#f5f5ee]/70 transition-colors hover:text-white"
+              className="text-white/50 transition-colors hover:text-white"
               aria-label="YouTube"
             >
               <svg
@@ -180,8 +130,8 @@ export default function Footer() {
             </a>
           </div>
 
-          <p className="font-['Outfit',sans-serif] text-sm font-light text-[#f5f5ee]/70">
-            &copy; 2026 Y Combinator
+          <p className="font-['Pretendard',sans-serif] text-sm font-light text-white/50">
+            &copy; 2026 SPEC 성균관대학교 창업 학회
           </p>
         </div>
       </div>
