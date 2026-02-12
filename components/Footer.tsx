@@ -1,10 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   const footerLinks = {
     programs: [
       { label: "SPEC 프로그램", href: "/about" },
-      { label: "스타트업 스쿨", href: "/startup-school" },
       { label: "채용 정보", href: "/jobs" },
       { label: "팀원 찾기", href: "/cofounder-matching" },
     ],
@@ -29,11 +29,9 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-12 lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-4">
-            <div className="w-10 h-10 bg-[#FF6C0F] rounded-lg flex items-center justify-center">
-              <span className="text-white font-['MaruBuri',serif] font-bold text-lg">S</span>
-            </div>
+            <Image src="/logo_ver1.png" alt="SPEC" width={40} height={40} />
             <h3 className="font-['Pretendard',sans-serif] text-base font-light text-white/90">
-              만드는 사람이 세상을 바꾼다.
+              Execution is everything.
             </h3>
           </div>
 

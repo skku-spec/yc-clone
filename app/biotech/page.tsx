@@ -1,343 +1,130 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "Biotech | Y Combinator",
+  title: "Bio & Healthcare | SPEC",
   description:
-    "We want to enable scientists and inventors to bring their work to market. We've funded companies that cover the whole life sciences spectrum.",
+    "SPEC 바이오/헬스케어 분야 창업 지원",
 };
 
 export default function BiotechPage() {
   return (
     <>
-      <h1 className="px-4 pt-12 text-center font-['Source_Serif_4',serif] text-[clamp(2.5rem,5vw,3.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f] md:pt-16">
-        Biotech &amp; Life Science Companies
-      </h1>
+      <div className="pt-14 md:pt-20">
+        <PageHeader title="Bio &amp; Healthcare" align="center" />
+      </div>
 
-      <div className="mx-auto flex max-w-[1100px] gap-12 px-4 pb-10 pt-8 md:px-8 lg:px-12">
-        <article className="min-w-0 max-w-[720px] flex-1 font-['Outfit',sans-serif] text-base font-light leading-relaxed text-[#16140f]">
+      <div className="mx-auto flex max-w-[1100px] gap-12 px-4 pb-24 pt-8 md:px-8">
+        <article className="min-w-0 max-w-[720px] flex-1 font-['Pretendard',sans-serif] text-base font-normal leading-relaxed text-[#16140f]">
           <p className="mb-6">
-            YC funded our first biotech company, (
-             <a
-               href="https://www.ginkgobioworks.com/"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-             >
-               Ginkgo Bioworks
-             </a>
-            ), in 2014. Since then, we&apos;ve expanded aggressively into all
-            areas of biotech and the life sciences. Today, YC funds more biotech
-            startups each year than any other investor.
+            SPEC은 바이오/헬스케어 분야의 창업팀을 적극적으로 지원합니다. 성균관대학교의 강력한 연구 인프라와 함께, 실험실의 기술을 시장으로 연결하는 것이 우리의 목표입니다. 기술 창업의 새로운 가능성을 여는 팀과 함께하고 싶습니다.
           </p>
 
           <h3
             id="whoapply"
-            className="mb-4 mt-10 font-['Source_Serif_4',serif] text-2xl font-medium italic text-[#16140f]"
+            className="mb-4 mt-10 font-['MaruBuri',serif] text-2xl font-normal text-[#16140f]"
           >
-            Who Should Apply
+            지원 대상
           </h3>
 
           <p className="mb-6">
-            A revolution is happening in life sciences that is reminiscent of
-            what happened in software in the 90&apos;s. Now that cost and cycle
-            time have decreased for biotech, it&apos;s possible for new startups
-            to do groundbreaking work.
+            바이오/헬스케어 분야는 지금 큰 변화를 맞이하고 있습니다. 기술 개발 비용과 시간이 크게 줄어들면서, 스타트업도 혁신적인 연구를 현실로 만들 수 있게 되었습니다.
           </p>
 
           <p className="mb-6">
-            While we also fund companies that are further along, we&apos;re
-            especially comfortable funding life science projects at their
-            earliest stage, right when they&apos;re ready to spin out of
-            university research.
+            SPEC은 초기 단계의 프로젝트를 환영합니다. 연구실에서 막 나온 아이디어, 대학 연구를 사업화하려는 팀, 기술을 시장으로 가져가려는 모든 창업자를 지원합니다.
           </p>
 
           <p className="mb-6">
-            We&apos;ve funded companies that cover the whole life sciences
-            spectrum, including synthetic biology, therapeutics, digital health,
-            diagnostics, medical devices, food technology like clean meat,
-            platforms and tools. The examples range from creating{" "}
-             <a
-               href="http://notablelabs.com/"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-             >
-               personalized
-             </a>{" "}
-             cancer treatments to{" "}
-             <a
-               href="http://solugen.com/"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-             >
-               producing industrial chemicals
-             </a>
-            .
+            우리가 관심 있는 분야는 다양합니다: 디지털 헬스, 의료 AI, 진단 기기, 바이오마커, 헬스테크 플랫폼, 맞춤형 치료제, 예방 의학 등. 기술로 건강 문제를 해결하는 모든 접근을 환영합니다.
           </p>
 
           <h3
             id="whatwedo"
-            className="mb-4 mt-10 font-['Source_Serif_4',serif] text-2xl font-medium italic text-[#16140f]"
+            className="mb-4 mt-10 font-['MaruBuri',serif] text-2xl font-normal text-[#16140f]"
           >
-            What We Do for Life Science Companies
+            SPEC의 지원
           </h3>
 
           <p className="mb-6">
-            Every life sciences company is different, so we don&apos;t have a
-            curriculum or a one-size-fits-all program. Instead, we work with
-            each company individually to help solve whatever their current
-            challenges are.
+            모든 바이오/헬스케어 스타트업은 고유한 어려움을 가지고 있습니다. SPEC은 획일적인 프로그램 대신, 각 팀의 현재 과제에 맞춘 맞춤형 지원을 제공합니다.
           </p>
 
           <p className="mb-6">
-            Some of the things we often help companies with include: regulatory
-            approval and clinical trial sites, patents and IP protection,
-            reimbursement and developing their business model, negotiating with
-            tech transfer offices, finding initial customers, and raising money
-            from investors. We also love to get deep into the science and help
-            founders think through the scientific bets they are making.
+            우리가 도울 수 있는 영역: 규제 승인 및 임상 계획, 특허 및 지식재산권 보호, 수익 모델 개발, 기술이전 협상, 초기 고객 발굴, 투자 유치 준비. 과학적 기술에 대한 깊이 있는 논의도 함께합니다.
           </p>
 
           <p className="mb-6">
-            Life science companies are still expensive to start (though they are
-            getting cheaper), and one of the most important things we do is to
-            prepare companies to raise a large round from investors. Bio
-            companies in YC have been very successful at raising multi-million
-            dollar rounds at the end of the program.
+            바이오/헬스케어 스타트업은 여전히 초기 자본이 많이 필요합니다. SPEC은 팀이 투자를 성공적으로 유치할 수 있도록 준비시키는 데 집중합니다. 사업 계획, 피칭, 투자자 네트워크 연결까지 전 과정을 지원합니다.
           </p>
 
           <p className="mb-6">
-            One of the most valuable parts of YC for bio companies is the
-            network of other bio companies we have funded. It is now a diverse
-            network of impressive domain experts who go out of their way to help
-            each other. There are also now a number of YC companies that provide
-            critical services widely used by the other bio companies:
+            SPEC의 가장 큰 자산은 네트워크입니다. 성균관대학교의 약학대학, 의과대학, 생명과학과와의 긴밀한 협력, 그리고 바이오 업계 출신 멘토진이 함께합니다. 서로 돕고 성장하는 커뮤니티가 여기 있습니다.
           </p>
 
           <ul className="mb-6 list-disc space-y-1 pl-6">
              <li>
-               <a
-                 href="https://www.enzyme.com"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Enzyme
-               </a>{" "}
-               - FDA consulting as a service
+               <span className="font-normal text-[#16140f]">성균관대 약학대학</span>{" "}
+               — 신약 개발 및 제약 산업 전문 지원
              </li>
              <li>
-               <a
-                 href="https://www.scienceexchange.com"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Science Exchange
-               </a>{" "}
-               - marketplace for scientific supplies
+               <span className="font-normal text-[#16140f]">성균관대 의과대학</span>{" "}
+               — 임상 연구 및 의료 기기 개발 협력
              </li>
              <li>
-               <a
-                 href="http://www.atomwise.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Atomwise
-               </a>{" "}
-               – computational drug discovery
+               <span className="font-normal text-[#16140f]">생명과학과 연구실</span>{" "}
+               — 바이오마커 및 진단 기술 공동 연구
              </li>
              <li>
-               <a
-                 href="http://www.cognitionip.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Cognition IP
-               </a>{" "}
-               – life science patent law firm
+               <span className="font-normal text-[#16140f]">바이오 업계 멘토진</span>{" "}
+               — 제약사, 병원, 헬스테크 기업 출신 전문가
              </li>
              <li>
-               <a
-                 href="https://www.quartzy.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Quartzy
-               </a>{" "}
-               - lab management
-             </li>
-             <li>
-               <a
-                 href="https://www.culturebiosciences.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Culture Biosciences
-               </a>{" "}
-               - bioreactors on demand
+               <span className="font-normal text-[#16140f]">규제 전문가 네트워크</span>{" "}
+               — 식약처 승인 및 임상 시험 가이드
              </li>
           </ul>
 
           <p className="mb-6">
-            YC doesn&apos;t have its own lab space for founders. We&apos;ve
-            found that what founders want in lab space is simply too varied for
-            one space to work for everyone. Instead, we work with the lab space
-            providers to get preferential access and deals for YC companies. The
-            Bay Area has some of the world&apos;s best lab space options for
-            startups, so no matter what you need, we can help you find it.
+            <strong className="font-normal">"실험실에서 시장으로"</strong> — SPEC은 대학 연구를 사업으로 연결하는 것을 돕습니다. 성균관대 캠퍼스 내 연구 시설 접근, 외부 랩 공간 연결, 장비 및 시약 지원까지, 연구 환경이 필요한 모든 부분을 지원합니다.
           </p>
 
           <h3
             id="alumni"
-            className="mb-4 mt-10 font-['Source_Serif_4',serif] text-2xl font-medium italic text-[#16140f]"
+            className="mb-4 mt-10 font-['MaruBuri',serif] text-2xl font-normal text-[#16140f]"
           >
-            Alumni
+            성공 사례
           </h3>
 
           <p className="mb-4">
-            Here are some of the biotech/life sciences companies we&apos;ve
-            funded:
+            SPEC에서 지원하고 성장한 바이오/헬스케어 팀들:
           </p>
 
           <ul className="mb-6 list-disc space-y-1 pl-6">
              <li>
-               <a
-                 href="http://ginkgobioworks.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Ginkgo Bioworks
-               </a>{" "}
-               – engineering new organisms
+               <span className="font-normal text-[#16140f]">헬스케어 AI 스타트업 A</span>{" "}
+               — 의료 영상 분석 AI로 조기 진단 시스템 개발
              </li>
              <li>
-               <a
-                 href="http://solugen.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Solugen
-               </a>{" "}
-               – producing industrial chemicals with synthetic biology
+               <span className="font-normal text-[#16140f]">디지털 헬스 플랫폼 B</span>{" "}
+               — 만성질환 관리를 위한 모바일 헬스케어 서비스
              </li>
              <li>
-               <a
-                 href="https://asherbio.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Asher Bio
-               </a>{" "}
-               - cancer immunotherapies
+               <span className="font-normal text-[#16140f]">바이오마커 진단 C</span>{" "}
+               — 혈액 기반 암 조기 진단 키트 개발
              </li>
              <li>
-               <a
-                 href="https://www.lucirahealth.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Lucira Health
-               </a>{" "}
-               - diagnostics for infectious disease
+               <span className="font-normal text-[#16140f]">의료기기 스타트업 D</span>{" "}
+               — 비침습 혈당 측정 웨어러블 기기
              </li>
              <li>
-               <a
-                 href="http://www.zenflow.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Zenflow
-               </a>{" "}
-               – medical device for PBH
+               <span className="font-normal text-[#16140f]">신약 개발 팀 E</span>{" "}
+               — AI 기반 신약 후보 물질 발굴 플랫폼
              </li>
              <li>
-               <a
-                 href="https://www.reverielabs.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Reverie Labs
-               </a>{" "}
-               – next-generation kinase inhibitors for oncology
-             </li>
-             <li>
-               <a
-                 href="https://notablelabs.com"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Notable Labs
-               </a>{" "}
-               - personalized drug discovery for blood cancer
-             </li>
-             <li>
-               <a
-                 href="https://billiontoone.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 BillionToOne
-               </a>{" "}
-               - fetal genetic testing service
-             </li>
-             <li>
-               <a
-                 href="https://alpine-roads.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Alpine Roads
-               </a>{" "}
-               - plants engineered to express milk proteins
-             </li>
-             <li>
-               <a
-                 href="https://athelas.com/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Athelas
-               </a>{" "}
-               - point-of-care blood diagnostic device
-             </li>
-             <li>
-               <a
-                 href="https://shasqi.com"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Shasqi
-               </a>{" "}
-               - localized delivery for oncology drugs
-             </li>
-             <li>
-               <a
-                 href="https://endpoint.health/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 Endpoint Health
-               </a>{" "}
-               - precision medicine for hospital care
+               <span className="font-normal text-[#16140f]">원격의료 서비스 F</span>{" "}
+               — 환자-의료진 연결 텔레헬스 플랫폼
              </li>
           </ul>
 
@@ -346,98 +133,75 @@ export default function BiotechPage() {
               href="/companies?industry=Healthcare"
               className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
             >
-              Here is a complete list
-            </Link>{" "}
-            of the healthcare/life sciences companies we&apos;ve funded.
+              전체 헬스케어 스타트업 목록 보기
+            </Link>
           </p>
 
           <h3
             id="blogposts"
-            className="mb-4 mt-10 font-['Source_Serif_4',serif] text-2xl font-medium italic text-[#16140f]"
+            className="mb-4 mt-10 font-['MaruBuri',serif] text-2xl font-normal text-[#16140f]"
           >
-            Blog posts
+            관련 자료
           </h3>
 
           <p className="mb-4">
-            Here are some things we&apos;ve written about biotech companies.
+            바이오/헬스케어 스타트업에 대해 우리가 공유한 글들:
           </p>
 
           <ul className="mb-6 list-disc space-y-1 pl-6">
              <li>
-               <a
-                 href="https://www.ycombinator.com/library/4L-how-biotech-startup-funding-will-change-in-the-next-10-years"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 How Biotech Startup Funding Will Change in the Next 10 Years
-               </a>
+               <span className="text-[#16140f]">
+                 대학 연구를 스타트업으로: 기술이전 가이드
+               </span>
              </li>
              <li>
-               <a
-                 href="https://www.ycombinator.com/library/8f-how-to-spin-your-scientific-research-out-of-a-university-and-into-a-startup"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 How to Spin Your Scientific Research Out Of a University and
-                 Into a Startup
-               </a>
+               <span className="text-[#16140f]">
+                 바이오 스타트업의 투자 유치 전략
+               </span>
              </li>
              <li>
-               <a
-                 href="https://www.ycombinator.com/library/4r-yc-and-hard-tech-startups"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
-               >
-                 YC and Hard Tech Startups
-               </a>
+               <span className="text-[#16140f]">
+                 헬스케어 규제 환경 이해하기
+               </span>
+             </li>
+             <li>
+               <span className="text-[#16140f]">
+                 디지털 헬스케어의 미래
+               </span>
              </li>
           </ul>
 
           <h3
             id="quotes"
-            className="mb-4 mt-10 font-['Source_Serif_4',serif] text-2xl font-medium italic text-[#16140f]"
+            className="mb-4 mt-10 font-['MaruBuri',serif] text-2xl font-normal text-[#16140f]"
           >
-            Quotes
+            창업자 후기
           </h3>
 
-          <blockquote className="mb-2 border-l-4 border-[#FF6C0F] pl-6 italic text-[#16140f]/80">
+          <blockquote className="mb-2 border-l-4 border-[#FF6C0F] pl-6 not-italic text-[#16140f]/80">
             <p>
-              The pace of YC is insane — you are part of a network of
-              fast-growing companies and feed off the energy. Ginkgo is on a
-              dramatically faster pace of growth now thanks to YC. I was amazed
-              how similar the challenges of scaling a startup are whether you are
-              a biotech or a software company. We learned a ton. I&apos;d do it
-              again in a heartbeat.
+              SPEC에서의 3개월은 제 연구를 완전히 다른 시각으로 보게 만들었습니다. 실험실에서는 몰랐던 시장의 언어를 배웠고, 기술을 제품으로 만드는 과정을 경험했습니다. 멘토들의 실전 경험과 조언이 정말 큰 도움이 되었습니다.
             </p>
           </blockquote>
           <p className="mb-8 text-sm text-[#16140f]/60">
-            – Jason Kelly, Ginkgo Bioworks
+            – 김○○, 의료 AI 스타트업 대표
           </p>
 
-          <blockquote className="mb-2 border-l-4 border-[#FF6C0F] pl-6 italic text-[#16140f]/80">
+          <blockquote className="mb-2 border-l-4 border-[#FF6C0F] pl-6 not-italic text-[#16140f]/80">
             <p>
-              YC was essential for creating Bikanta&apos;s
-              &apos;dictionary&apos;. During YC, we defined many of the key
-              elements of our company, from what is the core of our technology
-              to the important business milestones to achieve to how to create a
-              resourceful team. The YC experience was critical in shaping what
-              started as empowering technology into what is now a productive and
-              game-changing company.
+              처음에는 기술만 있으면 창업할 수 있다고 생각했습니다. SPEC을 통해 비즈니스 모델, 고객 개발, 투자 유치까지 배우면서 진짜 '스타트업'이 무엇인지 알게 되었습니다. 성균관대의 네트워크도 큰 자산이었습니다.
             </p>
           </blockquote>
           <p className="mb-8 text-sm text-[#16140f]/60">
-            – Ambika Bumb, Bikanta
+            – 이○○, 바이오마커 진단 팀 창업자
           </p>
         </article>
 
-        <nav className="sticky top-24 hidden h-fit w-[220px] shrink-0 font-['Outfit',sans-serif] text-sm lg:block">
+        <nav className="sticky top-24 hidden h-fit w-[170px] shrink-0 font-['Pretendard',sans-serif] text-sm lg:block">
           <div className="space-y-6">
             <div>
               <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#16140f]/50">
-                Contents
+                목차
               </p>
               <ul className="space-y-1.5">
                 <li>
@@ -445,7 +209,7 @@ export default function BiotechPage() {
                     href="#whoapply"
                     className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                   >
-                    Who Should Apply
+                    지원 대상
                   </a>
                 </li>
                 <li>
@@ -453,7 +217,7 @@ export default function BiotechPage() {
                     href="#whatwedo"
                     className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                   >
-                    What We Do
+                    SPEC의 지원
                   </a>
                 </li>
                 <li>
@@ -461,7 +225,7 @@ export default function BiotechPage() {
                     href="#alumni"
                     className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                   >
-                    Alumni
+                    성공 사례
                   </a>
                 </li>
                 <li>
@@ -469,14 +233,14 @@ export default function BiotechPage() {
                     href="#quotes"
                     className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                   >
-                    Quotes
+                    창업자 후기
                   </a>
                 </li>
               </ul>
             </div>
             <div>
               <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#16140f]/50">
-                Elsewhere
+                더 알아보기
               </p>
               <ul className="space-y-1.5">
                 <li>
@@ -484,7 +248,7 @@ export default function BiotechPage() {
                     href="/about"
                     className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                   >
-                    About Y Combinator
+                    SPEC 소개
                   </Link>
                 </li>
                 <li>
@@ -492,7 +256,7 @@ export default function BiotechPage() {
                     href="/faq"
                     className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                   >
-                    Frequently Asked Questions
+                    자주 묻는 질문
                   </Link>
                 </li>
               </ul>

@@ -25,10 +25,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const company = getCompanyDetailBySlug(slug);
   if (!company) {
-    return { title: "Company Not Found | Y Combinator" };
+    return { title: "Company Not Found | SPEC" };
   }
   return {
-    title: `${company.name}: ${company.oneLiner} | Y Combinator`,
+    title: `${company.name}: ${company.oneLiner} | SPEC`,
     description: company.description.slice(0, 160),
   };
 }
@@ -45,38 +45,38 @@ export default async function CompanyDetailPage({ params }: PageProps) {
 
   const related = getRelatedCompanies(company.slug);
 
-  return (
-    <div className="px-4 pb-16 pt-12 md:pt-16">
-      <div className="mx-auto max-w-[1100px]">
-        {/* Breadcrumb */}
-        <nav className="mb-8 flex items-center gap-2 font-['Outfit',sans-serif] text-[13px] font-normal text-[#16140f]/50">
-          <Link href="/" className="transition-colors hover:text-[#FF6C0F]">
-            Home
-          </Link>
-          <span className="text-[#16140f]/30">&rsaquo;</span>
-          <Link href="/companies" className="transition-colors hover:text-[#FF6C0F]">
-            Companies
-          </Link>
-          <span className="text-[#16140f]/30">&rsaquo;</span>
-          <span className="text-[#16140f]/70">{company.name}</span>
-        </nav>
+   return (
+     <div className="px-4 pb-24 pt-12 md:pt-16">
+       <div className="mx-auto max-w-[1100px]">
+         {/* Breadcrumb */}
+         <nav className="mb-8 flex items-center gap-2 font-['Pretendard',sans-serif] text-[13px] font-normal text-[#16140f]/50">
+           <Link href="/" className="transition-colors hover:text-[#FF6C0F]">
+             Home
+           </Link>
+           <span className="text-[#16140f]/30">&rsaquo;</span>
+           <Link href="/companies" className="transition-colors hover:text-[#FF6C0F]">
+             Companies
+           </Link>
+           <span className="text-[#16140f]/30">&rsaquo;</span>
+           <span className="text-[#16140f]/70">{company.name}</span>
+         </nav>
 
-        <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
+         <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
           {/* Main content */}
           <div className="min-w-0 flex-1">
             {/* Header */}
             <div className="mb-6">
               <div className="mb-4 flex items-center gap-5">
                 <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-xl border border-[#16140f]/8 bg-white shadow-sm">
-                  <span className="font-['Outfit',sans-serif] text-[28px] font-bold text-[#FF6C0F]">
+                  <span className="font-['Pretendard',sans-serif] text-[28px] font-bold text-[#FF6C0F]">
                     {company.name.charAt(0)}
                   </span>
                 </div>
                 <div>
-                  <h1 className="font-['Source_Serif_4',serif] text-[clamp(1.75rem,4vw,2.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
+                  <h1 className="font-[system-ui] text-[clamp(1.75rem,4vw,2.75rem)] font-black leading-tight tracking-tight text-[#16140f]">
                     {company.name}
                   </h1>
-                  <p className="mt-1 font-['Outfit',sans-serif] text-[17px] font-light text-[#16140f]/70">
+                  <p className="mt-1 font-['Pretendard',sans-serif] text-[17px] font-normal text-[#16140f]/70">
                     {company.oneLiner}
                   </p>
                 </div>
@@ -86,21 +86,21 @@ export default async function CompanyDetailPage({ params }: PageProps) {
               <div className="flex flex-wrap items-center gap-2">
                 <Link
                   href={`/companies?batch=${encodeURIComponent(company.batchSeason)}`}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#FF6C0F]/10 px-3 py-1 font-['Outfit',sans-serif] text-[12px] font-medium text-[#FF6C0F] transition-colors hover:bg-[#FF6C0F]/20"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#FF6C0F]/10 px-3 py-1 font-['Pretendard',sans-serif] text-[12px] font-medium text-[#FF6C0F] transition-colors hover:bg-[#FF6C0F]/20"
                 >
-                  <YCLogoSmall />
+                  <SPECLogoSmall />
                   {company.batchSeason}
                 </Link>
                 <StatusBadge status={company.status} />
                 {company.industries.map((ind) => (
                   <span
                     key={ind}
-                    className="rounded-full bg-[#16140f]/5 px-3 py-1 font-['Outfit',sans-serif] text-[12px] font-normal text-[#16140f]/60"
+                    className="rounded-full bg-[#16140f]/5 px-3 py-1 font-['Pretendard',sans-serif] text-[12px] font-normal text-[#16140f]/60"
                   >
                     {ind}
                   </span>
                 ))}
-                <span className="rounded-full bg-[#16140f]/5 px-3 py-1 font-['Outfit',sans-serif] text-[12px] font-normal text-[#16140f]/60">
+                <span className="rounded-full bg-[#16140f]/5 px-3 py-1 font-['Pretendard',sans-serif] text-[12px] font-normal text-[#16140f]/60">
                   {company.location}
                 </span>
               </div>
@@ -109,11 +109,11 @@ export default async function CompanyDetailPage({ params }: PageProps) {
             {/* Nav links */}
             <div className="mb-6 border-y border-[#16140f]/8 py-3">
               <div className="flex items-center justify-between">
-                <div className="flex gap-6 font-['Outfit',sans-serif] text-[14px] font-medium">
+                <div className="flex gap-6 font-['Pretendard',sans-serif] text-[14px] font-medium">
                   <span className="border-b-2 border-[#FF6C0F] pb-1 text-[#FF6C0F]">Company</span>
                   {company.jobs.length > 0 && (
                     <span className="flex items-center gap-1 text-[#16140f]/60">
-                      Jobs
+                      채용 공고
                       <span className="rounded-full bg-[#16140f]/8 px-1.5 py-0.5 text-[11px]">
                         {company.jobs.length}
                       </span>
@@ -124,7 +124,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                   href={company.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 font-['Outfit',sans-serif] text-[13px] font-medium text-[#16140f]/60 transition-colors hover:text-[#FF6C0F]"
+                  className="flex items-center gap-1.5 font-['Pretendard',sans-serif] text-[13px] font-medium text-[#16140f]/60 transition-colors hover:text-[#FF6C0F]"
                 >
                   <ExternalLinkIcon />
                   {company.website.replace(/^https?:\/\//, "")}
@@ -134,7 +134,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
 
             {/* Description */}
             <section className="mb-10">
-              <p className="font-['Outfit',sans-serif] text-[16px] font-light leading-[1.8] text-[#16140f]">
+              <p className="font-['Pretendard',sans-serif] text-[16px] font-normal leading-[1.8] text-[#16140f]">
                 {company.description}
               </p>
             </section>
@@ -142,8 +142,8 @@ export default async function CompanyDetailPage({ params }: PageProps) {
             {/* News */}
             {company.news.length > 0 && (
               <section className="mb-10">
-                <h2 className="mb-4 font-['Outfit',sans-serif] text-[18px] font-semibold text-[#16140f]">
-                  Latest News
+                <h2 className="mb-4 font-['Pretendard',sans-serif] text-[18px] font-semibold text-[#16140f]">
+                  뉴스
                 </h2>
                 <div className="space-y-3">
                   {company.news.map((item) => (
@@ -152,11 +152,11 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                         href={item.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-['Outfit',sans-serif] text-[14px] font-normal text-[#16140f] underline decoration-[#16140f]/20 underline-offset-2 transition-colors hover:text-[#FF6C0F] hover:decoration-[#FF6C0F]/40"
+                        className="font-['Pretendard',sans-serif] text-[14px] font-normal text-[#16140f] underline decoration-[#16140f]/20 underline-offset-2 transition-colors hover:text-[#FF6C0F] hover:decoration-[#FF6C0F]/40"
                       >
                         {item.title}
                       </a>
-                      <span className="shrink-0 font-['Outfit',sans-serif] text-[12px] font-light text-[#16140f]/40">
+                      <span className="shrink-0 font-['Pretendard',sans-serif] text-[12px] font-normal text-[#16140f]/40">
                         {item.date}
                       </span>
                     </div>
@@ -169,8 +169,8 @@ export default async function CompanyDetailPage({ params }: PageProps) {
             {company.jobs.length > 0 && (
               <section className="mb-10">
                 <div className="mb-4 flex items-center justify-between">
-                  <h2 className="font-['Outfit',sans-serif] text-[18px] font-semibold text-[#16140f]">
-                    Jobs at {company.name}
+                  <h2 className="font-['Pretendard',sans-serif] text-[18px] font-semibold text-[#16140f]">
+                    채용 공고
                   </h2>
                 </div>
                 <div className="space-y-0 divide-y divide-[#16140f]/6 rounded-lg border border-[#16140f]/8 bg-white">
@@ -180,17 +180,17 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                       className="flex items-center justify-between px-5 py-4"
                     >
                       <div>
-                        <h3 className="font-['Outfit',sans-serif] text-[14px] font-semibold text-[#16140f]">
+                        <h3 className="font-['Pretendard',sans-serif] text-[14px] font-semibold text-[#16140f]">
                           {job.title}
                         </h3>
-                        <div className="mt-0.5 flex items-center gap-2 font-['Outfit',sans-serif] text-[12px] font-light text-[#16140f]/50">
+                        <div className="mt-0.5 flex items-center gap-2 font-['Pretendard',sans-serif] text-[12px] font-normal text-[#16140f]/50">
                           <span>{job.location}</span>
                           <span className="text-[#16140f]/20">&bull;</span>
                           <span>{job.experience}</span>
                         </div>
                       </div>
-                      <span className="shrink-0 rounded-md bg-[#FF6C0F]/10 px-3 py-1.5 font-['Outfit',sans-serif] text-[12px] font-medium text-[#FF6C0F] transition-colors hover:bg-[#FF6C0F]/20">
-                        Apply Now &rsaquo;
+                      <span className="shrink-0 rounded-md bg-[#FF6C0F]/10 px-3 py-1.5 font-['Pretendard',sans-serif] text-[12px] font-medium text-[#FF6C0F] transition-colors hover:bg-[#FF6C0F]/20">
+                        지원하기 &rsaquo;
                       </span>
                     </div>
                   ))}
@@ -200,8 +200,8 @@ export default async function CompanyDetailPage({ params }: PageProps) {
 
             {/* Founders */}
             <section className="mb-10">
-              <h2 className="mb-5 font-['Outfit',sans-serif] text-[18px] font-semibold text-[#16140f]">
-                Founders
+              <h2 className="mb-5 font-['Pretendard',sans-serif] text-[18px] font-semibold text-[#16140f]">
+                창업자
               </h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 {company.founders.map((founder) => (
@@ -210,7 +210,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                     className="flex items-center gap-4 rounded-lg border border-[#16140f]/8 bg-white p-4"
                   >
                     <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#e8e8df]">
-                      <span className="font-['Outfit',sans-serif] text-[18px] font-bold text-[#16140f]/50">
+                      <span className="font-['Pretendard',sans-serif] text-[18px] font-bold text-[#16140f]/50">
                         {founder.name
                           .split(" ")
                           .map((n) => n[0])
@@ -219,7 +219,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-['Outfit',sans-serif] text-[14px] font-semibold text-[#16140f]">
+                        <h3 className="font-['Pretendard',sans-serif] text-[14px] font-semibold text-[#16140f]">
                           {founder.name}
                         </h3>
                         <div className="flex gap-1.5">
@@ -245,7 +245,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                           </a>
                         </div>
                       </div>
-                      <p className="font-['Outfit',sans-serif] text-[12px] font-normal text-[#16140f]/50">
+                      <p className="font-['Pretendard',sans-serif] text-[12px] font-normal text-[#16140f]/50">
                         {founder.title}
                       </p>
                     </div>
@@ -262,21 +262,21 @@ export default async function CompanyDetailPage({ params }: PageProps) {
               <div className="rounded-xl border border-[#16140f]/8 bg-white p-5 shadow-sm">
                 <div className="mb-4 flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#16140f]/8 bg-[#f5f5ee]">
-                    <span className="font-['Outfit',sans-serif] text-[16px] font-bold text-[#FF6C0F]">
+                    <span className="font-['Pretendard',sans-serif] text-[16px] font-bold text-[#FF6C0F]">
                       {company.name.charAt(0)}
                     </span>
                   </div>
-                  <span className="font-['Outfit',sans-serif] text-[15px] font-semibold text-[#16140f]">
+                  <span className="font-['Pretendard',sans-serif] text-[15px] font-semibold text-[#16140f]">
                     {company.name}
                   </span>
                 </div>
 
                 <div className="space-y-3">
-                  <InfoRow label="Founded" value={String(company.founded)} />
-                  <InfoRow label="Batch" value={company.batchSeason} />
-                  <InfoRow label="Team Size" value={company.teamSize} />
-                  <InfoRow label="Status" value={company.status} />
-                  <InfoRow label="Location" value={company.location} />
+                  <InfoRow label="설립" value={String(company.founded)} />
+                  <InfoRow label="기수" value={company.batchSeason} />
+                  <InfoRow label="팀 규모" value={company.teamSize} />
+                  <InfoRow label="상태" value={company.status} />
+                  <InfoRow label="위치" value={company.location} />
                 </div>
 
                 {/* Social links */}
@@ -328,8 +328,8 @@ export default async function CompanyDetailPage({ params }: PageProps) {
 
               {/* Related Companies */}
               <div className="rounded-xl border border-[#16140f]/8 bg-white p-5 shadow-sm">
-                <h3 className="mb-3 font-['Outfit',sans-serif] text-[12px] font-semibold uppercase tracking-[0.08em] text-[#16140f]/50">
-                  Related Companies
+                <h3 className="mb-3 font-['Pretendard',sans-serif] text-[12px] font-semibold uppercase tracking-[0.08em] text-[#16140f]/50">
+                  관련 회사
                 </h3>
                 <div className="space-y-3">
                   {related.map((r) => (
@@ -339,15 +339,15 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                       className="group flex items-center gap-3 rounded-md p-1 transition-colors hover:bg-[#FF6C0F]/5"
                     >
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[#16140f]/8 bg-[#f5f5ee]">
-                        <span className="font-['Outfit',sans-serif] text-[12px] font-bold text-[#FF6C0F]">
+                        <span className="font-['Pretendard',sans-serif] text-[12px] font-bold text-[#FF6C0F]">
                           {r.name.charAt(0)}
                         </span>
                       </div>
                       <div className="min-w-0">
-                        <p className="font-['Outfit',sans-serif] text-[13px] font-semibold text-[#16140f] transition-colors group-hover:text-[#FF6C0F]">
+                        <p className="font-['Pretendard',sans-serif] text-[13px] font-semibold text-[#16140f] transition-colors group-hover:text-[#FF6C0F]">
                           {r.name}
                         </p>
-                        <p className="truncate font-['Outfit',sans-serif] text-[11px] font-light text-[#16140f]/50">
+                        <p className="truncate font-['Pretendard',sans-serif] text-[11px] font-normal text-[#16140f]/50">
                           {r.oneLiner}
                         </p>
                       </div>
@@ -368,10 +368,10 @@ export default async function CompanyDetailPage({ params }: PageProps) {
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="font-['Outfit',sans-serif] text-[13px] font-normal text-[#16140f]/50">
+      <span className="font-['Pretendard',sans-serif] text-[13px] font-normal text-[#16140f]/50">
         {label}:
       </span>
-      <span className="font-['Outfit',sans-serif] text-[13px] font-medium text-[#16140f]">
+      <span className="font-['Pretendard',sans-serif] text-[13px] font-medium text-[#16140f]">
         {value}
       </span>
     </div>
@@ -387,18 +387,18 @@ function StatusBadge({ status }: { status: CompanyDetail["status"] }) {
   };
   return (
     <span
-      className={`rounded-full px-3 py-1 font-['Outfit',sans-serif] text-[12px] font-medium ${colors[status] || colors.Active}`}
+      className={`rounded-full px-3 py-1 font-['Pretendard',sans-serif] text-[12px] font-medium ${colors[status] || colors.Active}`}
     >
       {status}
     </span>
   );
 }
 
-function YCLogoSmall() {
+function SPECLogoSmall() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
       <rect width="24" height="24" rx="4" fill="#FF6C0F" />
-      <path d="M7 6l5 8v4h-1v-4L6 6h1zm4 8l5-8h1l-5 8v4h-1v-4z" fill="white" />
+      <text x="12" y="16" fontSize="14" fontWeight="bold" fill="white" textAnchor="middle" fontFamily="system-ui">S</text>
     </svg>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 import {
   COMPANIES,
   BATCH_OPTIONS,
@@ -55,7 +56,7 @@ export default function CompaniesPage() {
 
     if (sortBy === "launch") {
       return [...filtered].sort((a, b) => {
-        const batchOrder = BATCH_OPTIONS;
+        const batchOrder = BATCH_OPTIONS.map((o) => o.value);
         return batchOrder.indexOf(a.batch) - batchOrder.indexOf(b.batch);
       });
     }
@@ -71,97 +72,78 @@ export default function CompaniesPage() {
   const hasMore = visibleCount < filteredCompanies.length;
 
   return (
-    <div className="min-h-screen px-4 pb-16 pt-12 md:px-8 md:pt-16">
-      <div className="mx-auto max-w-[1200px] text-center">
-         <h1
-           className="mb-3 font-['Source_Serif_4',serif] font-medium tracking-tight text-[#16140f]"
-           style={{ fontSize: "60px", lineHeight: "75px" }}
-         >
-           Startup Directory
-         </h1>
-         <p className="mx-auto mb-8 max-w-[640px] font-['Outfit',sans-serif] text-[15px] font-light leading-relaxed text-[#16140f]/60">
-           Since 2005, we have invested in over 5,000 companies that have a combined
-           valuation of over $1T. To find jobs at a YC startup, visit{" "}
-           <Link href="/jobs" className="text-[#16140f] hover:text-[#FF6C0F]">
-             Work at a Startup
-           </Link>
-           .
-         </p>
+    <div className="min-h-screen px-4 pb-24 pt-14 md:px-8 md:pt-20">
+      <div className="mx-auto max-w-[1200px]">
+        <PageHeader title="SPEC-Backed Companies" align="center" />
+        <p className="mx-auto mb-8 max-w-[640px] text-center font-['Pretendard',sans-serif] text-[15px] font-normal leading-relaxed text-black/60">
+          SPEC 1~3기에서 탄생한 기업들입니다. 매주 매출 챌린지를 거쳐 실제 사업으로
+          성장한 팀들을 만나보세요.{" "}
+          <Link href="/jobs" className="text-[#FF6C0F] underline hover:text-[#e55c00]">
+            Companies 채용
+          </Link>
+        </p>
       </div>
 
-      <div className="mx-auto flex max-w-[1200px] gap-0">
-        <aside className="hidden w-[300px] shrink-0 md:block">
-          <div className="sticky top-24 space-y-1 overflow-y-auto" style={{ maxHeight: "calc(100vh - 120px)" }}>
-             <div className="mb-2">
-               <FilterCheckbox label="💎 Top Companies" checked={topCompaniesOnly} onChange={() => setTopCompaniesOnly(!topCompaniesOnly)} />
-               <FilterCheckbox label="Is Hiring" checked={isHiringOnly} onChange={() => setIsHiringOnly(!isHiringOnly)} />
-               <FilterCheckbox label="Nonprofit" checked={nonprofitOnly} onChange={() => setNonprofitOnly(!nonprofitOnly)} />
+      <div className="mx-auto flex max-w-[1200px] gap-8">
+        <aside className="hidden w-[240px] shrink-0 lg:block">
+          <div className="sticky top-24 space-y-5 overflow-y-auto rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5" style={{ maxHeight: "calc(100vh - 120px)" }}>
+             <div>
+               <FilterCheckbox label="Top 기업" checked={topCompaniesOnly} onChange={() => setTopCompaniesOnly(!topCompaniesOnly)} />
+               <FilterCheckbox label="채용 중" checked={isHiringOnly} onChange={() => setIsHiringOnly(!isHiringOnly)} />
              </div>
 
             <Divider />
 
-            <FilterSection title="Batch" expanded={batchExpanded} onToggle={() => setBatchExpanded(!batchExpanded)}>
+            <FilterSection title="기수" expanded={batchExpanded} onToggle={() => setBatchExpanded(!batchExpanded)}>
               {BATCH_OPTIONS.map((batch) => (
-                <FilterCheckbox key={batch} label={batch} checked={selectedBatches.includes(batch)} onChange={() => setSelectedBatches(toggleArrayItem(selectedBatches, batch))} small />
+                <FilterCheckbox key={batch.value} label={batch.label} checked={selectedBatches.includes(batch.value)} onChange={() => setSelectedBatches(toggleArrayItem(selectedBatches, batch.value))} small />
               ))}
             </FilterSection>
 
-            <FilterSection title="Industry" expanded={industryExpanded} onToggle={() => setIndustryExpanded(!industryExpanded)}>
+            <FilterSection title="분야" expanded={industryExpanded} onToggle={() => setIndustryExpanded(!industryExpanded)}>
               {INDUSTRY_OPTIONS.map((ind) => (
                 <FilterCheckbox key={ind} label={ind} checked={selectedIndustries.includes(ind)} onChange={() => setSelectedIndustries(toggleArrayItem(selectedIndustries, ind))} small />
               ))}
             </FilterSection>
 
-            <FilterSection title="HQ Region" expanded={regionExpanded} onToggle={() => setRegionExpanded(!regionExpanded)}>
+            <FilterSection title="지역" expanded={regionExpanded} onToggle={() => setRegionExpanded(!regionExpanded)}>
               {REGION_OPTIONS.map((region) => (
                 <FilterCheckbox key={region} label={region} checked={selectedRegions.includes(region)} onChange={() => setSelectedRegions(toggleArrayItem(selectedRegions, region))} small />
               ))}
             </FilterSection>
-
-            <Divider />
-
-            <div>
-              <p className="px-1 py-1.5 font-['Outfit',sans-serif] text-[12px] font-semibold tracking-wide text-[#16140f]/50 uppercase">
-                Tags
-              </p>
-              <FilterCheckbox label="Black-founded" checked={blackFoundedOnly} onChange={() => setBlackFoundedOnly(!blackFoundedOnly)} />
-              <FilterCheckbox label="Women-founded" checked={womenFoundedOnly} onChange={() => setWomenFoundedOnly(!womenFoundedOnly)} />
-              <FilterCheckbox label="Hispanic/Latino-founded" checked={hispanicLatinoFoundedOnly} onChange={() => setHispanicLatinoFoundedOnly(!hispanicLatinoFoundedOnly)} />
-            </div>
           </div>
         </aside>
 
         <div className="min-w-0 flex-1">
            <div className="mb-6">
-             <input
-               type="text"
-               placeholder="Search..."
-               value={searchQuery}
-               onChange={(e) => {
-                 setSearchQuery(e.target.value);
-                 setVisibleCount(ITEMS_PER_PAGE);
-               }}
-               className="w-full border border-[#16140f]/10 bg-white px-4 py-3 font-['Outfit',sans-serif] text-[15px] font-light text-[#16140f] shadow-sm outline-none transition-all placeholder:text-[#16140f]/35 focus:border-[#FF6C0F]/40 focus:ring-2 focus:ring-[#FF6C0F]/10"
-               style={{ borderRadius: "4px" }}
-             />
-           </div>
+              <input
+                type="text"
+                placeholder="기업 검색..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setVisibleCount(ITEMS_PER_PAGE);
+                }}
+                className="w-full rounded border-none font-['Pretendard',sans-serif] text-[13px] font-normal text-black outline-none transition-all placeholder:text-black/40 focus:ring-1 focus:ring-[#FF6C0F]/10"
+                style={{ height: 36, padding: "6px 12px", background: "rgb(239,239,232)" }}
+              />
+            </div>
 
            <div className="mb-4 flex items-center justify-between">
-            <p className="font-['Outfit',sans-serif] text-[13px] font-medium tracking-wide text-[#16140f]/50 uppercase">
-              {filteredCompanies.length} {filteredCompanies.length === 1 ? "company" : "companies"}
+            <p className="font-['Pretendard',sans-serif] text-[14px] font-normal text-black/60">
+              {filteredCompanies.length}개 기업
             </p>
             <div className="flex items-center gap-2">
-              <span className="font-['Outfit',sans-serif] text-[13px] font-normal text-[#16140f]/50">
-                Sort:
+              <span className="font-['Pretendard',sans-serif] text-[13px] font-normal text-black/50">
+                정렬:
               </span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as "default" | "launch")}
-                className="border border-[#16140f]/10 bg-white px-3 py-1.5 font-['Outfit',sans-serif] text-[13px] font-normal text-[#16140f] outline-none focus:border-[#FF6C0F]/40"
-                style={{ borderRadius: "4px" }}
+                className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8]/50 px-3 py-2 font-['Pretendard',sans-serif] text-[13px] font-normal text-black/80 outline-none transition-all focus:border-[#FF6C0F]/30 focus:ring-1 focus:ring-[#FF6C0F]/10"
               >
-                <option value="default">Default</option>
-                <option value="launch">Launch Date</option>
+                <option value="default">기본</option>
+                <option value="launch">기수순</option>
               </select>
             </div>
           </div>
@@ -169,21 +151,25 @@ export default function CompaniesPage() {
           {displayedCompanies.length === 0 ? (
             <EmptyState />
           ) : (
-            <div className="space-y-0">
-              {displayedCompanies.map((company) => (
-                <CompanyCard key={company.slug} company={company} />
-              ))}
-            </div>
+            <div className="overflow-hidden rounded-lg border border-[#c6c6c6]">
+               {displayedCompanies.map((company, index) => (
+                 <CompanyCard
+                   key={company.slug}
+                   company={company}
+                   isFirst={index === 0}
+                   isLast={index === displayedCompanies.length - 1}
+                 />
+               ))}
+             </div>
           )}
 
           {hasMore && (
             <div className="mt-8 flex justify-center">
               <button
                 onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}
-                className="border border-[#FF6C0F]/20 bg-[#FF6C0F]/5 px-8 py-3 font-['Outfit',sans-serif] text-[14px] font-medium text-[#FF6C0F] transition-all hover:border-[#FF6C0F]/40 hover:bg-[#FF6C0F]/10"
-                style={{ borderRadius: "4px" }}
+                className="rounded-lg border border-black/10 bg-black/3 px-8 py-2.5 font-['Pretendard',sans-serif] text-[13px] font-medium text-black/60 transition-all hover:bg-black/5 hover:text-black"
               >
-                Load more companies
+                더 보기
               </button>
             </div>
           )}
@@ -193,50 +179,52 @@ export default function CompaniesPage() {
   );
 }
 
-function CompanyCard({ company }: { company: Company }) {
+function CompanyCard({ company, isFirst = false, isLast = false }: { company: Company; isFirst?: boolean; isLast?: boolean }) {
+  const roundingClass = isFirst && isLast
+    ? "rounded-lg"
+    : isFirst
+      ? "rounded-t-lg"
+      : isLast
+        ? "rounded-b-lg"
+        : "";
+
   return (
     <Link
       href={`/companies/${company.slug}`}
-      className="group flex gap-4 border-b border-[#16140f]/6 transition-colors hover:bg-[#FF6C0F]/3"
-      style={{
-        background: "rgb(253,253,248)",
-        borderRadius: "8px 8px 0 0",
-        padding: "16px 20px",
-      }}
+      className={`group flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 transition-colors hover:bg-[#f5f5ee] ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
     >
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#16140f]/8 bg-white shadow-sm">
-        <span className="font-['Outfit',sans-serif] text-[18px] font-bold text-[#FF6C0F]">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#efefe8]">
+        <span className="font-['Pretendard',sans-serif] text-[18px] font-bold text-[#FF6C0F]">
           {company.name.charAt(0)}
         </span>
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <h3
-            className="font-['Outfit',sans-serif] text-[#16140f] transition-colors group-hover:text-[#FF6C0F]"
-            style={{ fontSize: "18px", fontWeight: 500 }}
-          >
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-['Pretendard',sans-serif] text-[18px] font-semibold text-black transition-colors group-hover:text-[#FF6C0F]">
             {company.name}
-          </h3>
-          <span className="font-['Outfit',sans-serif] text-[13px] font-normal text-[#16140f]/50">
+          </span>
+          <span className="font-['Pretendard',sans-serif] text-[15px] font-normal text-black/70">
             {company.batch}
           </span>
           {company.isTopCompany && (
-            <span className="shrink-0 text-[12px]" title="Top Company">💎</span>
+            <span className="rounded bg-[#FF6C0F]/10 px-2 py-0.5 font-['Pretendard',sans-serif] text-[10px] font-semibold text-[#FF6C0F]">
+              주요
+            </span>
           )}
         </div>
-        <p className="mt-0.5 line-clamp-1 font-['Outfit',sans-serif] text-[13px] font-light leading-relaxed text-[#16140f]/60">
+        <p className="mt-1 truncate font-['Pretendard',sans-serif] text-[13px] font-normal text-black/50">
           {company.oneLiner}
         </p>
         <div className="mt-1.5 flex flex-wrap gap-1.5">
           {company.industry.map((tag) => (
-            <span key={tag} className="rounded-full bg-[#16140f]/5 px-2 py-0.5 font-['Outfit',sans-serif] text-[11px] font-normal text-[#16140f]/60">
+            <span key={tag} className="rounded bg-[#e6e6dd] px-2.5 py-1 font-['Pretendard',sans-serif] text-[10px] font-medium text-[#333]">
               {tag}
             </span>
           ))}
           {company.isHiring && (
-            <span className="rounded-full bg-green-100 px-2 py-0.5 font-['Outfit',sans-serif] text-[11px] font-medium text-green-700">
-              Hiring
+            <span className="rounded bg-green-100 px-2.5 py-1 font-['Pretendard',sans-serif] text-[10px] font-medium text-green-700">
+              채용 중
             </span>
           )}
         </div>
@@ -257,14 +245,14 @@ function FilterCheckbox({
   small?: boolean;
 }) {
   return (
-    <label className="flex cursor-pointer items-center gap-2.5 rounded-md px-1 py-1.5 transition-colors hover:bg-[#16140f]/3">
+    <label className="flex cursor-pointer items-center gap-2.5 rounded-md px-1 py-1.5 transition-colors hover:bg-black/3">
       <input
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="h-4 w-4 shrink-0 cursor-pointer rounded border-[#16140f]/20 text-[#FF6C0F] accent-[#FF6C0F] focus:ring-[#FF6C0F]/30"
+        className="h-4 w-4 shrink-0 cursor-pointer rounded border-black/20 text-[#FF6C0F] accent-[#FF6C0F] focus:ring-[#FF6C0F]/30"
       />
-      <span className={`font-['Outfit',sans-serif] font-normal text-[#16140f]/80 ${small ? "text-[13px]" : "text-[14px]"}`}>
+      <span className={`font-['Pretendard',sans-serif] font-normal text-black/80 ${small ? "text-[13px]" : "text-[14px]"}`}>
         {label}
       </span>
     </label>
@@ -286,7 +274,7 @@ function FilterSection({
     <div className="py-1">
       <button
         onClick={onToggle}
-        className="flex w-full items-center justify-between px-1 py-1.5 font-['Outfit',sans-serif] text-[13px] font-semibold tracking-wide text-[#16140f]/70 uppercase transition-colors hover:text-[#16140f]"
+        className="flex w-full items-center justify-between px-1 py-1.5 font-['Pretendard',sans-serif] text-[14px] font-semibold text-[#333] transition-colors hover:text-black"
       >
         {title}
         <svg className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -303,17 +291,17 @@ function FilterSection({
 }
 
 function Divider() {
-  return <div className="my-3 h-px bg-[#16140f]/8" />;
+  return <div className="h-px bg-[#c6c6c6]" />;
 }
 
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[#16140f]/15 py-20">
-      <svg className="mb-4 h-12 w-12 text-[#16140f]/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#c6c6c6] py-20">
+      <svg className="mb-4 h-12 w-12 text-black/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
-      <p className="font-['Outfit',sans-serif] text-[15px] font-light text-[#16140f]/50">
-        No companies match your search.
+      <p className="font-['Pretendard',sans-serif] text-[15px] font-normal text-black/50">
+        검색 결과가 없습니다.
       </p>
     </div>
   );

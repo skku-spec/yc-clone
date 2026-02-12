@@ -89,7 +89,7 @@ export default function RoleClient({ params }: { params: Promise<{ role: string 
   }, [role]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-24">
       <section className="border-b border-[#d4d4cc] bg-[#f5f5ee] px-4 pb-8 pt-12 md:pb-10 md:pt-16">
         <div className="mx-auto max-w-[900px]">
           <div className="mb-3 font-sans text-sm font-light text-[#16140f]/50">
@@ -101,10 +101,10 @@ export default function RoleClient({ params }: { params: Promise<{ role: string 
           <h1 className="mb-3 font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
             {roleLabel} Jobs
           </h1>
-          <p className="max-w-[520px] font-sans text-base font-light leading-relaxed text-[#16140f]/70">
-            {filteredJobs.length} open {roleLabel.toLowerCase()} positions at top
-            YC startups.
-          </p>
+           <p className="max-w-[520px] font-sans text-base font-light leading-relaxed text-[#16140f]/70">
+             {filteredJobs.length} open {roleLabel.toLowerCase()} positions at top
+             SPEC startups.
+           </p>
 
           <div className="mx-auto mt-6 max-w-[540px]">
             <div className="relative">

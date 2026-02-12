@@ -8,8 +8,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ role: string }> }) {
   const { role } = await params;
   return {
-    title: `${getRoleLabel(role)} Jobs | Y Combinator`,
-    description: `Find ${getRoleLabel(role).toLowerCase()} jobs at top YC startups.`,
+    title: `채용 - ${getRoleLabel(role)} | SPEC`,
+    description: `SPEC 회원사의 ${getRoleLabel(role)} 채용 공고를 확인하세요.`,
   };
 }
 

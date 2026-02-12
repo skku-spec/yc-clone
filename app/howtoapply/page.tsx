@@ -1,513 +1,468 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "How to Apply to Y Combinator | Y Combinator",
-  description:
-    "I thought it might help applicants if I explained what we look for when we read applications.",
+  title: "지원 가이드 | SPEC",
+  description: "SPEC 지원 방법과 좋은 지원서 작성법",
 };
 
 export default function HowToApplyPage() {
   return (
-    <section className="mx-auto max-w-[1100px] px-4 pb-24 pt-16">
-      <div className="mb-8 text-center">
-        <h1 className="font-serif text-[40px] font-medium leading-[1.2] text-[#16140f] md:text-[60px] md:leading-[75px]">
-          How to Apply to Y Combinator
-        </h1>
-        <p className="mt-2 font-sans text-base text-[#16140f]/60">
-          Paul Graham
-        </p>
-      </div>
+    <section className="mx-auto max-w-[1100px] px-4 pb-24 pt-14 md:pt-20">
+      <PageHeader title="How to Apply" subtitle="SPEC 지원 가이드" align="center" />
 
-      <div className="mx-auto flex max-w-[900px] flex-col-reverse gap-12 md:flex-row">
+      <div className="mx-auto flex max-w-[1100px] flex-col-reverse gap-12 md:flex-row">
         <article className="min-w-0 flex-[2]">
           <h3
             id="intro"
-            className="mb-3 font-sans text-lg font-semibold text-[#16140f]"
+            className="mb-3 font-['Pretendard',sans-serif] text-lg font-semibold text-[#16140f]"
           >
             Introduction
           </h3>
 
-           <h2 className="mb-6 font-serif text-[28px] font-medium leading-snug text-[#16140f]">
-             Four times a year Y Combinator takes{" "}
-             <a
-               href="http://www.ycombinator.com/apply/"
-               target="_blank"
-               rel="noopener noreferrer"
+           <h2 className="mb-6 font-['MaruBuri',serif] text-[28px] font-medium leading-snug text-[#16140f]">
+             매 기수마다 SPEC은{" "}
+             <Link
+               href="/apply"
                className="text-[#FF6C0F] underline hover:opacity-70"
              >
-               applications
-             </a>{" "}
-             for funding. I thought it might help applicants if I explained what
-             we look for when we read them.
+               지원서
+             </Link>
+             를 받습니다. 지원자분들에게 도움이 될 수 있도록, 저희가 지원서를
+             읽을 때 무엇을 보는지 설명하겠습니다.
            </h2>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Probably the biggest thing people don&apos;t understand about the
-            process is the importance of expressing yourself clearly. Every year
-            we get some applications that are obviously good, some that are
-            obviously bad, and in the middle a huge number where we just
-            can&apos;t tell. The idea seems kind of promising, but it&apos;s not
-            explained well enough for us to understand it. The founders seem like
-            they might be good, but we don&apos;t get a clear enough picture of
-            them to say for sure.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            아마 지원 과정에서 사람들이 가장 잘 모르는 부분은 &apos;명확하게
+            표현하는 것&apos;의 중요성일 겁니다. 매 기수마다 우리는 분명히 좋은
+            지원서, 분명히 아닌 지원서, 그리고 그 사이의 거대한 회색 지대를
+            마주합니다. 아이디어가 괜찮아 보이지만 충분히 설명되지 않아서
+            이해하기 어려운 경우, 팀원들이 괜찮은 것 같지만 확신할 수 없는
+            경우가 그렇습니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            I suspect for every group we invite to interviews, there are one or
-            two more that are just as good but that we pass over because they
-            don&apos;t manage to convey how good they are. If that&apos;s true,
-            another way to say it is that, of groups good enough to make it to
-            interviews, more than half blow the application.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            면접에 초대하는 팀마다, 아마 한두 팀은 실력이 비슷하지만 그걸
+            제대로 전달하지 못해서 탈락하는 경우가 있을 겁니다. 다시 말하면,
+            면접에 올라올 실력이 되는 팀 중 절반 이상이 지원서 단계에서
+            떨어진다는 의미입니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            If we get 1000 applications and have 10 days to read them, we have
-            to read about 100 a day. That means a YC partner who reads your
-            application will on average have already read 50 that day and have 50
-            more to go. Yours has to stand out. So you have to be exceptionally
-            clear and concise. Whatever you have to say, give it to us right in
-            the first sentence, in the simplest possible terms.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            만약 100개의 지원서를 일주일 안에 읽어야 한다면, 하루에 20개
+            이상의 지원서를 검토해야 합니다. 여러분의 지원서를 읽는 심사위원은
+            이미 그날 10개의 지원서를 읽었고, 앞으로 10개를 더 읽어야 합니다.
+            여러분의 지원서가 눈에 띄어야 합니다. 그래서 명확하고 간결해야
+            합니다. 전달하고 싶은 내용이 있다면, 첫 문장에, 가장 단순한
+            표현으로 써주세요.
           </p>
 
-          <p className="mb-6 font-sans text-base leading-relaxed text-[#16140f]">
-            All the YC partners read applications. We each do it separately, to
-            avoid groupthink, so I&apos;m not sure exactly what the others do,
-            but it&apos;s probably similar to what I do.
+          <p className="mb-6 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            SPEC의 모든 운영진이 지원서를 읽습니다. 집단사고를 피하기 위해
+            각자 독립적으로 평가한 뒤 모여서 논의합니다.
           </p>
 
           <h3
-            id="matteroffact"
-            className="mb-3 mt-8 font-sans text-lg font-semibold text-[#16140f]"
+            id="whatwelookfor"
+            className="mb-3 mt-8 font-[system-ui] text-lg font-semibold text-[#16140f]"
           >
-            Matter of Fact Answers
+            What We Look For
           </h3>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            The first question I look at is, &quot;What is your company going to
-            make?&quot; This isn&apos;t the question I care most about, but I
-            look at it first because I need something to hang the application on
-            in my mind.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            저희가 가장 먼저 보는 질문은 &quot;무엇을 만들 건가요?&quot;
+            입니다. 가장 중요한 질문은 아니지만, 지원서 전체를 이해하기 위한
+            출발점이기 때문에 먼저 봅니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            The best answers are the most matter of fact. It&apos;s a mistake to
-            use marketing-speak to make your idea sound more exciting. We&apos;re
-            immune to marketing-speak; to us it&apos;s just noise.
-            <a
-              href="#n1"
-              className="ml-0.5 text-[#FF6C0F] hover:opacity-70"
-            >
-              1.
-            </a>{" "}
-            So don&apos;t begin your answer with something like
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            가장 좋은 답변은 가장 사실적인 답변입니다. 마케팅 용어를 써서
+            아이디어를 더 흥미롭게 포장하려는 것은 실수입니다. 저희는 마케팅
+            용어에 면역이 있습니다. 저희에게 그건 그냥 소음일 뿐입니다.
+            그러니 이런 식으로 시작하지 마세요:
           </p>
 
-          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-sans text-base italic leading-relaxed text-[#16140f]/80">
-            We are going to transform the relationship between individuals and
-            information.
+          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-['MaruBuri',serif] text-base italic leading-relaxed text-[#16140f]/80">
+            우리는 개인과 정보 사이의 관계를 혁신적으로 변환할 것입니다.
           </blockquote>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            That sounds impressive, but it conveys nothing. It could be a
-            description of any technology company. Are you going to build a
-            search engine? Database software? A router? I have no idea.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            인상적으로 들리지만, 아무 내용도 전달하지 못합니다. 어떤 기술
+            회사든 될 수 있는 설명입니다. 검색엔진을 만드나요? 데이터베이스
+            소프트웨어인가요? 전혀 알 수 없습니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            One test of whether you&apos;re explaining your idea effectively is
-            to ask how close the reader is to reproducing it. After reading that
-            sentence I&apos;m no closer than I was before, so its content is
-            effectively zero. Another mistake is to begin with a sweeping
-            introductory paragraph about how important the problem is:
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            아이디어를 효과적으로 설명하고 있는지 테스트하는 방법이 있습니다.
+            읽는 사람이 그 제품을 얼마나 구체적으로 상상할 수 있는지
+            확인하는 것입니다. 위의 문장을 읽고 난 뒤에도 저는 이전보다
+            아무것도 더 알게 된 게 없습니다. 내용이 사실상 제로인 것이죠.
+            또 다른 흔한 실수는 문제가 얼마나 중요한지에 대한 거창한
+            서론으로 시작하는 것입니다:
           </p>
 
-          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-sans text-base italic leading-relaxed text-[#16140f]/80">
-            Information is the lifeblood of the modern organization. The ability
-            to channel information quickly and efficiently to those who need it
-            is critical to a company&apos;s success. A company that achieves an
-            edge in the efficient use of information will, all other things being
-            equal, have a significant edge over competitors.
+          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-['MaruBuri',serif] text-base italic leading-relaxed text-[#16140f]/80">
+            정보는 현대 조직의 생명줄입니다. 필요한 사람에게 빠르고 효율적으로
+            정보를 전달하는 능력은 조직의 성공에 필수적입니다. 정보 활용에서
+            우위를 점하는 기업은, 다른 조건이 같다면, 경쟁사 대비 상당한
+            경쟁력을 갖게 됩니다.
           </blockquote>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Again, zero content; after reading this, the reader is no closer to
-            reproducing your project than before. A good answer would be
-            something like:
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            역시 내용이 제로입니다. 이걸 읽어도 여러분의 프로젝트를 이해하는
+            데 전혀 가까워지지 않습니다. 좋은 답변은 이런 식입니다:
           </p>
 
-          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-sans text-base italic leading-relaxed text-[#16140f]/80">
-            A database with a wiki-like interface, combined with a graphical UI
-            for controlling who can see and edit what.
+          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-['MaruBuri',serif] text-base italic leading-relaxed text-[#16140f]/80">
+            위키 형태의 인터페이스를 가진 데이터베이스에, 누가 무엇을 보고
+            편집할 수 있는지 관리하는 그래픽 UI를 결합한 것입니다.
           </blockquote>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            I&apos;m not convinced yet that this will be the next Google, but at
-            least I&apos;m starting to engage with it. I&apos;m thinking what
-            such a thing would be like.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            아직 이게 다음 유니콘이 될 거라고 확신하지는 않지만, 적어도
+            관심이 생기기 시작합니다. 그런 제품이 어떤 모습일지 상상하기
+            시작하거든요.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            One reason founders resist giving matter-of-fact descriptions is that
-            they seem to constrain your potential. &quot;But it&apos;s so much
-            more than a database with a wiki UI!&quot; The problem is, the less
-            constraining your description, the less you&apos;re saying. So
-            it&apos;s better to err on the side of matter-of-factness.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            창업자들이 사실적인 설명을 꺼리는 이유는 그것이 자신의 잠재력을
+            제한하는 것 같기 때문입니다. &quot;하지만 이건 위키 UI가 달린
+            데이터베이스보다 훨씬 더 큰 거예요!&quot; 문제는, 설명이 덜
+            제한적일수록 더 적은 것을 말하게 된다는 겁니다. 그러니 사실적인
+            쪽으로 치우치는 게 낫습니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            We advise startups presenting at Demo Day to do the same. Better to
-            start with an overly narrow description of your project than try to
-            describe it in its full generality and lose the audience completely.
-            If there&apos;s a simple one-sentence description of what you&apos;re
-            doing that only conveys half your potential, that&apos;s actually
-            pretty good. You&apos;re halfway to your destination in just the
-            first sentence.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            저희는 데모데이에 발표하는 팀들에게도 같은 조언을 합니다.
+            프로젝트의 전체 비전을 설명하려다 청중을 완전히 잃는 것보다,
+            지나치게 좁은 설명으로 시작하는 게 낫습니다. 잠재력의 절반만
+            전달하는 한 문장짜리 설명이 있다면, 사실 꽤 좋은 겁니다.
+            첫 문장만으로 목적지의 절반까지 온 거니까요.
           </p>
 
-          <p className="mb-6 font-sans text-base leading-relaxed text-[#16140f]">
-            One good trick for describing a project concisely is to explain it as
-            a variant of something the audience already knows. It&apos;s like
-            Wikipedia, but within an organization. It&apos;s like an answering
-            service, but for email. It&apos;s eBay for jobs. This form of
-            description is wonderfully efficient. Don&apos;t worry that it will
-            make your idea seem &quot;derivative.&quot; Some of the best ideas in
-            history began by sticking together two existing ideas no one realized
-            could be combined.
+          <p className="mb-6 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            프로젝트를 간결하게 설명하는 좋은 방법은, 청중이 이미 아는
+            것의 변형으로 설명하는 것입니다. &quot;조직 내부의
+            위키피디아입니다.&quot; &quot;이메일용 자동응답 서비스입니다.&quot;
+            &quot;구직자를 위한 중고거래 플랫폼입니다.&quot; 이런 형태의
+            설명은 놀라울 정도로 효율적입니다. 이것이 아이디어를
+            &quot;파생적&quot;으로 보이게 만들까 걱정하지 마세요. 역사상
+            최고의 아이디어 중 일부는 아무도 결합할 수 있다고 생각하지 못한
+            두 가지 기존 아이디어를 붙이는 것에서 시작했습니다.
           </p>
 
           <h3
-            id="thefounders"
-            className="mb-3 mt-8 font-sans text-lg font-semibold text-[#16140f]"
+            id="theteam"
+            className="mb-3 mt-8 font-[system-ui] text-lg font-semibold text-[#16140f]"
           >
-            The Founders
+            The Team
           </h3>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            After spending 20 seconds or so trying to understand the idea, I skip
-            down to look at the founders. My initial goal is to figure out what
-            kind of group I&apos;m dealing with.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            아이디어를 20초 정도 파악한 뒤, 팀원 소개로 넘어갑니다. 처음
+            목표는 어떤 유형의 팀인지 파악하는 것입니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Three friends about to graduate from college? Two colleagues who work
-            together at a big company and want to jump ship? Are they all
-            programmers? A mix of programmers and business people? There are maybe
-            20 or 30 different configurations of founders.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            같이 졸업을 앞둔 학교 친구 세 명? 같은 동아리에서 활동하던
+            두 명? 모두 개발자인지? 개발자와 기획자의 조합인지? 팀의
+            구성은 수십 가지 유형이 있을 수 있습니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Once I know what type of group I have, I try to figure out how good
-            an instance of that type it is. The most important question for
-            deciding that is
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            팀 유형을 파악하고 나면, 그 유형에서 얼마나 좋은 팀인지
+            판단하려 합니다. 그 판단에 가장 중요한 질문은:
           </p>
 
-          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-sans text-base italic leading-relaxed text-[#16140f]/80">
-            Please tell us in one or two sentences about something impressive
-            that each founder has built or achieved.
+          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-['MaruBuri',serif] text-base italic leading-relaxed text-[#16140f]/80">
+            각 팀원이 만들거나 이루어낸 것 중 가장 인상적인 것을 한두
+            문장으로 알려주세요.
           </blockquote>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            To me this is the most important question on the application.
-            It&apos;s deliberately open-ended; there&apos;s no one type of answer
-            we&apos;re looking for. It could be that you did really well in
-            school, or that you wrote a highly-regarded piece of software, or
-            that you paid your own way through college after leaving home at 16.
-            It&apos;s not the type of achievement that matters so much as the
-            magnitude. Succeeding in a startup is, in the most literal sense,
-            extraordinary, so we&apos;re looking for people able to do
-            extraordinary things.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            저희에게 이것은 지원서에서 가장 중요한 질문입니다. 의도적으로
+            열린 질문으로 만들었습니다. 특정 유형의 답을 기대하지 않습니다.
+            학교에서 정말 잘했을 수도 있고, 많은 사람이 인정하는 소프트웨어를
+            만들었을 수도 있고, 16살에 집을 나와 스스로 학비를 벌었을 수도
+            있습니다. 중요한 것은 성취의 종류가 아니라 크기입니다. 스타트업에서
+            성공한다는 것은 말 그대로 비범한 일이기에, 비범한 일을 할 수
+            있는 사람을 찾고 있습니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            As with all questions on the application, the best answers are the
-            most specific. A surprising number of people answer with something
-            like:
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            지원서의 모든 질문이 그렇듯, 가장 좋은 답변은 가장 구체적인
+            답변입니다. 놀랍도록 많은 사람들이 이런 식으로 답합니다:
           </p>
 
-          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-sans text-base italic leading-relaxed text-[#16140f]/80">
-            Jordan is an exceptionally dedicated person who gives 100% effort to
-            every project he undertakes.
+          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-['MaruBuri',serif] text-base italic leading-relaxed text-[#16140f]/80">
+            민수는 맡은 모든 프로젝트에 100% 노력을 쏟는 대단히 헌신적인
+            사람입니다.
           </blockquote>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            This kind of generic claim carries no weight. A single, specific
-            example would be much more convincing. You probably shouldn&apos;t
-            list the startup itself as your most impressive achievement. We
-            already know you&apos;ve created that. Why waste the opportunity to
-            brag about something else?
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            이런 일반적인 주장은 아무 무게가 없습니다. 하나의 구체적인
+            사례가 훨씬 설득력 있을 것입니다. 그리고 지원하는 스타트업
+            자체를 가장 인상적인 성취로 적는 것은 피해야 합니다. 그건
+            이미 알고 있으니까요. 다른 것을 자랑할 기회를 왜 낭비하나요?
           </p>
 
-          <p className="mb-6 font-sans text-base leading-relaxed text-[#16140f]">
-            If there&apos;s no one thing about you that you feel stands out, what
-            should you list? I&apos;d go with whatever you&apos;ve done that was
-            the hardest—preferably (though not necessarily) the hardest
-            intellectually. It doesn&apos;t matter if it&apos;s not the sort of
-            thing you&apos;d put on a resume. We&apos;re not looking for the same
-            things as HR departments.
+          <p className="mb-6 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            특별히 내세울 것이 없다고 느껴지면, 여러분이 했던 것 중 가장
+            어려웠던 것을 적으세요. 가급적이면 (반드시 그래야 하는 건
+            아니지만) 지적으로 가장 어려웠던 것이 좋습니다. 이력서에 쓸
+            만한 것이 아니어도 괜찮습니다. 저희는 인사부서와 같은 것을
+            찾지 않습니다.
           </p>
 
           <h3
-            id="insight"
-            className="mb-3 mt-8 font-sans text-lg font-semibold text-[#16140f]"
+            id="commonmistakes"
+            className="mb-3 mt-8 font-[system-ui] text-lg font-semibold text-[#16140f]"
           >
-            Insight
+            Common Mistakes
           </h3>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            If the founders seem promising, I&apos;ll now spend more time trying
-            to understand the idea. I care more about the founders than the idea,
-            because most of the startups we fund will change their idea
-            significantly.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            팀이 유망해 보이면, 이제 아이디어를 더 깊이 이해하는 데 시간을
+            씁니다. 저희는 아이디어보다 팀을 더 중시하는데, 투자하는
+            스타트업 대부분이 아이디어를 크게 바꾸기 때문입니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            If a group of founders seemed impressive enough, I&apos;d fund them
-            with no idea. But a really good idea will also get our
-            attention—not because of the idea per se, but because it&apos;s
-            evidence the founders are smart.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            팀이 충분히 인상적이라면 아이디어 없이도 선발할 수 있습니다.
+            하지만 정말 좋은 아이디어는 저희의 관심을 끌기도 합니다.
+            아이디어 자체 때문이 아니라, 그것이 팀원들이 똑똑하다는
+            증거가 되기 때문입니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Just as what we look for in founders is not the type of achievement
-            but the magnitude, what we look for in ideas is not the type of idea
-            but the level of insight you have about it. You&apos;re going to
-            start an auction site? That could be a good idea or a bad idea. What
-            matters is how you&apos;re going to hold your own against eBay.
-            What&apos;s going to be distinctive about your solution?
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            팀에서 보는 것이 성취의 종류가 아니라 크기인 것처럼, 아이디어에서
+            보는 것도 아이디어의 종류가 아니라 그에 대한 통찰의 깊이입니다.
+            중고 경매 사이트를 만들 건가요? 좋을 수도, 나쁠 수도 있습니다.
+            중요한 것은 기존 플랫폼에 맞서 어떻게 경쟁할 것인지입니다.
+            여러분의 해결책에서 차별화되는 점은 무엇인가요?
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            It&apos;s a common mistake to say the distinctive thing about your
-            solution will be that it&apos;s well-designed and easy to use. That
-            is not an insight. You&apos;re just claiming you&apos;re going to
-            execute well. Whoever wrote the current software was presumably also
-            trying to. So you have to be more specific. Exactly what are you
-            going to do that will make your software easier to use? And will that
-            be enough? The reason a lot of big companies&apos; software sucks is
-            that they have some kind of natural monopoly. Unless you have a plan
-            for cracking it, it won&apos;t make any difference if yours is
-            better.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            흔한 실수는 차별점이 &quot;잘 디자인되고 사용하기 쉽다&quot;는
+            것이라고 말하는 것입니다. 이건 통찰이 아닙니다. 그냥 잘
+            실행하겠다고 주장하는 것뿐입니다. 현재 소프트웨어를 만든 사람도
+            아마 그렇게 하려 했을 겁니다. 그러니 더 구체적이어야 합니다.
+            정확히 무엇을 해서 더 쉽게 만들 건가요? 그리고 그게 충분할까요?
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            We don&apos;t mind if you&apos;re doing something that will face
-            serious obstacles. In fact, we like that. The best startup ideas are
-            generally outliers that seem crazy to most people initially. But we
-            want to see that you&apos;re aware of the obstacles, and have at
-            least a theory about how to overcome them. We&apos;d be delighted to
-            get an application that answered the question &quot;What are you
-            going to make?&quot; with
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            또 다른 흔한 실수들:
           </p>
 
-          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-sans text-base italic leading-relaxed text-[#16140f]/80">
-            A new search engine to compete with Google.
-          </blockquote>
+          <ul className="mb-4 ml-6 list-disc space-y-2 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            <li>
+              <strong>추상적인 아이디어:</strong> 구체적인 고객이나 문제 없이
+              &quot;플랫폼&quot;이나 &quot;생태계&quot;를 만들겠다는 식의 설명
+            </li>
+            <li>
+              <strong>시장 조사 없음:</strong> 경쟁자가 없다고 주장하거나,
+              시장 규모에 대한 감이 전혀 없는 경우
+            </li>
+            <li>
+              <strong>팀 없이 혼자 지원:</strong> 혼자서 모든 것을 할 수
+              있다고 주장하는 경우. 물론 1인 창업도 가능하지만, 팀이 있는
+              것이 유리합니다
+            </li>
+            <li>
+              <strong>문제 대신 솔루션에 집착:</strong> 해결하려는 문제가
+              무엇인지 명확하지 않은 채 기술이나 기능만 나열하는 경우
+            </li>
+          </ul>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            so long as this was followed by
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            저희는 심각한 장애물이 있는 일을 해도 괜찮습니다. 사실 그걸
+            좋아합니다. 최고의 스타트업 아이디어는 처음에 대부분의 사람들에게
+            미친 것처럼 보이는 이상치인 경우가 많습니다. 하지만 여러분이
+            장애물을 인식하고 있고, 그것을 극복할 이론이라도 있다는 것을
+            보여주셔야 합니다.
           </p>
 
-          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-sans text-base italic leading-relaxed text-[#16140f]/80">
-            We know that sounds impossible, but we think we can get a toehold
-            initially by…
-          </blockquote>
-
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Wouldn&apos;t you be interested at this point? Even if the plan had
-            only a 1% chance of working, it would be worth backing.
-            <a
-              href="#n2"
-              className="ml-0.5 text-[#FF6C0F] hover:opacity-70"
-            >
-              2.
-            </a>
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            반면, 여러분의 아이디어에 있는 장애물을 여러분이 인식하지 못한
+            것 같으면, 그건 나쁜 신호입니다. 이건 여러분의 아이디어입니다.
+            최소 며칠은 생각해봤을 텐데, 저희가 몇 분 만에 떠올리는
+            반박을 여러분이 생각하지 못했어야 할 이유가 없습니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Whereas if we can see obstacles to your idea that you don&apos;t seem
-            to have considered, that&apos;s a bad sign. This is your idea.
-            You&apos;ve had days, at least, to think about it, and we&apos;ve
-            only had a couple minutes. We shouldn&apos;t be able to come up with
-            objections you haven&apos;t thought of.
-          </p>
-
-          <p className="mb-6 font-sans text-base leading-relaxed text-[#16140f]">
-            Paradoxically, it is for this reason better to disclose all the flaws
-            in your idea than to try to conceal them. If we think of a problem
-            you don&apos;t mention, we&apos;ll assume it&apos;s because you
-            haven&apos;t thought of it. And since we care more about you than the
-            idea, it&apos;s a mistake to risk sacrificing yourself to make the
-            idea seem better.
+          <p className="mb-6 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            역설적이지만, 이런 이유로 아이디어의 결함을 숨기려 하기보다
+            모두 공개하는 것이 낫습니다. 저희가 여러분이 언급하지 않은
+            문제를 떠올리면, 여러분이 그것을 생각하지 못했다고 가정할
+            겁니다. 그리고 저희는 아이디어보다 여러분을 더 중시하기
+            때문에, 아이디어를 더 좋아 보이게 하려고 자신을 희생하는 것은
+            실수입니다.
           </p>
 
           <h3
-            id="exploration"
-            className="mb-3 mt-8 font-sans text-lg font-semibold text-[#16140f]"
+            id="theprocess"
+            className="mb-3 mt-8 font-[system-ui] text-lg font-semibold text-[#16140f]"
           >
-            Further Exploration
+            The Process
           </h3>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            If the founders seem promising and the idea is interesting, I&apos;ll
-            now spend a lot more time on the application.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            SPEC의 선발 과정은 세 단계로 이루어집니다:
           </p>
 
-           <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-             I&apos;ll take a look at the{" "}
-             <Link
-               href="/library"
-               className="text-[#FF6C0F] underline hover:opacity-70"
-             >
-               video
-             </Link>
-             , if there is one. (Statistically we&apos;re much more likely to
-             interview people who submit a video.) I&apos;ll check out the demo.
-             And I&apos;ll look at answers to some of the more mundane questions,
-             like the stock allocation.
+          <h4 className="mb-2 mt-4 font-['Pretendard',sans-serif] text-base font-semibold text-[#16140f]">
+            1단계: 서류 심사
+          </h4>
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            온라인으로 제출된 지원서를 운영진 전원이 독립적으로 평가합니다.
+            팀 구성, 아이디어의 구체성, 실행 계획, 그리고 팀원 각각의
+            역량을 종합적으로 검토합니다. 팀이 유망해 보이고 아이디어가
+            흥미롭다면, 더 많은 시간을 들여 지원서를 꼼꼼히 살펴봅니다.
+            영상이 있다면 영상도 확인하고, 데모가 있다면 데모도 살펴봅니다.
           </p>
 
-          <p className="mb-6 font-sans text-base leading-relaxed text-[#16140f]">
-            If the founders seem promising but the idea doesn&apos;t, I check
-            the question near the end that asks what other ideas the founders
-            had. It&apos;s quite common for us to fund groups to work on ideas
-            they listed as alternates.
+          <h4 className="mb-2 mt-4 font-['Pretendard',sans-serif] text-base font-semibold text-[#16140f]">
+            2단계: 면접
+          </h4>
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            서류 심사를 통과한 팀은 10~15분 정도의 면접에 초대됩니다.
+            면접에서는 지원서에 적은 내용을 더 깊이 파고들고, 팀의 화학
+            반응과 실행력을 직접 확인합니다. 모든 팀원이 참석하는 것이
+            원칙이며, 각자의 역할과 기여를 명확히 설명할 수 있어야
+            합니다.
+          </p>
+
+          <h4 className="mb-2 mt-4 font-['Pretendard',sans-serif] text-base font-semibold text-[#16140f]">
+            3단계: 최종 선발
+          </h4>
+          <p className="mb-6 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            면접을 마친 후 운영진 회의를 통해 최종 선발 팀을 결정합니다.
+            선발된 팀에게는 개별 연락을 드리며, 한 학기 동안의 SPEC
+            프로그램에 참여하게 됩니다. 팀이 유망하지만 아이디어가 아직
+            부족한 경우, 지원서 끝부분에 적은 대안 아이디어를 기반으로
+            선발하는 경우도 꽤 있습니다.
           </p>
 
           <h3
-            id="wildcard"
-            className="mb-3 mt-8 font-sans text-lg font-semibold text-[#16140f]"
+            id="interviewtips"
+            className="mb-3 mt-8 font-[system-ui] text-lg font-semibold text-[#16140f]"
           >
-            The Wildcard
+            Interview Tips
           </h3>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            There&apos;s one question that acts like a wildcard, at least for me:
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            면접에서 가장 중요한 것은 솔직함입니다. 과장하거나 모르는 것을
+            아는 척하면 반드시 드러납니다. 차라리 모르는 것을 인정하고,
+            어떻게 알아갈 계획인지를 말하는 것이 훨씬 좋은 인상을 줍니다.
           </p>
 
-          <blockquote className="mb-4 border-l-4 border-[#ddd] pl-5 font-sans text-base italic leading-relaxed text-[#16140f]/80">
-            Please tell us about the time you most successfully hacked some
-            (non-computer) system to your advantage.
-          </blockquote>
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            구체적인 숫자로 말하세요. &quot;많은 사용자가 관심을
+            보였습니다&quot;보다 &quot;지난주에 50명이 대기자 명단에
+            등록했습니다&quot;가 100배 더 설득력 있습니다. 매출, 사용자 수,
+            성장률, 전환율 — 어떤 숫자든 있으면 반드시 언급하세요.
+          </p>
 
-          <p className="mb-6 font-sans text-base leading-relaxed text-[#16140f]">
-            If this wasn&apos;t already clear, we&apos;re not looking for the
-            sort of obedient, middle-of-the-road people that big companies tend
-            to hire. We&apos;re looking for people who like to beat the system.
-            So if the answer to this question is good enough, it will make me go
-            back and take a second look at an application that otherwise seemed
-            unpromising. In fact, I think there are people we&apos;ve invited to
-            interviews mainly on the strength of their answer to this question.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            고객 이야기를 중심으로 말하세요. 여러분이 해결하는 문제를 실제로
+            겪고 있는 사람의 이야기를 들려주세요. &quot;우리 친구 중 한 명이
+            이런 문제로 매일 3시간을 낭비하고 있었는데...&quot;라는 식의
+            이야기는 어떤 시장 분석보다 강력합니다.
+          </p>
+
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            또한, 저희가 아직 보지 못한 여러분의 강점을 보여줄 기회로
+            면접을 활용하세요. 특별히 내세울 것이 없다고 생각하더라도,
+            누구에게나 시스템을 자기에게 유리하게 활용해본 경험이 있을
+            겁니다. 창의적으로 문제를 해결한 경험은 그 자체로 스타트업
+            역량의 증거입니다.
+          </p>
+
+          <p className="mb-6 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            저희는 순종적이고 중간쯤 가는 사람을 찾지 않습니다. 규칙을
+            깨고 새로운 방법을 찾아내는 사람을 찾습니다. 면접에서 그런
+            모습을 보여주세요.
           </p>
 
           <h3
-            id="helpout"
-            className="mb-3 mt-8 font-sans text-lg font-semibold text-[#16140f]"
+            id="helpusout"
+            className="mb-3 mt-8 font-[system-ui] text-lg font-semibold text-[#16140f]"
           >
             Help Us Out
           </h3>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Generally, the advice I&apos;d give to applicants is: help us out.
-            Investors are optimists. We want to believe you&apos;re great. Most
-            people you meet in everyday life don&apos;t.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            전반적으로 지원자에게 드리는 조언은 이것입니다: 저희를
+            도와주세요. 저희는 여러분이 대단하다고 믿고 싶습니다.
+            일상에서 만나는 대부분의 사람들과는 다릅니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            If you go around saying you&apos;re going to start the next Google,
-            most people&apos;s initial reaction will be skepticism. Partly
-            because the odds of succeeding are low, so skepticism is the safe
-            bet, but also because most people are threatened by ambition: you
-            seem to be trying to put yourself above them, even if that isn&apos;t
-            your intention.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            &quot;다음 유니콘을 만들겠다&quot;고 말하면, 대부분의 사람들은
+            회의적으로 반응합니다. 부분적으로는 성공 확률이 낮아 회의적인
+            것이 안전한 판단이기 때문이고, 부분적으로는 야망에 위협을 느끼기
+            때문입니다.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Investors are different—not because they&apos;re more generous
-            spirited than other people, but because they get equity. Tell
-            investors you&apos;re going to start the next Google and they
-            immediately perk up. They don&apos;t default to skepticism, because
-            they like risky bets. And they don&apos;t feel like you&apos;re
-            trying to put yourself above them, because they hope to be drawn up
-            with you.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            하지만 저희는 다릅니다. 저희는 여러분의 성공을 함께 만들어가는
+            파트너이기 때문입니다. 다음 거대한 스타트업을 만들겠다고 하면
+            저희는 귀가 솔깃해집니다. 회의적으로 반응하지 않습니다. 위험한
+            도전을 좋아하니까요. 그리고 여러분이 성공하면 저희도 함께
+            올라가니까요.
           </p>
 
-          <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-            Like all investors, we want to believe. So help us believe. If
-            there&apos;s something about you that stands out, or some special
-            insight you have into the problem you plan to work on, make sure we
-            see it.
+          <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            모든 심사위원이 그렇듯, 저희는 믿고 싶습니다. 그러니 믿을 수
+            있게 도와주세요. 여러분에 대해 돋보이는 것이 있다면, 또는
+            해결하려는 문제에 대해 특별한 통찰이 있다면, 저희가 반드시
+            그것을 볼 수 있게 해주세요.
           </p>
 
-          <p className="mb-6 font-sans text-base leading-relaxed text-[#16140f]">
-            The best way to do that is simply to be concise. You don&apos;t have
-            to sell us on you. We&apos;ll sell ourselves, if we can just
-            understand you. But every unnecessary word in your application
-            subtracts from the effect of the necessary ones. So before submitting
-            your application, print it out and take a red pen and cross out every
-            word you don&apos;t need. And in what&apos;s left be as specific and
-            as matter-of-fact as you can.
+          <p className="mb-6 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            가장 좋은 방법은 간결하게 쓰는 것입니다. 저희에게 자신을
+            &quot;팔&quot; 필요가 없습니다. 이해만 시켜주면, 저희 스스로
+            설득될 겁니다. 하지만 지원서의 불필요한 단어 하나하나가
+            필요한 단어의 효과를 떨어뜨립니다. 그러니 지원서를 제출하기
+            전에, 인쇄해서 빨간 펜으로 불필요한 단어를 모두 지우세요.
+            그리고 남은 내용은 가능한 한 구체적이고 사실적으로 쓰세요.
           </p>
 
           <h3
-            id="example"
-            className="mb-3 mt-8 font-sans text-lg font-semibold text-[#16140f]"
+            id="finaladvice"
+            className="mb-3 mt-8 font-[system-ui] text-lg font-semibold text-[#16140f]"
           >
-            Example Application
+            Final Advice
           </h3>
 
-          <h2 className="mb-6 font-serif text-[28px] font-medium leading-snug text-[#16140f]">
-            Here&apos;s an example of a successful application:{" "}
+          <h2 className="mb-6 font-['MaruBuri',serif] text-[28px] font-medium leading-snug text-[#16140f]">
+            완벽한 아이디어보다 완벽한 실행력을 보여주세요. 아이디어는
+            바뀔 수 있지만, 실행하는 사람은 쉽게 바뀌지 않습니다.
+            여러분이 문제를 발견하고, 해결하고, 끝까지 밀고 나가는
+            사람이라는 것을 보여주세요. 그것이 SPEC이 찾는 사람입니다.
+          </h2>
+
+          <p className="mt-8 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+            <strong>지원서 제출:</strong>{" "}
             <Link
-              href="/apply/dropbox"
+              href="/apply"
               className="text-[#FF6C0F] underline hover:opacity-70"
             >
-              Dropbox&apos;s Summer 2007 application
+              SPEC 지원 페이지
             </Link>
-          </h2>
-
-          <h2
-            id="footnotes"
-            className="mb-4 mt-12 font-serif text-[28px] font-medium leading-snug text-[#16140f]"
-          >
-            Notes
-          </h2>
-
-          <ol className="mb-6 ml-6 list-decimal space-y-3 font-sans text-base leading-relaxed text-[#16140f]">
-            <li id="n1">
-              This is true of investors generally. Never use vague or inflated
-              language with experienced investors. They&apos;ve heard so much of
-              it that it no longer has any effect on them, except to confuse and
-              annoy them.{" "}
-              <a href="#r1" className="text-[#FF6C0F] hover:opacity-70">
-                ↪
-              </a>
-            </li>
-            <li id="n2">
-              The &quot;next Google&quot; is unlikely to be a search engine,
-              however, just as the &quot;next Microsoft&quot; was not a desktop
-              software company. I used competing directly with Google as an
-              example of a problem with maximum difficulty, not maximum payoff.
-              Maximum payoff is more likely to come from making Google irrelevant
-              than from replacing it. How exactly? I have no more than vague
-              ideas about that. I wouldn&apos;t expect to be able to figure out
-              the right answer, just as I wouldn&apos;t have expected anyone to
-              figure out in 1990 what would make Microsoft irrelevant.{" "}
-              <a href="#r2" className="text-[#FF6C0F] hover:opacity-70">
-                ↪
-              </a>
-            </li>
-          </ol>
-
-          <p className="mt-8 font-sans text-base leading-relaxed text-[#16140f]">
-            <strong>Thanks</strong> to Trevor Blackwell, Jessica Livingston, and
-            Robert Morris for reading drafts of this, and to Drew Houston for
-            posting Dropbox&apos;s application.
+            에서 온라인으로 제출할 수 있습니다. 궁금한 점이 있으시면{" "}
+            <Link
+              href="/faq"
+              className="text-[#FF6C0F] underline hover:opacity-70"
+            >
+              자주 묻는 질문
+            </Link>
+            을 먼저 확인해주세요.
           </p>
         </article>
 
-        <nav className="shrink-0 md:w-[220px]">
-          <div className="sticky top-24 font-sans text-sm">
+        <nav className="shrink-0 md:w-[170px]">
+          <div className="sticky top-24 font-['Pretendard',sans-serif] text-sm">
             <p className="mb-2 font-semibold uppercase tracking-wider text-[#16140f]/60">
               Contents
             </p>
@@ -519,57 +474,58 @@ export default function HowToApplyPage() {
               </li>
               <li>
                 <a
-                  href="#matteroffact"
+                  href="#whatwelookfor"
                   className="text-[#FF6C0F] hover:opacity-70"
                 >
-                  Matter of Fact Answers
+                  What We Look For
                 </a>
               </li>
               <li>
                 <a
-                  href="#thefounders"
+                  href="#theteam"
                   className="text-[#FF6C0F] hover:opacity-70"
                 >
-                  The Founders
-                </a>
-              </li>
-              <li>
-                <a href="#insight" className="text-[#FF6C0F] hover:opacity-70">
-                  Insight
+                  The Team
                 </a>
               </li>
               <li>
                 <a
-                  href="#exploration"
+                  href="#commonmistakes"
                   className="text-[#FF6C0F] hover:opacity-70"
                 >
-                  Further Exploration
+                  Common Mistakes
                 </a>
               </li>
               <li>
                 <a
-                  href="#wildcard"
+                  href="#theprocess"
                   className="text-[#FF6C0F] hover:opacity-70"
                 >
-                  The Wildcard
+                  The Process
                 </a>
               </li>
               <li>
-                <a href="#helpout" className="text-[#FF6C0F] hover:opacity-70">
+                <a
+                  href="#interviewtips"
+                  className="text-[#FF6C0F] hover:opacity-70"
+                >
+                  Interview Tips
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#helpusout"
+                  className="text-[#FF6C0F] hover:opacity-70"
+                >
                   Help Us Out
                 </a>
               </li>
               <li>
-                <a href="#example" className="text-[#FF6C0F] hover:opacity-70">
-                  Example Application
-                </a>
-              </li>
-              <li>
                 <a
-                  href="#footnotes"
+                  href="#finaladvice"
                   className="text-[#FF6C0F] hover:opacity-70"
                 >
-                  Notes
+                  Final Advice
                 </a>
               </li>
             </ul>
@@ -583,20 +539,20 @@ export default function HowToApplyPage() {
                   href="/apply"
                   className="text-[#FF6C0F] hover:opacity-70"
                 >
-                  Apply to Y Combinator
+                  SPEC 지원하기
                 </Link>
               </li>
               <li>
                 <Link href="/faq" className="text-[#FF6C0F] hover:opacity-70">
-                  Frequently Asked Questions
+                  자주 묻는 질문
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/whynot"
+                  href="/companies"
                   className="text-[#FF6C0F] hover:opacity-70"
                 >
-                  Why Groups Aren&apos;t Invited
+                  선발된 팀 보기
                 </Link>
               </li>
             </ul>

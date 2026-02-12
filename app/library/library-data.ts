@@ -1,20 +1,13 @@
 export type ContentType = "Video" | "Essay" | "Podcast" | "Guide";
 
 export type Category =
-  | "Fundraising"
-  | "Product"
-  | "Growth"
-  | "AI"
-  | "Leadership"
-  | "Design"
-  | "Engineering"
-  | "Sales"
-  | "Culture"
-  | "Hiring"
-  | "Legal"
-  | "Strategy"
-  | "Founder Stories"
-  | "Hard Tech";
+  | "창업-기초"
+  | "매출-성장"
+  | "IR-투자"
+  | "팀빌딩"
+  | "VCC"
+  | "알럼나이"
+  | "기술-MVP";
 
 export interface LibraryItem {
   slug: string;
@@ -34,860 +27,620 @@ export interface LibraryItem {
 }
 
 export const categories: Category[] = [
-  "Fundraising",
-  "Product",
-  "Growth",
-  "AI",
-  "Leadership",
-  "Design",
-  "Engineering",
-  "Sales",
-  "Culture",
-  "Hiring",
-  "Legal",
-  "Strategy",
-  "Founder Stories",
-  "Hard Tech",
+  "창업-기초",
+  "매출-성장",
+  "IR-투자",
+  "팀빌딩",
+  "VCC",
+  "알럼나이",
+  "기술-MVP",
 ];
 
 export const libraryItems: LibraryItem[] = [
   {
-    slug: "how-to-get-startup-ideas",
-    title: "How to Get Startup Ideas",
-    author: "Paul Graham",
-    authorRole: "Co-founder, Y Combinator",
-    type: "Essay",
-    categories: ["Product", "Strategy"],
+    slug: "revenue-challenge-phase1",
+    title: "매출 챌린지 전략 — Phase 1 특강",
+    author: "Peter Kim",
+    authorRole: "SPEC 창립자",
+    type: "Video",
+    categories: ["매출-성장", "VCC"],
     description:
-      "The way to get startup ideas is not to try to think of startup ideas. It\u2019s to look for problems, preferably problems you have yourself.",
-    body: `The way to get startup ideas is not to try to think of startup ideas. It's to look for problems, preferably problems you have yourself.
+      "VCC Phase 1의 핵심, 매출 챌린지. 첫 매출을 만드는 구체적인 전략과 실행 프레임워크를 공유합니다.",
+    body: `VCC Phase 1에서 가장 중요한 것은 '일단 팔아보는 것'입니다. 아이디어 단계에서 매출까지의 거리를 최대한 줄이는 것이 이 Phase의 목표입니다.
 
-The very best startup ideas tend to have three things in common: they're something the founders themselves want, that they themselves can build, and that few others realize are worth doing. Microsoft, Apple, Yahoo, Google, and Facebook all began this way.
+매출 챌린지는 단순히 돈을 버는 것이 아닙니다. 고객이 실제로 지갑을 열 만큼의 가치를 전달할 수 있는지를 검증하는 과정입니다. 이 과정에서 여러분은 자연스럽게 Product-Market Fit의 초기 신호를 감지하게 됩니다.
 
-Why is it so important to work on a problem you have? Among other things, it ensures the problem really exists. It sounds obvious to say you should only work on problems that exist. And yet by far the most common mistake startups make is to solve problems no one has.
+이 특강에서는 매출 챌린지를 시작하기 전에 세워야 할 가설, 첫 고객을 찾는 방법, 그리고 실패했을 때 빠르게 피벗하는 프레임워크를 다룹니다. SPEC 17기부터 21기까지의 실제 매출 챌린지 사례를 분석하며, 성공한 팀과 실패한 팀의 차이를 구체적으로 보여드립니다.
 
-If you look at the way successful founders have had their ideas, it's generally the result of some external stimulus hitting a prepared mind. Bill Gates and Paul Allen heard about the Altair and thought "I bet we could write a Basic interpreter for it." Drew Houston realized he'd forgotten his USB stick and thought "I really need to make my files live online." Resistance to new things that are introduced is often a sign they're not solving a real problem. Resistance to a new operating system is a sign that the old one is working fine.
-
-How do you tell whether there's a path out of an idea? How do you tell whether something is the germ of a giant company, or just a niche product? Often you can't. The founders of Airbnb didn't realize at first how big a market they were tapping. They initially had the much narrower idea of renting air mattresses on people's floors during conferences. The idea grew as they discovered how much demand there was.
-
-Live in the future, then build what's missing.`,
-    date: "November 2012",
+핵심 메시지: 완벽한 제품을 만들기 전에, 불완전한 것이라도 팔아보세요. 그 과정에서 얻는 인사이트가 진짜 제품을 만들어줍니다.`,
+    date: "January 2025",
+    duration: "42:15",
+    youtubeId: "CBYhVcO4WgI",
+    views: "3200",
     featured: true,
     thumbnailColor: "#e8e4dc",
   },
   {
-    slug: "do-things-that-dont-scale",
-    title: "Do Things That Don\u2019t Scale",
-    author: "Paul Graham",
-    authorRole: "Co-founder, Y Combinator",
-    type: "Essay",
-    categories: ["Growth", "Strategy"],
+    slug: "ir-pitch-deck-masterclass",
+    title: "IR 피치덱 작성법 완전 정복",
+    author: "Sarah Lee",
+    authorRole: "투자 멘토, SPEC",
+    type: "Video",
+    categories: ["IR-투자"],
     description:
-      "One of the most common types of advice we give at Y Combinator is to do things that don\u2019t scale.",
-    body: `One of the most common types of advice we give at Y Combinator is to do things that don't scale. A lot of would-be founders believe that startups either take off or don't. You build something, make it available, and if you've made a better mousetrap, people beat a path to your door as promised. Or they don't, in which case the market must not exist.
+      "투자자의 마음을 움직이는 피치덱, 어떻게 만들까요? 슬라이드 구성부터 스토리텔링까지 완벽 가이드.",
+    body: `IR 피치덱은 단순한 발표 자료가 아닙니다. 여러분의 비전을 투자자의 언어로 번역하는 작업입니다.
 
-Actually startups take off because the founders make them take off. There may be a handful that just grew by themselves, but usually it takes some sort of push to get them going. A good metaphor would be the cranks that car engines had before they got electric starters. Once the engine was going, it would keep going, but there was a separate and laborious process to get it going.
+좋은 피치덱의 구조는 명확합니다: 문제 → 솔루션 → 시장 → 비즈니스 모델 → 트랙션 → 팀 → Ask. 하지만 이 구조를 아는 것과 설득력 있게 채우는 것은 완전히 다른 이야기입니다.
 
-The most common unscalable thing founders have to do at the start is to recruit users manually. Nearly all startups have to. You can't wait for users to come to you. You have to go out and get them.
+이 특강에서는 실제 투자 유치에 성공한 SPEC 알럼나이 팀들의 피치덱을 함께 분석합니다. 각 슬라이드에서 투자자가 실제로 보는 포인트, 흔히 하는 실수, 그리고 '아, 이 팀은 다르다'라고 느끼게 만드는 요소들을 하나하나 짚어봅니다.
 
-Stripe is one of the most successful startups we've funded, and the problem they solved was an urgent one. If anyone should have been able to sit back and wait for users, it was Stripe. But in fact they're famous within YC for aggressive early user acquisition.
-
-Startups building things for other startups have a big pool of potential users in the other companies we've funded. None used that more than Stripe. At YC we use the term "Collison installation" for the technique they invented. More diffident founders ask "Will you try our beta?" and if the answer is yes, they say "Great, we'll send you a link." But the Collison brothers weren't going to wait. When anyone expressed interest, they'd say "Right then, give me your laptop" and set them up on the spot.`,
-    date: "July 2013",
+특히 초기 스타트업에서 트랙션이 부족할 때 이를 보완하는 방법, 시장 규모를 TAM-SAM-SOM으로 설득력 있게 제시하는 법, 그리고 데모데이 현장에서의 발표 테크닉까지 다룹니다.`,
+    date: "December 2024",
+    duration: "38:20",
+    youtubeId: "MT4Ig2uqjTc",
+    views: "2800",
     thumbnailColor: "#dce8dc",
   },
   {
-    slug: "startup-equals-growth",
-    title: "Startup = Growth",
-    author: "Paul Graham",
-    authorRole: "Co-founder, Y Combinator",
+    slug: "why-sell-first-strategy",
+    title: "왜 '일단 팔아라'가 맞는 전략인가",
+    author: "이정훈",
+    authorRole: "전략 멘토, SPEC",
     type: "Essay",
-    categories: ["Growth", "Fundraising"],
+    categories: ["매출-성장", "창업-기초"],
     description:
-      "A startup is a company designed to grow fast. Being newly founded does not in itself make a company a startup.",
-    body: `A startup is a company designed to grow fast. Being newly founded does not in itself make a company a startup. Nor is it necessary for a startup to work on technology, or take venture funding, or have some sort of "exit." The only essential thing is growth. Everything else we associate with startups follows from growth.
+      "완벽한 제품을 만들기 전에 먼저 팔아야 하는 이유. 대학생 창업에서 가장 흔한 함정을 피하는 법.",
+    body: `대학생 창업자들이 가장 많이 빠지는 함정이 있습니다. '제품이 완성되면 그때 팔겠다'는 생각입니다. 이 함정에 빠지면 6개월을 개발에 쏟고, 런칭했을 때 아무도 원하지 않는 제품을 만들었다는 사실을 알게 됩니다.
 
-If you want to start one it's important to understand that. Startups are so hard that you can't be pointed off to the side and hope to succeed. You have to know that growth is what you're after. The good news is, if you get growth, everything else tends to fall into place. Which means you can use growth like a compass to make almost every decision you face.
+'일단 팔아라'는 무책임한 조언이 아닙니다. 이것은 가장 효율적인 시장 검증 방법입니다. 제품이 없어도 팔 수 있습니다. 프리셀링, 크라우드펀딩, 컨시어지 MVP 등 다양한 방법이 있죠.
 
-The growth of a successful startup usually has three phases. There's an initial period of slow or no growth while the startup tries to figure out what it's doing. As the startup figures out how to make something lots of people want and how to reach those people, there's a period of rapid growth. Eventually a successful startup will grow into a big company. Growth will slow, partly due to internal limits and partly because the company is starting to bump up against the limits of the markets it serves.
+SPEC에서 매출 챌린지를 경험한 팀들의 데이터를 보면, 첫 2주 안에 매출을 만든 팀의 최종 프로그램 생존율이 그렇지 않은 팀의 3배에 달합니다. 이것은 제품의 완성도 때문이 아니라, '팔 수 있는 것을 만들겠다'는 마인드셋의 차이 때문입니다.
 
-Together these three phases produce an S-curve. The phase whose growth defines the startup is the second one, the ascent. Its length and slope determine how big the company will be.
-
-The slope is the company's growth rate. If there's one number every founder should always know, it's the company's growth rate. That's the measure of a startup. If you don't know that number, you don't even know whether you're doing well or badly.`,
-    date: "September 2012",
+여러분의 아이디어가 정말 가치 있는지 알고 싶다면, 누군가에게 돈을 내라고 해보세요. 그 반응이 진짜 피드백입니다.`,
+    date: "November 2024",
     thumbnailColor: "#dce0e8",
   },
   {
-    slug: "how-to-start-a-startup",
-    title: "How to Start a Startup",
-    author: "Sam Altman",
-    authorRole: "Former President, Y Combinator",
-    type: "Video",
-    categories: ["Strategy", "Product", "Growth"],
+    slug: "vibe-coding-mvp-guide",
+    title: "바이브코딩으로 MVP 빌딩하기",
+    author: "정민수",
+    authorRole: "기술 멘토, SPEC",
+    type: "Guide",
+    categories: ["기술-MVP", "VCC"],
     description:
-      "Everything we know about how to start a startup, compiled from the CS183B lecture series at Stanford.",
-    body: `This lecture series covers everything we know about how to start a startup. The speakers are some of the most successful startup founders and investors in the world.
+      "코딩 경험이 없어도 AI 도구로 작동하는 MVP를 만들 수 있습니다. 바이브코딩 실전 가이드.",
+    body: `바이브코딩이란 AI 코딩 도구(Cursor, Replit Agent, Claude 등)를 활용해 자연어로 소프트웨어를 만드는 방법입니다. 코딩을 몰라도 됩니다. 중요한 것은 무엇을 만들고 싶은지 명확히 아는 것입니다.
 
-The course covers four key areas: Ideas, Products, Teams, and Execution. We believe these are the fundamentals of starting a successful startup.
+이 가이드에서는 비개발자 창업자가 바이브코딩으로 실제 작동하는 MVP를 만드는 전 과정을 다룹니다. 프롬프트 작성법, 에러 대처법, 그리고 '이건 AI로 되고 이건 안 된다'의 경계를 실전 경험을 바탕으로 알려드립니다.
 
-Part I: Ideas, Products, and Teams
-The first few lectures cover how to come up with good ideas, how to build great products, and how to assemble the right team.
+Step 1: 문제 정의와 기능 목록 작성 — AI에게 시키기 전에 인간이 먼저 명확히 정의해야 합니다.
+Step 2: 기술 스택 선택 — Next.js + Supabase 조합이 비개발자에게 가장 접근하기 쉽습니다.
+Step 3: AI와 함께 빌딩 — 한 번에 전체를 만들려 하지 마세요. 기능 하나씩 붙여가세요.
+Step 4: 배포와 피드백 — Vercel 배포 후 실제 유저에게 테스트하세요.
 
-Part II: Growth
-The next section covers growth strategies, including how to acquire your first users, how to measure growth, and how to scale.
-
-Part III: Building a Company
-The later lectures discuss company building, culture, management, hiring, and dealing with the challenges of rapid growth.
-
-Part IV: Fundraising and Legal
-The final lectures cover fundraising, investor relations, and legal considerations for startups.
-
-Each lecture is approximately one hour long and features a different speaker sharing their expertise and experience.`,
-    date: "2014",
-    duration: "20 lectures",
-    youtubeId: "CBYhVcO4WgI",
-    thumbnailColor: "#e8dce0",
-  },
-  {
-    slug: "how-to-talk-to-users",
-    title: "How to Talk to Users",
-    author: "Eric Migicovsky",
-    authorRole: "YC Partner, Founder of Pebble",
-    type: "Video",
-    categories: ["Product", "Growth"],
-    description:
-      "The best founders maintain a direct connection to their users throughout the life of their company. How do you talk to users and what do you ask them?",
-    body: `The best founders maintain a direct connection to their users throughout the life of their company. They talk to users before they even start building, while building, and after they launch.
-
-Here are the key principles for talking to users effectively:
-
-1. Talk about their life, not your idea
-When you start with "Let me tell you about my idea," you're asking for opinions, not facts. Instead, ask about their life and their problems.
-
-2. Ask about specifics in the past instead of generics or opinions about the future
-Bad: "Would you use a product that does X?"
-Good: "Tell me about the last time you encountered this problem."
-
-3. Talk less, listen more
-The goal is to extract information from the other person. You should be listening 90% of the time.
-
-4. Get commitments and advancement
-At the end of the conversation, you should push for some kind of commitment. This could be a letter of intent, a deposit, or an agreement to participate in a beta.
-
-5. Find your best first customer
-The best first customers are people who have the problem most acutely and are actively looking for a solution.
-
-The Mom Test by Rob Fitzpatrick is an excellent resource for learning how to conduct user interviews properly.`,
-    date: "August 2019",
-    duration: "21:44",
-    youtubeId: "MT4Ig2uqjTc",
-    views: "850K",
-    thumbnailColor: "#e0e8dc",
-  },
-  {
-    slug: "startup-mechanics",
-    title: "Startup Mechanics",
-    author: "Kirsty Nathoo",
-    authorRole: "CFO, Y Combinator",
-    type: "Video",
-    categories: ["Legal", "Fundraising"],
-    description:
-      "Everything you need to know about the mechanics of starting a startup: incorporation, equity, fundraising, and more.",
-    body: `Starting a startup involves a lot of mechanics that founders often don't think about until it's too late. This guide covers the essential mechanics every founder needs to understand.
-
-Incorporation:
-Most startups should incorporate as a Delaware C-Corporation. This is the standard structure that investors expect and makes fundraising much easier.
-
-Equity Split:
-Divide equity fairly among co-founders, and make sure everyone is on a vesting schedule. The standard is 4-year vesting with a 1-year cliff.
-
-83(b) Election:
-If you receive restricted stock, you must file an 83(b) election within 30 days. This is one of the most important tax elections you'll make.
-
-SAFE Notes:
-The SAFE (Simple Agreement for Future Equity) is the most common instrument for early-stage fundraising. It's simpler and faster than traditional convertible notes.
-
-Hiring:
-When you start hiring, make sure to set up proper payroll, get workers' compensation insurance, and understand employment law in your state.
-
-Bookkeeping:
-Keep clean books from day one. This will save you enormous headaches when it comes time to raise funding or file taxes.`,
-    date: "March 2019",
-    duration: "35:17",
-    youtubeId: "LVKn4Q3JwQA",
-    views: "420K",
-    thumbnailColor: "#e8e0dc",
-  },
-  {
-    slug: "how-to-plan-an-mvp",
-    title: "How to Plan an MVP",
-    author: "Michael Seibel",
-    authorRole: "Managing Director, Y Combinator",
-    type: "Video",
-    categories: ["Product", "Strategy"],
-    description:
-      "Your MVP should be the simplest version of your product that delivers value to your first users. Here\u2019s how to plan it.",
-    body: `An MVP (Minimum Viable Product) is the simplest version of your product that you can launch to start getting feedback from users.
-
-The key principles of building an MVP:
-
-1. Launch quickly
-Your goal should be to get something into users' hands within weeks, not months. Speed of iteration is the primary advantage that startups have over large companies.
-
-2. Scope down aggressively  
-Your MVP should have the minimum set of features needed to solve the core problem. If you can cut a feature and still deliver value, cut it.
-
-3. Talk to users before and after
-Before building, talk to potential users to understand their problems. After launching, talk to them again to understand what's working and what isn't.
-
-4. Don't worry about scaling
-Your MVP doesn't need to scale. It just needs to work well enough for your first users. You can worry about scaling later.
-
-5. Manually supplement your product
-It's perfectly fine to do things manually that you'll eventually automate. This is a great way to learn what your users actually need.
-
-The biggest mistake founders make with MVPs is making them too complex. Remember: the 'M' stands for Minimum.`,
-    date: "January 2020",
-    duration: "18:23",
-    youtubeId: "1hHMwLxN6EM",
-    views: "1.2M",
+SPEC 20기에서 바이브코딩으로 MVP를 만든 3개 팀의 사례를 상세히 분석합니다.`,
+    date: "October 2024",
     thumbnailColor: "#dcdce8",
   },
   {
-    slug: "how-to-get-your-first-customers",
-    title: "How to Get Your First Customers",
-    author: "Gustaf Alstr\u00f6mer",
-    authorRole: "YC Partner",
+    slug: "kakao-mobility-growth-talk",
+    title: "카카오모빌리티 그로스 전략 특강",
+    author: "Jimin Choi",
+    authorRole: "그로스 멘토, SPEC",
     type: "Video",
-    categories: ["Growth", "Sales"],
+    categories: ["매출-성장"],
     description:
-      "Getting your first customers is one of the hardest challenges for any startup. Here are the strategies that work.",
-    body: `Getting your first customers is critical. Here's what works:
+      "카카오모빌리티의 초기 성장 전략을 해부합니다. 로컬 시장에서의 그로스 해킹 실전 사례.",
+    body: `카카오모빌리티가 카카오택시에서 시작해 종합 모빌리티 플랫폼으로 성장한 과정은 한국 스타트업 그로스의 교과서입니다.
 
-1. Do things that don't scale
-Reach out individually to potential customers. Send personal emails, make phone calls, go to events. The first 10-100 customers should each be acquired through personal effort.
+이 특강에서는 카카오모빌리티의 초기 성장 전략을 세 가지 축으로 분석합니다. 첫째, 택시 기사 확보를 위한 오프라인 영업 전략. 둘째, 이용자 리텐션을 높이기 위한 UX 최적화. 셋째, 네트워크 효과가 작동하기 시작한 티핑 포인트 분석.
 
-2. Find the watering holes
-Where do your potential customers hang out? Online forums, conferences, social media groups? Go there and be helpful before you try to sell.
+특히 대학생 창업자들이 배울 수 있는 점은 '로컬 퍼스트' 전략입니다. 전국 단위로 시작하지 않고, 강남 3구에서 시작해 밀도를 높인 후 확장한 전략은 자원이 제한된 초기 스타트업에게 중요한 인사이트를 줍니다.
 
-3. Leverage your network
-Ask friends, family, and former colleagues. Not necessarily to be customers themselves, but to introduce you to people who might be.
-
-4. Build in public
-Share your progress publicly. Write blog posts, tweet about what you're building, create content that attracts your target audience.
-
-5. Offer exceptional service
-When you have very few customers, you can afford to treat each one like royalty. This creates word-of-mouth that's more powerful than any marketing campaign.
-
-Remember: your first customers are not just buyers, they're partners in building your product. Treat them accordingly.`,
-    date: "March 2020",
-    duration: "15:44",
-    youtubeId: "hyYCn_kAngI",
-    views: "75K",
-    thumbnailColor: "#e4dce8",
-  },
-  {
-    slug: "how-to-set-kpis-and-goals",
-    title: "How to Set KPIs and Goals",
-    author: "Anu Hariharan",
-    authorRole: "Managing Director, Y Combinator Continuity",
-    type: "Video",
-    categories: ["Growth", "Leadership"],
-    description:
-      "Setting the right KPIs is critical for any startup. Learn how to choose the metrics that matter most and set goals that drive growth.",
-    body: `The right KPIs (Key Performance Indicators) tell you whether your startup is on track. Here's how to set them:
-
-1. Choose a primary metric
-Every startup should have ONE primary metric that captures the essence of what you're building. For most startups, this is either revenue or active users.
-
-2. Set weekly growth targets
-At YC, we ask founders to set a weekly growth target of 5-7% for their primary metric. This compounds incredibly fast—7% weekly growth means 33x annual growth.
-
-3. Secondary metrics matter too
-While you focus on your primary metric, keep an eye on secondary metrics like churn, engagement, and unit economics.
-
-4. Track cohort-based retention
-Don't just look at overall numbers. Break your users into cohorts by sign-up date and track how each cohort retains over time.
-
-5. Be honest with your data
-It's tempting to cherry-pick metrics that make you look good. Resist this temptation. The whole point of tracking KPIs is to understand reality.
-
-6. Review weekly
-Set aside time every week to review your metrics, understand what changed, and decide what to do about it.`,
-    date: "June 2019",
-    duration: "28:45",
-    youtubeId: "lL3DNq_MpeU",
-    views: "310K",
-    thumbnailColor: "#dce8e4",
-  },
-  {
-    slug: "how-to-raise-a-seed-round",
-    title: "How to Raise a Seed Round",
-    author: "Geoff Ralston",
-    authorRole: "Former President, Y Combinator",
-    type: "Guide",
-    categories: ["Fundraising"],
-    description:
-      "A comprehensive guide to raising your seed round, from preparation through closing.",
-    body: `Raising a seed round is a critical milestone for most startups. Here's a comprehensive guide:
-
-Preparation:
-Before you start fundraising, make sure you have a clear story about what you're building, why it matters, and why you're the right team to do it.
-
-How Much to Raise:
-Most seed rounds today are between $1M and $4M. Raise enough to achieve specific milestones, typically 18-24 months of runway.
-
-Instruments:
-The most common instrument for seed rounds is the SAFE (Simple Agreement for Future Equity). It's simpler and faster than convertible notes or priced rounds.
-
-Valuation:
-Seed valuations typically range from $5M to $20M post-money, depending on traction, team, and market.
-
-The Pitch:
-Your pitch should cover: the problem, your solution, traction, team, market size, and what you're raising. Keep it concise.
-
-The Process:
-1. Build a target list of 50-100 investors
-2. Get warm introductions
-3. Take meetings in parallel, not sequentially
-4. Create urgency by setting a timeline
-5. Get term sheets and close quickly
-
-After the Round:
-Send monthly investor updates. Keep your investors informed and engaged.`,
-    date: "January 2020",
+Q&A 세션에서는 SPEC 팀들의 실제 그로스 고민에 대한 1:1 피드백도 진행합니다.`,
+    date: "September 2024",
+    duration: "55:30",
+    youtubeId: "1hHMwLxN6EM",
+    views: "1850",
     thumbnailColor: "#e8dce0",
   },
   {
-    slug: "vertical-ai-agents-could-be-10x-bigger-than-saas",
-    title: "Vertical AI Agents Could Be 10X Bigger Than SaaS",
-    author: "Jared Friedman",
-    authorRole: "YC Partner",
-    type: "Video",
-    categories: ["AI", "Strategy"],
+    slug: "why-start-now-in-college",
+    title: "대학생 창업, 지금 시작해야 하는 이유",
+    author: "David Park",
+    authorRole: "SPEC 공동창립자",
+    type: "Essay",
+    categories: ["창업-기초", "알럼나이"],
     description:
-      "Why vertical AI agents represent a massive opportunity that could dwarf the SaaS revolution.",
-    body: `The SaaS revolution created trillions of dollars in value by replacing on-premise software with cloud-based solutions. We believe vertical AI agents represent an even bigger opportunity.
+      "대학 시절이 창업에 가장 유리한 시기인 이유. 실패 비용이 가장 낮을 때 시작하라.",
+    body: `'졸업하고 경력 쌓은 뒤에 창업해도 늦지 않다'는 말을 자주 듣습니다. 물론 맞는 말입니다. 하지만 대학 시절에만 가능한 창업의 이점을 무시하는 것이기도 합니다.
 
-Why? Because while SaaS automated workflows, AI agents can automate entire jobs. The addressable market isn't just software budgets—it's labor budgets.
+첫째, 실패 비용이 인생에서 가장 낮습니다. 가족 부양 의무도, 월세 걱정도, 기회비용으로 잃을 연봉도 크지 않습니다. 이 시기에 실패하는 것은 '학습'이지 '실패'가 아닙니다.
 
-What are Vertical AI Agents?
-Vertical AI agents are AI systems designed to handle specific tasks or roles within a particular industry. Unlike general-purpose AI assistants, they're deeply specialized.
+둘째, 캠퍼스는 최고의 코파운더 풀입니다. 다양한 전공의 뛰어난 동료들이 한 곳에 모여 있는 환경은 졸업 후에는 쉽게 찾을 수 없습니다. SPEC에서 만난 팀 중 가장 강한 팀들은 대부분 서로 다른 학과의 멤버들로 구성되어 있었습니다.
 
-Examples:
-- AI agents that handle customer support for e-commerce
-- AI agents that do bookkeeping and tax preparation
-- AI agents that manage clinical trials
-- AI agents that handle legal document review
+셋째, 대학은 안전한 실험장입니다. 교수님의 피드백, 학교의 인프라, 동기들의 응원 — 이런 자원을 활용할 수 있는 시기는 제한적입니다.
 
-Why They're Bigger Than SaaS:
-1. The market is labor, not software. Global labor spend is 50x larger than software spend.
-2. They provide 10x more value. Automating a $100K/year employee is worth far more than replacing a $10K/year SaaS tool.
-3. They can serve markets too small for SaaS. Many industries were too small for custom software but are perfect for AI agents.
-
-How to Build Them:
-Start with one specific task, nail it completely, then expand. The key is going deep, not wide.`,
-    date: "September 2024",
-    duration: "22:43",
-    youtubeId: "ASABxNenD_U",
-    views: "945K",
-    thumbnailColor: "#e0dce8",
+SPEC은 이 황금기를 최대한 활용할 수 있도록 설계된 프로그램입니다. 지금이 시작하기 가장 좋은 때입니다.`,
+    date: "August 2024",
+    thumbnailColor: "#e0e8dc",
   },
   {
-    slug: "how-to-get-ai-startup-ideas",
-    title: "How To Get AI Startup Ideas",
-    author: "Jared Friedman",
-    authorRole: "YC Partner",
-    type: "Video",
-    categories: ["AI", "Strategy", "Product"],
+    slug: "lean-canvas-writing-guide",
+    title: "린 캔버스 작성 가이드",
+    author: "Peter Kim",
+    authorRole: "SPEC 창립자",
+    type: "Guide",
+    categories: ["창업-기초", "VCC"],
     description:
-      "A framework for finding and evaluating AI startup ideas in the current landscape.",
-    body: `AI is creating the biggest wave of new startup opportunities since the internet. Here's how to find the best ones:
+      "린 캔버스 한 장으로 비즈니스 모델을 명확하게 정리하는 방법. VCC 지원자 필독.",
+    body: `린 캔버스는 비즈니스 모델 캔버스를 스타트업에 맞게 변형한 도구입니다. 9개의 칸에 비즈니스의 핵심을 압축하는 연습은 창업의 첫 단계에서 반드시 거쳐야 합니다.
 
-1. Look for tasks, not tools
-Don't build "AI for X." Instead, find specific tasks that AI can now do better than humans and build around those.
+많은 팀이 린 캔버스를 '한 번 쓰고 끝'으로 생각합니다. 하지만 린 캔버스는 살아있는 문서여야 합니다. 고객 인터뷰를 할 때마다, 매출 챌린지 결과가 나올 때마다 업데이트해야 합니다.
 
-2. The unbundling opportunity
-Large language models are general-purpose, but the best businesses will be specialized. Think about how Craigslist got unbundled into dozens of vertical companies.
+이 가이드에서는 각 칸을 채우는 실전 팁을 제공합니다:
+- 문제: 고객이 실제로 '돈을 내서라도 해결하고 싶은' 문제인가?
+- 고객 세그먼트: '모든 대학생'이 아닌, 구체적인 얼리 어답터는 누구인가?
+- 고유한 가치 제안: 한 문장으로 왜 당신의 솔루션이어야 하는지 설명할 수 있는가?
+- 수익 모델: 첫 날부터 매출이 가능한 구조인가?
 
-3. Where to look
-- Tasks that require reading and writing
-- Tasks that require analyzing data
-- Tasks that require following procedures
-- Tasks that are currently done by expensive professionals
+VCC 지원 시 린 캔버스를 기반으로 비즈니스 모델을 설명하면 합격 확률이 크게 올라갑니다. SPEC 내부 데이터에 따르면 린 캔버스를 체계적으로 작성한 팀의 Phase 1 통과율이 2배 높았습니다.`,
+    date: "July 2024",
+    thumbnailColor: "#e4dce8",
+  },
+  {
+    slug: "alumni-talk-lessons-from-failure",
+    title: "SPEC 알럼나이 대담 — 실패에서 배운 것들",
+    author: "한유진",
+    authorRole: "프로그램 디렉터, SPEC",
+    type: "Podcast",
+    categories: ["알럼나이", "창업-기초"],
+    description:
+      "SPEC 12기~18기 알럼나이 4명이 들려주는 솔직한 실패담. 실패는 끝이 아니라 데이터다.",
+    body: `이 에피소드에서는 SPEC을 거친 알럼나이 4명이 모여 각자의 실패 경험을 솔직하게 나눕니다.
 
-4. The 10x test
-Can AI make this task 10x cheaper, faster, or better? If not, it's probably not a good AI startup idea.
+참여자:
+- 김도현 (15기) — 에듀테크 스타트업 창업 후 1년 만에 피벗, 현재 네이버 PM
+- 박서연 (12기) — 커머스 플랫폼 운영 중 공동창업자와의 갈등으로 해산
+- 이준영 (18기) — B2B SaaS 개발 중 기술적 한계로 중단, 현재 카카오 개발자
+- 최수민 (16기) — 소셜 임팩트 스타트업 운영 후 지속가능성 문제로 전환
 
-5. Defensibility
-The common concern is "what if OpenAI just builds this?" The answer: vertical expertise, proprietary data, and workflow integration create strong moats.
+각자의 실패에서 공통적으로 발견되는 패턴이 있습니다: 시장 검증 없이 빌딩에 몰두한 것, 팀 내 역할 분담의 불명확함, 그리고 '이쯤이면 되겠지'라는 낙관적 사고.
 
-6. Start with the workflow
-Don't start with the AI model. Start with understanding the workflow you're trying to automate, then figure out what AI capabilities you need.`,
-    date: "December 2024",
-    duration: "43:28",
-    youtubeId: "6IFR3X7pQM0",
-    views: "265K",
+하지만 네 명 모두 SPEC에서의 경험이 현재 커리어에 결정적 영향을 미쳤다고 말합니다. 스타트업을 직접 하지 않더라도, 창업 경험에서 얻은 문제 해결 능력과 실행력은 어디에서든 빛을 발합니다.`,
+    date: "June 2024",
+    duration: "68:00",
+    views: "1420",
+    thumbnailColor: "#dce8e4",
+  },
+  {
+    slug: "customer-interview-mom-test",
+    title: "고객 인터뷰 기법 — Mom Test 실전편",
+    author: "Sarah Lee",
+    authorRole: "투자 멘토, SPEC",
+    type: "Video",
+    categories: ["창업-기초", "매출-성장"],
+    description:
+      "엄마에게 물어봐도 진짜 답을 얻는 인터뷰법. Mom Test 핵심 원칙과 SPEC 팀 실전 사례.",
+    body: `고객 인터뷰의 가장 큰 실수는 '우리 제품 어때요?'라고 묻는 것입니다. 사람들은 당신의 기분을 상하게 하고 싶지 않아서 거의 항상 '좋다'고 답합니다. 이것은 데이터가 아니라 예의입니다.
+
+Rob Fitzpatrick의 Mom Test는 이 문제를 해결하는 프레임워크입니다. 핵심 원칙은 세 가지입니다:
+1. 당신의 아이디어가 아닌 그들의 삶에 대해 이야기하라
+2. 미래의 가정이 아닌 과거의 구체적 경험을 물어라
+3. 말이 아닌 행동(커밋먼트)을 관찰하라
+
+이 특강에서는 Mom Test의 원칙을 SPEC 팀들이 실제로 적용한 사례를 통해 설명합니다. 인터뷰 스크립트 템플릿, 좋은 질문과 나쁜 질문의 구분, 그리고 인터뷰에서 얻은 데이터를 어떻게 의사결정에 반영하는지를 다룹니다.
+
+실습: 참가자들은 실제로 짝을 이루어 Mom Test 방식의 인터뷰를 연습합니다.`,
+    date: "May 2024",
+    duration: "35:40",
+    youtubeId: "LVKn4Q3JwQA",
+    views: "2350",
+    thumbnailColor: "#e8e0dc",
+  },
+  {
+    slug: "demo-day-preparation-checklist",
+    title: "데모데이 발표 준비 체크리스트",
+    author: "Peter Kim",
+    authorRole: "SPEC 창립자",
+    type: "Guide",
+    categories: ["IR-투자", "VCC"],
+    description:
+      "SPEC 데모데이에서 임팩트 있는 발표를 위한 완벽 체크리스트. 발표 2주 전부터의 준비 로드맵.",
+    body: `데모데이는 VCC 프로그램의 하이라이트입니다. 6개월간의 여정을 3분으로 압축해야 하는 순간, 준비가 결과를 결정합니다.
+
+D-14: 스토리 설계
+- 핵심 메시지 하나를 정하세요. '우리는 X 문제를 Y 방식으로 해결하고, Z 만큼의 트랙션을 만들었다.'
+- 감정적 오프닝을 준비하세요. 문제의 심각성을 청중이 체감할 수 있는 스토리로 시작하세요.
+
+D-7: 슬라이드 완성
+- 슬라이드는 최대 10장. 각 슬라이드에 하나의 메시지만 담으세요.
+- 숫자가 말하게 하세요. 매출, 사용자 수, 성장률 — 구체적인 트랙션 데이터.
+- 라이브 데모를 포함할 경우, 반드시 백업 영상을 준비하세요.
+
+D-3: 리허설
+- 최소 10회 이상 전체 발표를 연습하세요.
+- 타이머를 켜고 연습하세요. 3분은 생각보다 짧습니다.
+- SPEC 멘토에게 피드백을 받으세요.
+
+D-Day: 현장
+- 30분 전 도착. 장비 테스트 필수.
+- 청중과 눈을 맞추세요. 슬라이드를 읽지 마세요.
+- Q&A에서는 솔직하게. 모르면 모른다고 하세요.`,
+    date: "April 2024",
     thumbnailColor: "#dce4e8",
   },
   {
-    slug: "how-to-build-the-future-sam-altman",
-    title: "How To Build The Future: Sam Altman",
-    author: "Garry Tan",
-    authorRole: "CEO, Y Combinator",
+    slug: "vcc-phase2-growth-metrics",
+    title: "VCC Phase 2 — 성장 지표 설정과 추적",
+    author: "Jimin Choi",
+    authorRole: "그로스 멘토, SPEC",
     type: "Video",
-    categories: ["AI", "Founder Stories", "Leadership"],
+    categories: ["VCC", "매출-성장"],
     description:
-      "Sam Altman discusses OpenAI, the future of AI, and what it means for startups.",
-    body: `In this episode of How To Build The Future, Y Combinator CEO Garry Tan sits down with Sam Altman to discuss the trajectory of AI development, the founding story of OpenAI, and what the future holds for startups in an AI-first world.
+      "Phase 2에서 추적해야 할 핵심 지표와 주간 성장률 관리법. 데이터 기반 의사결정의 시작.",
+    body: `VCC Phase 2는 '성장'에 집중하는 단계입니다. Phase 1에서 첫 매출을 만들었다면, Phase 2에서는 그 매출을 체계적으로 키워야 합니다.
 
-Key topics covered:
-- The early days of OpenAI and the decision to build GPT
-- How ChatGPT changed everything overnight
-- The relationship between AI capabilities and startup opportunities
-- Why Sam believes this is the best time ever to start a company
-- The importance of building things that leverage AI's strengths
-- How to think about AGI timelines and their impact on business
-- The future of work in an AI-powered world
+가장 먼저 할 일은 '북극성 지표(North Star Metric)'를 정하는 것입니다. 모든 팀원이 하나의 숫자에 집중해야 합니다. 커머스라면 GMV, SaaS라면 MRR, 플랫폼이라면 WAU가 될 수 있습니다.
 
-Notable quotes:
-"The cost of intelligence is going to zero. When that happens, every business that depends on human intelligence becomes reimaginable."
+주간 성장률 5~7%를 목표로 설정하세요. 이것은 연간 12~33배 성장에 해당합니다. 비현실적으로 보일 수 있지만, 초기 스타트업에서 이 정도의 성장률은 가능하고 또 필요합니다.
 
-"I think we're going to look back on this era as the most important technological transition in human history. And the startups founded right now will be the ones that define the next century."`,
-    date: "October 2024",
-    duration: "15:58",
-    youtubeId: "xXRMRE_-dLM",
-    views: "687K",
-    thumbnailColor: "#e8dce4",
+이 특강에서는 실제 SPEC 팀들의 대시보드를 함께 보며, 어떤 지표를 어떻게 추적하고 있는지, 그리고 지표가 떨어졌을 때 어떻게 진단하고 대응하는지를 실전 중심으로 다룹니다. Google Sheets와 Mixpanel을 활용한 간단한 대시보드 구축 방법도 포함됩니다.`,
+    date: "March 2024",
+    duration: "45:10",
+    youtubeId: "hyYCn_kAngI",
+    views: "1680",
+    thumbnailColor: "#e0dce8",
   },
   {
-    slug: "andrej-karpathy-software-is-changing",
-    title: "Andrej Karpathy: Software Is Changing (Again)",
-    author: "Andrej Karpathy",
-    authorRole: "Founding member, OpenAI",
+    slug: "team-building-cofounder-chemistry",
+    title: "팀빌딩의 기술 — 공동창업자 케미 만들기",
+    author: "David Park",
+    authorRole: "SPEC 공동창립자",
     type: "Video",
-    categories: ["AI", "Engineering"],
+    categories: ["팀빌딩", "창업-기초"],
     description:
-      "Andrej Karpathy explains how AI is fundamentally changing the nature of software development.",
-    body: `Andrej Karpathy, founding member of OpenAI and former Director of AI at Tesla, discusses how software is undergoing its most fundamental transformation since the invention of programming.
+      "좋은 팀이 좋은 아이디어를 이깁니다. 공동창업자를 찾고, 팀 케미를 만드는 실전 가이드.",
+    body: `스타트업 실패 원인 1위는 시장이 아닙니다. 팀의 해체입니다. 아무리 좋은 아이디어도 팀이 깨지면 실행할 수 없습니다.
 
-The key insight: We're moving from Software 1.0 (explicit programming) to Software 2.0 (neural networks) to Software 3.0 (LLM-powered natural language programming).
+공동창업자를 찾을 때 가장 중요한 것은 기술적 역량이 아닙니다. '이 사람과 힘든 시기를 함께 버틸 수 있는가?'입니다. SPEC에서 15개 기수를 관찰한 결과, 성공적으로 프로그램을 완주한 팀의 공통점은 '어려울 때 솔직하게 대화할 수 있는 관계'였습니다.
 
-In Software 1.0, humans write explicit instructions. In Software 2.0, humans design architectures and datasets, and the optimization writes the code (weights). In Software 3.0, humans describe what they want in natural language, and AI writes the code.
+팀빌딩 체크리스트:
+1. 보완적 스킬셋 — 같은 역할의 사람 둘이 모이면 갈등이 생깁니다
+2. 공유된 비전 — '왜 이 문제를 풀어야 하는가'에 대한 합의
+3. 시간 투자 수준의 합의 — 풀타임 vs 파트타임 기대치 조율
+4. 갈등 해결 프로세스 — 의견이 다를 때의 의사결정 규칙
 
-This has profound implications:
-1. The barrier to creating software drops dramatically
-2. The nature of "programming" changes fundamentally
-3. New kinds of applications become possible
-4. The relationship between developers and their tools transforms
-
-Karpathy argues that we're in the very early stages of this transition and that the companies that figure out how to build great Software 3.0 products will become the next generation of tech giants.
-
-The talk includes practical advice for developers on how to adapt to this new paradigm and leverage AI tools effectively in their work.`,
-    date: "July 2024",
-    duration: "61:13",
-    youtubeId: "LBWaGeFjjCk",
-    views: "2.3M",
-    thumbnailColor: "#dce8e0",
-  },
-  {
-    slug: "how-to-find-a-co-founder",
-    title: "How to Find a Co-Founder",
-    author: "Harj Taggar",
-    authorRole: "YC Partner, Founder of Triplebyte",
-    type: "Video",
-    categories: ["Hiring", "Strategy"],
-    description:
-      "Finding the right co-founder is one of the most important decisions you\u2019ll make. Here\u2019s how to do it right.",
-    body: `Finding a co-founder is one of the most important decisions you'll make as a founder. Here's what works:
-
-Where to Find Co-Founders:
-1. People you've worked with before (strongest signal)
-2. People you went to school with
-3. YC's Co-Founder Matching platform
-4. Startup communities and events
-5. Open source communities
-
-What to Look For:
-- Complementary skills (if you're technical, find someone with business skills, and vice versa)
-- Shared values and work ethic
-- Someone you genuinely enjoy spending time with
-- Resilience and grit
-- Intellectual honesty
-
-Red Flags:
-- Someone who only wants to be a "CEO" without doing real work
-- Misaligned commitment levels
-- Someone who can't handle disagreement
-- Vastly different risk tolerances
-
-How to "Date" Before "Marrying":
-1. Work on a small project together first
-2. Have hard conversations about equity, commitment, and expectations
-3. Discuss worst-case scenarios
-4. Set clear expectations about roles and responsibilities
-
-Remember: co-founder breakups are one of the top reasons startups fail. Take this decision seriously.`,
-    date: "May 2020",
-    duration: "13:02",
+이 특강에서는 팀 빌딩 워크숍도 함께 진행합니다. 서로의 강점, 약점, 동기를 공유하는 구조화된 대화를 통해 팀의 기초를 다집니다.`,
+    date: "February 2024",
+    duration: "32:15",
     youtubeId: "prKi3-rUPHc",
-    views: "107K",
+    views: "2100",
     thumbnailColor: "#e8e4dc",
   },
   {
-    slug: "the-real-product-market-fit",
-    title: "The Real Product Market Fit",
-    author: "Michael Seibel",
-    authorRole: "Managing Director, Y Combinator",
-    type: "Video",
-    categories: ["Product", "Growth"],
+    slug: "startup-legal-basics",
+    title: "대학생 창업자를 위한 법률 기초",
+    author: "김수진",
+    authorRole: "법률 자문, SPEC",
+    type: "Guide",
+    categories: ["창업-기초"],
     description:
-      "What product-market fit actually looks like, and how to know when you\u2019ve found it.",
-    body: `Everyone talks about product-market fit, but few people understand what it actually looks like when you have it.
+      "법인 설립, 주주간 계약, 지식재산권 — 대학생 창업자가 반드시 알아야 할 법률 기초.",
+    body: `대학생 창업자들이 법률 문제를 간과하는 경우가 많습니다. 하지만 초기에 제대로 된 법률적 기반을 갖추지 않으면 나중에 큰 문제가 될 수 있습니다.
 
-What PMF Feels Like:
-When you have product-market fit, you know it. Users are pulling the product out of your hands. You're struggling to keep up with demand. Growth is organic and accelerating.
+법인 설립의 타이밍:
+팀이 구성되고, 첫 매출이 발생하거나 외부 투자를 받기로 했을 때가 법인 설립의 적절한 시점입니다. 너무 빨리 설립하면 유지 비용만 발생하고, 너무 늦으면 지분 구조가 복잡해집니다.
 
-What PMF Does NOT Look Like:
-- Having to convince people to use your product
-- Growth that only comes from paid marketing
-- High churn rates
-- Users who sign up but don't come back
+주주간 계약 (SHA):
+공동창업자 간의 지분 배분, 베스팅 조건, 탈퇴 시 처리 방법을 명문화해야 합니다. '우리는 친구니까 괜찮아'라는 생각이 가장 위험합니다. 현재 SPEC에서는 표준 SHA 템플릿을 제공하고 있습니다.
 
-How to Find PMF:
-1. Start with a clear hypothesis about who your customer is and what problem you're solving
-2. Build the simplest version of your solution
-3. Get it in front of users as quickly as possible
-4. Measure retention, not just sign-ups
-5. Iterate rapidly based on feedback
+지식재산권:
+개발한 코드, 디자인, 브랜드의 소유권을 명확히 해야 합니다. 특히 학교 프로젝트에서 시작한 경우, 학교의 IP 정책을 반드시 확인하세요.
 
-The Most Common Mistake:
-Founders often think they have PMF when they don't. Signs of false PMF:
-- Revenue from a single large customer
-- Growth driven entirely by press coverage
-- Users who say they like it but don't actually use it
-
-Marc Andreessen famously said: "The customers are buying the product just as fast as you can make it. Money is piling up in your company checking account."
-
-If that's not happening, keep iterating.`,
-    date: "February 2020",
-    duration: "24:32",
-    youtubeId: "FBOLk9s9Ci4",
-    views: "480K",
+이 가이드는 법률 자문을 대체하는 것이 아닙니다. 하지만 변호사를 만나기 전에 기본적인 개념을 이해하고 있으면 상담의 효율이 크게 올라갑니다.`,
+    date: "January 2024",
     thumbnailColor: "#e0e4e8",
   },
   {
-    slug: "how-to-pitch-your-startup",
-    title: "How to Pitch Your Startup",
-    author: "Kevin Hale",
-    authorRole: "YC Partner, Founder of Wufoo",
-    type: "Video",
-    categories: ["Fundraising", "Strategy"],
+    slug: "product-market-fit-korean-market",
+    title: "한국 시장에서 PMF 찾기",
+    author: "이정훈",
+    authorRole: "전략 멘토, SPEC",
+    type: "Essay",
+    categories: ["매출-성장", "창업-기초"],
     description:
-      "A masterclass in how to pitch your startup to investors, from the creator of one of YC\u2019s most beloved companies.",
-    body: `A great pitch does three things: it tells investors what you do, why it matters, and why you're going to win.
+      "Product-Market Fit의 한국적 특수성. 빠른 트렌드 변화와 높은 기대치의 시장에서 PMF를 찾는 법.",
+    body: `한국 시장은 독특합니다. 소비자들의 기대치가 매우 높고, 트렌드 변화가 빠르며, 입소문의 영향력이 큽니다. 실리콘밸리의 PMF 프레임워크를 그대로 적용하면 맞지 않는 부분이 있습니다.
 
-The Structure of a Great Pitch:
-1. Problem (30 seconds): What's the problem? Make it vivid and relatable.
-2. Solution (30 seconds): What do you do? Keep it simple.
-3. Traction (1 minute): What evidence do you have that this is working?
-4. Market (30 seconds): How big is the opportunity?
-5. Team (30 seconds): Why are you the right people?
-6. Ask (15 seconds): What are you raising and what will you do with it?
+한국 시장 PMF의 특징:
+1. '써볼게' vs '쓸게' — 한국 소비자는 시도는 빠르지만, 정착도 빠르게 판단합니다. 온보딩 경험이 매우 중요합니다.
+2. 카카오톡 효과 — 주변 사람들이 쓰지 않으면 아무리 좋은 서비스도 확산이 어렵습니다. 네트워크 효과를 고려한 설계가 필요합니다.
+3. 리뷰 문화 — 네이버 블로그, 유튜브 리뷰가 초기 성장에 결정적 역할을 합니다. 리뷰 가능한 '이야기'를 만드세요.
 
-Common Pitfalls:
-- Starting with your team instead of the problem
-- Using jargon or buzzwords
-- Spending too long on the solution without showing traction
-- Not being specific about numbers
-- Not practicing enough
-
-The Two-Minute Rule:
-If you can't explain your company clearly in two minutes, you don't understand it well enough yet.
-
-Demo vs. Deck:
-If possible, show a demo. A working product is worth a thousand slides.
-
-Remember: investors see hundreds of pitches. Your goal is to be memorable for the right reasons.`,
-    date: "September 2019",
-    duration: "19:50",
-    youtubeId: "17XZGUX_9iM",
-    views: "720K",
+SPEC 팀들의 PMF 탐색 사례를 분석하면, 성공한 팀들은 대부분 '하나의 커뮤니티'에서 시작했습니다. 성균관대 학생, 특정 동아리, 특정 지역 — 작은 시장에서 완벽한 PMF를 만들고, 그 다음에 확장하는 전략이 효과적이었습니다.`,
+    date: "December 2023",
     thumbnailColor: "#dce0e4",
   },
   {
-    slug: "pricing-your-product",
-    title: "Pricing Your Product",
-    author: "Kevin Hale",
-    authorRole: "YC Partner, Founder of Wufoo",
+    slug: "investor-relations-101",
+    title: "투자자와의 관계 구축 — IR 101",
+    author: "Sarah Lee",
+    authorRole: "투자 멘토, SPEC",
     type: "Video",
-    categories: ["Product", "Sales", "Growth"],
+    categories: ["IR-투자"],
     description:
-      "How to price your product for maximum growth and revenue. Most startups charge too little.",
-    body: `Most startups charge too little. Here's how to think about pricing:
+      "투자 유치는 관계에서 시작됩니다. 투자자를 만나기 전, 만난 후, 투자 받은 후의 관계 관리법.",
+    body: `많은 창업자들이 투자를 '거래'로 생각합니다. 하지만 좋은 투자 관계는 '파트너십'입니다.
 
-The #1 Rule: Charge More
-Almost every startup we see at YC is undercharging. If no one complains about your price, you're not charging enough.
+투자자를 만나기 전:
+- 타겟 투자자 리스트를 만드세요. 당신의 분야에 투자 이력이 있는 투자자를 찾으세요.
+- 콜드 이메일보다 소개가 효과적입니다. SPEC 네트워크를 활용하세요.
+- 투자가 필요하기 6개월 전부터 관계를 시작하세요.
 
-Value-Based Pricing:
-Don't price based on your costs. Price based on the value you deliver. If you save a customer $100,000/year, charging $10,000 is a steal.
+투자자를 만난 후:
+- 미팅 후 24시간 내 감사 이메일을 보내세요.
+- 약속한 후속 자료를 반드시 보내세요.
+- 투자를 받지 못하더라도 관계를 유지하세요. 다음 라운드에서 만날 수 있습니다.
 
-The 10x Rule:
-Your product should deliver at least 10x the value of its price. This makes the purchase decision easy.
-
-Pricing Strategies:
-1. Start high and come down (easier than going up)
-2. Offer multiple tiers
-3. Price annually when possible (reduces churn)
-4. Consider usage-based pricing for products with variable usage
-
-Common Mistakes:
-- Offering a free tier too early
-- Not raising prices as you add value
-- Copying competitor pricing without understanding why
-- Making pricing too complicated
-
-When to Change Pricing:
-- When conversion rates are too high (you're too cheap)
-- When conversion rates are too low (you might be too expensive, or more likely, not delivering enough value)
-- When you add significant new features
-- When you move upmarket`,
-    date: "November 2019",
-    duration: "17:46",
-    youtubeId: "oQw7LV-YfyU",
-    views: "127K",
+투자를 받은 후:
+- 월간 투자자 업데이트를 보내세요. 좋은 소식과 나쁜 소식 모두 포함하세요.
+- 도움을 구체적으로 요청하세요. '도움이 필요합니다'보다 'A 회사의 B 담당자를 소개받고 싶습니다'가 효과적입니다.
+- 중요한 결정 전에 투자자의 의견을 구하세요. 그들은 경험이 풍부합니다.`,
+    date: "November 2023",
+    duration: "28:50",
+    youtubeId: "17XZGUX_9iM",
+    views: "980",
     thumbnailColor: "#e4e0e8",
   },
   {
-    slug: "how-to-improve-conversion-rates",
-    title: "How to Improve Conversion Rates",
-    author: "Gustaf Alstr\u00f6mer",
-    authorRole: "YC Partner",
+    slug: "vcc-module-overview",
+    title: "VCC 프로그램 전체 모듈 해설",
+    author: "Peter Kim",
+    authorRole: "SPEC 창립자",
     type: "Video",
-    categories: ["Growth", "Product"],
+    categories: ["VCC", "창업-기초"],
     description:
-      "Tactical advice on improving your startup\u2019s conversion rates at every stage of the funnel.",
-    body: `Conversion rate optimization is one of the highest-leverage activities for any startup. Small improvements in conversion compound dramatically over time.
+      "VCC 3개 Phase의 구성과 각 단계에서 기대하는 성과. 지원자와 현 참가자를 위한 필수 시청 영상.",
+    body: `VCC(Venture Creation Course)는 SPEC의 핵심 프로그램으로, 아이디어에서 시장 검증까지의 여정을 3개 Phase로 구조화합니다.
 
-The Conversion Funnel:
-1. Awareness → Visit (traffic)
-2. Visit → Sign-up (registration)
-3. Sign-up → Activation (first value moment)
-4. Activation → Retention (ongoing use)
-5. Retention → Revenue (payment)
-6. Revenue → Referral (word of mouth)
+Phase 1: 매출 챌린지 (8주)
+목표: 첫 매출 달성. 제품이 없어도 됩니다. 프리셀링, 서비스 판매, 크라우드펀딩 등 어떤 방법이든 '고객이 돈을 내는' 경험을 합니다. 이 Phase에서 가장 중요한 것은 속도입니다.
 
-Key Principles:
-- Measure each step separately
-- Focus on the biggest drop-off first
-- A/B test systematically
-- Talk to users who dropped off to understand why
+Phase 2: 성장 실험 (8주)
+목표: 체계적 성장. Phase 1에서 만든 초기 매출을 기반으로, 반복 가능한 성장 모델을 만듭니다. 주간 성장률을 추적하고, A/B 테스트를 통해 성장 레버를 찾습니다.
 
-Quick Wins:
-1. Simplify your homepage copy
-2. Reduce form fields
-3. Add social proof
-4. Speed up your site
-5. Fix broken flows
-6. Add clear CTAs
+Phase 3: 스케일업 준비 (8주)
+목표: 투자 준비. 비즈니스 모델을 정교화하고, IR 자료를 준비하며, 데모데이에서 발표합니다. 이 Phase에서는 실제 투자자들과의 미팅 기회도 제공됩니다.
 
-The Activation Metric:
-Find the "aha moment" — the specific action that correlates with long-term retention. For Facebook, it was connecting with 7 friends in 10 days. For Slack, it was sending 2,000 messages.
-
-Once you know your activation metric, optimize everything to get new users to that moment as quickly as possible.`,
-    date: "April 2020",
-    duration: "23:18",
-    youtubeId: "PfBqSfVKa2U",
-    views: "46K",
-    thumbnailColor: "#dce4e0",
+각 Phase 사이에는 게이트웨이 심사가 있으며, 일정 기준을 충족하지 못하면 다음 Phase로 진행하지 못합니다. 이 구조는 탈락이 아닌, 아직 준비되지 않은 팀에게 더 많은 준비 시간을 주기 위한 것입니다.`,
+    date: "October 2023",
+    duration: "52:00",
+    youtubeId: "ASABxNenD_U",
+    views: "4200",
+    thumbnailColor: "#dce8e0",
   },
   {
-    slug: "elon-musk-how-to-build-the-future",
-    title: "Elon Musk: How to Build the Future",
-    author: "Elon Musk",
-    authorRole: "CEO, Tesla & SpaceX",
+    slug: "pricing-strategy-for-early-startups",
+    title: "초기 스타트업 가격 전략 — 얼마를 받을 것인가",
+    author: "이정훈",
+    authorRole: "전략 멘토, SPEC",
     type: "Video",
-    categories: ["Founder Stories", "Hard Tech", "Leadership"],
+    categories: ["매출-성장"],
     description:
-      "Elon Musk discusses digital superintelligence, multiplanetary life, and how to be useful.",
-    body: `In this conversation, Elon Musk shares his perspective on the most important problems facing humanity and how founders should think about building the future.
+      "대부분의 초기 창업자들은 너무 싸게 팝니다. 가격 결정의 원칙과 실전 전략.",
+    body: `초기 스타트업에서 가장 어려운 의사결정 중 하나가 가격 책정입니다. 대부분의 대학생 창업자들은 자신감 부족으로 너무 낮은 가격을 책정합니다.
 
-Topics covered:
-- The case for becoming multiplanetary
-- The development of artificial general intelligence
-- Sustainable energy and the transition to electric vehicles
-- The importance of manufacturing and hardware
-- How to think about risk when building ambitious companies
-- Why most people underestimate what they can accomplish in a decade
+가격 결정의 첫 번째 원칙: 원가 기반이 아닌 가치 기반으로 책정하라. 당신의 제품이 고객에게 10만 원의 가치를 제공한다면, 1만 원은 합리적인 가격입니다. 3천 원이면 너무 쌉니다.
 
-On starting companies:
-"You should only start a company if you feel compelled to. If you need to be motivated to start a company, don't do it. It should feel like something you have to do."
+가격 테스트 방법:
+1. 높은 가격에서 시작해서 내려오세요. 올리는 것보다 내리는 것이 쉽습니다.
+2. 세 가지 가격 옵션을 제시하세요. 기본, 스탠다드, 프리미엄.
+3. 아무도 불평하지 않으면, 가격이 너무 낮은 것입니다.
+4. 전환율이 너무 높아도(90% 이상) 가격이 낮다는 신호입니다.
 
-On hard problems:
-"I think there's a tendency for people to work on incremental improvements rather than fundamental breakthroughs. The world needs people working on the hard problems."
-
-On persistence:
-"There were times at both Tesla and SpaceX where things were so bad that I thought we were going to die. But we didn't, because we kept going."
-
-On building teams:
-"Every person you hire should be someone you'd want to work for. That's the bar."`,
-    date: "July 2024",
-    duration: "39:32",
-    youtubeId: "Fs_U9jlVRkw",
-    views: "643K",
+SPEC 팀들의 가격 실험 사례:
+- A팀: 월 구독료 5,000원에서 시작 → 15,000원으로 올려도 이탈률 변화 없음
+- B팀: 건당 3,000원 → 번들 패키지 30,000원 도입으로 객단가 5배 상승
+- C팀: 무료에서 유료 전환 시 70% 이탈, 하지만 남은 30%의 LTV가 10배 높음`,
+    date: "September 2023",
+    duration: "25:30",
+    youtubeId: "oQw7LV-YfyU",
+    views: "1350",
     thumbnailColor: "#e8dce8",
   },
   {
-    slug: "design-for-startups",
-    title: "Why Design Matters for Startups",
-    author: "Kat Manalac",
-    authorRole: "YC Partner",
-    type: "Video",
-    categories: ["Design", "Product"],
+    slug: "ai-tools-for-student-founders",
+    title: "학생 창업자를 위한 AI 도구 총정리",
+    author: "정민수",
+    authorRole: "기술 멘토, SPEC",
+    type: "Guide",
+    categories: ["기술-MVP"],
     description:
-      "Why design is a competitive advantage for startups and how to get it right from the beginning.",
-    body: `Design isn't just about making things look pretty. It's about making things work well. Here's why design matters for startups:
+      "2024년 학생 창업자가 알아야 할 AI 도구 30선. 개발, 디자인, 마케팅, 운영 전 영역.",
+    body: `AI 도구의 발전으로 혼자서도 할 수 있는 일의 범위가 극적으로 넓어졌습니다. 이 가이드에서는 학생 창업자가 실제로 활용할 수 있는 AI 도구를 영역별로 정리합니다.
 
-1. First Impressions Count
-Users form opinions about your product in seconds. A well-designed product signals competence and trustworthiness.
+개발:
+- Cursor: AI 코드 에디터. 자연어로 코드 작성 가능
+- Replit: 브라우저 기반 개발 환경 + AI 에이전트
+- v0.dev: 자연어로 UI 컴포넌트 생성
+- Supabase: 백엔드 인프라 자동화
 
-2. Good Design Reduces Friction
-Every point of friction in your product is a place where users drop off. Good design eliminates friction and makes the path to value as smooth as possible.
+디자인:
+- Figma AI: 디자인 자동 생성 및 수정
+- Midjourney: 마케팅 이미지 생성
+- Gamma: AI 기반 프레젠테이션 제작
 
-3. Design Is a Competitive Advantage
-When two products have similar features, users choose the one that's better designed. Design can be your moat.
+마케팅:
+- ChatGPT: 카피라이팅, 콘텐츠 기획
+- Jasper: 마케팅 콘텐츠 대량 생성
+- Opus Clip: 긴 영상을 숏폼 콘텐츠로 자동 편집
 
-How to Get Design Right (Even Without a Designer):
-1. Copy great designs (don't try to be original at first)
-2. Keep it simple (when in doubt, remove elements)
-3. Use established design systems (like Tailwind, Shadcn)
-4. Focus on the core user flow first
-5. Get feedback from real users, not other founders
+운영:
+- Notion AI: 문서 관리 및 정리
+- Zapier AI: 업무 자동화
+- Otter.ai: 미팅 녹음 및 요약
 
-Design Principles for Startups:
-- Clarity over cleverness
-- Consistency is key
-- White space is your friend
-- Typography matters more than you think
-- Color should serve a purpose
-
-Resources:
-- Refactoring UI by Steve Schoger and Adam Wathan
-- Laws of UX by Jon Yablonski
-- Design of Everyday Things by Don Norman`,
-    date: "October 2023",
-    duration: "20:44",
-    youtubeId: "bVRmU3cDAng",
-    views: "50K",
+각 도구의 무료 티어와 학생 할인 정보도 함께 제공합니다. 대부분의 도구가 학생에게 무료 또는 할인을 제공하고 있으니 적극 활용하세요.`,
+    date: "August 2023",
     thumbnailColor: "#e0dce4",
   },
   {
-    slug: "andrew-ng-building-faster-with-ai",
-    title: "Andrew Ng: Building Faster with AI",
-    author: "Andrew Ng",
-    authorRole: "Founder, DeepLearning.AI",
+    slug: "growth-hacking-on-campus",
+    title: "캠퍼스 안에서 그로스 해킹하기",
+    author: "Jimin Choi",
+    authorRole: "그로스 멘토, SPEC",
     type: "Video",
-    categories: ["AI", "Engineering", "Leadership"],
+    categories: ["매출-성장", "VCC"],
     description:
-      "Andrew Ng shares his framework for building AI products and how founders can move faster with AI.",
-    body: `Andrew Ng, one of the most influential figures in AI, shares his framework for building AI products and companies.
+      "대학 캠퍼스는 최고의 테스트 마켓입니다. 캠퍼스 내 사용자 확보와 바이럴 전략.",
+    body: `대학 캠퍼스는 스타트업의 첫 번째 시장으로 이상적인 환경입니다. 밀집된 타겟 유저, 빠른 입소문 구조, 그리고 피드백에 적극적인 사용자 — 이 세 가지가 캠퍼스 마켓의 강점입니다.
 
-Key Insights:
+캠퍼스 그로스 전략 5가지:
 
-1. AI is the new electricity
-Just as electricity transformed every industry 100 years ago, AI is going to transform every industry today. The question isn't whether AI will impact your industry—it's how soon.
+1. 동아리/학회 파트너십
+동아리 임원진에게 접근하세요. 그들이 당신의 얼리 어답터이자 바이럴 에이전트가 됩니다.
 
-2. The AI development cycle
-Traditional software: Idea → Code → Test → Deploy
-AI software: Idea → Data → Model → Test → Deploy
+2. 학식/카페 마케팅
+학생들이 매일 지나가는 곳에 노출을 만드세요. QR코드 스티커, 텐트카드 등 저비용 고효율 전략입니다.
 
-The data step is what makes AI development different. Spend more time on data quality than model architecture.
+3. 수업 활용
+교수님과 협력하여 수업 프로젝트로 연결하세요. 실제로 SPEC 여러 팀이 이 방식으로 초기 사용자를 확보했습니다.
 
-3. Start with small, focused projects
-Don't try to build an "AI platform." Start with one specific problem, solve it well, then expand.
+4. 에브리타임 활용
+대학생들의 핵심 커뮤니티 플랫폼인 에브리타임에서의 마케팅 전략. 광고가 아닌 '가치 있는 콘텐츠'로 접근하세요.
 
-4. The 80/20 rule for AI
-80% of the value in most AI projects comes from relatively simple techniques (supervised learning, basic NLP). Only 20% requires cutting-edge research.
-
-5. Build an AI team
-You need three types of people:
-- ML engineers who can build models
-- Data engineers who can build data pipelines
-- Domain experts who understand the problem
-
-6. Think about the full stack
-The model is just one part of an AI product. You also need data collection, preprocessing, serving infrastructure, monitoring, and a great user experience.`,
-    date: "June 2024",
-    duration: "38:56",
-    youtubeId: "D84s8lRpnzM",
-    views: "410K",
+5. 캠퍼스 이벤트
+런칭 이벤트, 체험 부스 등을 통해 오프라인에서 첫 사용자를 만나세요. 온라인보다 전환율이 5~10배 높습니다.`,
+    date: "July 2023",
+    duration: "30:20",
+    youtubeId: "PfBqSfVKa2U",
+    views: "1560",
     thumbnailColor: "#e4dce0",
   },
   {
-    slug: "sam-altman-future-of-openai",
-    title: "Sam Altman: The Future of OpenAI",
-    author: "Sam Altman",
-    authorRole: "CEO, OpenAI",
+    slug: "alumni-startup-exits",
+    title: "SPEC-Backed Companies: Growth Stories",
+    author: "한유진",
+    authorRole: "프로그램 디렉터, SPEC",
     type: "Video",
-    categories: ["AI", "Founder Stories", "Strategy"],
+    categories: ["알럼나이", "창업-기초"],
     description:
-      "Sam Altman discusses ChatGPT\u2019s origins, the future of AI, and building one of the most important companies in history.",
-    body: `In this in-depth conversation, Sam Altman, CEO of OpenAI, discusses the past, present, and future of artificial intelligence.
+      "Stories of SPEC-backed companies that made it past Series A — what they learned at SPEC and the journey after.",
+    body: `SPEC을 졸업한 후 실제로 투자를 유치하고 성장한 팀들의 이야기를 모았습니다.
 
-On ChatGPT's Origins:
-"We were honestly surprised by how much people loved ChatGPT. We knew the technology was impressive, but the reaction was beyond anything we anticipated. It turns out that making AI accessible through a simple chat interface was the key insight."
+사례 1: 에듀플랫폼 (SPEC 8기)
+캠퍼스 내 과외 매칭으로 시작 → 온라인 교육 플랫폼으로 피벗 → 시리즈 A 30억 유치. SPEC에서의 매출 챌린지가 '고객의 목소리를 듣는 습관'을 만들어줬다고 합니다.
 
-On the Future of AI:
-"I believe we're in the early stages of the most important technological revolution in human history. The capabilities we'll see in the next 5 years will make today's AI look primitive."
+사례 2: 물류 SaaS (SPEC 11기)
+성균관대 주변 소상공인 배달 최적화로 시작 → B2B 물류 SaaS로 확장 → 현재 MAU 5만, 시리즈 B 준비 중. SPEC에서의 린 캔버스 작성이 비즈니스 모델의 기초를 잡아줬습니다.
 
-On Building OpenAI:
-"Building OpenAI has been the hardest thing I've ever done. The technical challenges are immense, the stakes are incredibly high, and there's no playbook for building a company like this."
+사례 3: 헬스케어 앱 (SPEC 14기)
+학생 건강 관리 앱으로 시작 → 기업 웰니스 솔루션으로 전환 → Pre-A 15억 유치. VCC Phase 2에서의 성장 실험이 데이터 기반 의사결정의 첫 경험이었습니다.
 
-On Startups in the AI Era:
-"This is the best time ever to start a company. AI is going to create more value than any technology in history, and most of that value will be captured by startups, not incumbents."
-
-On Safety and Alignment:
-"We take safety incredibly seriously. Getting AI alignment right isn't just important for OpenAI—it's important for humanity. We're investing heavily in this area."
-
-On Competition:
-"Competition is healthy and expected. What matters isn't who's first, but who builds the most useful and safe AI systems."`,
-    date: "August 2024",
-    duration: "49:41",
+공통점: 세 팀 모두 SPEC-backed companies로서 졸업 후 아이디어를 크게 피벗했습니다. SPEC에서 배운 것은 특정 아이디어가 아니라, '빠르게 실행하고 검증하는 방법론'이었습니다.`,
+    date: "June 2023",
+    duration: "40:15",
     youtubeId: "xXRMRE_-dLM",
-    views: "472K",
+    views: "2650",
+    thumbnailColor: "#dce4e0",
+  },
+  {
+    slug: "no-code-tools-for-validation",
+    title: "노코드로 아이디어 검증하기",
+    author: "정민수",
+    authorRole: "기술 멘토, SPEC",
+    type: "Guide",
+    categories: ["기술-MVP", "VCC"],
+    description:
+      "코딩 없이 48시간 안에 아이디어를 검증하는 방법. 노코드 도구 활용 실전 가이드.",
+    body: `아이디어 검증에 개발자는 필요 없습니다. 노코드 도구만으로도 고객의 반응을 확인할 수 있는 MVP를 48시간 안에 만들 수 있습니다.
+
+48시간 아이디어 검증 로드맵:
+
+Hour 0-4: 랜딩 페이지 만들기
+- Carrd 또는 Framer로 원페이지 랜딩 페이지를 만드세요.
+- 핵심 가치 제안, 가격, 사전 등록 폼만 있으면 됩니다.
+- 도메인은 나중에. 먼저 Vercel/Netlify 서브도메인으로 배포하세요.
+
+Hour 4-12: 트래픽 확보
+- 인스타그램 스토리, 에브리타임 게시글, 카카오톡 오픈채팅방에 공유하세요.
+- 50명에게 직접 DM을 보내세요. 개인적으로 보낸 메시지의 반응률이 5~10배 높습니다.
+
+Hour 12-36: 고객 반응 수집
+- 사전 등록 전환율을 측정하세요. 5% 이상이면 긍정적 신호입니다.
+- 등록한 사람들에게 10분 인터뷰를 요청하세요. 최소 5명.
+
+Hour 36-48: 의사결정
+- 데이터를 분석하고, 진행할지 피벗할지 결정하세요.
+- '좋다'는 말이 아닌 '돈을 내겠다'는 반응이 진짜 검증입니다.
+
+이 방법론은 SPEC VCC Phase 1의 첫 주에 모든 팀이 실행하는 표준 프로세스입니다.`,
+    date: "May 2023",
+    thumbnailColor: "#e8e0e4",
+  },
+  {
+    slug: "mentor-session-mental-health",
+    title: "창업자 멘탈 관리 — 번아웃 없이 달리기",
+    author: "김수진",
+    authorRole: "법률 자문, SPEC",
+    type: "Podcast",
+    categories: ["팀빌딩", "알럼나이"],
+    description:
+      "창업은 마라톤입니다. 학업과 창업을 병행하는 대학생 창업자의 멘탈 관리 전략.",
+    body: `이 팟캐스트에서는 대학생 창업자들이 겪는 정신적 어려움과 그 대처법을 다룹니다.
+
+대학생 창업자의 3중고:
+1. 학업 — 학점을 포기할 수 없습니다
+2. 창업 — 팀과 제품에 대한 책임감
+3. 사회적 관계 — 친구들과 점점 달라지는 생활 패턴
+
+이 세 가지를 동시에 감당하려다 번아웃에 빠지는 학생들이 매 기수마다 있습니다.
+
+멘탈 관리의 핵심 원칙:
+- 완벽주의를 버리세요. '충분히 좋은' 상태로 전진하는 것이 멈추는 것보다 낫습니다.
+- 주당 최소 하루는 완전히 쉬세요. 생산성은 쉼에서 나옵니다.
+- 비교하지 마세요. 다른 팀의 성과는 당신의 여정과 관련 없습니다.
+- 도움을 요청하세요. SPEC 멘토진은 사업 조언뿐 아니라 개인적 고민도 함께 나눌 준비가 되어 있습니다.
+
+알럼나이 세 명이 각자 번아웃을 경험하고 극복한 이야기를 솔직하게 나눕니다.`,
+    date: "April 2023",
+    duration: "55:00",
+    views: "890",
     thumbnailColor: "#dce0e8",
   },
   {
-    slug: "before-the-startup",
-    title: "Before the Startup",
-    author: "Paul Graham",
-    authorRole: "Co-founder, Y Combinator",
+    slug: "competitive-analysis-framework",
+    title: "경쟁사 분석 프레임워크",
+    author: "David Park",
+    authorRole: "SPEC 공동창립자",
     type: "Essay",
-    categories: ["Strategy", "Culture"],
+    categories: ["창업-기초", "IR-투자"],
     description:
-      "Counterintuitive advice for aspiring startup founders based on a lecture given at Stanford.",
-    body: `This essay is derived from a guest lecture I gave at Sam Altman's startup class at Stanford. It's aimed at college students, but much of it is applicable to potential founders of all ages.
+      "경쟁사가 없다고 말하지 마세요. 경쟁 환경을 체계적으로 분석하고 차별화 포인트를 찾는 방법.",
+    body: `'경쟁사가 없습니다'라는 말은 두 가지를 의미합니다: 시장이 없거나, 분석을 안 했거나. 투자자가 이 말을 들으면 둘 다 나쁜 신호로 받아들입니다.
 
-One of the advantages of having kids is that when you have to give advice, you can ask yourself "what would I tell my own kids?" My kids are little, but I can imagine what I'd tell them about startups if they were in college, and it turns out to be the same things I tell people in YC.
+경쟁사 분석의 목적은 경쟁사를 이기는 것이 아닙니다. 시장을 이해하고, 당신의 차별화 포인트를 명확히 하는 것입니다.
 
-1. Startups are counterintuitive
-Your instincts about startups will be wrong. One of the most counterintuitive things about startups is that it's OK to have a "bad" idea. Many of the best startups seemed like bad ideas at first: Facebook was just another social network, Airbnb involved strangers sleeping in your house.
+경쟁사 분석 프레임워크:
 
-2. You can't game the system
-Expertise at starting startups is not what you need. What you need is expertise in your own users.
+1단계: 경쟁 범위 정의
+- 직접 경쟁: 같은 문제를 같은 방식으로 해결하는 서비스
+- 간접 경쟁: 같은 문제를 다른 방식으로 해결하는 서비스
+- 대안재: 고객이 현재 이 문제를 어떻게 해결하고 있는가 (엑셀, 수작업 등)
 
-3. Starting a startup will change you
-The demands of a startup will push you in ways you never expected. This is neither good nor bad—it's just reality.
+2단계: 기능 비교 매트릭스
+각 경쟁사의 핵심 기능, 가격, 타겟 고객을 표로 정리하세요.
 
-4. The way to get startup ideas is to not try to get startup ideas
-If you make a conscious effort to think of startup ideas, you'll think of ideas that are plausible but wrong. The way to come up with good ideas is to look for problems.
+3단계: 차별화 포인트 도출
+'모든 면에서 더 좋다'는 것은 차별화가 아닙니다. 하나의 축에서 압도적으로 다른 것이 진짜 차별화입니다.
 
-5. Don't worry about competition
-Inexperienced founders usually give competitors more credit than they deserve. It's exceptionally rare for a startup to be killed by a competitor.
+4단계: 포지셔닝 맵
+X축과 Y축을 정해 경쟁사와 우리의 위치를 시각화하세요. 비어 있는 영역이 기회입니다.
 
-6. The most important thing is to start
-The best way to learn about startups is to start one. You'll learn more in the first month of running a startup than in a year of thinking about starting one.`,
-    date: "October 2014",
-    thumbnailColor: "#e4e0dc",
+이 에세이의 마지막에 SPEC 팀들이 실제로 사용한 경쟁사 분석 템플릿을 첨부합니다.`,
+    date: "March 2023",
+    thumbnailColor: "#e4e8dc",
   },
 ];

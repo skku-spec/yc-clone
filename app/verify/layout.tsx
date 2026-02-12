@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Verify | Y Combinator",
-  description: "Verify a Y Combinator company",
+  title: "Verify | SPEC",
+  description: "Verify a SPEC company",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

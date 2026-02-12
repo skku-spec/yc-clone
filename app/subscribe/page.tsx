@@ -1,50 +1,35 @@
 import type { Metadata } from "next";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "Subscribe to YC's Newsletter | Y Combinator",
-  description:
-    "Keep up with the latest news, launches, jobs, and events from the YC community.",
+  title: "뉴스레터 구독 | SPEC",
+  description: "SPEC 소식을 받아보세요",
 };
 
 const pClass =
-  "mb-6 font-['Outfit',sans-serif] font-light text-[18px] leading-[1.7] text-[#16140f] last:mb-0";
+  "mb-6 font-['Pretendard',sans-serif] font-normal text-[18px] leading-[1.7] text-[#16140f] last:mb-0";
 
 export default function SubscribePage() {
   return (
-    <main className="flex-1 px-4 pb-4 pt-12 md:pb-10 md:pt-16">
-      <div className="mx-auto max-w-[640px] text-center">
-        <h1 className="mb-2 font-['Source_Serif_4',serif] text-[clamp(2.5rem,5vw,3.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f] md:mb-4">
-          Subscribe to YC&apos;s Newsletter
-        </h1>
+    <main className="flex-1 px-4 pb-24 pt-14 md:pt-20">
+      <div className="mx-auto max-w-[720px] text-center">
+        <PageHeader title="Newsletter" align="center" />
       </div>
 
-      <article className="mx-auto max-w-[640px] text-center">
+      <article className="mx-auto max-w-[720px] text-center">
         <section className="mb-10">
           <p className={pClass}>
-            Keep up with the latest news, launches, jobs, and events from the YC
-            community.
+            SPEC의 최신 소식, 창업 인사이트, 이벤트 정보를 이메일로 받아보세요.
           </p>
 
            <div className="my-8">
-             <a
-               href="https://account.ycombinator.com?continue=https://www.ycombinator.com/newsletter/subscribe?signup_source=ycdc_newsletter_page"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="inline-flex h-20 items-center justify-center rounded-full bg-black px-10 pb-1 font-['Source_Serif_4',serif] text-[1.75rem] font-normal italic tracking-[0.015rem] text-[#f5f5ee] no-underline transition-[opacity,transform] duration-300 ease-out hover:opacity-80 max-md:h-[42px] max-md:px-9 max-md:text-[20px]"
-             >
-               Sign in to subscribe!
-             </a>
+             <div className="inline-flex h-20 items-center justify-center rounded-full bg-black px-10 pb-1 font-['MaruBuri',serif] text-[1.75rem] font-normal italic tracking-[0.015rem] text-[#f5f5ee] transition-[opacity,transform] duration-300 ease-out max-md:h-[42px] max-md:px-9 max-md:text-[20px]">
+               Coming Soon
+             </div>
            </div>
 
           <p className={pClass}>
-            <a
-              href="https://us7.campaign-archive.com/home/?u=6507bf4e4c2df3fdbae6ef738&id=547725049b"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#16140f] underline decoration-gray-500 underline-offset-2 transition-all hover:decoration-gray-700"
-            >
-              View Newsletter Archive
-            </a>
+            곧 뉴스레터 구독 기능이 시작됩니다. SPEC 소식을 받으려면 인스타그램이나 이메일로 연락 주세요.
           </p>
         </section>
       </article>

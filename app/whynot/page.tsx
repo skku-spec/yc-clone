@@ -1,70 +1,62 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "Why We Don't Invite Groups to Interviews | Y Combinator",
-  description:
-    "A lot of groups that don't get invited to interviews would like to know why. This is a reasonable thing to want.",
+  title: "선발되지 않았다면 | SPEC",
+  description: "SPEC에 선발되지 않은 분들을 위한 안내",
 };
 
 export default function WhyNotPage() {
   return (
     <>
-      <h1 className="px-4 pt-12 text-center font-['Source_Serif_4',serif] text-[clamp(2.5rem,5vw,3.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f] md:pt-16">
-        Why We Don&apos;t Invite Groups to Interviews
-      </h1>
+      <div className="pt-14 md:pt-20">
+        <PageHeader title="What's Next" align="center" />
+      </div>
 
-      <div className="mx-auto flex max-w-[1100px] gap-12 px-4 pb-10 pt-8 md:px-8 lg:px-12">
-        <article className="min-w-0 max-w-[720px] flex-1 font-['Outfit',sans-serif] text-base font-light leading-relaxed text-[#16140f]">
+      <div className="mx-auto flex max-w-[1100px] gap-12 px-4 pb-24 pt-8 md:px-8">
+        <article className="min-w-0 max-w-[720px] flex-1 font-['Pretendard',sans-serif] text-base font-normal leading-relaxed text-[#16140f]">
           <p className="mb-6">
-            A lot of groups that don&apos;t get invited to interviews would like
-            to know why. This is a reasonable thing to want. If there&apos;s
-            something wrong with your project, you want to know what.
+            선발되지 않았다고 해서 끝이 아닙니다. 많은 분들이 그 이유를 알고 싶어하시는데,
+            이는 당연한 요구입니다. 무엇이 부족했는지 알아야 다음 기회를 준비할 수 있으니까요.
           </p>
 
           <p className="mb-6">
-            So why don&apos;t we tell people why we didn&apos;t invite them to
-            interview? Because, paradoxical as it sounds, there often is no
-            reason. The median application is usually pretty good. The reason it
-            gets rejected is not that it seems particularly bad, but that there
-            are a sufficient number of others that seem particularly good.
+            하지만 역설적이게도, 선발되지 않은 명확한 이유가 없는 경우가 많습니다.
+            대부분의 지원서는 훌륭합니다. 탈락한 이유는 지원서가 특별히 나빠서가 아니라,
+            더 뛰어난 지원자들이 충분히 많았기 때문입니다.
           </p>
 
           <p className="mb-6">
-            Probably the reason people expect feedback about why they were
-            rejected is that they implicitly think of applying to YC like taking
-            a test and getting a grade. But a test where only a fixed number of
-            applicants can pass regardless of the average quality is not a grade
-            in that sense.
+            많은 분들이 SPEC 지원을 시험 보듯 생각하시는 것 같습니다.
+            하지만 정해진 인원만 선발할 수 있는 상황에서는 절대적인 평가 기준이 아닌
+            상대적인 비교가 이루어질 수밖에 없습니다.
           </p>
 
           <p className="mb-6">
-            There are physical limits on the number of teams a YC Partner can
-            reasonably work with during a batch. We interview as many great
-            teams as needed to find that number of companies and then generally
-            stop, no matter how many good ones apply. From that cutoff down to
-            about the halfway point, the applications are pretty good. The
-            reason they didn&apos;t get invited was not that there was anything
-            specifically wrong with them. They were just pushed down by other
-            applicants who were particularly stellar.
+            SPEC 운영진이 한 기수 동안 함께할 수 있는 팀의 수는 제한되어 있습니다.
+            우리는 그 인원을 채울 만큼의 훌륭한 팀을 면접하고, 그 이후로는 아무리 좋은
+            지원서가 남아있어도 멈출 수밖에 없습니다. 선발 기준 아래부터 중간 지점까지의
+            지원서들은 모두 우수합니다. 이들이 선발되지 않은 이유는 지원서 자체에 문제가
+            있어서가 아니라, 다른 지원자들이 더욱 뛰어났기 때문입니다.
           </p>
 
           <p className="mb-6">
-            So the reason we can&apos;t respond to emails about why teams were
-            rejected is that a lot of the time there&apos;s literally no answer.
-            We could make one up, but we&apos;d be lying in many cases, and the
-            better the group, the more likely we&apos;d be lying. The main
-            reason the top third or so of the applicants don&apos;t get invited
-            to interviews is literally not to be found anywhere in their
-            application, but instead is distributed across the top few
-            applications that pushed them down below the cutoff.
+            따라서 탈락 이유를 구체적으로 설명드리기 어려운 경우가 많습니다.
+            억지로 이유를 만들어낼 수는 있지만, 그것은 거짓말이 될 것입니다.
+            상위권 지원자들이 선발되지 않은 진짜 이유는 지원서 어딘가에 있는 것이 아니라,
+            그들보다 더 뛰어난 소수의 지원자들이 있었다는 사실뿐입니다.
+          </p>
+
+          <p className="mb-6 font-['MaruBuri',serif] text-lg font-normal italic text-[#16140f]">
+            가장 중요한 것은 포기하지 않는 것입니다. 다음 기수에 다시 도전하세요.
           </p>
         </article>
 
-        <nav className="sticky top-24 hidden h-fit w-[220px] shrink-0 font-['Outfit',sans-serif] text-sm lg:block">
+        <nav className="sticky top-24 hidden h-fit w-[170px] shrink-0 font-['Pretendard',sans-serif] text-sm lg:block">
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#16140f]/50">
-              Elsewhere
+              관련 페이지
             </p>
             <ul className="space-y-1.5">
               <li>
@@ -72,7 +64,7 @@ export default function WhyNotPage() {
                   href="/about"
                   className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                 >
-                  About Y Combinator
+                  SPEC 소개
                 </Link>
               </li>
               <li>
@@ -80,7 +72,7 @@ export default function WhyNotPage() {
                   href="/faq"
                   className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                 >
-                  Frequently Asked Questions
+                  자주 묻는 질문
                 </Link>
               </li>
             </ul>

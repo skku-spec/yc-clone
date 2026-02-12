@@ -2,179 +2,110 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Software at YC | Y Combinator",
+  title: "Resources | SPEC",
   description:
-    "Build the software that runs YC. Learn about engineering at Y Combinator.",
+    "SPEC 팀이 사용하는 도구와 리소스",
 };
 
 export default function SoftwarePage() {
   return (
-    <div className="mx-auto max-w-[1100px] px-4 pb-24">
-      <div className="mb-16">
-        <h1 className="mb-2 font-sans text-[80px] font-bold leading-[80px] text-[#FF6C0F]">
-          Software at YC
+    <div className="mx-auto max-w-[1100px] px-4 pb-24 pt-14 md:pt-20">
+      <div className="mb-16 text-center">
+        <h1 className="font-[system-ui] mb-2 text-[clamp(2.5rem,5vw,3.75rem)] font-black leading-[1.15] tracking-tight uppercase text-[#16140f]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          Resources
         </h1>
-        <p className="font-sans text-base text-[#FF6C0F]">
-          Build the software that runs YC
+        <p className="font-['Pretendard',sans-serif] text-base font-normal text-[#16140f]">
+          SPEC이 제공하는 도구와 리소스
         </p>
       </div>
 
-      <div className="mx-auto max-w-[640px]">
+      <div className="mx-auto max-w-[720px]">
         <article className="mb-16">
           <div className="mb-10">
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              YC operates at massive scale, with a surprisingly small team. To
-              do that, we write a lot of software.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              SPEC 팀이 효율적으로 협업하고 성장하기 위해서는 적절한 도구와 리소스가 필수입니다. 우리는 팀들이 최고 수준의 기술 환경과 템플릿을 활용할 수 있도록 지원합니다.
             </p>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              You might have used some of YC&apos;s software products yourself,
-              like{" "}
-              <a
-                href="https://news.ycombinator.com/"
-                className="text-[#16140f] underline hover:opacity-70"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Hacker News
-              </a>{" "}
-              or{" "}
-              <a
-                href="https://www.workatastartup.com/"
-                className="text-[#16140f] underline hover:opacity-70"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Work at a Startup
-              </a>
-              , which helps many YC founders hire their first employees.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              SPEC이 제공하는 리소스는 크게 네 가지 영역으로 나뉩니다: 협업 도구(Tool Stack), 사업 템플릿(Templates), 스타트업 파트너십(Partners), 그리고 커뮤니티(Community). 각각은 팀의 성장 단계에 맞춰 최적의 지원을 제공하도록 설계되었습니다.
             </p>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              But the public facing software is just the tip of the iceberg -
-              most of the software we write is invisible to the outside world. We
-              work on Bookface, YC&apos;s private social network, which most YC
-              founders use every day. We also build the critical internal
-              software that runs YC - including the software that lets us
-              evaluate 100,000 applications every year and decide which startups
-              to fund.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              협업 도구로는 Notion을 통한 문서 관리, Slack을 통한 팀 커뮤니케이션, Figma를 통한 디자인 협업, 그리고 GitHub을 통한 코드 관리를 지원합니다. 이 도구들은 SPEC 팀이 직접 사용하면서 검증한 것들입니다.
             </p>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              Over the past year, we&apos;ve spent about half of our time
-              working on AI agents. Most of what YC funds these days is AI
-              companies, and we&apos;ve leaned just as heavily into building our
-              own AI software. We now have fully deployed agents that automate
-              many important tasks - answering our customer support emails,
-              managing our events, and helping us make sense of all the data
-              flowing through our systems.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              사업 템플릿으로는 사업계획서, 피치덱, 재무 모델 등을 제공합니다. 이러한 템플릿들은 투자자와의 미팅이나 데모데이 준비에 필수적입니다.
             </p>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              Working at YC means working on the cutting edge of AI - both in
-              terms of the software we are writing ourselves and the companies we
-              are working with every day.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              또한 AWS, Vercel 등 주요 클라우드 서비스의 스타트업 크레딧을 지원받을 수 있으며, 이는 초기 팀들의 운영 비용을 크게 절감하는 데 도움이 됩니다.
             </p>
           </div>
 
           <div className="mb-10">
-            <h2 className="mb-4 font-sans text-2xl font-bold text-[#16140f]">
-              What it&apos;s like to work at YC
+            <h2 className="font-['MaruBuri',serif] mb-4 text-2xl font-normal text-[#16140f]">
+              Tool Stack (협업 도구)
             </h2>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              The YC software team operates on the same advice we give to our
-              startups. If you&apos;ve watched YC videos or read Paul
-              Graham&apos;s essays you&apos;ll already be familiar with our
-              principles:
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              SPEC 팀들이 효과적으로 협업하기 위해 다음의 도구들을 기본으로 제공합니다:
             </p>
-            <ul className="mb-6 list-disc space-y-2 pl-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
+            <ul className="mb-6 list-disc space-y-2 pl-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
               <li>
-                Hire very slowly and keep your team as small as possible
+                <strong>Notion</strong> — 프로젝트 관리, 문서 작성, 데이터베이스 구축
               </li>
-              <li>Avoid bureaucracy at all costs</li>
+              <li><strong>Slack</strong> — 팀 커뮤니케이션 및 공지사항 관리</li>
               <li>
-                Stay close to your users and spend a lot of time with them
+                <strong>Figma</strong> — UI/UX 디자인 협업 및 프로토타이핑
               </li>
-              <li>Move fast and launch stuff as early as possible</li>
+              <li><strong>GitHub</strong> — 코드 버전 관리 및 협업</li>
             </ul>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              The entire software team is about 15 full-stack product engineers.
-              Engineers own projects end to end, including the product decisions,
-              and talk directly to the users and key stakeholders. You&apos;ll
-              know everyone you work with, and your decisions will matter. Our
-              stack is straightforward (Rails, React, Postgres). What matters
-              more is good judgment and the ability to see complex projects
-              through to the finish line.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              이러한 도구들은 SPEC 팀이 직접 사용하면서 최적화한 것들로, 초기 스타트업에 필요한 모든 협업 기능을 제공합니다. 각 팀은 프로그램 참여 시 이 모든 도구에 접근할 수 있습니다.
             </p>
           </div>
         </article>
 
         <article className="mb-16">
           <div className="mb-10">
-            <h2 className="mb-4 font-sans text-2xl font-bold text-[#16140f]">
-              Get full access to YC
+            <h2 className="font-['MaruBuri',serif] mb-4 text-2xl font-normal text-[#16140f]">
+              Templates (사업 템플릿)
             </h2>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              As an engineer at YC, you&apos;re at the center of the startup
-              ecosystem. We work out of a beautiful, spacious campus at Pier 70
-              in San Francisco&apos;s Dogpatch neighborhood. It was formerly a
-              shipyard and one of the city&apos;s largest industrial sites during
-              the World Wars. It&apos;s now the center of the AI revolution with
-              OpenAI two blocks away and most of the YC founders within walking
-              distance.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              SPEC 팀들이 투자자와의 미팅이나 데모데이를 준비할 때 필요한 필수 문서들을 제공합니다. 모든 템플릿은 실제 투자자와 업계 전문가의 피드백을 바탕으로 작성되었습니다.
             </p>
             <div className="mb-6 h-[400px] w-full overflow-hidden rounded-lg bg-[#d4d4cc]">
-              <div className="flex h-full items-center justify-center font-sans text-sm text-[#16140f]/40">
-                YC office at Pier 70
+              <div className="flex h-full items-center justify-center font-['Pretendard',sans-serif] text-sm text-[#16140f]/40">
+                SPEC 코워킹 스페이스
               </div>
             </div>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              With four batches a year, the office is always buzzing with
-              founders. As an engineer at YC, you&apos;re encouraged to attend
-              the same events we run for YC founders, which happen just
-              downstairs. There are interesting people hanging out downstairs
-              almost every day - from guest speakers like Sam Altman, Brian
-              Chesky, and Greg Brockman to Demo Day with the who&apos;s who of
-              Silicon Valley investors, and endless happy hours, end-of-batch
-              parties, and more.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              제공되는 템플릿에는 사업계획서, 피치덱, 재무 모델, 마케팅 계획 등이 포함됩니다. 각 템플릿은 성균관대학교 내에서의 창업 생태계에 맞춰 커스터마이징되어 있습니다.
             </p>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              One of the things that makes this job unusual is that a lot of the
-              most important people in silicon valley use our software daily -
-              including YC partners, investors, and successful founders. That
-              means you get to talk directly with your most important users -
-              sometimes just by running into them in the hallway.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              또한 SPEC의 멘토들은 팀의 피치덱이나 사업계획서를 검토하고 피드백을 제공합니다. 이는 팀이 투자자와의 첫 미팅부터 인상적인 프레젠테이션을 할 수 있도록 돕습니다.
             </p>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              Many people on the software team have founded companies or plan to.
-              In recent years, eight former YC engineers have gone on to start
-              YC-funded startups. Working at YC is a good way to get exposure to
-              the startup world before starting your own company, and anyone who
-              works here has the inside track to getting funded for their own
-              company if they decide to become a founder.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              이러한 템플릿과 피드백은 팀의 성장 단계에 따라 지속적으로 업데이트됩니다. 우리는 팀이 시간을 낭비하지 않고 실질적인 비즈니스 구축에 집중할 수 있도록 지원합니다.
             </p>
           </div>
 
           <div className="mb-10">
-            <h2 className="mb-4 font-sans text-2xl font-bold text-[#16140f]">
-              Get in touch
+            <h2 className="font-['MaruBuri',serif] mb-4 text-2xl font-normal text-[#16140f]">
+              Partners & Community (파트너십 및 커뮤니티)
             </h2>
-            <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-              YC offers highly competitive compensation and benefits, including
-              equity in YC&apos;s portfolio. If you&apos;re interested in
-              joining us, email{" "}
-              <a
-                href="mailto:software@ycombinator.com"
-                className="text-[#16140f] underline hover:opacity-70"
-              >
-                software@ycombinator.com
-              </a>{" "}
-              with a brief note about yourself and what you&apos;d want to
-              build.
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              SPEC은 주요 클라우드 서비스 제공자 및 스타트업 도구 회사들과 파트너십을 맺고 있습니다. 프로그램 참여 팀들은 AWS 크레딧, Vercel 호스팅, GitHub Pro 등의 서비스를 무료로 이용할 수 있습니다.
+            </p>
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              SPEC 커뮤니티의 핵심은 팀 간의 협력과 학습입니다. 주간 오피스아워에서 팀들은 직접 멘토들을 만나 조언을 받을 수 있으며, Slack 채널을 통해 프로그램 참여 팀들과 소통할 수 있습니다.
+            </p>
+            <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+              프로그램을 졸업한 후에도 SPEC 동문 네트워크에 접근할 수 있으며, 이는 향후 펀딩이나 사업 파트너십 기회로 이어질 수 있습니다. Several SPEC-backed companies have already grown into successful businesses.
             </p>
           </div>
 
           <Link
-            href="/careers"
-            className="inline-flex items-center rounded-full bg-[#FF6C0F] px-8 py-4 font-sans text-base font-medium text-white transition-opacity hover:opacity-90"
+            href="/contact"
+            className="inline-flex items-center rounded-full bg-[#FF6C0F] px-8 py-4 font-['Pretendard',sans-serif] text-base font-medium text-white transition-opacity hover:opacity-90"
           >
-            See open positions
+            SPEC에 문의하기
           </Link>
         </article>
       </div>

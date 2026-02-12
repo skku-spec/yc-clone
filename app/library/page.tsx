@@ -99,7 +99,7 @@ function CarouselCard({ item }: { item: LibraryItem }) {
             style={{ backgroundColor: item.thumbnailColor }}
           >
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="max-w-[80%] px-4 text-center font-['Source_Serif_4',serif] text-[13px] font-medium leading-tight text-[#16140f]/50">
+              <span className="max-w-[80%] px-4 text-center font-['MaruBuri',serif] text-[13px] font-medium leading-tight text-[#16140f]/50">
                 {item.title}
               </span>
             </div>
@@ -111,14 +111,14 @@ function CarouselCard({ item }: { item: LibraryItem }) {
 
       <div className="pt-2.5" style={{ width: 340 }}>
         {item.duration && (
-          <p className="mb-0.5 font-['Outfit',sans-serif] text-[16px] font-extralight text-black">
+          <p className="mb-0.5 font-['Pretendard',sans-serif] text-[16px] font-normal text-black">
             {item.duration}
           </p>
         )}
-        <h3 className="mb-1 font-['Outfit',sans-serif] text-[14px] font-medium leading-snug text-[#16140f] group-hover:underline line-clamp-2">
+        <h3 className="mb-1 font-['Pretendard',sans-serif] text-[14px] font-medium leading-snug text-[#16140f] group-hover:underline line-clamp-2">
           {item.title}
         </h3>
-        <div className="flex items-center gap-1.5 font-['Outfit',sans-serif] text-[14px] font-extralight text-[#16140f]/50">
+        <div className="flex items-center gap-1.5 font-['Pretendard',sans-serif] text-[14px] font-normal text-[#16140f]/50">
           {item.views && <span>{formatViews(item.views)}</span>}
           {item.views && item.date && <span>&middot;</span>}
           {item.date && <span>{timeAgo(item.date)}</span>}
@@ -154,13 +154,13 @@ function FeaturedCard({ item }: { item: LibraryItem }) {
         </div>
 
         <div className="flex flex-col justify-center py-4 md:w-5/12 md:pl-8 md:py-0">
-          <h2 className="mb-2 font-['Outfit',sans-serif] text-[24px] font-medium leading-tight text-[#16140f] group-hover:underline">
+          <h2 className="mb-2 font-['Pretendard',sans-serif] text-[24px] font-semibold leading-tight text-[#16140f] group-hover:underline">
             {item.title}
           </h2>
-          <p className="mb-3 font-['Outfit',sans-serif] text-[16px] font-extralight leading-relaxed text-[#16140f]/70 line-clamp-3">
+          <p className="mb-3 font-['MaruBuri',serif] text-[16px] font-normal leading-relaxed text-[#16140f]/70 line-clamp-3">
             {item.description}
           </p>
-          <div className="flex items-center gap-2 font-['Outfit',sans-serif] text-[13px] text-[#16140f]/50">
+          <div className="flex items-center gap-2 font-['Pretendard',sans-serif] text-[13px] text-[#16140f]/50">
             <span className="font-normal text-[#16140f]/80">{item.author}</span>
             {item.views && (
               <>
@@ -195,7 +195,7 @@ function Carousel({
   return (
     <div className="mb-0 pt-3">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-['Outfit',sans-serif] text-[24px] font-normal text-[#16140f]">
+        <h2 className="font-['Pretendard',sans-serif] text-[24px] font-semibold text-[#16140f]">
           {title}
         </h2>
       </div>
@@ -234,20 +234,17 @@ export default function LibraryPage() {
     });
 
     const categoryGroups: { title: string; category: Category }[] = [
-      { title: "AI", category: "AI" },
-      { title: "Product", category: "Product" },
-      { title: "Growth", category: "Growth" },
-      { title: "Fundraising", category: "Fundraising" },
-      { title: "Founder Stories", category: "Founder Stories" },
-      { title: "Leadership", category: "Leadership" },
-      { title: "Engineering", category: "Engineering" },
-      { title: "Design", category: "Design" },
-      { title: "Sales", category: "Sales" },
-      { title: "Hiring", category: "Hiring" },
+      { title: "VCC 프로그램", category: "VCC" },
+      { title: "창업 기초", category: "창업-기초" },
+      { title: "매출 & 성장", category: "매출-성장" },
+      { title: "IR & 투자", category: "IR-투자" },
+      { title: "팀빌딩", category: "팀빌딩" },
+      { title: "기술 & MVP", category: "기술-MVP" },
+      { title: "알럼나이", category: "알럼나이" },
     ];
 
     const sections: { title: string; items: LibraryItem[] }[] = [
-      { title: "The Latest", items: allSorted.slice(0, 10) },
+      { title: "추천", items: allSorted.slice(0, 10) },
     ];
 
     for (const group of categoryGroups) {
@@ -263,27 +260,26 @@ export default function LibraryPage() {
   }, []);
 
   return (
-    <section className="bg-[#f5f5ee] px-4 pb-20 pt-6">
+    <section className="bg-[#f5f5ee] px-4 pb-24 pt-6">
       <div className="mx-auto max-w-[1100px]">
         <h1
-          className="text-center font-['Source_Serif_4',serif] font-medium tracking-[-1.5px] mb-[50px]"
+          className="text-center font-[system-ui,sans-serif] font-black uppercase tracking-[-2px] mb-[50px]"
           style={{
             fontSize: 60,
             lineHeight: "75px",
             color: "rgb(0,0,0)",
           }}
         >
-          YC Library
+          SPEC Library
         </h1>
 
-        <p className="text-center mx-auto max-w-screen-md -mt-2 mb-4 font-['Outfit',sans-serif] text-[18px] font-extralight leading-[32px] text-black">
-          Watch videos, listen to podcasts, and read essays for startup
-          founders. Peruse the full library archive{" "}
+        <p className="text-center mx-auto max-w-screen-md -mt-2 mb-4 font-['MaruBuri',serif] text-[18px] font-normal leading-[32px] text-black">
+          창업 강의, 멘토 특강, 가이드, 에세이 — SPEC의 모든 콘텐츠를 한 곳에서.{" "}
           <Link
             href="/library/search"
             className="text-black no-underline hover:underline"
           >
-            here
+            전체 자료 보기
           </Link>
           .
         </p>
@@ -296,10 +292,10 @@ export default function LibraryPage() {
           >
             <SearchIcon className="absolute left-3 h-4 w-4 text-[#16140f]/40" />
             <div
-              className="flex h-full w-full items-center rounded-[4px] border border-[#6a7282] bg-white font-['Outfit',sans-serif] text-[16px] font-light text-[#16140f]/40"
+              className="flex h-full w-full items-center rounded-[4px] border border-[#6a7282] bg-white font-['Pretendard',sans-serif] text-[16px] font-normal text-[#16140f]/40"
               style={{ padding: "8px 12px 8px 36px" }}
             >
-              Search...
+              자료 검색...
             </div>
           </Link>
         </div>

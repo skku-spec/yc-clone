@@ -29,13 +29,22 @@ export default function BlogPage() {
   const allPosts = BLOG_POSTS.filter((p) => !p.featured);
 
   const tabs = [
-    { id: "all-posts", label: "All Posts" },
-    { id: "startup-jobs", label: "Startup Jobs" },
-    { id: "startup-school", label: "Startup School" },
+    { id: "all-posts", label: "전체" },
+    { id: "featured", label: "주요 소식" },
+    { id: "recent", label: "최근" },
   ];
 
   return (
-    <section className="min-h-screen pb-20">
+    <section className="min-h-screen pb-24">
+       {/* Page Header */}
+       <div className="border-b border-[#ddd9cc]">
+         <div className="mx-auto max-w-[1068px] px-6 pt-14 pb-8 text-center">
+           <h1 className="text-[clamp(2.5rem,5vw,3.75rem)] font-black leading-[1.15] tracking-tight uppercase text-[#16140f]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+             SPEC Stories
+           </h1>
+         </div>
+       </div>
+
       {/* Navigation Tabs — 3 tabs with search */}
       <div className="border-b border-[#ddd9cc]">
         <div className="mx-auto flex max-w-[1068px] items-center justify-between px-6 py-5">
@@ -45,7 +54,7 @@ export default function BlogPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`font-['Outfit',sans-serif] text-[14px] font-[500] padding-[8px_4px] border-b-[2px] transition-colors ${
+                className={`font-['Pretendard',sans-serif] text-[14px] font-[500] padding-[8px_4px] border-b-[2px] transition-colors ${
                   activeTab === tab.id
                     ? "border-b-[oklch(0.705_0.213_47.604)] text-[#16140f]"
                     : "border-b-transparent text-[#8a8a7e]"
@@ -59,8 +68,8 @@ export default function BlogPage() {
           {/* Search Box */}
           <input
             type="text"
-            placeholder="Search..."
-            className="font-['Outfit',sans-serif] w-[320px] h-[38px] rounded-[6px] border-[1px] border-[#ddd9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)]"
+            placeholder="검색..."
+            className="font-['Pretendard',sans-serif] w-[320px] h-[38px] rounded-[6px] border-[1px] border-[#ddd9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)]"
           />
         </div>
       </div>
@@ -76,7 +85,7 @@ export default function BlogPage() {
                     <Link
                       key={tag}
                       href={`/blog/tag/${tag}`}
-                      className="inline-flex rounded-[4px] bg-[oklch(0.928_0.008_231.39)] px-[8px] py-[2px] font-['Outfit',sans-serif] text-[12px] font-[500] text-[#4a4a40] transition-opacity hover:opacity-70"
+                      className="inline-flex rounded-[4px] bg-[oklch(0.928_0.008_231.39)] px-[8px] py-[2px] font-['Pretendard',sans-serif] text-[12px] font-[500] text-[#4a4a40] transition-opacity hover:opacity-70"
                     >
                       {TAGS.find((t) => t.slug === tag)?.label ?? tag}
                     </Link>
@@ -84,21 +93,21 @@ export default function BlogPage() {
                 </div>
                 <Link
                   href={`/blog/${featuredPost.slug}`}
-                  className="group mb-3 block font-['Outfit',sans-serif] text-[30px] font-extralight leading-[1.2] tracking-tight text-[#000000] transition-colors hover:text-[rgb(38,139,210)]"
+                  className="group mb-3 block font-['Pretendard',sans-serif] text-[30px] font-semibold leading-[1.2] tracking-tight text-[#000000] transition-colors hover:text-[#FF6C0F]"
                 >
                   {featuredPost.title}
                 </Link>
-                <p className="sr-only font-['Outfit',sans-serif] text-[14px] text-[#5a6270]">
-                  by {featuredPost.author}
+                <p className="sr-only font-['Pretendard',sans-serif] text-[14px] text-[#5a6270]">
+                  {featuredPost.author}
                 </p>
-                <p className="mb-5 font-['Outfit',sans-serif] text-[18px] font-extralight leading-relaxed text-[#000000]">
+                <p className="mb-5 font-['MaruBuri',serif] text-[18px] font-normal leading-relaxed text-[#000000]">
                   {featuredPost.excerpt}
                 </p>
                 <Link
                   href={`/blog/${featuredPost.slug}`}
-                  className="inline-flex items-center gap-2 font-['Outfit',sans-serif] text-[16px] font-medium text-[rgb(38,139,210)] transition-opacity hover:opacity-70"
+                  className="inline-flex items-center gap-2 font-['Pretendard',sans-serif] text-[16px] font-medium text-[#FF6C0F] transition-opacity hover:opacity-70"
                 >
-                  Read More <ArrowIcon />
+                  더 읽기 <ArrowIcon />
                 </Link>
               </div>
               {featuredPost.imageUrl && (
@@ -120,10 +129,10 @@ export default function BlogPage() {
       {/* Recent Posts (3 columns with images) */}
       <div id="recent-posts" className="border-b border-[#ddd9cc]">
         <div className="mx-auto max-w-[1200px] px-6 py-12">
-          <h3 className="mb-8 font-['Outfit',sans-serif] text-[20px] font-semibold text-[oklch(0.705_0.213_47.604)]">
-            Recent Posts
+          <h3 className="mb-8 font-['Pretendard',sans-serif] text-[20px] font-semibold text-[oklch(0.705_0.213_47.604)]">
+            최근 소식
           </h3>
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3">
             {recentPosts.map((post) => (
               <article key={post.slug} className="group">
                 {post.imageUrl && (
@@ -143,7 +152,7 @@ export default function BlogPage() {
                     <Link
                       key={tag}
                       href={`/blog/tag/${tag}`}
-                      className="inline-flex rounded-[4px] bg-[oklch(0.928_0.008_231.39)] px-[8px] py-[2px] font-['Outfit',sans-serif] text-[12px] font-[500] text-[#4a4a40] transition-opacity hover:opacity-70"
+                      className="inline-flex rounded-[4px] bg-[oklch(0.928_0.008_231.39)] px-[8px] py-[2px] font-['Pretendard',sans-serif] text-[12px] font-[500] text-[#4a4a40] transition-opacity hover:opacity-70"
                     >
                       {TAGS.find((t) => t.slug === tag)?.label ?? tag}
                     </Link>
@@ -151,21 +160,21 @@ export default function BlogPage() {
                 </div>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="mb-2 block font-['Outfit',sans-serif] text-[20px] font-semibold leading-snug text-[#16140f] transition-colors hover:text-[rgb(38,139,210)]"
+                  className="mb-2 block font-['Pretendard',sans-serif] text-[20px] font-semibold leading-snug text-[#16140f] transition-colors hover:text-[#FF6C0F]"
                 >
                   {post.title}
                 </Link>
-                <p className="sr-only font-['Outfit',sans-serif] text-[14px] text-[#5a6270]">
-                  by {post.author}
+                <p className="sr-only font-['Pretendard',sans-serif] text-[14px] text-[#5a6270]">
+                  {post.author}
                 </p>
-                <p className="mb-3 font-['Outfit',sans-serif] text-[18px] font-extralight leading-relaxed text-[#4a4a40] line-clamp-2">
+                <p className="mb-3 font-['MaruBuri',serif] text-[18px] font-normal leading-relaxed text-[#4a4a40] line-clamp-2">
                   {post.excerpt}
                 </p>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[16px] font-medium text-[rgb(38,139,210)] transition-opacity hover:opacity-70"
+                  className="inline-flex items-center gap-1.5 font-['Pretendard',sans-serif] text-[16px] font-medium text-[#FF6C0F] transition-opacity hover:opacity-70"
                 >
-                  Read More <ArrowIcon />
+                  더 읽기 <ArrowIcon />
                 </Link>
               </article>
             ))}
@@ -178,8 +187,8 @@ export default function BlogPage() {
         <div className="flex gap-12">
        {/* Post List */}
            <div className="min-w-0 flex-1">
-             <h3 className="mb-6 font-['Outfit',sans-serif] text-[20px] font-semibold text-[oklch(0.705_0.213_47.604)]">
-               All Posts
+             <h3 className="mb-6 font-['Pretendard',sans-serif] text-[20px] font-semibold text-[oklch(0.705_0.213_47.604)]">
+                전체 글
              </h3>
              <div className="space-y-0 divide-y divide-[#ddd9cc]">
                {allPosts.map((post) => (
@@ -189,31 +198,30 @@ export default function BlogPage() {
                        <Link
                          key={tag}
                          href={`/blog/tag/${tag}`}
-                         className="inline-flex rounded-[4px] bg-[oklch(0.928_0.008_231.39)] px-[8px] py-[2px] font-['Outfit',sans-serif] text-[12px] font-[500] text-[#4a4a40] transition-opacity hover:opacity-70"
+                         className="inline-flex rounded-[4px] bg-[oklch(0.928_0.008_231.39)] px-[8px] py-[2px] font-['Pretendard',sans-serif] text-[12px] font-[500] text-[#4a4a40] transition-opacity hover:opacity-70"
                        >
                          {TAGS.find((t) => t.slug === tag)?.label ?? tag}
                        </Link>
                      ))}
                    </div>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="group mb-1 block font-['Pretendard',sans-serif] text-[30px] font-semibold leading-snug text-[#16140f] transition-colors hover:text-[#FF6C0F]"
+                    >
+                      {post.title}
+                    </Link>
+                    <p className="sr-only mb-2 font-['Pretendard',sans-serif] text-[14px] text-[#5a6270]">
+                      <span className="text-[#16140f]">{post.author}</span>{" "}
+                      &middot; {post.date}
+                    </p>
+                    <p className="mb-3 font-['MaruBuri',serif] text-[18px] font-normal leading-relaxed text-[#4a4a40]">
+                      {post.excerpt}
+                    </p>
                    <Link
                      href={`/blog/${post.slug}`}
-                     className="group mb-1 block font-['Outfit',sans-serif] text-[30px] font-semibold leading-snug text-[#16140f] transition-colors hover:text-[rgb(38,139,210)]"
+                     className="inline-flex items-center gap-1.5 font-['Pretendard',sans-serif] text-[16px] font-medium text-[#FF6C0F] transition-opacity hover:opacity-70"
                    >
-                     {post.title}
-                   </Link>
-                   <p className="sr-only mb-2 font-['Outfit',sans-serif] text-[14px] text-[#5a6270]">
-                     by{" "}
-                     <span className="text-[#16140f]">{post.author}</span>{" "}
-                     &middot; {post.date}
-                   </p>
-                   <p className="mb-3 font-['Outfit',sans-serif] text-[18px] font-extralight leading-relaxed text-[#4a4a40]">
-                     {post.excerpt}
-                   </p>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[16px] font-medium text-[rgb(38,139,210)] transition-opacity hover:opacity-70"
-                  >
-                    Read More <ArrowIcon />
+                     더 읽기 <ArrowIcon />
                   </Link>
                 </article>
               ))}
@@ -221,16 +229,16 @@ export default function BlogPage() {
           </div>
 
           {/* Categories Sidebar */}
-          <aside className="hidden w-[220px] shrink-0 md:block">
-            <p className="mb-4 font-['Outfit',sans-serif] text-[14px] font-semibold text-[#16140f]">
-              Categories
+          <aside className="hidden w-[220px] shrink-0 lg:block">
+            <p className="mb-4 font-['Pretendard',sans-serif] text-[14px] font-semibold text-[#16140f]">
+              카테고리
             </p>
             <div className="flex flex-col gap-1.5">
               {TAGS.map((tag) => (
                 <Link
                   key={tag.slug}
                   href={`/blog/tag/${tag.slug}`}
-                  className="rounded-lg px-3 py-1.5 font-['Outfit',sans-serif] text-[14px] text-[#4a4a40] transition-colors hover:bg-[#e8e6dc] hover:text-[#16140f]"
+                  className="rounded-lg px-3 py-1.5 font-['Pretendard',sans-serif] text-[14px] text-[#4a4a40] transition-colors hover:bg-[#e8e6dc] hover:text-[#FF6C0F]"
                 >
                   {tag.label}
                 </Link>

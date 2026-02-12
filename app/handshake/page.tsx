@@ -2,56 +2,56 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "The Handshake Deal Protocol | Y Combinator",
+  title: "Community Guidelines | SPEC",
   description:
-    "Silicon Valley runs on handshake deals. A handshake deal is a verbal commitment to a transaction.",
+    "SPEC 커뮤니티 협력 가이드라인",
 };
 
 export default function HandshakePage() {
   return (
-    <section className="mx-auto max-w-[1100px] px-4 pb-24 pt-16">
-      <h1 className="mb-8 text-center font-serif text-[40px] font-medium leading-[1.2] text-[#16140f] md:text-[60px] md:leading-[75px]">
-        The Handshake Deal Protocol
+    <section className="mx-auto max-w-[1100px] px-4 pb-24 pt-14 md:pt-20">
+      <h1 className="mb-8 text-center font-[system-ui] font-black text-[clamp(2.5rem,5vw,3.75rem)] leading-[1.15] tracking-tight uppercase text-[#16140f]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        Community Guidelines
       </h1>
 
-      <div className="mx-auto flex max-w-[900px] flex-col gap-8 md:flex-row">
-        <nav className="shrink-0 md:w-[200px]">
+      <div className="mx-auto flex max-w-[1100px] flex-col gap-12 md:flex-row">
+        <nav className="shrink-0 md:w-[170px]">
           <ul className="sticky top-24 space-y-3 font-sans text-sm">
             <li>
               <a href="#intro" className="text-[#FF6C0F] hover:opacity-70">
-                Intro
+                소개
               </a>
             </li>
             <li>
               <a
-                href="#the-problem"
+                href="#collaboration"
                 className="text-[#FF6C0F] hover:opacity-70"
               >
-                The Problem
+                팀 간 협력
               </a>
             </li>
             <li>
               <a
-                href="#the-protocol"
+                href="#alumni-network"
                 className="text-[#FF6C0F] hover:opacity-70"
               >
-                The Protocol
+                동문 네트워크
               </a>
             </li>
             <li>
               <a
-                href="#audit-trail"
+                href="#mentor-relationship"
                 className="text-[#FF6C0F] hover:opacity-70"
               >
-                Audit Trail
+                멘토-팀 관계
               </a>
             </li>
             <li>
               <a
-                href="#avoids-ambiguity"
+                href="#external-partners"
                 className="text-[#FF6C0F] hover:opacity-70"
               >
-                Avoids Ambiguity
+                외부 협업
               </a>
             </li>
           </ul>
@@ -59,189 +59,89 @@ export default function HandshakePage() {
 
         <article className="min-w-0 flex-1">
           <section id="intro">
-            <h2 className="mb-4 font-serif text-[32px] font-medium leading-tight text-[#16140f]">
-              Intro
+            <h2 className="mb-4 font-['MaruBuri',serif] text-[32px] font-medium leading-tight text-[#16140f]">
+              소개
             </h2>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Silicon Valley runs on handshake deals. A handshake deal is a
-              verbal commitment to a transaction. The actual transaction comes
-              later, when documents are signed and money changes hands.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              SPEC은 단순한 창업 프로그램이 아닙니다. 우리는 서로를 돕고 성장하는 커뮤니티입니다. 이 가이드는 SPEC 커뮤니티 내에서 팀 간 협력, 동문 네트워크 활용, 멘토-팀 관계, 그리고 외부 파트너와의 협업 시 지켜야 할 원칙을 담고 있습니다.
             </p>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Why do we need handshake deals? Why not just wait till the actual
-              transaction? Because things can happen fast in the startup world.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              왜 이런 가이드라인이 필요할까요? 스타트업 생태계는 빠르게 움직이고, 신뢰가 중요하며, 명확한 커뮤니케이션이 필수입니다. 이 가이드라인은 우리 커뮤니티가 건강하게 성장하고, 모든 구성원이 서로를 존중하며 협력할 수 있도록 돕습니다.
             </p>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              So both investors and founders need a way to reserve space in a
-              transaction. Founders need it because creating documents and
-              getting them signed would slow down their fundraising, and
-              investors need it because if they had to wait for documents to get
-              created and signed before they could commit, they&apos;d miss out
-              on the hotter deals.
-            </p>
-            <p className="mb-8 font-sans text-base leading-relaxed text-[#16140f]">
-              Handshake deals are not unique to Silicon Valley of course. They
-              tend to arise wherever trust is sufficiently high and speed is
-              sufficiently important. Diamond dealers apparently use them a lot.
+            <p className="mb-8 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              SPEC 커뮤니티는 상호 신뢰와 존중을 기반으로 합니다. 우리는 함께 성장하고, 서로의 성공을 축하하며, 어려움이 있을 때 도움의 손을 내밉니다.
             </p>
           </section>
 
-          <section id="the-problem">
-            <h2 className="mb-4 font-serif text-[32px] font-medium leading-tight text-[#16140f]">
-              The Problem
+          <section id="collaboration">
+            <h2 className="mb-4 font-['MaruBuri',serif] text-[32px] font-medium leading-tight text-[#16140f]">
+              팀 간 협력 원칙
             </h2>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Unfortunately, things don&apos;t work as smoothly in Silicon
-              Valley as among diamond dealers. This is not a closed community of
-              pros who deal with one another day after day. Many participants in
-              the funding market are noobs, and some are dishonest.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              SPEC 내 팀들은 경쟁자가 아닌 동료입니다. 우리는 지식을 공유하고, 서로의 피드백을 소중히 여기며, 함께 성장합니다.
             </p>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Every cycle we get reports of supposed handshake deals that fell
-              through. Without video of the conversation it&apos;s hard for us
-              to be sure whether there really was a deal and the investor
-              welched, or there wasn&apos;t and the founders are just victims of
-              their own wishful thinking.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>지식 공유 문화:</strong> 자신의 실패와 성공 경험을 솔직하게 나누어 주세요. 누군가의 질문에 답변을 알고 있다면 주저하지 말고 도와주세요. Slack 채널에서 활발하게 소통하고, 정기 미팅에 적극적으로 참여해 주세요.
             </p>
-            <p className="mb-8 font-sans text-base leading-relaxed text-[#16140f]">
-              The problem is compounded by the fact that some investors
-              deliberately mislead startups about how interested they are in
-              investing. Startups&apos; prospects can change rapidly. If
-              investors say no in a way that sounds like yes, they can
-              essentially take a free option to invest. They haven&apos;t
-              actually committed, so it costs them nothing, but if the startup
-              turns out to be a hot one, they can retroactively claim that their
-              almost-yes was an actual yes, and that the startup is morally
-              obliged to let them invest.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>피드백 문화:</strong> 피드백을 요청할 때는 구체적으로, 피드백을 제공할 때는 건설적으로. 비판이 아닌 성장을 위한 조언으로 접근해 주세요. 피드백을 받을 때는 열린 마음으로 듣고, 감사의 마음을 표현해 주세요.
+            </p>
+            <p className="mb-8 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>협업 기회:</strong> 다른 팀과 파트너십, 기술 협업, 공동 마케팅 등의 기회를 탐색할 때는 명확한 커뮤니케이션이 중요합니다. 기대사항, 역할, 일정을 미리 합의하고 문서화해 주세요.
             </p>
           </section>
 
-          <section id="the-protocol">
-            <h2 className="mb-4 font-serif text-[32px] font-medium leading-tight text-[#16140f]">
-              The Protocol
+          <section id="alumni-network">
+            <h2 className="mb-4 font-['MaruBuri',serif] text-[32px] font-medium leading-tight text-[#16140f]">
+              동문 네트워크 에티켓
             </h2>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Fortunately there is a way to fix most of these problems: to
-              define a standard protocol for handshake deals. We&apos;re going
-              to start using this within YC, and we hope it will spread to the
-              rest of the startup community.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              SPEC 동문 네트워크는 소중한 자산입니다. 동문에게 도움을 요청하거나 소개를 부탁할 때는 다음 원칙을 따라 주세요.
             </p>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              The protocol defines an offer as an amount to be invested, plus a
-              valuation or valuation cap (or no cap), plus an optional discount.
-              Here are some example offers: $100k at a $5M cap. $100k uncapped.
-              $100k uncapped with a 10% discount.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>소개 요청 방법:</strong> 소개를 요청하기 전에 상대방의 프로필과 커리어를 충분히 조사하세요. 왜 그 분과 연결되고 싶은지, 어떤 가치를 제공할 수 있는지 명확히 설명하세요. 중간에서 소개해 주는 동문에게도 부담이 가지 않도록 배려해 주세요.
             </p>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              According to the protocol, you have a handshake deal if and only
-              if the following happens: (1) The investor says &quot;I&apos;m
-              in.&quot; (2) The startup sends the investor an email or text
-              message saying &quot;Can you confirm you&apos;re in for
-              [offer]?&quot; — spelling out the exact offer including the
-              specific amount and terms. (3) The investor replies yes.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>비밀유지:</strong> 동문 네트워크 내에서 공유된 정보, 특히 사업 계획, 투자 현황, 개인적인 어려움 등은 철저히 비밀로 유지해야 합니다. 명시적인 허락 없이 외부에 공유하지 마세요.
             </p>
-            <p className="mb-8 font-sans text-base leading-relaxed text-[#16140f]">
-              Unless and until this process is completed, there is no handshake
-              deal. So it is in the interest of investors to complete the final
-              step, because until they do the startup is under no obligation to
-              take their money.
+            <p className="mb-8 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>Give and Take:</strong> 도움을 받기만 하지 말고, 자신도 다른 동문을 도울 방법을 찾아보세요. 채용 공고 공유, 전문 지식 제공, 네트워크 연결 등 작은 것부터 시작할 수 있습니다.
             </p>
           </section>
 
-          <section id="audit-trail">
-            <h2 className="mb-4 font-serif text-[32px] font-medium leading-tight text-[#16140f]">
-              Audit Trail
+          <section id="mentor-relationship">
+            <h2 className="mb-4 font-['MaruBuri',serif] text-[32px] font-medium leading-tight text-[#16140f]">
+              멘토-팀 관계
             </h2>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Since both parties will usually have mobile devices from which
-              they can send such messages, they should ordinarily do it in
-              person as the final step of the agreement. They should each regard
-              it as suspicious if the other is unwilling to.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              SPEC 멘토들은 여러분의 성공을 진심으로 바라며 시간과 경험을 나눠주시는 분들입니다. 효과적인 멘토링을 위해서는 양방향 소통이 필요합니다.
             </p>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              At the very least this protocol will tell us who&apos;s at fault
-              if we get a report of a handshake deal falling through. But it
-              should do more than that. A definite protocol that leaves a trail
-              will both prevent founders from misleading themselves, and
-              discourage investors from misleading them.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>기대사항 관리:</strong> 멘토는 모든 답을 가진 사람이 아닙니다. 방향을 제시하고 경험을 공유하는 역할입니다. 구체적인 질문을 준비하고, 멘토링 후에는 액션 아이템을 정리해서 실행에 옮기세요.
             </p>
-            <p className="mb-8 font-sans text-base leading-relaxed text-[#16140f]">
-              I don&apos;t think the offer has to specify the documents to be
-              used. In practice this is rarely an issue. People either use one
-              of the{" "}
-              <Link
-                href="/documents"
-                className="text-[#FF6C0F] underline hover:opacity-70"
-              >
-                standard documents
-              </Link>{" "}
-              (for small investments) or negotiate in good faith (for large
-              ones). Market terms are well enough understood that it should be
-              easy to see who&apos;s at fault if one party is making
-              difficulties about the terms, and that&apos;s all we ask from this
-              protocol.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>커뮤니케이션:</strong> 멘토의 시간을 존중해 주세요. 사전에 어젠다를 공유하고, 정해진 시간을 지키며, 진행 상황을 정기적으로 업데이트해 주세요. 긴급한 상황이 아니면 업무 시간 외 연락은 자제해 주세요.
+            </p>
+            <p className="mb-8 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>피드백과 감사:</strong> 멘토의 조언이 도움이 되었다면 결과를 공유하고 감사를 표현해 주세요. 만약 조언이 현재 상황에 맞지 않는다면 정중하게 설명하고 다른 관점을 요청해도 괜찮습니다.
             </p>
           </section>
 
-          <section id="avoids-ambiguity">
-            <h2 className="mb-4 font-serif text-[32px] font-medium leading-tight text-[#16140f]">
-              Avoids Ambiguity
+          <section id="external-partners">
+            <h2 className="mb-4 font-['MaruBuri',serif] text-[32px] font-medium leading-tight text-[#16140f]">
+              외부 협업 원칙
             </h2>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              The protocol deliberately makes it impossible to say certain
-              things. For example, an investor can&apos;t just say they&apos;ll
-              invest $x, without specifying a valuation or cap. Investors who do
-              that can escape their commitment later by claiming the price
-              turned out to be too high. An offer to invest has to specify a
-              valuation or cap, or no cap. Otherwise it&apos;s incompletely
-              defined and thus not even an offer.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              SPEC 팀이 스폰서, 파트너사, 투자자 등 외부 조직과 협업할 때는 SPEC 커뮤니티 전체를 대표한다는 마음가짐이 필요합니다.
             </p>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              It also isn&apos;t possible to make a handshake deal on an offer
-              to invest a range of money. Investors will sometimes try to make a
-              deal to invest, say, $50k to $150k. If a startup agrees to that,
-              they&apos;re obliged to save $150k of space but the investor is
-              only obliged to invest $50k. An offer to invest a range of money
-              is really two separate things: an offer to invest the bottom end
-              of the range, plus an expression of interest in possibly investing
-              more. So we suggest startups respond to each separately: do a
-              handshake deal for the bottom end of the range, and respond
-              politely to the investor&apos;s interest in investing more, but
-              don&apos;t feel any obligation to take more money till the
-              investor commits to investing it. Knowing they&apos;re guaranteed
-              no more than the lower end of their range should sometimes cause
-              investors to commit upfront to investing more. And if it
-              doesn&apos;t, it would have been a mistake for the startup to rely
-              on getting more.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>전문성과 신뢰:</strong> 약속을 지키고, 기한을 준수하며, 명확하게 소통하세요. 문제가 발생하면 숨기지 말고 빠르게 공유하고 해결 방안을 제시하세요. 한 팀의 평판이 SPEC 전체의 평판에 영향을 미칩니다.
             </p>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Finally, it isn&apos;t possible to add conditions to a handshake
-              deal. For example, there is no way for an investor to use this
-              protocol to offer, as some investors try to do, to invest if other
-              people will—e.g. to say that they&apos;ll invest as part of a
-              larger round if you can find a lead. That sort of commitment is so
-              worthless in practice that it&apos;s a mistake for startups either
-              to rely on it, or to feel themselves bound by it. It&apos;s not
-              even rightly considered an offer, but at best a lead (and one that
-              will rapidly grow cold). While the investor can&apos;t add
-              conditions to a handshake deal, it is possible to change the
-              deadlines in which the offer must be accepted and the funding has
-              to be completed. The purpose of these deadlines is to prevent
-              situations where either the investor delays acceptance of the
-              handshake deal or the startup and the investor have a valid
-              handshake deal, but no time frame in which the investor must send
-              its money. These deadlines avoid any ambiguity about whether or
-              not there is a valid handshake deal and about when the handshake
-              deal expires, and it should certainly expire if the investor fails
-              to fund after a certain period of time. Ten days is a reasonable
-              period of time for both parties to complete the funding process,
-              but they can decide on different timing, provided there is
-              unequivocal agreement (in writing) about a different deadline.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>투명한 관계:</strong> 스폰서십이나 파트너십의 조건을 명확히 하고, 이해 상충이 발생할 가능성이 있다면 미리 논의하세요. 계약서나 MOU 등 공식 문서로 합의 사항을 기록해 두는 것이 좋습니다.
             </p>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Startups and investors can of course make any sort of arrangement
-              they want. But they don&apos;t have a handshake deal according to
-              this protocol unless the terms are precise and unconditional.
+            <p className="mb-4 font-['Pretendard',sans-serif] text-base leading-relaxed text-[#16140f]">
+              <strong>SPEC 리소스 활용:</strong> 외부 협업 시 어려움이 있다면 SPEC 운영진이나 멘토에게 조언을 구하세요. 특히 계약서 검토, 협상 전략, 파트너십 구조 등에서 경험 많은 동문들의 도움을 받을 수 있습니다.
             </p>
           </section>
         </article>

@@ -1,354 +1,167 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "What Happens at YC | Y Combinator",
+  title: "SPEC 소개 | SPEC — 성균관대 창업학회",
   description:
-    "An overview of what happens during the YC program and the benefits you get as a YC founder.",
+    "SPEC은 성균관대학교에서 시작된 실전 창업 학회입니다. 이론이 아닌 실행으로 증명합니다.",
 };
 
-const sidebarLinks = [
-  { label: "About", href: "/about" },
-  { label: "What Happens at YC?", href: "/about" },
-  { label: "People", href: "/people" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Press", href: "/press" },
+const tocLinks = [
+  { label: "소개", href: "#intro" },
+  { label: "The Program", href: "#the-program" },
+  { label: "Mentoring", href: "#mentoring" },
+  { label: "Community", href: "#community" },
+  { label: "Demo Day", href: "#demo-day" },
+];
+
+const pageLinks = [
+  { label: "멤버", href: "/people" },
+  { label: "자주 묻는 질문", href: "/faq" },
+  { label: "프레스", href: "/press" },
 ];
 
 const pClass =
-  "mb-6 font-['Outfit',sans-serif] font-light text-[18px] leading-[1.7] text-[#16140f] last:mb-0";
+  "mb-6 font-['MaruBuri',serif] font-normal text-[17px] leading-[1.75] text-[#16140f] last:mb-0";
 
 const sectionClass = "mb-10";
 
 const h2Class =
-  "mb-3 font-['Source_Serif_4',serif] text-[1.75rem] font-medium italic leading-tight text-[#16140f] md:text-[1.4rem]";
+  "mb-3 font-['system-ui'] text-[1.5rem] font-bold leading-tight uppercase text-[#16140f]";
 
 const spanClass =
-  "mb-3 block font-['Outfit',sans-serif] font-normal leading-[1.4] text-[#16140f]";
+  "mb-3 block font-['Pretendard',sans-serif] font-semibold leading-[1.4] text-[#16140f]";
 
 export default function AboutPage() {
   return (
-    <main className="flex-1 px-4 pb-10 pt-16">
-      <div className="mx-auto max-w-[640px] mb-12">
-        <h1 className="font-['Source_Serif_4',serif] text-[clamp(2.5rem,5vw,3.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
-          What Happens at YC
-        </h1>
+    <main className="flex-1 px-4 pb-24 pt-14 md:pt-20">
+      <div className="mx-auto max-w-[1100px]">
+        <PageHeader title="What Happens at SPEC" />
       </div>
 
-      <div className="mx-auto flex max-w-[1100px] gap-0">
+      <div className="mx-auto flex max-w-[1100px] gap-12">
         {/* Sidebar Navigation */}
-         <div className="hidden w-[352px] shrink-0 justify-end pr-8 md:flex">
-           <nav className="sticky top-24 z-10 hidden w-40 self-start md:block">
-             <ul className="space-y-2 font-['Outfit',sans-serif] text-sm font-light tracking-[0.3px]">
-               {sidebarLinks.map((link) => (
-                 <li key={link.href}>
-                   <Link
-                     href={link.href}
-                     className="block leading-relaxed text-[#16140f] transition-colors hover:text-orange-600"
-                   >
-                     {link.label}
-                   </Link>
-                 </li>
-               ))}
-             </ul>
-           </nav>
-        </div>
+        <nav className="sticky top-24 hidden w-[170px] shrink-0 self-start lg:block">
+          <ul className="space-y-2 font-['Pretendard',sans-serif] text-sm font-normal tracking-[0.3px]">
+            {tocLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="block leading-relaxed text-[#16140f] transition-colors hover:text-orange-600"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 border-t border-[#d9d9cc] pt-4">
+            <ul className="space-y-2 font-['Pretendard',sans-serif] text-sm font-normal tracking-[0.3px]">
+              {pageLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="block leading-relaxed text-[#16140f]/60 transition-colors hover:text-orange-600"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
 
-        {/* Main Content */}
-        <div className="w-full">
-          <article className="mx-auto max-w-[640px]">
-            <p className={pClass}>
-              People often ask us what happens at Y Combinator. Here is an
-              overview of what happens during the YC program and the benefits you
-              get as a YC founder.
-            </p>
+         {/* Main Content */}
+         <div className="min-w-0 flex-1">
+           <article className="max-w-[720px]">
+             <p id="intro" className={`scroll-mt-28 ${pClass}`}>
+               SPEC은 성균관대학교에서 시작된 실전 창업 학회입니다. 이론이 아닌 실행으로 증명합니다. 여기서 무슨 일이 벌어지는지 소개합니다.
+             </p>
 
-            {/* The YC Program */}
-            <section id="the-yc-program" className={sectionClass}>
-              <h2 className={h2Class}>The YC Program</h2>
+             {/* The Program */}
+             <section id="the-program" className={`scroll-mt-28 ${sectionClass}`}>
+               <h2 className={h2Class}>The Program</h2>
 
-              <p className={pClass}>
-                YC is a three month program. We now run YC four times a year, in
-                the winter, spring, summer, and fall. Here&apos;s what happens
-                during the three months of YC:
-              </p>
+               <p className={pClass}>
+                 <span className={spanClass}>Goal</span>
+               </p>
+               <p className={pClass}>
+                 SPEC의 목표는 30주 안에 창업자가 실제 매출을 만들어내는 것입니다. 아이디어가 아닌 실행으로 증명합니다.
+               </p>
 
-              <p className={pClass}>
-                <span className={spanClass}>The Goal</span>
-              </p>
-              <p className={pClass}>
-                The overall goal of YC is to help startups really take off. They
-                arrive at YC at all different stages. Some haven&apos;t even
-                started working yet, and others have been launched for a year or
-                more. But whatever stage a startup is at when they arrive, our
-                goal is to help them to be in dramatically better shape 3 months
-                later.
-              </p>
-              <p className={pClass}>
-                For most startups, better shape translates into two things: to
-                have a better product with more users, and to have more options
-                for raising money.
-              </p>
-              <p className={pClass}>
-                Startups at all stages benefit from the intensity of YC.
-                That&apos;s probably the best word to describe the atmosphere.
-                For 3 months, it&apos;s all startup, all the time. Everyone
-                around you&mdash;us, the other founders in your batch, the
-                alumni, the speakers, the investors&mdash;wants to help your
-                startup succeed. In that atmosphere it&apos;s hard not to be
-                highly motivated. And that kind of extraordinary motivation is
-                what one needs to do something as difficult as starting a
-                startup.
-              </p>
-              <p className={pClass}>
-                Many founders describe the 11 weeks leading up to Demo Day as
-                the most productive period in their lives. Though YC continues
-                after the 3 month cycle, and the alumni community is an
-                increasingly valuable resource, those 11 weeks are still the most
-                important thing. You can&apos;t make people something
-                they&apos;re not, but the right conditions can bring out the best
-                in them. And since most people have way more potential than they
-                realize, they&apos;re often surprised by what they&apos;re
-                capable of.
-              </p>
+               <p className={pClass}>
+                 <span className={spanClass}>Phase 1 (W1-W10)</span>
+               </p>
+               <p className={pClass}>
+                 매주 팀 셔플 + 매출 챌린지가 진행됩니다. 10만원을 시작으로 200만원까지 만들어내는 것을 목표로 합니다. 핵심은 간단합니다: &ldquo;일단 팔아라, 만들지 마라.&rdquo;
+               </p>
 
-              <p className={pClass}>
-                <span className={spanClass}>Funding</span>
-              </p>
-              <p className={pClass}>
-                YC invests $500,000 in every company on standard terms. Our $500K
-                investment is made on 2 separate safes:
-              </p>
-              <p className={pClass}>
-                We invest $125,000 on a post-money safe in return for 7% of your
-                company (the &ldquo;$125k safe&rdquo;)
-              </p>
-              <p className={pClass}>
-                We invest $375,000 on an uncapped safe with a Most Favored
-                Nation (&ldquo;MFN&rdquo;) provision (the &ldquo;MFN
-                safe&rdquo;)
-              </p>
+               <p className={pClass}>
+                 <span className={spanClass}>Phase 2 (W11-W28)</span>
+               </p>
+               <p className={pClass}>
+                 확정팀이 정해지면서 MVP 개발, 런칭, 매출 스케일링, IR 준비가 진행됩니다. 매주 매출 보드가 공개되면서 투명한 경쟁과 협력의 문화가 형성됩니다.
+               </p>
 
-              <p className={pClass}>
-                <span className={spanClass}>Groups</span>
-              </p>
-              <p className={pClass}>
-                During the batch, startups are sorted into 3 groups. Each group
-                is led by YC partners who advise the founders in one-on-one and
-                group office hours. Each group is split into sections (6-10
-                companies), so that founders get the benefit of an intimate
-                setting within the larger batch.
-              </p>
+               <p className={pClass}>
+                 <span className={spanClass}>Phase 3 (W29-W30)</span>
+               </p>
+               <p className={pClass}>
+                 데모데이에서 투자자와 기업 관계자 앞에서 피칭합니다. 그 후에는 SPEC 알럼나이 네트워크의 일원으로 계속해서 연결됩니다.
+               </p>
 
-              <p className={pClass}>
-                <span className={spanClass}>Office Hours</span>
-              </p>
-              <p className={pClass}>
-                Much of what takes place at YC happens during office hours.
-                Partners host group office hours every two weeks and one-on-one
-                office hours as often as founders want. What startups talk about
-                at office hours depends on the stage of the company and where
-                they are in the YC cycle.
-              </p>
+               <p className={pClass}>
+                 <span className={spanClass}>Funding</span>
+               </p>
+               <p className={pClass}>
+                 SPEC은 투자금을 제공하지 않습니다. 대신 더 귀한 것을 제공합니다 &mdash; 돈을 벌어내는 감각, 함께 싸울 팀, 그리고 절대 끊기지 않는 네트워크입니다.
+               </p>
+             </section>
 
-              <p className={pClass}>
-                <span className={spanClass}>Bookface</span>
-              </p>
-              <p className={pClass}>
-                Bookface is the platform founders use to connect to one
-                another&mdash;imagine a combination of Facebook, Quora, and
-                LinkedIn. Each founder has a profile and can tag themselves as an
-                expert in any topic. If you have a question, need an
-                introduction, or want to poll for knowledge, you can post the
-                request to the forum on Bookface. The knowledge base of the YC
-                community is both broad and deep&mdash;the community includes
-                founders who are the world&apos;s foremost experts in everything
-                from security to community building to nuclear energy.
-              </p>
+             {/* Mentoring */}
+             <section id="mentoring" className={`scroll-mt-28 ${sectionClass}`}>
+               <h2 className={h2Class}>Mentoring</h2>
+               <p className={pClass}>
+                 카카오모빌리티를 포함한 주요 기업의 현직자 멘토링을 받게 됩니다. VCC (Venture Creation Course) 미니 MBA 커리큘럼도 병행하면서 실무와 이론을 동시에 습득합니다.
+               </p>
+               <p className={pClass}>
+                 격주 1:1 오피스아워와 그룹 세션을 통해 팀의 성장 단계에 맞춘 맞춤형 조언을 받을 수 있습니다.
+               </p>
+             </section>
 
-              <p className={pClass}>
-                <span className={spanClass}>Batch Kickoff</span>
-              </p>
-              <p className={pClass}>
-                In the first few weeks of the batch we host a 3-day, in-person
-                kickoff. The kickoff gives founders the opportunity to get to
-                know each other, their group partners, and the YC team.
-              </p>
+             {/* Community */}
+             <section id="community" className={`scroll-mt-28 ${sectionClass}`}>
+               <h2 className={h2Class}>Community</h2>
+               <p className={pClass}>
+                 <span className={spanClass}>Alumni Network</span>
+               </p>
+               <p className={pClass}>
+                 SPEC 알럼나이 네트워크는 선배 창업자들과의 연결고리입니다. 30주 프로그램이 끝나도 절대 끝나지 않는 관계를 맺습니다.
+               </p>
+               <p className={pClass}>
+                 <span className={spanClass}>Monthly Gatherings</span>
+               </p>
+               <p className={pClass}>
+                 월간 동문 모임을 통해 아이디어 교환, 협력 기회, 동료 간 문제 해결이 일어납니다.
+               </p>
+               <p className={pClass}>
+                 <span className={spanClass}>Mentoring Juniors</span>
+               </p>
+               <p className={pClass}>
+                 SPEC 알럼나이는 후배 팀들을 멘토링하면서 자신의 경험을 공유하고 커뮤니티를 지속적으로 성장시킵니다.
+               </p>
+             </section>
 
-              <p className={pClass}>
-                <span className={spanClass}>Alumni Talks</span>
-              </p>
-              <p className={pClass}>
-                Every week, we invite an eminent person from the startup world to
-                speak. Most speakers are successful startup founders &mdash; the
-                founders of Airbnb, Stripe, Doordash and Ginkgo Bioworks often
-                come back to tell the inside story of what happened in the early
-                days of their startups. Talks are strictly off the record to
-                encourage candor, because the inside story of most startups is
-                more colorful than the one presented later to the public.
-              </p>
-
-              <p className={pClass}>
-                <span className={spanClass}>Public Launches</span>
-              </p>
-              <p className={pClass}>
-                Once a startup has something built that&apos;s ready to launch,
-                we help founders figure out how to present it to users and the
-                press. We prepare founders for launches on community sites like
-                Product Hunt and Hacker News, and for their first press pitches
-                and interviews.
-              </p>
-
-              <p className={pClass}>
-                <span className={spanClass}>First Customers</span>
-              </p>
-              <p className={pClass}>
-                B2B and consumer companies often get their first 40-50 paying
-                customers from the YC community. With that, you not only get
-                first customers, you get the smartest early product feedback
-                possible.
-              </p>
-
-              <p className={pClass}>
-                <span className={spanClass}>Weekly Meetups</span>
-              </p>
-              <p className={pClass}>
-                Throughout the batch, we host weekly meetups in San Francisco.
-                These events often feature special guests like the founders of YC
-                and successful YC founders.
-              </p>
-
-              <p className={pClass}>
-                <span className={spanClass}>Demo Day</span>
-              </p>
-              <p className={pClass}>
-                On Demo Day, the latest batch of Y Combinator-funded founders
-                present their companies to an audience of specially selected
-                investors and press. We doubt there&apos;s another occasion when
-                such a large percentage of the top startup investors have their
-                attention focused on the same thing.
-              </p>
-              <p className={pClass}>
-                In the weeks following Demo Day we keep in close touch with the
-                startups as they negotiate the fundraising maze, and help them
-                decipher the real messages in investors&apos; sometimes
-                deliberately ambiguous responses. Often we talk to the investors
-                ourselves, to find out what they&apos;re really thinking about a
-                particular startup. Because YC-funded startups are a known
-                quantity to investors and get introduced to enough of them to
-                create serious price competition, companies tend to get higher
-                valuations than they might otherwise.
-              </p>
-            </section>
-
-            {/* Advice */}
-            <section id="advice" className={sectionClass}>
-              <h2 className={h2Class}>Advice</h2>
-              <p className={pClass}>
-                <em>Ongoing office hours</em>
-              </p>
-              <p className={pClass}>
-                Office hours don&apos;t stop after the YC program. We have office
-                hours year round, and startups from all previous cycles can book
-                time whenever they want.
-              </p>
-            </section>
-
-            {/* Community */}
-            <section id="community" className={sectionClass}>
-              <h2 className={h2Class}>Community</h2>
-              <p className={pClass}>
-                <em>Alumni community</em>
-              </p>
-              <p className={pClass}>
-                Today the YC alumni community is probably the most powerful
-                community in the startup world. It&apos;s powerful not just
-                because of its size, but also because its members have such a
-                strong commitment to helping one another. A culture of
-                helpfulness has been an important part of YC since the beginning,
-                and founders know that if they ever come across a challenge they
-                need help with, they not only have the partners at their
-                disposal, they have 6,000+ domain experts they can call on.
-              </p>
-              <p className={pClass}>
-                <em>Alumni Reunion</em>
-              </p>
-              <p className={pClass}>
-                Each year, YC hosts a formal gathering of alumni. Exciting things
-                happen when you bring founders together &mdash; ideas are
-                exchanged, deals get made, problem solving happens amongst peers.
-              </p>
-              <p className={pClass}>
-                <em>Founder Communities</em>
-              </p>
-              <p className={pClass}>
-                Founders have access to WhatsApp groups and Bookface channels
-                that reach specific communities. There are lists for hardware,
-                biotech, edtech, international, women founders, Black founders,
-                Hispanic and Latino founders, and more.
-              </p>
-              <p className={pClass}>
-                <em>Alumni Demo Day</em>
-              </p>
-              <p className={pClass}>
-                Active YC founders get an early look at the YC companies in each
-                batch at Alumni Demo Day.
-              </p>
-              <p className={pClass}>
-                <em>Deals</em>
-              </p>
-              <p className={pClass}>
-                Each YC company receives access to discounts and free accounts
-                for over 100 products. Some of these are highly significant,
-                including hundreds of thousands of dollars of free hosting for
-                each company provided by major cloud hosting companies.
-              </p>
-            </section>
-
-            {/* Brand */}
-            <section id="brand" className={sectionClass}>
-              <h2 className={h2Class}>Brand</h2>
-              <p className={pClass}>
-                <em>Credibility</em>
-              </p>
-              <p className={pClass}>
-                When one company in YC does well, the whole community benefits.
-                Because YC has such a strong track record, early adopters,
-                investors and press are often more willing to take a look at YC
-                founders, even if they&apos;re first time founders.
-              </p>
-              <p className={pClass}>
-                <em>Company Directory</em>
-              </p>
-              <p className={pClass}>
-                YC companies are showcased in the YC Startup Directory. Our
-                startups can be filtered and discovered by potential customers,
-                investors, or hires.
-              </p>
-            </section>
-
-            {/* Hiring */}
-            <section id="hiring" className={sectionClass}>
-              <h2 className={h2Class}>Hiring</h2>
-              <p className={pClass}>
-                <em>Work at a Startup</em>
-              </p>
-              <p className={pClass}>
-                Work at a Startup helps YC founders build their team &mdash; from
-                first employees to VPs of product and operations. Thousands of
-                jobseekers across hundreds of YC companies have landed roles
-                through the platform and extended YC community.
-              </p>
-              <p className={pClass}>
-                <em>Hacker News</em>
-              </p>
-              <p className={pClass}>
-                HN is a news aggregator where users can find and discuss the
-                latest news and submit content on anything that gratifies
-                one&apos;s intellectual curiosity. YC alumni also post
-                engineering, product, and design jobs on HN.
-              </p>
-            </section>
+             {/* Demo Day */}
+             <section id="demo-day" className={`scroll-mt-28 ${sectionClass}`}>
+               <h2 className={h2Class}>Demo Day</h2>
+               <p className={pClass}>
+                 30주의 여정의 마지막은 데모데이입니다. 투자자, 기업 관계자, 미디어 앞에서 팀의 성과를 피칭합니다.
+               </p>
+               <p className={pClass}>
+                 데모데이는 끝이 아닙니다. 그 이후부터 SPEC 알럼나이로서 평생 네트워크와 함께 성장합니다.
+               </p>
+             </section>
           </article>
         </div>
       </div>

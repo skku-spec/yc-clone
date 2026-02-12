@@ -15,10 +15,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const person = getPersonBySlug(slug);
   if (!person) {
-    return { title: "Person Not Found | Y Combinator" };
+    return { title: "멤버를 찾을 수 없습니다 | SPEC" };
   }
   return {
-    title: `${person.name}: YC Partner | Y Combinator`,
+    title: `${person.name} | SPEC — 성균관대 창업학회`,
     description: person.bio.slice(0, 160),
   };
 }
@@ -48,12 +48,12 @@ export default async function PersonPage({ params }: PageProps) {
     .filter((p) => p.slug !== slug && p.slug !== "")
     .slice(0, 4);
 
-  return (
-    <div className="px-4 pb-16 pt-12 md:pt-16">
-      <div className="mx-auto max-w-[800px]">
+   return (
+     <div className="px-4 pb-24 pt-12 md:pt-16">
+       <div className="mx-auto max-w-[720px]">
         <Link
           href="/people"
-          className="mb-8 inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[0.875rem] font-medium text-[#FF6C0F] transition-colors hover:text-[#e55c00]"
+          className="mb-8 inline-flex items-center gap-1.5 font-['Pretendard',sans-serif] text-[0.875rem] font-medium text-[#FF6C0F] transition-colors hover:text-[#e55c00]"
         >
           <svg
             width="16"
@@ -70,7 +70,7 @@ export default async function PersonPage({ params }: PageProps) {
               strokeLinejoin="round"
             />
           </svg>
-          All People
+          전체 멤버
         </Link>
 
         <div className="flex flex-col gap-8 md:flex-row md:gap-12">
@@ -85,16 +85,18 @@ export default async function PersonPage({ params }: PageProps) {
           </figure>
 
           <div className="flex-1">
-            <h1 className="mb-1 font-['Source_Serif_4',serif] text-[clamp(2rem,4vw,3rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
+            <h1
+              className="mb-1 text-[clamp(2rem,4vw,3rem)] font-bold uppercase leading-tight tracking-tight text-[#16140f]"
+              style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
+            >
               {person.name}
             </h1>
-            <p className="mb-1 font-['Outfit',sans-serif] text-[1.125rem] font-normal text-[#FF6C0F]">
+            <p className="mb-1 font-['Pretendard',sans-serif] text-[1.125rem] font-normal text-[#FF6C0F]">
               {person.title}
             </p>
-            {person.ycCompany && (
-              <p className="mb-4 font-['Outfit',sans-serif] text-[0.9375rem] font-light text-[#16140f]/50">
-                Previously: {person.ycCompany}
-                {person.ycBatch ? ` (YC ${person.ycBatch})` : ""}
+            {person.company && (
+              <p className="mb-4 font-['Pretendard',sans-serif] text-[0.9375rem] font-normal text-[#16140f]/50">
+                {person.company}
               </p>
             )}
 
@@ -148,7 +150,7 @@ export default async function PersonPage({ params }: PageProps) {
           {bioParagraphs.map((paragraph, i) => (
             <p
               key={i}
-              className="mb-5 font-['Outfit',sans-serif] text-[1.0625rem] font-light leading-[1.8] text-[#16140f] last:mb-0"
+              className="mb-5 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f] last:mb-0"
             >
               {paragraph}
             </p>
@@ -156,8 +158,8 @@ export default async function PersonPage({ params }: PageProps) {
         </article>
 
         <section className="mt-16 border-t border-[#16140f]/10 pt-10">
-          <h2 className="mb-6 font-['Outfit',sans-serif] text-[0.8125rem] font-semibold uppercase tracking-[0.1em] text-[#16140f]/50">
-            Other Partners
+          <h2 className="mb-6 font-['Pretendard',sans-serif] text-[0.8125rem] font-semibold uppercase tracking-[0.1em] text-[#16140f]/50">
+            Other Members
           </h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {otherPartners.map((p) => (
@@ -172,14 +174,14 @@ export default async function PersonPage({ params }: PageProps) {
                     alt={p.name}
                     width={160}
                     height={160}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    className="h-full w-full object-cover"
                     loading="lazy"
                   />
                 </figure>
-                <div className="font-['Source_Serif_4',serif] text-[0.875rem] font-semibold leading-tight text-[#16140f]">
+                <div className="font-['MaruBuri',serif] text-[0.875rem] font-semibold leading-tight text-[#16140f]">
                   {p.name}
                 </div>
-                <div className="font-['Outfit',sans-serif] text-[0.75rem] font-normal text-[#16140f]/50">
+                <div className="font-['Pretendard',sans-serif] text-[0.75rem] font-normal text-[#16140f]/50">
                   {p.title}
                 </div>
               </Link>

@@ -43,7 +43,7 @@ function TypeBadge({ type }: { type: string }) {
 
   return (
     <span
-      className={`inline-block rounded-full px-3 py-1 text-[12px] font-semibold tracking-wide uppercase font-['Outfit',sans-serif] ${colors[type] || "bg-gray-100 text-gray-700"}`}
+      className={`inline-block rounded-full px-3 py-1 text-[12px] font-semibold tracking-wide uppercase font-['Pretendard',sans-serif] ${colors[type] || "bg-gray-100 text-gray-700"}`}
     >
       {type}
     </span>
@@ -62,22 +62,22 @@ function RelatedCard({
         style={{ backgroundColor: item.thumbnailColor }}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="px-4 text-center font-['Source_Serif_4',serif] text-[11px] font-medium text-[#16140f]/40 leading-tight">
-            {item.title}
-          </span>
-        </div>
-        {item.duration && item.type === "Video" && (
-          <div className="absolute right-2 bottom-2 flex items-center gap-0.5 rounded bg-black/75 px-1.5 py-0.5 text-[10px] font-medium text-white font-['Outfit',sans-serif]">
-            <PlayIcon className="h-2 w-2" />
-            {item.duration}
-          </div>
-        )}
+           <span className="px-4 text-center font-['MaruBuri',serif] text-[11px] font-medium text-[#16140f]/40 leading-tight">
+             {item.title}
+           </span>
+         </div>
+         {item.duration && item.type === "Video" && (
+           <div className="absolute right-2 bottom-2 flex items-center gap-0.5 rounded bg-black/75 px-1.5 py-0.5 text-[10px] font-medium text-white font-['Pretendard',sans-serif]">
+             <PlayIcon className="h-2 w-2" />
+             {item.duration}
+           </div>
+         )}
         <div className="absolute inset-0 bg-[#FF6C0F]/0 transition-colors duration-200 group-hover:bg-[#FF6C0F]/10" />
       </div>
-      <h4 className="mb-0.5 font-['Source_Serif_4',serif] text-[0.9rem] font-semibold leading-snug text-[#16140f] transition-colors group-hover:text-[#FF6C0F]">
-        {item.title}
-      </h4>
-      <p className="text-[12px] font-['Outfit',sans-serif] font-light text-[#16140f]/50">
+      <h4 className="mb-0.5 font-['MaruBuri',serif] text-[0.9rem] font-semibold leading-snug text-[#16140f] transition-colors group-hover:text-[#FF6C0F]">
+         {item.title}
+       </h4>
+       <p className="text-[12px] font-['Pretendard',sans-serif] font-normal text-[#16140f]/50">
         {item.author}
         {item.views && <span className="ml-1">&middot; {item.views} views</span>}
       </p>
@@ -99,10 +99,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = libraryItems.find((i) => i.slug === slug);
   if (!item) {
-    return { title: "Not Found | YC Library" };
+    return { title: "Not Found | SPEC 자료실" };
   }
   return {
-    title: `${item.title} : YC Startup Library | Y Combinator`,
+    title: `${item.title} | SPEC 자료실`,
     description: item.description,
   };
 }
@@ -129,51 +129,51 @@ export default async function LibraryArticlePage({
 
   const bodyParagraphs = item.body.split("\n\n").filter(Boolean);
 
-  return (
-    <section className="px-4 pb-16 pt-12 md:pt-16">
-      <div className="mx-auto max-w-[1000px]">
-        <nav className="mb-6 flex items-center gap-2 font-['Outfit',sans-serif] text-[13px] font-light text-[#16140f]/50">
-          <Link
-            href="/library"
-            className="inline-flex items-center gap-1.5 transition-colors hover:text-[#FF6C0F]"
-          >
-            <ArrowLeftIcon className="h-3.5 w-3.5" />
-            Library
-          </Link>
-          <span>/</span>
-          <span className="truncate text-[#16140f]/70">{item.title}</span>
-        </nav>
+   return (
+     <section className="px-4 pb-24 pt-12 md:pt-16">
+       <div className="mx-auto max-w-[1100px]">
+         <nav className="mb-6 flex items-center gap-2 font-['Pretendard',sans-serif] text-[13px] font-normal text-[#16140f]/50">
+            <Link
+              href="/library"
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-[#FF6C0F]"
+            >
+              <ArrowLeftIcon className="h-3.5 w-3.5" />
+              자료실
+            </Link>
+            <span>/</span>
+            <span className="truncate text-[#16140f]/70">{item.title}</span>
+          </nav>
 
-        <div className="flex flex-col gap-10 lg:flex-row">
+         <div className="flex flex-col gap-12 lg:flex-row">
           <article className="min-w-0 flex-1">
             <div className="mb-4 flex items-center gap-3">
               <TypeBadge type={item.type} />
-              {item.categories.map((cat) => (
-                <span
-                  key={cat}
-                  className="rounded-full border border-[#16140f]/10 px-2.5 py-0.5 text-[11px] font-medium text-[#16140f]/50 font-['Outfit',sans-serif]"
-                >
-                  {cat}
-                </span>
-              ))}
+               {item.categories.map((cat) => (
+                 <span
+                   key={cat}
+                   className="rounded-full border border-[#16140f]/10 px-2.5 py-0.5 text-[11px] font-medium text-[#16140f]/50 font-['Pretendard',sans-serif]"
+                 >
+                   {cat}
+                 </span>
+               ))}
             </div>
 
-            <h1 className="mb-4 font-['Source_Serif_4',serif] text-[clamp(1.75rem,4vw,2.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
+            <h1 className="mb-4 font-[system-ui] text-[clamp(1.75rem,4vw,2.75rem)] font-black leading-tight tracking-tight text-[#16140f]">
               {item.title}
             </h1>
 
             <div className="mb-6 flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6C0F]/10 text-[13px] font-semibold text-[#FF6C0F] font-['Outfit',sans-serif]">
-                {item.author
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
-              </div>
-              <div>
-                <p className="font-['Outfit',sans-serif] text-[14px] font-medium text-[#16140f]">
-                  {item.author}
-                </p>
-                <p className="font-['Outfit',sans-serif] text-[12px] font-light text-[#16140f]/50">
+               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6C0F]/10 text-[13px] font-semibold text-[#FF6C0F] font-['Pretendard',sans-serif]">
+                 {item.author
+                   .split(" ")
+                   .map((n) => n[0])
+                   .join("")}
+               </div>
+               <div>
+                 <p className="font-['Pretendard',sans-serif] text-[14px] font-medium text-[#16140f]">
+                   {item.author}
+                 </p>
+                 <p className="font-['Pretendard',sans-serif] text-[12px] font-normal text-[#16140f]/50">
                   {item.authorRole && (
                     <span>{item.authorRole} &middot; </span>
                   )}
@@ -207,15 +207,15 @@ export default async function LibraryArticlePage({
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-black/10">
                       <PlayIcon className="h-8 w-8 text-[#16140f]/40" />
                     </div>
-                    <span className="font-['Outfit',sans-serif] text-sm font-light text-[#16140f]/40">
-                      Video player
-                    </span>
+                    <span className="font-['Pretendard',sans-serif] text-sm font-normal text-[#16140f]/40">
+                       Video player
+                     </span>
                   </div>
                 </div>
               </div>
             )}
 
-            <p className="mb-8 font-['Outfit',sans-serif] text-[16px] font-light leading-relaxed text-[#16140f]/70 italic border-l-2 border-[#FF6C0F]/30 pl-4">
+            <p className="mb-8 font-['Pretendard',sans-serif] text-[16px] font-normal leading-relaxed text-[#16140f]/70 italic border-l-2 border-[#FF6C0F]/30 pl-4">
               {item.description}
             </p>
 
@@ -230,23 +230,23 @@ export default async function LibraryArticlePage({
                 if (isHeading) {
                   return (
                     <h3
-                      key={i}
-                      className="mt-8 mb-3 font-['Source_Serif_4',serif] text-[1.2rem] font-semibold text-[#16140f]"
-                    >
-                      {trimmed.replace(/:$/, "")}
-                    </h3>
+                       key={i}
+                       className="mt-8 mb-3 font-[system-ui] text-[1.2rem] font-bold text-[#16140f]"
+                     >
+                       {trimmed.replace(/:$/, "")}
+                     </h3>
                   );
                 }
 
                 if (isListItem) {
                   return (
                     <p
-                      key={i}
-                      className="mb-2 pl-4 font-['Outfit',sans-serif] text-[16px] font-light leading-[1.75] text-[#16140f]/85"
-                    >
-                      <span className="mr-2 text-[#FF6C0F]">&bull;</span>
-                      {trimmed.replace(/^[-•]\s*/, "")}
-                    </p>
+                       key={i}
+                       className="mb-2 pl-4 font-['Pretendard',sans-serif] text-[16px] font-normal leading-[1.75] text-[#16140f]/85"
+                     >
+                       <span className="mr-2 text-[#FF6C0F]">&bull;</span>
+                       {trimmed.replace(/^[-•]\s*/, "")}
+                     </p>
                   );
                 }
 
@@ -255,49 +255,49 @@ export default async function LibraryArticlePage({
                   if (match) {
                     return (
                       <p
-                        key={i}
-                        className="mb-3 font-['Outfit',sans-serif] text-[16px] font-light leading-[1.75] text-[#16140f]/85"
-                      >
-                        <span className="mr-2 font-semibold text-[#FF6C0F]">
-                          {match[1]}.
-                        </span>
-                        {match[2]}
-                      </p>
+                         key={i}
+                         className="mb-3 font-['Pretendard',sans-serif] text-[16px] font-normal leading-[1.75] text-[#16140f]/85"
+                       >
+                         <span className="mr-2 font-semibold text-[#FF6C0F]">
+                           {match[1]}.
+                         </span>
+                         {match[2]}
+                       </p>
                     );
                   }
                 }
 
                 return (
-                  <p
-                    key={i}
-                    className="mb-5 font-['Outfit',sans-serif] text-[16px] font-light leading-[1.75] text-[#16140f]/85"
-                  >
-                    {trimmed}
-                  </p>
+                   <p
+                     key={i}
+                     className="mb-5 font-['Pretendard',sans-serif] text-[16px] font-normal leading-[1.75] text-[#16140f]/85"
+                   >
+                     {trimmed}
+                   </p>
                 );
               })}
             </div>
 
-            <div className="mt-12 border-t border-[#16140f]/8 pt-6">
-              <p className="font-['Outfit',sans-serif] text-[13px] font-light text-[#16140f]/40">
-                Want more content like this?{" "}
-                <Link
-                  href="/library"
-                  className="text-[#FF6C0F] underline underline-offset-2"
-                >
-                  Browse the full YC Library
-                </Link>
-              </p>
-            </div>
+             <div className="mt-12 border-t border-[#16140f]/8 pt-6">
+               <p className="font-['Pretendard',sans-serif] text-[13px] font-normal text-[#16140f]/40">
+                 더 많은 자료를 찾으신가요?{" "}
+                 <Link
+                   href="/library"
+                   className="text-[#FF6C0F] underline underline-offset-2"
+                 >
+                   SPEC 자료실 둘러보기
+                 </Link>
+               </p>
+             </div>
           </article>
 
           <aside className="w-full shrink-0 lg:w-[280px]">
             <div className="sticky top-24">
               {relatedItems.length > 0 && (
                 <>
-                  <h3 className="mb-4 font-['Source_Serif_4',serif] text-[1rem] font-semibold text-[#16140f]">
-                    Related
-                  </h3>
+                   <h3 className="mb-4 font-[system-ui] text-[1rem] font-bold text-[#16140f]">
+                     관련 자료
+                   </h3>
                   <div className="flex flex-col gap-5">
                     {relatedItems.map((related) => (
                       <RelatedCard key={related.slug} item={related} />
@@ -306,21 +306,20 @@ export default async function LibraryArticlePage({
                 </>
               )}
 
-              <div className="mt-8 rounded-xl border border-[#FF6C0F]/15 bg-[#FF6C0F]/5 p-5">
-                <p className="mb-2 font-['Source_Serif_4',serif] text-[0.95rem] font-semibold text-[#16140f]">
-                  YC&apos;s essential startup advice
-                </p>
-                <p className="mb-3 font-['Outfit',sans-serif] text-[13px] font-light leading-relaxed text-[#16140f]/60">
-                  Here is what we, at YC, consider the most important, most
-                  transformative advice for startups.
-                </p>
-                <Link
-                  href="/library"
-                  className="font-['Outfit',sans-serif] text-[13px] font-medium text-[#FF6C0F] transition-opacity hover:opacity-80"
-                >
-                  Explore Library →
-                </Link>
-              </div>
+               <div className="mt-8 rounded-xl border border-[#FF6C0F]/15 bg-[#FF6C0F]/5 p-5">
+                 <p className="mb-2 font-[system-ui] text-[0.95rem] font-bold text-[#16140f]">
+                   SPEC 필독 자료
+                 </p>
+                 <p className="mb-3 font-['Pretendard',sans-serif] text-[13px] font-normal leading-relaxed text-[#16140f]/60">
+                   SPEC에서 엄선한 스타트업 창업과 투자에 관한 가장 중요한 자료들입니다.
+                 </p>
+                 <Link
+                   href="/library"
+                   className="font-['Pretendard',sans-serif] text-[13px] font-medium text-[#FF6C0F] transition-opacity hover:opacity-80"
+                 >
+                   자료실 둘러보기 →
+                 </Link>
+               </div>
             </div>
           </aside>
         </div>

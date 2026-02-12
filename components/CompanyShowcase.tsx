@@ -7,91 +7,91 @@ const companies = [
     name: "OpenAI",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/openai-batch-2-bd451c2a6d1966e17822ce4a22aeaec5167daad588cf0a99a9a68c563b6b4028.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/openai-now-1-14b338a4c66a1ad05c34b311d1d4c1b535cb960ef24109be329fe552358ebba9.jpg",
-    duringText: "Sam was part of YC\u2019s inaugural batch in S05 and founded OpenAI as YC Research in 2015.",
+    duringText: "Sam was part of SPEC's inaugural batch in 1기 and founded OpenAI as SPEC Research in 2015.",
     nowText: "Sam built OpenAI into a $500B company.",
   },
   {
     name: "Airbnb",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/airbnb-batch-2-a1df9c49bacc25254fe05a3bac4921eff5ac37109de97b1d2337f6fd86a488be.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/airbnb-now-1-26d764d24e2486fd91a902dbd06b7bb05a3613e5af6273baffecf6f24090f6d1.jpg",
-    duringText: "Brian, Joe, and Nate did YC in W09.",
+    duringText: "Brian, Joe, and Nate did SPEC in 2기.",
     nowText: "Airbnb went public in 2020 at an over $100B valuation.",
   },
   {
     name: "Stripe",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/stripe-batch-2-60e80fb0b35bee455d46fafcd3b175126ae5fce3e397e94a919b968a832d6107.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/stripe-now-1-4fc6337a8f67eadec8f2f1e6b72dc008fb646e670d0336caa16902f51602aa85.jpg",
-    duringText: "The Collison brothers did YC twice\u2014first in W07 and then in S09, when they started Stripe.",
+    duringText: "The Collison brothers did SPEC twice—first in 1기 and then in 2기, when they started Stripe.",
     nowText: "Stripe is now the internet\u2019s $107B payments backbone.",
   },
   {
     name: "Coinbase",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/coinbase-batch-1-d0d5c84104f9f9578d888d283099ee17b47731e6301304faf9d1109b38e4d177.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/coinbase-now-1d5b1a7aa6aaa70d84f4e77bcc5d35e63a9cedbb9dcb849ab946d1c274b6e47e.jpg",
-    duringText: "Fred and Brian met on Reddit and did YC in S12.",
+    duringText: "Fred and Brian met on Reddit and did SPEC in 3기.",
     nowText: "Coinbase went public in 2021 at a $86B valuation.",
   },
   {
     name: "DoorDash",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/doordash-batch-2-dd602f0734e6093e3d306eb0f7de4fad730cc6d357f478a769c97d0e50c5ceb2.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/doordash-now-331fd1df377dabb40264bb83071545d114a7a9fb024f152a8098c98c2fcab3f7.jpg",
-    duringText: "Andy, Stanley, Tony, and Evan did YC in S13.",
+    duringText: "Andy, Stanley, Tony, and Evan did SPEC in 3기.",
     nowText: "DoorDash went public in 2020 at a valuation of $39B.",
   },
   {
     name: "Scale AI",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/scale-ai-batch3-cac949deabf5b818c3f3f2c49d9e2d194227ec90dab863ac2ab636dbb870cd19.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/scaleai-now-1-225d65a5b18021eeaa18fe4eadb83f9cd4ea5abffe8dbac6c51f87866dd5cd37.jpg",
-    duringText: "Alexandr and Lucy did YC S16 and pivoted during the batch.",
+    duringText: "Alexandr and Lucy did SPEC 4기 and pivoted during the batch.",
     nowText: "In 2025, Meta acquired 49% of Scale for over $14B.",
   },
   {
     name: "Dropbox",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/dropbox-batch-7f8ebe6bc34eb91cd5103055679597bd7b6628c50ed447b7d6a33c1fda872223.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/dropbox-now-64142144a6030372b92accc4e8531ead60eea517d9a24230c30371c7358a206b.jpg",
-    duringText: "Arash and Drew started Dropbox at MIT and did YC in S07.",
+    duringText: "Arash and Drew started Dropbox at MIT and did SPEC in 1기.",
     nowText: "Dropbox had the biggest tech IPO of 2018 at a $9B valuation.",
   },
   {
     name: "Reddit",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/reddit-batch-a4d08a9bbb466f39806eab735405aea784f6b39f22c9af07f697fe8c323cdc2e.png",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/reddit-now-f6838bd6494ed8a21e646d7ee4a79c0f12f684e8842cd7c53612c5f31d7aa0eb.jpg",
-    duringText: "Alexis and Steve were in the inaugural YC batch in S05.",
+    duringText: "Alexis and Steve were in the inaugural SPEC batch in 1기.",
     nowText: "Reddit went public in 2024 at a $6.4B valuation.",
   },
   {
     name: "Instacart",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/instacart-batch-2-c4d5c8eea73e1c85e472b9b3fa9f91488ca278f2f2bf258d30166c61847a3c43.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/instacart-now-2-296ed5ff821bb577b68429995747f9251c1d02bb7ceb4d52e727db3f2d295332.jpg",
-    duringText: "Apoorva, Max, and Brandon did YC in S12.",
+    duringText: "Apoorva, Max, and Brandon did SPEC in 3기.",
     nowText: "Instacart went public in 2023 at a $10B valuation.",
   },
   {
     name: "GitLab",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/gitlab-batch-1-858c18e16366d3344abd06cec9ad5f6440f1395086e96fc733baf2a927645e4e.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/gitlab-now-2-1c6a0934f16b0f8d84d0fc90ffa92d8c11f7fb7ca40d44b9e6d4627b620edcba.jpg",
-    duringText: "Sid and Dmytro did YC in S14.",
+    duringText: "Sid and Dmytro did SPEC in 3기.",
     nowText: "GitLab went public in 2021 at an $11B valuation.",
   },
   {
     name: "Kalshi",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/kalshi-batch-1-12c1828169bef411e3f7910f0b7e48f8e5fb4d1f7eafee50926c933b55b324d5.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/kalshi-now-1-3affaf3dd1e1259afd5d1f72f1b0331818f9ed44454d1820b20b01c58771495b.jpg",
-    duringText: "Tarek and Luana did YC in W19.",
+    duringText: "Tarek and Luana did SPEC in 4기.",
     nowText: "Kalshi reached an $11B valuation in 2025.",
   },
   {
     name: "Replit",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/replit-batch-1-1fa8581e2ab474b5475f0ba9ef36c5eebbecfe58a82759ca1cdb6ee45f64c38c.jpg",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/replit-now-2-fd3ed60ec6667405527c1cd0324299871b46a21e47eff54ef367609f76718309.jpg",
-    duringText: "Amjad and Haya interviewing for the YC W18 batch.",
+    duringText: "Amjad and Haya interviewing for the SPEC 4기 batch.",
     nowText: "Replit became a leading AI coding platform valued at over $3B.",
   },
   {
     name: "Twitch",
     duringImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/twitch-batch-3714c0d71b6d4d29c573e59b5b2b165dc6b78f3f837af6ad49149152a62208fe.png",
     nowImg: "https://bookface-static.ycombinator.com/assets/ycdc/beforevsnow/twitch-now-2-9f9f4f8fa6f4e70b792332cb296e107391771cf947aae6c1e8fc2967d0836bfb.jpg",
-    duringText: "Michael, Justin, Kyle, and Emmett in YC W07.",
+    duringText: "Michael, Justin, Kyle, and Emmett in SPEC 1기.",
     nowText: "Twitch was acquired by Amazon for nearly $1B.",
   },
 ];
@@ -228,7 +228,7 @@ export default function CompanyShowcase() {
     const isActive = activeIndex === index;
     const img = side === "during" ? company.duringImg : company.nowImg;
     const text = side === "during" ? company.duringText : company.nowText;
-    const label = side === "during" ? "During YC" : "Now";
+    const label = side === "during" ? "During SPEC" : "Now";
 
     return (
       <div
@@ -245,7 +245,7 @@ export default function CompanyShowcase() {
           </div>
           <img
             src={img}
-            alt={`${company.name} ${label.toLowerCase()}`}
+               alt={`${company.name} during SPEC`}
             className="block aspect-square w-full rounded-xl object-cover shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-transform duration-300 hover:scale-[1.02]"
             loading="lazy"
           />
@@ -315,7 +315,7 @@ export default function CompanyShowcase() {
         ref={sectionRef}
         className="relative box-border hidden w-full max-w-[100vw] justify-center overflow-hidden bg-[#f5f5ee] px-20 py-[60px] pb-[120px] lg:flex lg:max-xl:px-[60px]"
       >
-        {/* ── Left Fixed Panel (During YC) ── */}
+         {/* ── Left Fixed Panel (During SPEC) ── */}
         <div
           className="pointer-events-none fixed left-[4%] top-1/2 z-10 flex h-0 w-[30%] -translate-y-1/2 flex-col gap-5 xl:left-[5%] xl:w-[32%] xl:gap-6 2xl:left-[6%] 2xl:w-[34%] 2xl:gap-7"
           style={{
@@ -396,15 +396,15 @@ export default function CompanyShowcase() {
         <div className="flex flex-col items-center">
           {/* Company Cards - During & Now stacked */}
           <div className="flex w-full max-w-md flex-col gap-8">
-            {/* During YC Card */}
-            <div className="flex w-full flex-col items-center">
-              <span className="mb-2 text-center font-['Source_Serif_4',serif] text-base font-normal italic text-[#16140f]">
-                During YC
-              </span>
+           {/* During SPEC Card */}
+             <div className="flex w-full flex-col items-center">
+               <span className="mb-2 text-center font-['Source_Serif_4',serif] text-base font-normal italic text-[#16140f]">
+                 During SPEC
+               </span>
               <div className="relative w-full">
                 <img
                   src={mobileCompany.duringImg}
-                  alt={`${mobileCompany.name} during YC`}
+                   alt={`${mobileCompany.name} during SPEC`}
                   className="block aspect-square w-full rounded-xl object-cover shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
                 />
                 <p className="mt-3 text-center font-['Outfit',sans-serif] text-[13px] font-light leading-[1.5] text-[#16140f] opacity-90">

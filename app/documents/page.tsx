@@ -1,94 +1,76 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "YC Safe Financing Documents | Y Combinator",
-  description:
-    "Y Combinator introduced the safe (simple agreement for future equity) in late 2013. Download SAFE financing documents for US and non-US companies.",
+  title: "Documents | SPEC",
+  description: "SPEC 관련 문서 및 양식",
 };
 
-const SAFE_BASE = "https://bookface-static.ycombinator.com/assets/ycdc";
-
-const US_DOCS = [
+const SPEC_DOCS = [
   {
-    name: "Safe: Valuation Cap, no Discount",
-    file: "Postmoney Safe - Valuation Cap Only - FINAL-f2a64add6d21039ab347ee2e7194141a4239e364ffed54bad0fe9cf623bf1691.docx",
+    name: "지원서 양식",
+    description: "SPEC 4기 지원서 — Google Form을 통해 온라인으로 제출합니다.",
+    link: "#",
+    linkText: "지원서 작성하기",
   },
   {
-    name: "Safe: Discount, no Valuation Cap",
-    file: "Postmoney Safe - Discount Only - FINAL-b9ecb516615d60c6c4653507442aa2561023004368232b7d6e75edc9629acc99.docx",
+    name: "사업계획서 템플릿",
+    description:
+      "SPEC 공식 사업계획서 양식입니다. 문제 정의, 솔루션, 시장 분석, 비즈니스 모델, 팀 구성 등 핵심 항목이 포함되어 있습니다.",
+    link: "#",
+    linkText: "템플릿 다운로드",
   },
   {
-    name: 'Safe: "Uncapped MFN" (no Valuation Cap, no Discount)',
-    file: "Postmoney Safe - MFN Only - FINAL-2bc87fa3d2ec5072a60d653aec9a885fb43879781e44341fa720a8e7d1cc42ff.docx",
+    name: "피치덱 템플릿",
+    description:
+      "데모데이용 발표자료 양식입니다. 10장 이내로 핵심 내용을 전달할 수 있도록 구성되어 있습니다.",
+    link: "#",
+    linkText: "템플릿 다운로드",
   },
   {
-    name: "Pro Rata Side Letter",
-    file: "Pro Rata Side Letter-d6dd8d827741862b18fba0f658da17fb4e787e5f2dda49584b9caea89bf42302.docx",
+    name: "팀 협약서",
+    description:
+      "팀원 간 역할, 지분, 의사결정 구조 등을 합의하는 양식입니다. 팀 구성 초기에 작성하는 것을 권장합니다.",
+    link: "#",
+    linkText: "양식 다운로드",
   },
   {
-    name: "Safe User Guide",
-    file: "Website User Guide Feb 2023 - final-28acf9a3b938e643cc270b7da514194d5c271359be25b631b025605673fa9f95.pdf",
-  },
-];
-
-const NON_US_DOCS = [
-  {
-    name: "Safe: Valuation Cap, No Discount (Canada)",
-    file: "Postmoney Safe - Valuation Cap Only (Canada) FINAL-908361f232fb25ff961560a0b959cd4f656ca944f84d6009f7cab56e629f79f2.docx",
-  },
-  {
-    name: "Pro Rata Side Letter (Canada)",
-    file: "Pro Rata Side Letter (Canada)-199957825465a7b592b0a04464b22a76dc7ced40bc828cce858cb5f39527084f.docx",
-  },
-  {
-    name: "Safe: Valuation Cap, No Discount (Caymans)",
-    file: "Postmoney Safe - Valuation Cap Only (Cayman) FINAL-7b3206e15466942b218b31118667593d735ee05a39d5390ad78dc7cc74310d33.docx",
-  },
-  {
-    name: "Pro Rata Side Letter (Caymans)",
-    file: "Pro Rata Side Letter (Cayman)-ec1289f5f228237488f011bce2279d8cb4fd90db676a89e7fa4e02abe441b93a.docx",
-  },
-  {
-    name: "Safe: Valuation Cap, No Discount (Singapore)",
-    file: "Postmoney Safe - Valuation Cap Only (Singapore) FINAL-3ce53fbce48b42a5a2a4e657654d78ec40310d43b318802ef7039cb9260783ce.docx",
-  },
-  {
-    name: "Pro Rata Side Letter (Singapore)",
-    file: "Pro Rata Side Letter (Singapore)-22ef48dda1009ab83ab9162cbdaae846ec480b9796bb453532dd747edb5d9c25.docx",
+    name: "NDA 양식",
+    description:
+      "멘토링 시 비밀유지 합의서 양식입니다. 외부 멘토와의 미팅 전 상호 서명을 권장합니다.",
+    link: "#",
+    linkText: "양식 다운로드",
   },
 ];
-
-const SAFE_USER_GUIDE_URL = `${SAFE_BASE}/Website User Guide Feb 2023 - final-28acf9a3b938e643cc270b7da514194d5c271359be25b631b025605673fa9f95.pdf`;
 
 export default function DocumentsPage() {
   return (
-    <section className="mx-auto max-w-[1100px] px-4 pb-24 pt-16">
+    <section className="mx-auto max-w-[1100px] px-4 pb-24 pt-14 md:pt-20">
       <div className="mb-8 text-center">
-        <h1 className="font-serif text-[40px] font-medium leading-[1.2] text-[#16140f] md:text-[60px] md:leading-[75px]">
-          Safe Financing Documents
+        <h1 className="font-[system-ui] text-[clamp(2.5rem,5vw,3.75rem)] font-black leading-[1.15] tracking-tight uppercase text-[#16140f]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          Documents
         </h1>
-        <p className="mt-2 font-sans text-base text-[#16140f]/60">
-          By Carolynn Levy
+        <p className="mt-2 font-['Pretendard',sans-serif] text-base text-[#16140f]/60">
+          SPEC 관련 문서 및 양식
         </p>
       </div>
 
-      <div className="mx-auto flex max-w-[900px] flex-col gap-8 md:flex-row">
-        <nav className="shrink-0 md:w-[200px]">
-          <ul className="sticky top-24 space-y-3 font-sans text-sm">
+      <div className="mx-auto flex max-w-[1100px] flex-col gap-12 md:flex-row">
+        <nav className="shrink-0 md:w-[170px]">
+          <ul className="sticky top-24 space-y-3 font-['Pretendard',sans-serif] text-sm">
             <li>
               <a
                 href="#downloads"
                 className="text-[#FF6C0F] hover:opacity-70"
               >
-                Downloads
+                다운로드
               </a>
             </li>
             <li>
               <a
-                href="#about-the-safe"
+                href="#about"
                 className="text-[#FF6C0F] hover:opacity-70"
               >
-                About the Safe
+                문서 안내
               </a>
             </li>
           </ul>
@@ -96,174 +78,88 @@ export default function DocumentsPage() {
 
         <article className="min-w-0 flex-1">
           <section id="downloads">
-            <h2 className="mb-6 font-serif text-[32px] font-medium leading-tight text-[#16140f]">
-              Download the Safe
+            <h2 className="mb-6 font-['MaruBuri',serif] text-[32px] font-medium leading-tight text-[#16140f]">
+              문서 다운로드
             </h2>
 
-            <h3 className="mb-3 font-sans text-lg font-semibold text-[#16140f]">
-              US companies
-            </h3>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              There are three versions of the post-money safe intended for use
-              by US companies, plus an optional side letter.
+            <p className="mb-6 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+              SPEC 활동에 필요한 주요 문서와 양식을 아래에서 확인하실 수
+              있습니다. 각 문서는 팀의 원활한 활동을 위해 준비되었으며,
+              필요에 따라 수정하여 사용하실 수 있습니다.
             </p>
-            <ul className="mb-8 ml-6 list-disc space-y-2 font-sans text-base text-[#16140f]">
-              {US_DOCS.map((doc) => (
-                <li key={doc.file}>
-                  <a
-                    href={`${SAFE_BASE}/${doc.file}`}
-                    className="text-[#FF6C0F] underline hover:opacity-70"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {doc.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
 
-            <h3 className="mb-3 font-sans text-lg font-semibold text-[#16140f]">
-              Non-US companies
-            </h3>
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              There is one version of the post-money safe, Valuation Cap (no
-              discount), intended for use by companies formed in Canada, Cayman
-              and Singapore, plus an optional side letter for each country.
-              Before using any of these international forms, you should consult
-              with a lawyer licensed in the relevant country.
-            </p>
-            <ul className="mb-8 ml-6 list-disc space-y-2 font-sans text-base text-[#16140f]">
-              {NON_US_DOCS.map((doc) => (
-                <li key={doc.file}>
-                  <a
-                    href={`${SAFE_BASE}/${doc.file}`}
-                    className="text-[#FF6C0F] underline hover:opacity-70"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+            <div className="space-y-8">
+              {SPEC_DOCS.map((doc) => (
+                <div
+                  key={doc.name}
+                  className="border-b border-[#16140f]/10 pb-6"
+                >
+                  <h3 className="mb-2 font-['Pretendard',sans-serif] text-lg font-semibold text-[#16140f]">
                     {doc.name}
+                  </h3>
+                  <p className="mb-3 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+                    {doc.description}
+                  </p>
+                  <a
+                    href={doc.link}
+                    className="font-['Pretendard',sans-serif] text-sm font-medium text-[#FF6C0F] underline hover:opacity-70"
+                  >
+                    {doc.linkText}
                   </a>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
 
-          <section id="about-the-safe" className="mt-12">
-            <h2 className="mb-6 font-serif text-[32px] font-medium leading-tight text-[#16140f]">
-              About the Safe
+          <section id="about" className="mt-12">
+            <h2 className="mb-6 font-['MaruBuri',serif] text-[32px] font-medium leading-tight text-[#16140f]">
+              문서 안내
             </h2>
 
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Y Combinator introduced the safe (simple agreement for future
-              equity) in late 2013, and since then, it has been used by almost
-              all YC startups and countless non-YC startups as the main
-              instrument for early-stage fundraising.
+            <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+              SPEC은 선발된 팀들이 창업 과정에서 필요한 핵심 문서를 쉽게
+              활용할 수 있도록 표준 양식을 제공합니다. 이 양식들은 실제
+              SPEC-backed companies의 피드백을 반영하여 지속적으로 개선되고
+              있습니다.
             </p>
 
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Our first safe was a &quot;pre-money&quot; safe, because at the
-              time of its introduction, startups were raising smaller amounts of
-              money in advance of raising a priced round of financing (typically,
-              a Series A Preferred Stock round). The safe was a simple and fast
-              way to get that first money into the company, and the concept was
-              that holders of safes were merely early investors in that future
-              priced round. But early stage fundraising evolved in the years
-              following the introduction of the original safe, and now startups
-              are raising much larger amounts of money as a first
-              &quot;seed&quot; round of financing. While safes are being used for
-              these seed rounds, these rounds are really better considered as
-              wholly separate financings, rather than &quot;bridges&quot; into
-              later priced rounds.
+            <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+              사업계획서 템플릿은 투자자와 멘토에게 팀의 비전을 명확하게
+              전달하기 위한 구조로 설계되었습니다. 문제 정의부터 시장 분석,
+              비즈니스 모델, 재무 계획까지 스타트업 초기 단계에서 반드시
+              다뤄야 할 항목들을 포함하고 있습니다.
             </p>
 
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              In 2018 we released the &quot;post-money&quot; safe. By
-              &quot;post-money,&quot; we mean that safe holder ownership is
-              measured after (post) all the safe money is accounted for - which
-              is its own round now - but still before (pre) the new money in the
-              priced round that converts and dilutes the safes (usually the
-              Series A, but sometimes Series Seed). The post-money safe has what
-              we think is a huge advantage for both founders and investors - the
-              ability to calculate immediately and precisely how much ownership
-              of the company has been sold. It&apos;s critically important for
-              founders to understand how much dilution is caused by each safe
-              they sell, just as it is fair for investors to know how much
-              ownership of the company they have purchased.
+            <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+              피치덱 템플릿은 데모데이 발표를 위해 최적화되어 있습니다.
+              10장 이내의 슬라이드로 핵심 메시지를 전달할 수 있도록
+              구성되었으며, 이전 기수 팀들의 발표 경험이 녹아 있습니다.
             </p>
 
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              The safe has two fundamental features that are critically important
-              for startups:
+            <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+              팀 협약서는 공동 창업 초기에 팀원 간의 역할, 지분 배분,
+              의사결정 구조, 이탈 시 처리 방안 등을 명확히 하기 위한
+              문서입니다. 초기에 이런 부분을 합의하지 않으면 나중에
+              심각한 갈등의 원인이 될 수 있으므로, 팀 구성 직후 작성하는
+              것을 강력히 권장합니다.
             </p>
 
-            <ul className="mb-6 ml-6 list-disc space-y-3 font-sans text-base leading-relaxed text-[#16140f]">
-              <li>
-                It allows for{" "}
-                <a
-                  href="http://www.paulgraham.com/hiresfund.html"
-                  className="text-[#FF6C0F] underline hover:opacity-70"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  high resolution fundraising
-                </a>
-                . Startups can close with an investor as soon as both parties are
-                ready to sign and the investor is ready to wire money, instead of
-                trying to coordinate a single close with all investors
-                simultaneously. In fact, high resolution fundraising may be much
-                easier now that both founders and investors have more certainty
-                and transparency into what each side is giving and getting.
-              </li>
-              <li>
-                As a flexible, one-document security without numerous terms to
-                negotiate, safes save startups and investors money in legal fees
-                and reduce the time spent negotiating the terms of the
-                investment. Startups and investors will usually only have to
-                negotiate one item: the valuation cap. Because a safe has no
-                expiration or maturity date, there should be no time or money
-                spent dealing with extending maturity dates, revising interest
-                rates or the like.
-              </li>
-            </ul>
+            <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+              NDA(비밀유지 합의서)는 외부 멘토, 투자자 또는 파트너와의
+              미팅에서 팀의 아이디어와 사업 정보를 보호하기 위한
+              양식입니다. 상호 서명을 통해 양측의 정보를 보호합니다.
+            </p>
 
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Whether you are using the safe for the first time or are already
-              familiar with safes, we recommend reviewing our{" "}
+            <p className="mb-4 font-['MaruBuri',serif] text-base leading-relaxed text-[#16140f]">
+              모든 문서는 참고용으로 제공되며, 법적 효력이 필요한 경우
+              전문 법률 자문을 받으시기 바랍니다. 문서 관련 문의사항은{" "}
               <a
-                href={SAFE_USER_GUIDE_URL}
+                href="mailto:contact@spec-skku.org"
                 className="text-[#FF6C0F] underline hover:opacity-70"
-                target="_blank"
-                rel="noopener noreferrer"
               >
-                Safe User Guide
-              </a>{" "}
-              (geared primarily at US companies). The Safe User Guide explains
-              how the safe converts, with sample calculations, an explanation of
-              the pro rata side letter, and suggestions for best use.
-            </p>
-
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              While the safe may not be suitable for all financing situations,
-              the terms are intended to be balanced, taking into account both the
-              startup&apos;s and the investors&apos; interests. There is a
-              trade-off between simplicity and comprehensiveness, so while not
-              every edge case is addressed, we believe the safe covers the most
-              pertinent and common issues. Both parties are encouraged to have
-              their lawyers review the safe if they want to, but we believe it
-              provides a starting point that can be used in most situations,
-              without modifications. We hold this belief because of our firsthand
-              experience seeing and helping hundreds of companies fundraise every
-              year, as well as the thoughtful feedback we received from the
-              founders, investors, lawyers and accountants with whom we have
-              shared drafts of every iteration of the safe.
-            </p>
-
-            <p className="mb-4 font-sans text-base leading-relaxed text-[#16140f]">
-              Needless to say, YC does not assume responsibility for the contents
-              of, or the consequence of using, any version of the safe or any
-              other document found on our website. Before using any of these
-              forms, you should consult with a lawyer licensed in the country
-              where your company was formed.
+                contact@spec-skku.org
+              </a>
+              로 연락해 주세요.
             </p>
           </section>
         </article>

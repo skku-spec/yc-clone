@@ -2,6 +2,8 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import PageHeader from "@/components/PageHeader";
 import {
   Founder,
   FOUNDERS,
@@ -9,13 +11,10 @@ import {
   INDUSTRY_OPTIONS,
 } from "@/lib/founders-data";
 
-const ROLE_OPTIONS = ["CEO", "CTO", "Founder", "COO", "Co-founder"];
-
 export default function FoundersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBatch, setSelectedBatch] = useState("");
   const [selectedIndustry, setSelectedIndustry] = useState("");
-  const [selectedRole, setSelectedRole] = useState("");
   const [topFoundersOnly, setTopFoundersOnly] = useState(false);
 
   const filtered = useMemo(() => {
@@ -33,64 +32,48 @@ export default function FoundersPage() {
 
       if (selectedBatch && f.batch !== selectedBatch) return false;
       if (selectedIndustry && f.industry !== selectedIndustry) return false;
-      if (selectedRole) {
-        const roleLower = selectedRole.toLowerCase();
-        if (!f.oneLiner.toLowerCase().includes(roleLower)) return false;
-      }
       if (topFoundersOnly && !f.isTopCompanyFounder) return false;
 
       return true;
     });
-  }, [searchQuery, selectedBatch, selectedIndustry, selectedRole, topFoundersOnly]);
+  }, [searchQuery, selectedBatch, selectedIndustry, topFoundersOnly]);
 
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedBatch("");
     setSelectedIndustry("");
-    setSelectedRole("");
     setTopFoundersOnly(false);
   };
 
   const hasActiveFilters =
-    selectedBatch || selectedIndustry || selectedRole || topFoundersOnly;
-
-  const totalFounders = 1000;
+    selectedBatch || selectedIndustry || topFoundersOnly;
 
   return (
-    <div className="min-h-screen px-4 pb-16 pt-12 md:px-8 md:pt-16">
+    <div className="min-h-screen px-4 pb-24 pt-14 md:px-8 md:pt-20">
       <div className="mx-auto max-w-[1068px]">
         {/* Hero Section — centered */}
         <div className="mb-10 text-center">
-          <h1
-            className="font-['Source_Serif_4',serif] font-medium italic tracking-tight text-black"
-            style={{ fontSize: 60, lineHeight: "75px" }}
-          >
-            Founder Directory
-          </h1>
-          <p className="mx-auto mt-6 max-w-[672px] font-['Outfit',sans-serif] text-[18px] font-extralight leading-[32px] text-black">
-            Since 2005, we have invested in over 9,000 founders. Discover YC
-            founders by batch, industry, region, and background.
-          </p>
-          <p className="mx-auto mt-4 font-['Outfit',sans-serif] text-[15px] font-extralight text-black/60">
-            Do you know a YC founder?{" "}
+          <PageHeader title="Founders" subtitle="SPEC 1~3기를 거쳐 자신만의 사업을 시작한 창업가들입니다." align="center" className="mb-0 md:mb-0" />
+          <p className="mx-auto mt-6 font-['Pretendard',sans-serif] text-[15px] font-normal text-black/60">
+            SPEC 알럼나이를 찾고 계신가요?{" "}
             <Link href="/login" className="underline text-[#FF6C0F] hover:text-[#e55c00]">
-              Sign in
-            </Link>{" "}
-            to check.
+              로그인
+            </Link>
+            하여 확인하세요.
           </p>
         </div>
 
         <div className="flex gap-8">
           {/* Sidebar Filters */}
-          <aside className="hidden w-[300px] shrink-0 lg:block">
+          <aside className="hidden w-[240px] shrink-0 lg:block">
             <div className="sticky top-24 space-y-5 rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5">
               <div>
                 <input
                   type="text"
-                  placeholder="Search for a title..."
+                  placeholder="창업가 검색..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full font-['Outfit',sans-serif] text-black outline-none transition-all placeholder:text-black/40 focus:ring-1 focus:ring-[#FF6C0F]/10"
+                  className="w-full font-['Pretendard',sans-serif] text-black outline-none transition-all placeholder:text-black/40 focus:ring-1 focus:ring-[#FF6C0F]/10"
                   style={{
                     height: 30.5,
                     borderRadius: 4,
@@ -111,35 +94,27 @@ export default function FoundersPage() {
                   onChange={() => setTopFoundersOnly(!topFoundersOnly)}
                   className="h-4 w-4 shrink-0 cursor-pointer rounded border-black/20 text-[#FF6C0F] accent-[#FF6C0F] focus:ring-[#FF6C0F]/30"
                 />
-                <span className="font-['Outfit',sans-serif] text-[14px] font-normal text-black/80">
-                  Top Company Founder
+                <span className="font-['Pretendard',sans-serif] text-[14px] font-normal text-black/80">
+                  주요 창업가만 보기
                 </span>
               </label>
 
               <div className="h-px bg-[#c6c6c6]" />
 
               <FilterSelect
-                label="Batch"
+                label="기수"
                 value={selectedBatch}
                 onChange={setSelectedBatch}
                 options={BATCH_OPTIONS}
-                placeholder="All batches"
+                placeholder="전체 기수"
               />
 
               <FilterSelect
-                label="Industry"
+                label="분야"
                 value={selectedIndustry}
                 onChange={setSelectedIndustry}
                 options={INDUSTRY_OPTIONS}
-                placeholder="All industries"
-              />
-
-              <FilterSelect
-                label="YC Company Role"
-                value={selectedRole}
-                onChange={setSelectedRole}
-                options={ROLE_OPTIONS}
-                placeholder="All roles"
+                placeholder="전체 분야"
               />
 
               {hasActiveFilters && (
@@ -147,9 +122,9 @@ export default function FoundersPage() {
                   <div className="h-px bg-[#c6c6c6]" />
                   <button
                     onClick={clearFilters}
-                    className="w-full rounded-lg border border-black/10 bg-black/3 py-2 font-['Outfit',sans-serif] text-[13px] font-medium text-black/60 transition-all hover:bg-black/5 hover:text-black"
+                    className="w-full rounded-lg border border-black/10 bg-black/3 py-2 font-['Pretendard',sans-serif] text-[13px] font-medium text-black/60 transition-all hover:bg-black/5 hover:text-black"
                   >
-                    Clear all filters
+                    필터 초기화
                   </button>
                 </>
               )}
@@ -162,10 +137,10 @@ export default function FoundersPage() {
             <div className="mb-4 flex flex-wrap items-center gap-3 lg:hidden">
               <input
                 type="text"
-                placeholder="Search for a title..."
+                placeholder="창업가 검색..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full font-['Outfit',sans-serif] text-black outline-none placeholder:text-black/40"
+                className="w-full font-['Pretendard',sans-serif] text-black outline-none placeholder:text-black/40"
                 style={{
                   height: 30.5,
                   borderRadius: 4,
@@ -182,32 +157,26 @@ export default function FoundersPage() {
                   onChange={() => setTopFoundersOnly(!topFoundersOnly)}
                   className="h-3.5 w-3.5 cursor-pointer rounded border-black/20 accent-[#FF6C0F]"
                 />
-                <span className="font-['Outfit',sans-serif] text-[12px] font-medium text-black/70">
-                  Top
+                <span className="font-['Pretendard',sans-serif] text-[12px] font-medium text-black/70">
+                  주요
                 </span>
               </label>
               <MobileFilterSelect
                 value={selectedBatch}
                 onChange={setSelectedBatch}
                 options={BATCH_OPTIONS}
-                placeholder="Batch"
+                placeholder="기수"
               />
               <MobileFilterSelect
                 value={selectedIndustry}
                 onChange={setSelectedIndustry}
                 options={INDUSTRY_OPTIONS}
-                placeholder="Industry"
-              />
-              <MobileFilterSelect
-                value={selectedRole}
-                onChange={setSelectedRole}
-                options={ROLE_OPTIONS}
-                placeholder="Role"
+                placeholder="분야"
               />
             </div>
 
-            <p className="mb-4 font-['Outfit',sans-serif] text-[14px] font-normal text-black/60">
-              Showing {filtered.length} of {totalFounders.toLocaleString()}+ founders
+            <p className="mb-4 font-['Pretendard',sans-serif] text-[14px] font-normal text-black/60">
+              {filtered.length}명의 창업가
             </p>
 
             {filtered.length === 0 ? (
@@ -225,8 +194,8 @@ export default function FoundersPage() {
                     d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
                   />
                 </svg>
-                <p className="font-['Outfit',sans-serif] text-[15px] font-light text-black/50">
-                  No founders match your search.
+                <p className="font-['Pretendard',sans-serif] text-[15px] font-normal text-black/50">
+                  검색 결과가 없습니다.
                 </p>
               </div>
             ) : (
@@ -257,8 +226,6 @@ function FounderRow({
   isFirst: boolean;
   isLast: boolean;
 }) {
-  const roleText = extractRole(founder.oneLiner);
-
   const roundingClass = isFirst && isLast
     ? "rounded-lg"
     : isFirst
@@ -267,45 +234,56 @@ function FounderRow({
         ? "rounded-b-lg"
         : "";
 
+  const isUrl = founder.photoPlaceholder.startsWith("http");
+
   return (
     <Link
       href={`/people/${founder.slug}`}
-      className={`flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
+      className={`flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 transition-colors hover:bg-[#f5f5ee] ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
     >
       {/* Avatar */}
-      <div className="flex h-[78px] w-[78px] shrink-0 items-center justify-center rounded-full bg-[#efefe8]">
-        <span className="font-['Outfit',sans-serif] text-[18px] font-bold text-[#8a8575]">
-          {founder.photoPlaceholder}
-        </span>
+      <div className="relative h-[78px] w-[78px] shrink-0 overflow-hidden rounded-full bg-[#efefe8]">
+        {isUrl ? (
+          <Image
+            src={founder.photoPlaceholder}
+            alt={founder.name}
+            fill
+            className="object-cover"
+            sizes="78px"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <span className="font-['Pretendard',sans-serif] text-[18px] font-bold text-[#8a8575]">
+              {founder.name.charAt(0)}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Info */}
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="font-['Outfit',sans-serif] text-[18px] font-extralight text-black">
+          <span className="font-['Pretendard',sans-serif] text-[18px] font-semibold text-black">
             {founder.name}
           </span>
-          <span className="font-['Outfit',sans-serif] text-[18px] font-extralight text-black">
-            {roleText} at {founder.company}
+          <span className="font-['Pretendard',sans-serif] text-[15px] font-normal text-black/70">
+            {founder.company}
           </span>
-          <span className="rounded bg-[#e6e6dd] px-2.5 py-1 font-['Outfit',sans-serif] text-[10px] font-medium text-[#333]">
+          <span className="rounded bg-[#e6e6dd] px-2.5 py-1 font-['Pretendard',sans-serif] text-[10px] font-medium text-[#333]">
             {founder.batch}
           </span>
+          {founder.isTopCompanyFounder && (
+            <span className="rounded bg-[#FF6C0F]/10 px-2 py-0.5 font-['Pretendard',sans-serif] text-[10px] font-semibold text-[#FF6C0F]">
+              주요
+            </span>
+          )}
         </div>
+        <p className="mt-1 truncate font-['Pretendard',sans-serif] text-[13px] font-normal text-black/50">
+          {founder.oneLiner}
+        </p>
       </div>
     </Link>
   );
-}
-
-function extractRole(oneLiner: string): string {
-  const lower = oneLiner.toLowerCase();
-  if (lower.includes("ceo")) return "CEO";
-  if (lower.includes("cto")) return "CTO";
-  if (lower.includes("coo")) return "COO";
-  if (lower.includes("president")) return "President";
-  if (lower.includes("co-founder")) return "Co-founder";
-  if (lower.includes("founder")) return "Founder";
-  return "Founder";
 }
 
 function FilterSelect({
@@ -324,7 +302,7 @@ function FilterSelect({
   return (
     <div>
       <h4
-        className="mb-2 font-['Outfit',sans-serif] text-[#333]"
+        className="mb-2 font-['Pretendard',sans-serif] text-[#333]"
         style={{ fontSize: 14, fontWeight: 600 }}
       >
         {label}
@@ -332,7 +310,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-[#c6c6c6] bg-[#f5f5ee]/50 px-3 py-2 font-['Outfit',sans-serif] text-[13px] font-normal text-black/80 outline-none transition-all focus:border-[#FF6C0F]/30 focus:ring-1 focus:ring-[#FF6C0F]/10"
+        className="w-full rounded-lg border border-[#c6c6c6] bg-[#f5f5ee]/50 px-3 py-2 font-['Pretendard',sans-serif] text-[13px] font-normal text-black/80 outline-none transition-all focus:border-[#FF6C0F]/30 focus:ring-1 focus:ring-[#FF6C0F]/10"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
@@ -360,7 +338,7 @@ function MobileFilterSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 font-['Outfit',sans-serif] text-[12px] font-medium text-black/70 outline-none transition-all focus:border-[#FF6C0F]/30"
+      className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 font-['Pretendard',sans-serif] text-[12px] font-medium text-black/70 outline-none transition-all focus:border-[#FF6C0F]/30"
     >
       <option value="">{placeholder}</option>
       {options.map((opt) => (

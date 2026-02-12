@@ -1,7 +1,7 @@
 /**
  * Data Access Layer
  *
- * This module provides a unified interface for all data access in the YC clone.
+ * This module provides a unified interface for all data access in the SPEC website.
  * Currently returns mock data from local data files.
  *
  * TO CONNECT A REAL BACKEND:

@@ -1,66 +1,60 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "Careers at Y Combinator | Y Combinator",
+  title: "SPEC 팀 합류 | SPEC",
   description:
-    "Join the team at Y Combinator. See open positions across software, investment and operations.",
+    "SPEC 운영진으로 합류하세요. 운영팀, 콘텐츠팀, 파트너십팀의 다양한 직무를 확인하세요.",
 };
 
 const jobListings = [
   {
-    department: "Software Engineering",
+    department: "운영팀",
     roles: [
-      { title: "Full-Stack Product Engineer", location: "San Francisco, CA" },
-      { title: "Senior Software Engineer", location: "San Francisco, CA" },
+      { title: "리드 기획자", location: "서울" },
+      { title: "커뮤니티 매니저", location: "서울" },
     ],
   },
   {
-    department: "Investment",
+    department: "콘텐츠팀",
     roles: [
-      { title: "Visiting Group Partner", location: "San Francisco, CA" },
+      { title: "콘텐츠 에디터", location: "서울" },
+      { title: "영상 PD", location: "서울" },
     ],
   },
   {
-    department: "Operations",
+    department: "파트너십팀",
     roles: [
-      { title: "Operations Associate", location: "San Francisco, CA" },
-      { title: "Events Coordinator", location: "San Francisco, CA" },
+      { title: "파트너십 매니저", location: "서울" },
     ],
   },
 ];
 
 export default function CareersPage() {
   return (
-    <div className="mx-auto max-w-[1100px] px-4 pb-24">
-      <h1 className="mb-8 font-sans text-[32px] font-bold leading-[48px] text-[#16140f]">
-        Careers at Y Combinator
-      </h1>
+    <div className="mx-auto max-w-[1100px] px-4 pb-24 pt-14 md:pt-20">
+      <PageHeader 
+        title="Join the Team"
+        subtitle="SPEC과 함께 성균관대 창업 생태계를 만들어 나갈 팀원을 모집하고 있습니다."
+      />
 
       <div className="mb-12 max-w-[800px]">
-        <p className="mb-6 font-sans text-[22px] font-extralight leading-[32px] text-[#16140f]">
-          Working at Y Combinator is a unique opportunity to help founders build
-          their companies at all stages, and offers unprecedented insight into
-          the greater startup ecosystem. See open positions below across our
-          software, investment and operations teams.
+        <p className="mb-6 font-['Pretendard',sans-serif] text-[22px] font-normal leading-[32px] text-[#16140f]">
+          창업 커뮤니티 운영, 콘텐츠 제작, 파트너십 개발 등 다양한 영역에서
+          대학 창업 문화를 선도하는 경험을 해보세요.
         </p>
-        <p className="mb-6 font-sans text-[22px] font-extralight leading-[32px] text-[#16140f]">
-          If you&apos;d prefer to work at a startup, you can find thousands of
-          roles at YC startups in engineering, design, recruiting and more at{" "}
-          <Link
-            href="/jobs"
-            className="text-[#16140f] underline hover:opacity-70"
-          >
-            ycombinator.com/jobs
-          </Link>
-          .
+        <p className="mb-6 font-['Pretendard',sans-serif] text-[22px] font-normal leading-[32px] text-[#16140f]">
+          SPEC의 운영진으로 참여하는 것은 성균관대의 스타트업 커뮤니티와
+          창업가 생태계를 직접 구성하고 영향을 미칠 수 있는 기회입니다.
+          아래의 열린 포지션들을 확인해보세요.
         </p>
       </div>
 
       <div className="space-y-10">
         {jobListings.map((dept) => (
           <div key={dept.department}>
-            <h2 className="mb-4 font-sans text-xl font-semibold text-[#16140f]">
+            <h2 className="mb-4 font-['Pretendard',sans-serif] text-xl font-semibold text-[#16140f]">
               {dept.department}
             </h2>
             <div className="space-y-3">
@@ -70,10 +64,10 @@ export default function CareersPage() {
                   className="flex items-center justify-between rounded-lg border border-[#d4d4cc] bg-white px-6 py-5 transition-shadow hover:shadow-md"
                 >
                   <div>
-                    <h3 className="font-sans text-lg font-medium text-[#16140f]">
+                    <h3 className="font-['Pretendard',sans-serif] text-lg font-medium text-[#16140f]">
                       {role.title}
                     </h3>
-                    <p className="font-sans text-sm font-light text-[#16140f]/60">
+                    <p className="font-['Pretendard',sans-serif] text-sm font-normal text-[#16140f]/60">
                       {role.location}
                     </p>
                   </div>
@@ -100,13 +94,13 @@ export default function CareersPage() {
       </div>
 
       <div className="mt-12">
-        <p className="font-sans text-lg font-light text-[#16140f]">
-          Interested in working on YC&apos;s software?{" "}
+        <p className="font-['Pretendard',sans-serif] text-lg font-normal text-[#16140f]">
+          SPEC의 지원이나 협력에 대해 더 알고 싶으신가요?{" "}
           <Link
-            href="/software"
+            href="/contact"
             className="text-[#16140f] underline hover:opacity-70"
           >
-            Learn more about Software at YC
+            문의하기
           </Link>
           .
         </p>

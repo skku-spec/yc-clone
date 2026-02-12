@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Demo Day FAQ | Y Combinator",
+  title: "Demo Day FAQ | SPEC",
   description:
-    "Frequently asked questions about Y Combinator Demo Day, including invitations, logistics, and what to expect.",
+    "SPEC 데모데이에 관한 자주 묻는 질문과 답변. 행사 일정, 초대장, 참관 신청 등의 정보.",
 };
 
 interface FAQItem {
@@ -21,145 +21,89 @@ interface FAQSection {
 const FAQ_SECTIONS: FAQSection[] = [
   {
     id: "the-basics",
-    title: "The Basics",
+    title: "기본 정보",
     items: [
       {
-        question: "What is Demo Day?",
-        answer: (
-          <>
-            On{" "}
-            <Link
-              href="/demoday"
-              className="text-[#16140f] underline decoration-gray-500 underline-offset-2 transition-all hover:decoration-gray-700"
-            >
-              Demo Day
-            </Link>
-            , Y Combinator&apos;s latest batch of startups present to an
-            invite-only audience of approximately 1,000 investors and media.
-            While we ran Demo Day remotely during covid, Demo Day is now back to
-            being in-person.
-          </>
-        ),
-      },
-      {
-        question: "What is Demo Day?",
+        question: "데모데이는 무엇인가요?",
         answer:
-          "Demo Day is a private, invitation-only event and always oversubscribed. If you receive an invitation, RSVP yes to confirm your spot.",
+          "SPEC 데모데이는 우리 창업학회의 현기수 스타트업 팀들이 투자자, 멘토, 업계 관계자들에게 자신의 사업을 발표하는 행사입니다. 대면 행사로 진행되며, 약 100~150명의 참석자들이 팀들의 5분 발표를 듣고 개별 미팅을 진행합니다.",
       },
       {
-        question: "What is Demo Day?",
+        question: "데모데이는 언제 열리나요?",
         answer:
-          "There is no continuous list of investors who are always invited to Demo Day. Investors are invited based on their recent investment history in YC companies and our relationships with them.",
+          "데모데이는 각 기수의 마지막 주에 개최됩니다. 정확한 일정은 SPEC 공식 홈페이지와 SNS를 통해 공지되며, 보통 오후 시간대에 진행됩니다.",
       },
       {
-        question: "When and where is Demo Day held?",
+        question: "데모데이에는 누가 참석하나요?",
         answer:
-          "Demo Day will be held in San Francisco on Tuesday, March 24th.",
+          "엔젤 투자자, 벤처캐피탈, 산업별 전문가 멘토, SPEC 동문, 그리고 창업에 관심 있는 사람들이 참석합니다. 참관을 원하시는 분들은 사전 신청이 필요합니다.",
       },
       {
-        question: "Can I participate online?",
+        question: "참관 신청은 어떻게 하나요?",
         answer:
-          "For those who can\u2019t make it to San Francisco, we will provide access to the demo day website, which has information on the companies that presented.",
+          "데모데이 참관을 원하시면 demoday@spec-skku.org로 이메일을 보내주시거나, 행사 2주 전에 공지되는 신청 링크를 통해 신청하실 수 있습니다.",
       },
       {
-        question: "How do I get an invitation to Demo Day?",
-        answer: (
-          <>
-            Invitations are software generated and based on recent investment
-            history in YC startups. If you are an investor, you can also apply
-            for an invitation directly at{" "}
-            <Link
-              href="/demoday"
-              className="text-[#16140f] underline decoration-gray-500 underline-offset-2 transition-all hover:decoration-gray-700"
-            >
-              ycombinator.com/demoday
-            </Link>
-            .
-          </>
-        ),
+        question: "온라인으로 시청할 수 있나요?",
+        answer:
+          "네, 데모데이는 라이브 스트리밍으로 진행될 예정입니다. 현장 참석이 어려우신 분들도 온라인으로 팀들의 발표를 실시간 시청하실 수 있습니다.",
+      },
+      {
+        question: "모든 팀이 발표하나요?",
+        answer:
+          "네, SPEC 프로그램을 완주한 모든 팀이 데모데이에서 발표합니다.",
       },
     ],
   },
   {
-    id: "existing-invitations",
-    title: "Existing Invitations",
+    id: "for-investors",
+    title: "투자자를 위한 정보",
     items: [
       {
-        question:
-          "A partner at my firm has received a Demo Day invite. Can additional people at our firm receive Demo Day invitations?",
-        answer: (
-          <>
-            Yes, other members of your firm can sign up for an invitation at{" "}
-            <Link
-              href="/demoday"
-              className="text-[#16140f] underline decoration-gray-500 underline-offset-2 transition-all hover:decoration-gray-700"
-            >
-              ycombinator.com/demoday
-            </Link>
-            , or email us at{" "}
-            <a
-              href="mailto:demoday@ycombinator.com"
-              className="text-[#16140f] underline decoration-gray-500 underline-offset-2 transition-all hover:decoration-gray-700"
-            >
-              demoday@ycombinator.com
-            </a>
-            .
-          </>
-        ),
-      },
-      {
-        question:
-          "Can I share my invite with someone else who is interested in attending Demo Day?",
+        question: "데모데이에서 바로 투자 제안을 할 수 있나요?",
         answer:
-          "The invitation to Demo Day is for you and you only. It is not transferable and it cannot be used for multiple people. If someone you know is interested in going, we recommend encouraging them to apply or to get an introduction to one of the YC general partners.",
+          "데모데이는 팀들을 소개하고 첫 인상을 주는 자리입니다. 본격적인 투자 논의는 데모데이 이후 개별 미팅을 통해 진행됩니다.",
       },
       {
-        question:
-          "Can I transfer the invitation to someone else in my firm?",
-        answer: (
-          <>
-            If you would like to transfer your invitation to another partner at
-            the same firm, please email us at{" "}
-            <a
-              href="mailto:demoday@ycombinator.com"
-              className="text-[#16140f] underline decoration-gray-500 underline-offset-2 transition-all hover:decoration-gray-700"
-            >
-              demoday@ycombinator.com
-            </a>
-            . Transfers to other partners are fine; transfers to associates or
-            other non-partner staff will be case-by-case depending on
-            availability.
-          </>
-        ),
+        question: "투자자 초대장은 어떻게 받나요?",
+        answer:
+          "SPEC은 활발하게 스타트업에 투자하고 있는 투자자들을 우선적으로 초대합니다. 초대장이 필요하신 경우 demoday@spec-skku.org로 연락주세요.",
+      },
+      {
+        question: "데모데이 이후 팀과 미팅은 어떻게 일정을 잡나요?",
+        answer:
+          "행사 당일 관심 있는 팀들을 표시하면, SPEC에서 양쪽의 일정을 조율하여 개별 미팅을 주선해드립니다.",
+      },
+      {
+        question: "팀들의 배경 정보나 사업 자료를 미리 받을 수 있나요?",
+        answer:
+          "네, 데모데이 1주일 전에 참여 팀들의 기본 정보와 1-page 요약 자료를 제공해드립니다. 더 자세한 정보가 필요하시면 직접 요청하실 수 있습니다.",
       },
     ],
   },
   {
-    id: "during-demo-day",
-    title: "During Demo Day",
+    id: "for-founders",
+    title: "창업팀을 위한 정보",
     items: [
       {
-        question:
-          "Can I get information on which companies will be presenting?",
-        answer: (
-          <>
-            Yes, companies launch throughout the batch on our{" "}
-            <Link
-              href="/companies"
-              className="text-[#16140f] underline decoration-gray-500 underline-offset-2 transition-all hover:decoration-gray-700"
-            >
-              Startup Directory
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/launches"
-              className="text-[#16140f] underline decoration-gray-500 underline-offset-2 transition-all hover:decoration-gray-700"
-            >
-              Launch YC
-            </Link>
-            . Visit those to discover most of the companies presenting.
-          </>
-        ),
+        question: "발표 시간은 얼마나 되나요?",
+        answer:
+          "각 팀당 총 5분(3분 발표 + 2분 Q&A)이 주어집니다. 시간을 초과하면 사회자의 신호에 따라 중단되므로, 꼭 시간 관리를 철저히 하세요.",
+      },
+      {
+        question: "슬라이드는 몇 장까지 준비해야 하나요?",
+        answer:
+          "정해진 규칙은 없지만, 5분 안에 발표할 수 있도록 10~15장 정도를 권장합니다. 각 슬라이드당 약 20초 정도를 할당하되, 중요한 부분에는 더 시간을 쓰세요.",
+      },
+      {
+        question: "어떤 순서로 이야기해야 좋을까요?",
+        answer:
+          "일반적으로 문제 → 솔루션 → 시장 → 견인력(Traction) → 팀 → Ask 순서가 좋습니다. 청중이 당신의 비전을 따라올 수 있도록 논리적인 흐름을 만드세요.",
+      },
+      {
+        question: "기술이나 제품을 자세히 설명해야 하나요?",
+        answer:
+          "투자자들은 HOW보다는 WHY에 더 관심을 가집니다. 당신의 솔루션이 문제를 어떻게 해결하는지는 중요하지만, 기술 깊이는 개별 미팅에서 이야기하세요.",
       },
     ],
   },
@@ -167,23 +111,23 @@ const FAQ_SECTIONS: FAQSection[] = [
 
 export default function DemoDayFAQPage() {
   return (
-    <div className="flex-1 px-4 pb-16 pt-12 md:pt-16">
-      <div className="mx-auto max-w-[740px]">
-        <h1 className="mb-10 font-['Source_Serif_4',serif] text-[clamp(2.5rem,5vw,3.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
-          Demo Day FAQ
-        </h1>
+    <div className="flex-1 px-4 pb-24 pt-14 md:pt-20">
+      <div className="mx-auto max-w-[1100px]">
+        <h1 className="mb-10 text-center font-[system-ui] text-[clamp(2.5rem,5vw,3.75rem)] font-black leading-[1.15] tracking-tight uppercase text-[#16140f]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+           Demo Day FAQ
+         </h1>
 
-        <div className="flex flex-col gap-10 md:flex-row md:gap-16">
-          <nav className="shrink-0 md:sticky md:top-24 md:w-[180px] md:self-start">
+        <div className="flex flex-col gap-12 md:flex-row">
+          <nav className="shrink-0 md:sticky md:top-24 md:w-[170px] md:self-start">
             <ul className="flex gap-3 md:flex-col md:gap-1">
               {FAQ_SECTIONS.map((section) => (
                 <li key={section.id}>
-                  <a
-                    href={`#${section.id}`}
-                    className="block rounded-md px-3 py-2 font-['Outfit',sans-serif] text-[14px] font-medium text-[#16140f]/60 transition-colors hover:bg-[#16140f]/5 hover:text-[#16140f]"
-                  >
-                    {section.title}
-                  </a>
+                   <a
+                     href={`#${section.id}`}
+                     className="block rounded-md px-3 py-2 font-['Pretendard',sans-serif] text-[14px] font-medium text-[#16140f]/60 transition-colors hover:bg-[#16140f]/5 hover:text-[#16140f]"
+                   >
+                     {section.title}
+                   </a>
                 </li>
               ))}
             </ul>
@@ -196,9 +140,9 @@ export default function DemoDayFAQPage() {
                 id={section.id}
                 className={sectionIndex > 0 ? "mt-12" : ""}
               >
-                <h2 className="mb-6 font-['Source_Serif_4',serif] text-[clamp(1.5rem,3vw,2rem)] font-medium italic tracking-tight text-[#16140f]">
-                  {section.title}
-                </h2>
+                 <h2 className="mb-6 font-[system-ui] text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-tight text-[#16140f]">
+                   {section.title}
+                 </h2>
 
                 <div className="space-y-6">
                   {section.items.map((item, itemIndex) => (
@@ -206,12 +150,12 @@ export default function DemoDayFAQPage() {
                       key={`${section.id}-${itemIndex}`}
                       className="border-b border-[#16140f]/8 pb-6 last:border-0"
                     >
-                      <h3 className="mb-3 font-['Outfit',sans-serif] text-[16px] font-semibold leading-snug text-[#16140f]">
-                        {item.question}
-                      </h3>
-                      <div className="font-['Outfit',sans-serif] text-[15px] font-light leading-[1.7] text-[#16140f]/80">
-                        {item.answer}
-                      </div>
+                      <h3 className="mb-3 font-['Pretendard',sans-serif] text-[16px] font-semibold leading-snug text-[#16140f]">
+                         {item.question}
+                       </h3>
+                       <div className="font-['MaruBuri',serif] text-[15px] font-normal leading-[1.7] text-[#16140f]/80">
+                         {item.answer}
+                       </div>
                     </div>
                   ))}
                 </div>

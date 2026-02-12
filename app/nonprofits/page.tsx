@@ -1,66 +1,63 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "Nonprofits | Y Combinator",
+  title: "Social Impact | SPEC",
   description:
-    "YC works with a small number of non-profits startups in every batch. Learn about our non-profit program.",
+    "SPEC 소셜임팩트 트랙",
 };
 
 export default function NonprofitsPage() {
   return (
     <>
-      <div className="px-4 pt-12 md:pt-16">
-        <h1 className="text-center font-['Source_Serif_4',serif] text-[clamp(2.5rem,5vw,3.75rem)] font-medium italic leading-tight tracking-tight text-[#16140f]">
-          YC&apos;s Non-profit Program
-        </h1>
-        <p className="mt-2 text-center font-['Outfit',sans-serif] text-sm font-light text-[#16140f]/60">
-          By Tim Brady
-        </p>
+      <div className="pt-14 md:pt-20">
+        <PageHeader 
+          title="Social Impact" 
+          subtitle="돈만 버는 것이 전부가 아닙니다"
+          align="center" 
+        />
       </div>
 
-      <div className="mx-auto flex max-w-[1100px] gap-12 px-4 pb-10 pt-8 md:px-8 lg:px-12">
-        <article className="min-w-0 max-w-[720px] flex-1 font-['Outfit',sans-serif] text-base font-light leading-relaxed text-[#16140f]">
+      <div className="mx-auto flex max-w-[1100px] gap-12 px-4 pb-24 pt-8 md:px-8">
+        <article className="min-w-0 max-w-[720px] flex-1 font-['Pretendard',sans-serif] text-base font-normal leading-relaxed text-[#16140f]">
           <p className="mb-6">
-            We work with a small number of non-profits startups in every YC
-            batch, usually between 2 to 4 companies. We started working with
-            non-profits in 2013 and have worked with more than 30 companies so
-            far. Here is a{" "}
+            SPEC은 영리 스타트업뿐만 아니라 사회적 가치를 추구하는 팀도 환영합니다. 
+            환경, 교육, 헬스케어, 지역사회 문제 등 사회적 임팩트를 만들어내는 프로젝트라면 
+            누구나 지원할 수 있습니다. 
+            지금까지 소셜임팩트 트랙을 통해 지원받은 팀들의 목록은{" "}
             <Link
               href="/companies?nonprofit=true"
               className="text-[#FF6C0F] underline decoration-[#FF6C0F]/30 underline-offset-2 hover:decoration-[#FF6C0F]"
             >
-              list of the non-profits
+              여기에서
             </Link>{" "}
-            that have gone through the YC program so far.
+            확인하실 수 있습니다.
           </p>
 
           <p className="mb-6">
-            While 501c3 non-profit companies vary greatly in strategy, we favor
-            those companies that strive to cover their operating costs by
-            charging fees for the products &amp; services they create rather
-            than relying on donations. We do this for two primary reasons: (1)
-            Charging users for your product ensures that you provide the value
-            you claim to deliver. Users of free products &amp; services rarely
-            complain. Paying users complain loudly; they will let you know when
-            you&apos;ve gone off course. (2) You are not as vulnerable to market
-            downturns. Donations dry up quickly in economic downturns.
-            Revenue-generating products and service can insulate you from that.
+            우리는 단순히 기부에만 의존하는 모델보다는, 
+            고객이나 수혜자에게 실질적인 가치를 제공하고 그에 대한 대가를 받는 
+            지속 가능한 비즈니스 모델을 선호합니다. 
+            두 가지 이유 때문입니다: (1) 돈을 내는 고객은 솔직합니다. 
+            무료 서비스의 사용자는 불만을 잘 말하지 않지만, 
+            유료 고객은 문제가 있으면 즉시 피드백을 줍니다. 
+            (2) 경제 상황에 덜 취약합니다. 
+            기부금은 경기 침체기에 급격히 줄어들지만, 
+            제품이나 서비스로 수익을 내면 그 충격을 완화할 수 있습니다.
           </p>
 
           <p className="mb-6">
-            Non-profit startups that charge fees for their products and service
-            are also more similar to for-profits startups. Consequently, a lot
-            of the advice we give at YC and much of the curriculum during the
-            batch is directly applicable to both. During the batch, non-profits
-            are mixed in with the for-profit startups.
+            소셜임팩트 팀들도 영리 스타트업과 함께 같은 프로그램을 진행하며, 
+            SPEC의 모든 멘토링과 교육 커리큘럼을 동일하게 제공받습니다. 
+            사회적 가치를 추구하면서도 실행력과 성장을 중시하는 것이 SPEC의 철학입니다.
           </p>
         </article>
 
-        <nav className="sticky top-24 hidden h-fit w-[220px] shrink-0 font-['Outfit',sans-serif] text-sm lg:block">
+        <nav className="sticky top-24 hidden h-fit w-[170px] shrink-0 font-['Pretendard',sans-serif] text-sm lg:block">
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#16140f]/50">
-              Elsewhere
+              더 알아보기
             </p>
             <ul className="space-y-1.5">
               <li>
@@ -68,7 +65,7 @@ export default function NonprofitsPage() {
                   href="/apply"
                   className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                 >
-                  Apply to Y Combinator
+                  SPEC 지원하기
                 </Link>
               </li>
               <li>
@@ -76,7 +73,7 @@ export default function NonprofitsPage() {
                   href="/about"
                   className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                 >
-                  About Y Combinator
+                  SPEC 소개
                 </Link>
               </li>
               <li>
@@ -84,7 +81,7 @@ export default function NonprofitsPage() {
                   href="/faq"
                   className="text-[#16140f]/70 transition-colors hover:text-[#FF6C0F]"
                 >
-                  Frequently Asked Questions
+                  자주 묻는 질문
                 </Link>
               </li>
             </ul>

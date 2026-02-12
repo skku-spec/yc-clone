@@ -16,8 +16,8 @@ export function generateMetadata({
   return params.then(({ tag }) => {
     const label = getTagLabel(tag);
     return {
-      title: `${label} | YC Blog`,
-      description: `Blog posts tagged with ${label} from Y Combinator.`,
+      title: `${label} | SPEC 소식`,
+      description: `SPEC의 ${label} 관련 소식입니다.`,
     };
   });
 }
@@ -90,19 +90,19 @@ export default async function TagPage({
     notFound();
   }
 
-  return (
-    <section className="min-h-screen pb-20">
-      <div className="border-b border-[#ddd9cc]">
-        <div className="mx-auto flex max-w-[1200px] items-center gap-4 px-6 py-4">
+   return (
+     <section className="min-h-screen pb-24">
+       <div className="border-b border-[#ddd9cc]">
+        <div className="mx-auto flex max-w-[1200px] items-center gap-4 px-4 py-4 md:px-8">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 font-['Outfit',sans-serif] text-[14px] text-[#6b6b5e] transition-colors hover:text-[#FF6C0F]"
+            className="inline-flex items-center gap-2 font-['Pretendard',sans-serif] text-[14px] text-[#6b6b5e] transition-colors hover:text-[#FF6C0F]"
           >
             <ArrowLeftIcon />
             All Posts
           </Link>
           <span className="text-[#c5c3b8]">/</span>
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#FF6C0F] px-3.5 py-1 font-['Outfit',sans-serif] text-[13px] font-medium text-white">
+          <div className="inline-flex items-center gap-2 rounded-full bg-[#FF6C0F] px-3.5 py-1 font-['Pretendard',sans-serif] text-[13px] font-medium text-white">
             {label}
             <Link
               href="/blog"
@@ -115,19 +115,19 @@ export default async function TagPage({
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1200px] px-6 pt-10">
-        <div className="flex gap-12">
-          <div className="min-w-0 flex-1">
-            <h1 className="mb-2 font-['Source_Serif_4',serif] text-[clamp(1.75rem,3vw,2.5rem)] font-semibold leading-tight tracking-tight text-[#16140f]">
+       <div className="mx-auto max-w-[1200px] px-4 pt-10 md:px-8">
+         <div className="flex gap-12">
+           <div className="min-w-0 flex-1">
+            <h1 className="mb-2 font-[system-ui] text-[clamp(1.75rem,3vw,2.5rem)] font-black leading-tight tracking-tight text-[#16140f]">
               {label}
             </h1>
-            <p className="mb-8 font-['Outfit',sans-serif] text-[15px] text-[#6b6b5e]">
+            <p className="mb-8 font-['Pretendard',sans-serif] text-[15px] text-[#6b6b5e]">
               {posts.length} post{posts.length !== 1 && "s"}
             </p>
 
             {posts.length === 0 ? (
               <div className="py-20 text-center">
-                <p className="font-['Outfit',sans-serif] text-[16px] text-[#6b6b5e]">
+                <p className="font-['Pretendard',sans-serif] text-[16px] text-[#6b6b5e]">
                   No posts found for this tag.
                 </p>
               </div>
@@ -137,16 +137,16 @@ export default async function TagPage({
                   <article key={post.slug} className="py-7 first:pt-0">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="group mb-1 block font-['Source_Serif_4',serif] text-[20px] font-semibold leading-snug text-[#16140f] transition-colors hover:text-[#FF6C0F]"
+                      className="group mb-1 block font-[system-ui] text-[20px] font-black leading-snug text-[#16140f] transition-colors hover:text-[#FF6C0F]"
                     >
                       {post.title}
                     </Link>
-                    <p className="mb-2 font-['Outfit',sans-serif] text-[13px] text-[#6b6b5e]">
+                    <p className="mb-2 font-['Pretendard',sans-serif] text-[13px] text-[#6b6b5e]">
                       by{" "}
                       <span className="text-[#16140f]">{post.author}</span>{" "}
                       &middot; {post.date}
                     </p>
-                    <p className="mb-3 font-['Outfit',sans-serif] text-[15px] font-light leading-relaxed text-[#4a4a40]">
+                    <p className="mb-3 font-['Pretendard',sans-serif] text-[15px] font-normal leading-relaxed text-[#4a4a40]">
                       {post.excerpt}
                     </p>
                     <div className="mb-3 flex flex-wrap gap-1.5">
@@ -154,7 +154,7 @@ export default async function TagPage({
                         <Link
                           key={postTag}
                           href={`/blog/tag/${postTag}`}
-                          className={`rounded-full px-2.5 py-0.5 font-['Outfit',sans-serif] text-[11px] font-medium transition-colors ${
+                          className={`rounded-full px-2.5 py-0.5 font-['Pretendard',sans-serif] text-[11px] font-medium transition-colors ${
                             postTag === tag
                               ? "bg-[#FF6C0F] text-white"
                               : "bg-[#e8e6dc] text-[#4a4a40] hover:bg-[#FF6C0F] hover:text-white"
@@ -167,7 +167,7 @@ export default async function TagPage({
                     </div>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-1.5 font-['Outfit',sans-serif] text-[13px] font-medium text-[#FF6C0F] transition-opacity hover:opacity-70"
+                      className="inline-flex items-center gap-1.5 font-['Pretendard',sans-serif] text-[13px] font-medium text-[#FF6C0F] transition-opacity hover:opacity-70"
                     >
                       Read More <ArrowIcon />
                     </Link>
@@ -177,8 +177,8 @@ export default async function TagPage({
             )}
           </div>
 
-          <aside className="hidden w-[220px] shrink-0 md:block">
-            <p className="mb-4 font-['Outfit',sans-serif] text-[14px] font-semibold text-[#16140f]">
+           <aside className="hidden w-[220px] shrink-0 lg:block">
+            <p className="mb-4 font-['Pretendard',sans-serif] text-[14px] font-semibold text-[#16140f]">
               Categories
             </p>
             <div className="flex flex-col gap-1.5">
@@ -186,7 +186,7 @@ export default async function TagPage({
                 <Link
                   key={t.slug}
                   href={`/blog/tag/${t.slug}`}
-                  className={`rounded-lg px-3 py-1.5 font-['Outfit',sans-serif] text-[14px] transition-colors ${
+                  className={`rounded-lg px-3 py-1.5 font-['Pretendard',sans-serif] text-[14px] transition-colors ${
                     t.slug === tag
                       ? "bg-[#FF6C0F] font-medium text-white"
                       : "text-[#4a4a40] hover:bg-[#e8e6dc] hover:text-[#16140f]"

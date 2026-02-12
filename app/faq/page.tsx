@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 
 const CATEGORIES = [
-  { id: "logistics", label: "Logistics" },
-  { id: "should-i-apply", label: "Should I apply?" },
-  { id: "incorporating", label: "Incorporating" },
-  { id: "other", label: "Other" },
-  { id: "late-applications", label: "Late Applications" },
-  { id: "application-technical-support", label: "Application Technical Support" },
+  { id: "general", label: "일반" },
+  { id: "program", label: "프로그램" },
+  { id: "apply", label: "지원" },
+  { id: "vcc", label: "VCC" },
+  { id: "other", label: "기타" },
 ] as const;
 
 type CategoryId = (typeof CATEGORIES)[number]["id"];
@@ -24,10 +24,10 @@ function FAQSection({ items }: { items: QA[] }) {
     <div className="space-y-0">
       {items.map((item, i) => (
         <div key={i}>
-          <p className="mb-2 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            <span className="font-medium">{item.question}</span>
+          <p className="mb-2 font-['Pretendard',sans-serif] text-lg font-medium leading-[1.7] text-[#16140f]">
+            {item.question}
           </p>
-          <div className="mb-8 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
+          <div className="mb-8 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
             {item.answer}
           </div>
         </div>
@@ -36,372 +36,228 @@ function FAQSection({ items }: { items: QA[] }) {
   );
 }
 
-const logisticsQA: QA[] = [
+const generalQA: QA[] = [
   {
-    question: "What happens at Y Combinator?",
+    question: "SPEC이 뭔가요?",
     answer: (
       <p>
-        <Link href="/about" className="text-[#16140f] underline hover:opacity-70">This</Link>.
+        SPEC은 성균관대학교 창업 학회입니다. 30주 동안 매주 매출 챌린지를 수행하며 실전 창업의 모든 과정을 경험합니다.
       </p>
     ),
   },
   {
-    question: "Where does the YC program happen? Do I need to move to San Francisco?",
+    question: "SPEC은 동아리인가요?",
     answer: (
-      <>
-        <p className="mb-6">The batch takes place in-person in San Francisco. It kicks off with a 3-day, in-person retreat and features weekly meetups in San Francisco.</p>
-        <p className="mb-6">We briefly did run YC remotely during Covid, but since 2022 it has been <a href="https://www.youtube.com/watch?v=GiuxXzmvolU" className="text-[#16140f] underline hover:opacity-70" target="_blank" rel="noopener noreferrer">back in person</a>. We&apos;ve found that YC works much better in person.</p>
-        <p>Of course, after the 3 month program, you can go wherever you want.</p>
-      </>
+      <p>
+        학교 동아리가 아닙니다. SPEC은 실제 매출을 만들어내는 창업 부트캠프입니다. 매주 매출 보드가 공개되고, 데모데이에서 투자자 앞에 섭니다.
+      </p>
     ),
   },
   {
-    question: "How do we choose which startups to fund?",
+    question: "한 기수에 몇 명이 활동하나요?",
     answer: (
-      <p>We have an application process that&apos;s open to any startup, anywhere in the world. You can apply <Link href="/apply" className="text-[#16140f] underline hover:opacity-70">here</Link>.</p>
+      <p>
+        기수당 약 30~40명이 활동합니다. 선발 과정을 통해 창업 의지와 실행력이 검증된 멤버만 합류합니다.
+      </p>
     ),
   },
   {
-    question: "How can we get funding for our startup?",
+    question: "활동 기간은 얼마나 되나요?",
     answer: (
-      <p><Link href="/apply" className="text-[#16140f] underline hover:opacity-70">Apply online</Link> for our next funding cycle.</p>
+      <p>
+        30주(약 7.5개월)입니다. Phase 1(10주) 매출 챌린지 → Phase 2(18주) 스타트업 운영 → Phase 3(2주) 데모데이 및 회고.
+      </p>
     ),
   },
   {
-    question: "How much do you invest?",
+    question: "비용이 있나요?",
     answer: (
-      <p>We have a standard deal for every company accepted to YC. We invest $500,000 in every company on <Link href="/deal" className="text-[#16140f] underline hover:opacity-70">standard terms</Link>.</p>
-    ),
-  },
-  {
-    question: "What can I use the YC investment for?",
-    answer: (
-      <>
-        <p className="mb-6">You can use the YC investment for anything that you believe helps your business. In most cases, the first use of the funding should be for the founders to support themselves so they can work full-time on their company, typically by paying themselves a salary. If you have student loans, a mortgage, etc. you can use what you pay yourself from the YC investment to cover those.</p>
-        <p>Founders can also use the investment to cover their travel expenses to San Francisco.</p>
-      </>
-    ),
-  },
-  {
-    question: "What is the time commitment of YC?",
-    answer: (
-      <>
-        <p className="mb-6">It is less than most founders expect; a few hours per week if you participate in all the recommended activities. All parts of the YC program are optional; as a founder we expect you to choose how to spend your time to maximize the odds of your company succeeding.</p>
-        <p>Some founders worry that YC will be a distraction from working on their startup. But actually it&apos;s the opposite; we created YC to make it possible for founders to spend several months completely focused on their startup with no distractions. Many founders tell us that their three months in YC was the most productive time of their lives.</p>
-      </>
-    ),
-  },
-  {
-    question: "What are the dates for the next batch?",
-    answer: (
-      <p>All the relevant dates are <Link href="/apply" className="text-[#16140f] underline hover:opacity-70">here</Link>.</p>
-    ),
-  },
-  {
-    question: "This batch isn't a good time for me. Can I apply to the one after?",
-    answer: (
-      <>
-        <p className="mb-6">Yes. The most common way this happens is that you&apos;re currently a student, and you want to apply for the batch that starts after you graduate.</p>
-        <p>We call this applying for Early Decision. Learn more about Early Decision <Link href="/early-decision" className="text-[#16140f] underline hover:opacity-70">here</Link>.</p>
-      </>
-    ),
-  },
-  {
-    question: "I'm actively fundraising now but the next batch doesn't start for a long time. What should I do?",
-    answer: (
-      <p>Apply now and tell us on the application that you&apos;re actively fundraising. If you are accepted, we start the investment process immediately; we don&apos;t wait until the next batch starts.</p>
+      <p>
+        활동비가 있습니다. 정확한 금액은 모집 공고를 참고해주세요.
+      </p>
     ),
   },
 ];
 
-const shouldIApplyQA: QA[] = [
+const programQA: QA[] = [
   {
-    question: "Am I too early to apply to YC? Should I wait until I have more traction?",
+    question: "매출 챌린지가 뭔가요?",
     answer: (
-      <>
-        <p className="mb-6">No, it would be a mistake to wait to apply. On average, 40% of the companies we fund in each batch are just an idea. Most don&apos;t have any revenue.</p>
-        <p>While YC does also fund companies that are far along, the majority of the companies we fund will always be companies at the very earliest stage. We recommend applying for YC as soon as you have a founding team and an idea you are excited about.</p>
-      </>
+      <p>
+        매주 팀 단위로 실제 매출을 만들어내는 미션입니다. Phase 1에서는 10만원부터 시작해 200만원까지, Phase 2에서는 확정팀으로 실제 사업을 운영하며 스케일합니다.
+      </p>
     ),
   },
   {
-    question: "We've already been working on our startup for a while. Is YC appropriate for us?",
+    question: "팀은 어떻게 구성되나요?",
     answer: (
-      <>
-        <p className="mb-6">It likely still is. While the majority of the YC batch is pre-revenue companies, a significant percentage these days is also companies that are much further along.</p>
-        <p className="mb-6">7% of recent batches had more than $50k in monthly revenue when accepted. Epic companies like Rappi and MessageBird did YC when they were making well over $1M / year.</p>
-        <p>When we fund companies that are further along, we work with them differently and help them with different things compared to early-stage startups. We can probably help any startup that hasn&apos;t already raised a series A round from VCs.</p>
-      </>
+      <p>
+        Phase 1에서는 매주 팀이 셔플됩니다. 다양한 사람과 협업하며 나와 맞는 공동창업자를 찾습니다. Phase 1 마지막 Ideathon에서 최종 팀이 확정됩니다.
+      </p>
     ),
   },
   {
-    question: "We've already raised funding. Can we still apply?",
+    question: "개발을 못해도 되나요?",
     answer: (
-      <p>Sure. Each YC batch has many companies who have already raised over $1M.</p>
+      <p>
+        됩니다. SPEC에는 개발자, 디자이너, 기획자, 마케터 등 다양한 배경의 멤버가 있습니다. 바이브코딩을 통해 비개발자도 직접 MVP를 만들 수 있습니다.
+      </p>
     ),
   },
   {
-    question: "I've raised money at a higher valuation than is implied by the YC investment? Am I too far along to do YC? Is doing YC a \"down-round\"?",
+    question: "VCC가 뭔가요?",
     answer: (
-      <>
-        <p className="mb-6">No. A large percentage of each batch has already raised money at a higher valuation than is implied by the YC investment. Since most founders don&apos;t do YC primarily for the money, thinking about the YC investment as having a &quot;valuation&quot; isn&apos;t how we&apos;d suggest you think about it.</p>
-        <p>Instead, as explained in <a href="http://paulgraham.com/equity.html" className="text-[#16140f] underline hover:opacity-70" target="_blank" rel="noopener noreferrer">this essay</a>, just ask yourself if you believe joining YC can improve your startup&apos;s outcome by at least 7%.</p>
-      </>
+      <p>
+        Venture Creation Course의 약자로, 성균관대 RISE 사업단과 SPEC이 공동 운영하는 미니 MBA 프로그램입니다. 비즈니스 모델링부터 IR 피칭까지 체계적으로 학습합니다. 자세한 내용은 <Link href="/vcc" className="text-[#16140f] underline hover:text-[#FF6C0F]">VCC 페이지</Link>를 참고해주세요.
+      </p>
     ),
   },
   {
-    question: "We don't really need the money. Does it still make sense to apply?",
+    question: "멘토링은 어떻게 진행되나요?",
     answer: (
-      <p>At least half of the startups we fund don&apos;t need the money. And in fact the money is only a small part of <Link href="/about" className="text-[#16140f] underline hover:opacity-70">what YC does</Link>.</p>
+      <p>
+        카카오모빌리티를 포함한 주요 기업 현직자들이 멘토로 참여합니다. 격주 1:1 오피스아워와 그룹 세션을 통해 실무 관점의 피드백을 제공합니다.
+      </p>
     ),
   },
   {
-    question: "Do you only fund startups that write software?",
+    question: "데모데이는 뭔가요?",
     answer: (
-      <p>No, we&apos;ll consider startups in any field. We&apos;ve funded companies that make everything from microbes to fusion reactors to coffee carts. You can see all the companies we&apos;ve funded in the <Link href="/companies" className="text-[#16140f] underline hover:opacity-70">YC Startup Directory</Link>.</p>
-    ),
-  },
-  {
-    question: "Can a single person apply for funding?",
-    answer: (
-      <>
-        <p className="mb-6">Yes. We regularly accept solo founders. That said, our advice remains that one-person startups are tough and you&apos;re more likely to succeed with a co-founder.</p>
-        <p>If you don&apos;t have a co-founder and would like one, you should check out <Link href="/cofounder-matching" className="text-[#16140f] underline hover:opacity-70">YC Co-founder Matching</Link>, a free product we run to help people find co-founders.</p>
-      </>
-    ),
-  },
-  {
-    question: "I have a great idea for a startup, but I'm not technical. Will you still fund me?",
-    answer: (
-      <p>It&apos;s important for the founding team to have the skills to build their product themselves, rather than outsourcing it to someone else. For most businesses, that usually means you need a technical co-founder.</p>
-    ),
-  },
-  {
-    question: "Can I participate in YC while I'm a full-time student or working full-time at a job?",
-    answer: (
-      <p>You can certainly apply when you are a full-time student or employee, but we expect the founders to commit to working full-time on their company during the batch and afterwards if accepted.</p>
-    ),
-  },
-  {
-    question: "I'm working and living in the US on a visa (e.g., an H-1B). Can I do YC and stay in the US?",
-    answer: (
-      <>
-        <p className="mb-6">In most cases, yes. YC works with excellent immigration attorneys that have helped hundreds of our founders get visas to move to or stay in the US. There are a number of possible visa options depending on the details of your situation.</p>
-        <p>If you apply and are invited to join YC, we will connect you with an immigration attorney who will work with you to develop an individualized immigration plan for you.</p>
-      </>
-    ),
-  },
-  {
-    question: "YC has already funded a company that does something similar to my idea. Will that affect my chances of being accepted?",
-    answer: (
-      <>
-        <p className="mb-6">It won&apos;t. Unlike many investors, we don&apos;t consider it a factor whether we&apos;ve already funded a company working on something similar.</p>
-        <p>Even if we tried not to accept competing companies, we&apos;d end up with them anyway because startup ideas morph so much. So from early on, we made sure that if two YC startups are working on related stuff, we don&apos;t talk to one about what the other&apos;s doing.</p>
-      </>
-    ),
-  },
-  {
-    question: "Can we apply more than once?",
-    answer: (
-      <>
-        <p className="mb-6">Yes. In a typical YC batch, about half the companies applied multiple times before being accepted. If you&apos;ve applied before and not gotten in, we strongly encourage you to apply again. Having made progress since your last application is a strong signal to us.</p>
-        <p>We ask applicants to only submit one application per batch.</p>
-      </>
-    ),
-  },
-  {
-    question: "Do we need to know someone at YC to get in?",
-    answer: (
-      <p>No. One of YC&apos;s core principles is considering all applications equally. We don&apos;t rely on introductions the way many investors do.</p>
-    ),
-  },
-  {
-    question: "If we participated in another accelerator, can we do YC?",
-    answer: (
-      <p>Yes. We&apos;ve had some companies join YC after doing another accelerator. However, if you&apos;ve done another accelerator already, we may expect that you&apos;ve reached a higher level of progress.</p>
-    ),
-  },
-  {
-    question: "Do you give feedback on application results?",
-    answer: (
-      <>
-        <p className="mb-6">We don&apos;t provide feedback on application results unless you are invited to interview with us. If we did this, we&apos;d spend all our time providing feedback and doing nothing else due to the volume of applications we have to process. <Link href="/whynot" className="text-[#16140f] underline hover:opacity-70">Read this</Link> for more info about feedback.</p>
-        <p>If you are invited to interview with us, we will give you detailed feedback about why you were or were not selected after the interview.</p>
-      </>
+      <p>
+        30주 프로그램의 마지막에 투자자, 기업 관계자, 동문 앞에서 팀의 사업을 발표하는 행사입니다.
+      </p>
     ),
   },
 ];
 
-const incorporatingQA: QA[] = [
+const applyQA: QA[] = [
   {
-    question: "Do we need to incorporate before applying?",
-    answer: <p>Nope.</p>,
+    question: "누가 지원할 수 있나요?",
+    answer: (
+      <p>
+        성균관대학교 재학생이면 누구나 지원할 수 있습니다. 학년, 전공 제한은 없습니다.
+      </p>
+    ),
   },
   {
-    question: "What if we incorporated as a non-US corporation?",
+    question: "창업 경험이 없어도 되나요?",
     answer: (
-      <>
-        <p className="mb-6">If your company is already incorporated somewhere other than the United States, Canada, Singapore or the Cayman Islands, in order to participate in YC you will need to create a parent company that is in one of those jurisdictions. The existing company will then become a subsidiary of the new United States, Singapore or Cayman parent company.</p>
-        <p>Many companies in each YC batch do this process in order to join YC. While we will connect you with lawyers who will drive this process, it will require a significant effort on your part.</p>
-      </>
+      <p>
+        됩니다. 대부분의 멤버가 SPEC에서 처음 창업을 경험합니다. 중요한 것은 경험이 아니라 의지와 실행력입니다.
+      </p>
+    ),
+  },
+  {
+    question: "선발 기준이 뭔가요?",
+    answer: (
+      <p>
+        창업에 대한 진지한 의지, 팀워크 능력, 실행력을 중점적으로 봅니다. 화려한 스펙보다 진짜 무언가를 만들어내겠다는 각오가 중요합니다.
+      </p>
+    ),
+  },
+  {
+    question: "지원서에는 뭘 쓰면 되나요?",
+    answer: (
+      <p>
+        본인 소개, 창업에 관심을 갖게 된 계기, SPEC에서 이루고 싶은 것, 그리고 현재 가지고 있는 아이디어(있다면)를 써주세요.
+      </p>
+    ),
+  },
+  {
+    question: "면접은 어떻게 진행되나요?",
+    answer: (
+      <p>
+        서류 합격자에 한해 대면 면접을 진행합니다. 약 15~20분간 창업 의지와 실행력에 대해 이야기합니다. 결과는 면접 후 1주일 이내에 통보됩니다.
+      </p>
+    ),
+  },
+  {
+    question: "재지원이 가능한가요?",
+    answer: (
+      <p>
+        가능합니다. 이전에 불합격했더라도 다시 지원할 수 있습니다. 지난 지원 이후 어떤 성장이 있었는지 보여주세요.
+      </p>
+    ),
+  },
+];
+
+const vccQA: QA[] = [
+  {
+    question: "VCC와 SPEC은 어떤 관계인가요?",
+    answer: (
+      <p>
+        VCC는 성균관대 RISE 사업단이 주관하고 SPEC이 공동 운영하는 정규 교육 프로그램입니다. SPEC 활동과 시너지를 내어 이론과 실전을 병행합니다.
+      </p>
+    ),
+  },
+  {
+    question: "VCC만 따로 참여할 수 있나요?",
+    answer: (
+      <p>
+        VCC는 SPEC 멤버를 대상으로 운영됩니다. SPEC에 합류하면 자동으로 VCC에도 참여하게 됩니다.
+      </p>
+    ),
+  },
+  {
+    question: "학점이 인정되나요?",
+    answer: (
+      <p>
+        성균관대 RISE 사업단을 통해 학점 인정이 가능합니다. 자세한 사항은 모집 공고를 참고해주세요.
+      </p>
     ),
   },
 ];
 
 const otherQA: QA[] = [
   {
-    question: "Why did you choose the name \"Y Combinator\"?",
+    question: "SPEC 이름의 뜻은?",
     answer: (
-      <p>The Y combinator is one of the coolest ideas in computer science. It&apos;s also a metaphor for what we do. It&apos;s a program that runs programs; we&apos;re a company that helps start companies.</p>
+      <p>
+        SPEC은 'SKKU Prep Entrepreneurs' Club'의 약자입니다.
+      </p>
     ),
   },
   {
-    question: "I'd like YC to publicize my product / service among the portfolio companies.",
+    question: "졸업 후에도 관계가 유지되나요?",
     answer: (
-      <>
-        <p className="mb-6">The best way to publicize your product within the YC community is to get a few YC startups as happy users and ask them to recommend you to their peers.</p>
-        <p>That being said, we do keep a list of offers that we share with our active YC portfolio companies. If you would like to offer a special deal on your service or product to our companies, you can <a href="https://deals.ycombinator.com" className="text-[#16140f] underline hover:opacity-70" target="_blank" rel="noopener noreferrer">do so here</a>. We manually review these deals and will let you know if your offer has been approved or rejected.</p>
-      </>
+      <p>
+        네. SPEC 알럼나이 네트워크를 통해 졸업 후에도 창업 여정을 함께합니다. 월간 동문 모임, 후배 멘토링 등으로 영원히 연결됩니다.
+      </p>
     ),
   },
   {
-    question: "Are you hiring?",
+    question: "문의는 어디로 하나요?",
     answer: (
-      <p><Link href="/careers" className="text-[#16140f] underline hover:opacity-70">Yes, we are</Link>. So are <Link href="/jobs" className="text-[#16140f] underline hover:opacity-70">over 500 companies we&apos;ve funded</Link>.</p>
-    ),
-  },
-  {
-    question: "Where can I find answers to questions about Hacker News?",
-    answer: (
-      <p><a href="https://news.ycombinator.com/newsfaq.html" className="text-[#16140f] underline hover:opacity-70" target="_blank" rel="noopener noreferrer">The Hacker News FAQ</a></p>
-    ),
-  },
-];
-
-const lateApplicationsQA: QA[] = [
-  {
-    question: "What are Late Applications?",
-    answer: (
-      <p>Late applications are those submitted after the application deadlines. We do our best to continue reading applications submitted after the deadline.</p>
-    ),
-  },
-  {
-    question: "The deadline has passed. Am I better off applying late or waiting until the next batch?",
-    answer: (
-      <p>If you&apos;re ready to do YC, you should just apply now. We fund many companies that apply late every batch.</p>
-    ),
-  },
-  {
-    question: "When will I get a reply if I submit a late application?",
-    answer: (
-      <>
-        <p className="mb-6">With on-time applications, we provide a specific date we&apos;ll get back to founders by, but with late applications we don&apos;t because we have to review them whenever we have spare time.</p>
-        <p>Most late applications will get a decision within a month, but we can&apos;t guarantee that — sometimes it may take longer. If you applied late and haven&apos;t heard from us, it&apos;s because we&apos;re still working on it. We always respond to everyone who applies, no exceptions.</p>
-      </>
-    ),
-  },
-  {
-    question: "I have a great reason for why my application is late. Can you mark it as on time?",
-    answer: (
-      <p>No, sorry. But don&apos;t worry! Just get it in as soon as possible.</p>
-    ),
-  },
-];
-
-const applicationTechSupportQA: QA[] = [
-  {
-    question: "Our group has two ideas. Can we submit two applications?",
-    answer: (
-      <p>We don&apos;t recommend it. You should pick your favorite idea and apply with that one.</p>
-    ),
-  },
-  {
-    question: "Someone recommended me for a previous application and I've decided to apply again. What should I do?",
-    answer: (
-      <p>Nothing! Recommendations carry over — no need to ask them to resubmit.</p>
-    ),
-  },
-  {
-    question: "My co-founder started an application for us, but when I log in to my account, I don't see it.",
-    answer: (
-      <p>Only the founder who created the application has access to it. If you need to edit it, you&apos;ll need to go through them.</p>
-    ),
-  },
-  {
-    question: "My co-founder hasn't received an email to fill out their profile.",
-    answer: (
-      <p>First thing to do is to make sure the co-founder email address you are entering into the main application form is the correct email address. Secondly, if they already have an account with YC, make sure you&apos;re entering that email address. If your co-founder hasn&apos;t received the email despite entering the correct address, try removing and re-adding them to trigger a new email.</p>
-    ),
-  },
-  {
-    question: "When my co-founder clicks on the link to fill out their profile, they're directed to my account page.",
-    answer: (
-      <p>This can happen when you&apos;re both using the same computer and you&apos;re still logged into your account. Have them open the link in an incognito browser window and sign in/up using their own credentials.</p>
-    ),
-  },
-  {
-    question: "We submitted our application but need to edit it.",
-    answer: (
-      <p>Your application enters our review process once you submit it, so we don&apos;t allow continuous editing. If something material has changed — like a co-founder addition/removal — please go <a href="https://apply.ycombinator.com/app/edit" className="text-[#16140f] underline hover:opacity-70" target="_blank" rel="noopener noreferrer">here</a> to submit an update.</p>
-    ),
-  },
-  {
-    question: "Was our application submitted? I can't tell.",
-    answer: (
-      <>
-        <p className="mb-6">We send you a confirmation email with a copy of your application when you submit. If you don&apos;t see that email, check your spam folder. If you don&apos;t see it there, make sure you entered your email address correctly on the application.</p>
-        <p>If you still don&apos;t see the confirmation email, you likely did not submit the application. To do so, click the Edit Application button from your account page. The submit button is at the bottom of the application.</p>
-      </>
-    ),
-  },
-  {
-    question: "When is the application deadline? When will I know my results? When are interviews?",
-    answer: (
-      <p>All of these questions are answered <Link href="/apply" className="text-[#16140f] underline hover:opacity-70">here</Link>.</p>
-    ),
-  },
-  {
-    question: "We previously applied and would like to use that application for this batch.",
-    answer: (
-      <p>You can reference past applications from your account page, but you&apos;ll need to fill out a new one every time you apply.</p>
-    ),
-  },
-  {
-    question: "We are not based in the US. Do we need to do anything to apply to YC? (e.g., incorporate in the US, get visas or business licenses)",
-    answer: (
-      <p>No need to do any of that. If we accept your application, we&apos;ll help you get visas and incorporate.</p>
+      <p>
+        spec@skku.edu로 이메일을 보내주세요.
+      </p>
     ),
   },
 ];
 
 const categoryContent: Record<CategoryId, { title: string; items: QA[] }> = {
-  logistics: { title: "Logistics", items: logisticsQA },
-  "should-i-apply": { title: "Should I apply?", items: shouldIApplyQA },
-  incorporating: { title: "Incorporating", items: incorporatingQA },
+  general: { title: "General", items: generalQA },
+  program: { title: "Program", items: programQA },
+  apply: { title: "Apply", items: applyQA },
+  vcc: { title: "VCC", items: vccQA },
   other: { title: "Other", items: otherQA },
-  "late-applications": { title: "Late Applications", items: lateApplicationsQA },
-  "application-technical-support": { title: "Application Technical Support", items: applicationTechSupportQA },
 };
 
 export default function FAQPage() {
-  const [activeTab, setActiveTab] = useState<CategoryId>("logistics");
+  const [activeTab, setActiveTab] = useState<CategoryId>("general");
 
   return (
-    <div className="mx-auto max-w-[1100px] px-4 pb-24">
-      <div className="mb-12 text-center">
-        <h1 className="font-serif text-[60px] font-medium leading-[75px] text-[#16140f]">
-          Frequently Asked Questions
-        </h1>
-      </div>
+    <div className="mx-auto max-w-[1100px] px-4 pb-24 pt-14 md:pt-20">
+      <PageHeader title="FAQ" align="center" />
 
-      <div className="mx-auto max-w-[640px]">
+      <div className="mx-auto max-w-[720px]">
         <nav className="mb-10 border-b border-[#d4d4cc]">
           <ul className="flex flex-wrap gap-0">
             {CATEGORIES.map((cat) => (
               <li key={cat.id}>
                 <button
                   onClick={() => setActiveTab(cat.id)}
-                  className={`px-4 py-3 font-sans text-sm font-light transition-colors ${
+                  className={`px-4 py-3 font-['Pretendard',sans-serif] text-sm font-normal transition-colors ${
                     activeTab === cat.id
                       ? "border-b-2 border-[#16140f] text-[#16140f]"
                       : "text-[#16140f]/60 hover:text-[#16140f]"
@@ -420,7 +276,7 @@ export default function FAQPage() {
               key={cat.id}
               className={activeTab === cat.id ? "block" : "hidden"}
             >
-              <h2 className="mb-6 font-serif text-[22px] font-medium leading-[28px] text-[#16140f]">
+              <h2 className="mb-6 font-['Pretendard',sans-serif] text-[1.375rem] font-bold leading-[28px] text-[#16140f]">
                 {categoryContent[cat.id].title}
               </h2>
               <FAQSection items={categoryContent[cat.id].items} />

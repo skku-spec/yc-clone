@@ -1,179 +1,122 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "Apply to YC | Y Combinator",
-  description:
-    "Apply to Y Combinator. We invest in startups at the earliest stages.",
+  title: "지원하기 | SPEC — 성균관대 창업학회",
+  description: "SPEC 4기 멤버를 모집합니다.",
 };
 
 export default function ApplyPage() {
   return (
-    <div className="mx-auto max-w-[1100px] px-4 pb-24">
-      <div className="mb-12 text-center">
-        <h1 className="font-serif text-[60px] font-medium leading-[75px] text-[#16140f]">
-          Apply to Y Combinator
-        </h1>
-      </div>
+    <div className="mx-auto max-w-[1100px] px-4 pb-24 pt-14 md:pt-20">
+      <PageHeader title="Apply Now" align="center" />
 
-      <article className="mx-auto max-w-[640px]">
+      <article className="mx-auto max-w-[720px]">
         <div className="mb-6">
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            Y Combinator is accepting applications for the Spring 2026 Batch
-            funding cycle. The batch will take place from April to June in San
-            Francisco.
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            SPEC 4기 멤버를 모집합니다.
           </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            You can also apply to future batches (Summer, Fall, and Winter) now
-            - see more at{" "}
-            <Link
-              href="/early-decision"
-              className="text-[#16140f] underline hover:opacity-70"
-            >
-              Early Decision
-            </Link>
-            .
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            30주 동안 매주 매출 챌린지를 수행하며, 실전 창업의 모든 과정을
+            경험합니다. 아이디어만으로는 부족합니다 — 실행으로 증명할 준비가 된
+            사람을 찾습니다.
           </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            The deadline to apply on-time is February 9 at 8pm PT; if you apply
-            before the deadline, you will get a decision by March 13. If you
-            apply after the deadline, we will still consider the application but
-            can&apos;t promise exactly when we&apos;ll get back to you.
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            <strong>모집 기간:</strong> 2026년 3월 1일 ~ 3월 31일
           </p>
         </div>
 
         <Link
-          href="https://apply.ycombinator.com/home"
-          className="mx-auto mb-12 flex h-[80px] w-fit items-center rounded-full bg-black px-10 pb-1 font-serif text-[28px] text-[#f5f5ee] transition-opacity hover:opacity-80"
+          href="https://apply.spec.skku.edu"
+          className="mx-auto mb-12 flex h-[80px] w-fit items-center rounded-full bg-black px-10 pb-1 font-['MaruBuri',serif] text-[28px] italic tracking-[0.015rem] text-[#f5f5ee] transition-opacity hover:opacity-80"
         >
-          Apply
+          Apply →
         </Link>
 
         <div className="mb-10">
-          <h2 className="mb-3 font-serif text-[22px] font-medium leading-[28px] text-[#16140f]">
-            About applying to YC
+          <h2 className="mb-3 font-['Pretendard',sans-serif] text-[1.375rem] font-bold text-[#16140f]">
+            How to Apply
           </h2>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            If you want to apply, please submit your{" "}
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            지원서를 작성하여 제출해주세요. 서류 심사 → 면접 → 최종 합격
+            과정으로 진행됩니다.
+          </p>
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            합격 발표는 지원 마감 후 2주 이내에 안내됩니다.
+          </p>
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            면접에서는 창업 의지와 실행력을 중점적으로 봅니다. 당신의 열정과
+            추진력을 보여주세요.
+          </p>
+        </div>
+
+        <div className="mb-10">
+          <h2 className="mb-3 font-['Pretendard',sans-serif] text-[1.375rem] font-bold text-[#16140f]">
+            About the Program
+          </h2>
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
             <Link
-              href="https://apply.ycombinator.com/home"
-              className="text-[#16140f] underline hover:opacity-70"
+              href="/about"
+              className="text-[#16140f] underline hover:text-[#FF6C0F]"
             >
-              application online
+              30주 실전 커리큘럼
             </Link>
-            .
+            — 이론이 아닌 실제 매출 도전.
           </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            People who applied before the regular deadline will hear back by
-            March 13. If you apply after the deadline, we&apos;ll still consider
-            the application but can&apos;t promise exactly when we&apos;ll get
-            back to you.
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            <Link
+              href="/partners"
+              className="text-[#16140f] underline hover:text-[#FF6C0F]"
+            >
+              카카오모빌리티 등 현직 멘토진
+            </Link>
+            — 실전 창업가들의 직접 지도.
           </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            We encourage you to submit your application as soon as you&apos;re
-            ready to apply.
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            <Link
+              href="/vcc"
+              className="text-[#16140f] underline hover:text-[#FF6C0F]"
+            >
+              VCC 미니 MBA 병행
+            </Link>
+            — 경영과 기술의 완전한 학습.
           </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            If your application is promising, we will invite you to interview
-            with us. Most interviews will be held by video conference in February
-            and March. We typically make decisions the same day as your
-            interview, and we give everyone who interviews detailed feedback on
-            our decision.
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            SPEC 알럼나이 네트워크 — 졸업 후에도 함께하는 창업가 커뮤니티.
           </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            We invest in companies as soon as they are accepted; we do not wait
-            for the batch to start.
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            매주 매출 챌린지 + 데모데이 — 성과를 숫자로 증명합니다.
+          </p>
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            <strong>
+              SPEC은 학교 동아리가 아닙니다. 진짜 창업을 하는 곳입니다.
+            </strong>
           </p>
         </div>
 
         <div>
-          <h2 className="mb-3 font-serif text-[22px] font-medium leading-[28px] text-[#16140f]">
-            About the batch
+          <h2 className="mb-3 font-['Pretendard',sans-serif] text-[1.375rem] font-bold text-[#16140f]">
+            자주 묻는 질문
           </h2>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            The batch will take place in-person at YC&apos;s campus in San
-            Francisco. It starts with a 3-day, in-person kick-off and features
-            regular meetups in San Francisco. For more information, please read
-            our{" "}
-            <Link href="/faq" className="text-[#16140f] underline hover:opacity-70">
-              FAQs
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            더 궁금한 점은{" "}
+            <Link
+              href="/faq"
+              className="text-[#16140f] underline hover:text-[#FF6C0F]"
+            >
+              FAQ
             </Link>
-            .
+            를 확인해주세요.
           </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            During the batch, we invite eminent people from the startup world to
-            speak. The founders of OpenAI, Airbnb, Stripe, and Doordash often
-            come back to tell the inside story of what happened in the early days
-            of their startups.
-          </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            Every company works with a dedicated{" "}
-            <Link
-              href="/partners"
-              className="text-[#16140f] underline hover:opacity-70"
-            >
-              YC General Partner
-            </Link>
-            , who gets to know them well and can help with a wide range of
-            issues. Every YC general partner is a successful startup founder
-            themselves, has advised hundreds of startups, and works closely with
-            a small group of startups they personally hand-select every batch.{" "}
-            <Link
-              href="/companies"
-              className="text-[#16140f] underline hover:opacity-70"
-            >
-              YC companies
-            </Link>{" "}
-            are in a direct slack channel with their partner and meet weekly
-            during the batch.
-          </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            Similar to how many universities have a house model, each YC batch
-            is actually several small, autonomous groups of companies. You go
-            through YC as part of this small group of companies, have dinner with
-            them each week, and build both personal and professional
-            relationships. Many founders build lifelong friendships with the
-            founders in their group.
-          </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            During and after the batch, we introduce founders to people who can
-            help with any challenge. Often, this means founders of other YC
-            companies. Today, The{" "}
-            <Link
-              href="/about#community"
-              className="text-[#16140f] underline hover:opacity-70"
-            >
-              YC alumni community
-            </Link>{" "}
-            is one of the most powerful communities in the world, and its
-            members have a strong commitment to help one another.
-          </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            Towards the end of the batch, we help companies raise additional
-            funds by introducing them to YC&apos;s extensive network of
-            investors.
-          </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            YC doesn&apos;t end after 3 months. We continue to help founders for
-            the life of their company, and beyond — and so does the YC alumni
-            community.{" "}
-            <Link
-              href="/about#advice"
-              className="text-[#16140f] underline hover:opacity-70"
-            >
-              Read more here
-            </Link>
-            .
-          </p>
-          <p className="mb-6 font-sans text-lg font-light leading-[1.7] text-[#16140f]">
-            If you have other questions, reach out via{" "}
+          <p className="mb-6 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            <strong>문의:</strong>{" "}
             <a
-              href="mailto:apply@ycombinator.com"
-              className="text-[#16140f] underline hover:opacity-70"
+              href="mailto:spec@skku.edu"
+              className="text-[#16140f] underline hover:text-[#FF6C0F]"
             >
-              email
+              spec@skku.edu
             </a>
-            .
           </p>
         </div>
       </article>

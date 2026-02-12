@@ -9,77 +9,109 @@ import {
 } from "./jobsData";
 import type { Job } from "./jobsData";
 
-/* ── Category link tabs (inline with H2, separated by middot) ── */
+/* ── Category link tabs (inline with H2, separated by border-r) ── */
 const categoryLinks = [
-  { label: "Design & UI/UX", slug: "designer" },
-  { label: "Product", slug: "product-manager" },
-  { label: "Recruiting & HR", slug: "recruiting-hr" },
-  { label: "Sales", slug: "sales-manager" },
-  { label: "Science", slug: "science" },
+  { label: "디자인", slug: "designer" },
+  { label: "기획", slug: "product-manager" },
+  { label: "마케팅", slug: "marketing" },
+  { label: "운영", slug: "operations" },
 ];
 
 /* ── SEO link data ─────────────────────────────────────────────── */
 const seoRoles = roleCategoriesWithCounts.filter((r) => r.slug !== "all");
 const seoLocations = locationOptionsWithCounts.filter((l) => l.slug !== "all");
 
-/* ── Job card — vertical stack layout ──────────────────────────── */
+/* ── Relative time helper ─────────────────────────────────────── */
+function getTimeAgo(dateStr: string): string {
+  const posted = new Date(dateStr.replace(/\./g, "-"));
+  const now = new Date();
+  const diffMs = now.getTime() - posted.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  if (diffDays === 0) return "오늘";
+  if (diffDays === 1) return "1일 전";
+  if (diffDays < 7) return `${diffDays}일 전`;
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)}주 전`;
+  if (diffDays < 365) return `${Math.floor(diffDays / 30)}개월 전`;
+  return `${Math.floor(diffDays / 365)}년 전`;
+}
+
+/* ── Job card — exact YC layout ────────────────────────────────── */
 function JobCard({ job }: { job: Job }) {
   return (
-    <div className="flex flex-col gap-2 border border-[#ccc] bg-[#fdfdf8] p-5">
-      {/* Row 1: Logo + Company name + batch tag + one-liner */}
-      <div className="flex items-center gap-3">
-        {/* Company logo — 64×64 circular */}
+    <li className="my-2 flex h-auto w-full flex-col flex-nowrap rounded border border-[#ccc] bg-[#faf9f5] px-5 py-3">
+      {/* Top row: logo + company info + apply button */}
+      <div className="flex items-start gap-3">
+        {/* Company logo — circular, 64×64 desktop / 32×32 mobile */}
         <div
-          className="flex shrink-0 items-center justify-center text-base font-bold text-white"
-          style={{
-            width: 64,
-            height: 64,
-            borderRadius: "50%",
-            backgroundColor: job.logoColor,
-          }}
+          className="hidden h-16 w-16 shrink-0 items-center justify-center rounded-full text-lg font-bold text-white md:flex"
+          style={{ backgroundColor: job.logoColor }}
+        >
+          {job.logoLetter}
+        </div>
+        <div
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white md:hidden"
+          style={{ backgroundColor: job.logoColor }}
         >
           {job.logoLetter}
         </div>
 
+        {/* Company info + job details */}
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[16px] font-bold text-black">
-              {job.company}
-            </span>
-            <span className="rounded bg-[#e6e6dd] px-2.5 py-1 text-[10px] text-black">
-              {job.tags[0]}
-            </span>
+          {/* Company name · description · time ago */}
+          <div className="flex flex-wrap items-center gap-x-1 font-['Pretendard',sans-serif] text-sm">
+            <span className="font-bold text-[#16140f]">{job.company}</span>
+            <span className="text-gray-400">&bull;</span>
+            <span className="text-gray-500">{job.description}</span>
+            <span className="text-gray-400">&bull;</span>
+            <span className="text-gray-400">{getTimeAgo(job.posted)}</span>
           </div>
-          <p className="mt-0.5 text-[14px] font-extralight text-black/60">
-            {job.tags.join(" · ")}
-          </p>
+
+          {/* Job title — linkColor */}
+          <a
+            href="#"
+            className="mt-1 inline-block font-['Pretendard',sans-serif] text-base font-semibold hover:underline"
+            style={{ color: "rgb(38,139,210)" }}
+          >
+            {job.title}
+          </a>
+
+          {/* Job metadata: Full-time | location | salary | remote */}
+          <div className="mt-1 flex flex-wrap items-center gap-x-1 font-['Pretendard',sans-serif] text-sm text-gray-500">
+            <span>Full-time</span>
+            <span className="text-gray-300">|</span>
+            <span>{job.location}</span>
+            <span className="text-gray-300">|</span>
+            <span>{job.salary}</span>
+            {job.remote && job.location !== "Remote" && (
+              <>
+                <span className="text-gray-300">|</span>
+                <span>Remote</span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Apply button — right side on desktop */}
+        <div className="hidden shrink-0 items-start pt-4 md:flex">
+          <a
+            href="#"
+            className="rounded-md bg-[#fb651e] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            지원하기
+          </a>
         </div>
       </div>
 
-      {/* Row 2: Job title as blue link */}
-      <a
-        href="#"
-        className="text-[16px] font-semibold"
-        style={{ color: "rgb(38,139,210)" }}
-      >
-        {job.title}
-      </a>
-
-      {/* Row 3: Metadata line */}
-      <p className="text-[16px] font-extralight text-black">
-        Full-time &middot; {job.role} &middot; {job.location}
-      </p>
-
-      {/* Apply button */}
-      <div className="mt-1">
+      {/* Mobile apply button */}
+      <div className="mt-3 flex md:hidden">
         <a
           href="#"
-          className="inline-block rounded-md border border-[#fdc2a5] bg-[#fb651e] px-4 py-1.5 text-[14px] font-medium text-white"
+          className="rounded-md bg-[#fb651e] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white"
         >
-          Apply
+          지원하기
         </a>
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -95,184 +127,146 @@ export default function JobsPage() {
 
   const activeRoleLabel =
     roleCategoriesWithCounts.find((r) => r.slug === activeRole)?.label ??
-    "All Roles";
+    "전체 포지션";
 
   return (
-    <div className="min-h-screen">
-      {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="border-b border-[#d4d4cc] bg-[#f5f5ee] px-4 pb-10 pt-12 md:pb-14 md:pt-20">
-        <div className="mx-auto max-w-[900px] text-center">
-          {/* H1 — 60px / 75px, centered */}
+    <div className="min-h-screen bg-[#f5f5ee]">
+      {/* ── Hero Section — centered, YC-style ────────────── */}
+      <section className="flex flex-col items-center px-4 pb-10 pt-16 text-center">
+        <div className="mx-auto max-w-[1100px]">
           <h1
-            className="mb-6 font-serif font-medium italic tracking-tight text-[#16140f]"
-            style={{ fontSize: 60, lineHeight: "75px" }}
+            className="text-[clamp(2.5rem,5vw,3.75rem)] font-black leading-[1.15] tracking-tight uppercase text-[#16140f]"
+            style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
           >
-            Find the best startup jobs, curated by YC
+            Find the best startup jobs,
+            <br />
+            curated by SPEC
           </h1>
 
-          {/* Bullet list — 3 items, exact YC copy */}
-          <ul
-            className="mx-auto mb-8 max-w-[520px] list-disc text-left text-[16px] font-extralight leading-[24px] text-black"
-            style={{ paddingLeft: 24 }}
-          >
-            <li className="mb-2">
-              Apply to thousands of startup jobs with a single profile.
-            </li>
-            <li className="mb-2">
-              Let YC founders contact you or browse companies privately.
-            </li>
+          <ul className="mx-auto mt-6 max-w-[600px] list-disc pl-6 text-left font-['Pretendard',sans-serif] text-[17px] font-normal leading-[1.75] text-[#16140f]">
+            <li>수천 개의 스타트업 채용 공고에 한 번에 지원하세요.</li>
             <li>
-              Find the next Airbnb, Instacart or Coinbase — only YC companies.
+              SPEC 파운더가 직접 연락하거나, 비공개로 회사를 탐색하세요.
             </li>
+            <li>SPEC이 선별한 스타트업에서 일하세요.</li>
           </ul>
 
-          {/* Orange CTA button */}
-          <div>
+          <div className="mt-6">
             <a
               href="#"
-              className="inline-flex h-12 items-center justify-center rounded-md border-2 border-[#fb651e] bg-[#fb651e] px-5 text-[18px] font-bold text-white"
+              className="inline-block rounded-md bg-[#fb651e] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
-              Find a job &rsaquo;
+              지원하기
             </a>
           </div>
-
-          {/* Browse privately link — dark, not blue */}
-          <p className="mt-3">
-            <a
-              href="#"
-              className="text-[14px] font-extralight text-[#16140f] underline decoration-[#16140f]/40"
-            >
-              Browse privately
-            </a>
-          </p>
         </div>
       </section>
 
-      {/* ── Section heading + role filter bar (inline) ──── */}
-      <section className="border-b border-[#d4d4cc] bg-white px-4 py-5">
-        <div className="mx-auto max-w-[1068px]">
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+      {/* ── Job Listings Section ─────────────────────────── */}
+      <section className="px-4">
+        <div className="mx-auto max-w-[1100px]">
+          {/* Section header row */}
+          <div className="flex flex-col justify-between leading-loose md:flex-row">
             <h2
-              style={{
-                fontFamily: "Outfit, sans-serif",
-                fontSize: 24,
-                fontWeight: 200,
-              }}
-              className="text-black"
+              className="text-center font-['Pretendard',sans-serif] text-2xl font-light text-[#16140f] md:text-left"
             >
-              {activeRole !== "all"
-                ? `${activeRoleLabel} jobs`
-                : "Software Engineer jobs added recently"}
+              {activeRole === "all"
+                ? "개발 직군 최근 등록 공고"
+                : `${activeRoleLabel} 최근 등록 공고`}
             </h2>
 
-            {/* Role filter links — inline, separated by middot */}
-            {categoryLinks.map((cat, i) => (
-              <span key={cat.slug} className="flex items-baseline gap-x-1">
-                {i === 0 && (
-                  <span className="select-none text-[16px] font-extralight text-black/40">
-                    &nbsp;
-                  </span>
-                )}
-                <button
-                  onClick={() =>
-                    setActiveRole(activeRole === cat.slug ? "all" : cat.slug)
-                  }
-                  className="cursor-pointer border-none bg-transparent p-0 text-[16px] font-extralight"
-                  style={{
-                    color: "rgb(38,139,210)",
-                    textDecoration:
-                      activeRole === cat.slug ? "underline" : "none",
-                  }}
+            {/* Role filter links — inline, separated by border-r */}
+            <ul className="mt-2 flex list-none items-center justify-center p-0 md:mt-0 md:justify-end">
+              {categoryLinks.map((cat, i) => (
+                <li
+                  key={cat.slug}
+                  className={`inline px-2 ${
+                    i < categoryLinks.length - 1
+                      ? "border-r border-gray-300"
+                      : ""
+                  }`}
                 >
-                  {cat.label}
-                </button>
-                {i < categoryLinks.length - 1 && (
-                  <span className="select-none text-[16px] font-extralight text-black/40">
-                    &middot;
-                  </span>
-                )}
-              </span>
-            ))}
-
-            {filteredJobs.length > 0 && (
-              <span className="text-[14px] font-normal text-black/40">
-                {filteredJobs.length} roles
-              </span>
-            )}
+                  <button
+                    onClick={() =>
+                      setActiveRole(
+                        activeRole === cat.slug ? "all" : cat.slug
+                      )
+                    }
+                    className="cursor-pointer border-none bg-transparent p-0 font-['Pretendard',sans-serif] text-sm"
+                    style={{
+                      color: "rgb(38,139,210)",
+                      fontWeight: activeRole === cat.slug ? 600 : 400,
+                      textDecoration:
+                        activeRole === cat.slug ? "underline" : "none",
+                    }}
+                  >
+                    {cat.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-      </section>
 
-      {/* ── Job Listings — full-width single column ─────── */}
-      <section className="px-4 py-8 md:py-12">
-        <div className="mx-auto max-w-[1068px]">
+          {/* Job cards list */}
           {filteredJobs.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-[#d4d4cc] px-8 py-16 text-center">
-              <p className="text-lg font-light text-black/50">
-                No jobs match your filters.
+            <div className="mt-4 rounded-lg border border-dashed border-[#ccc] px-8 py-16 text-center">
+              <p className="font-['Pretendard',sans-serif] text-lg font-normal text-gray-500">
+                검색 결과가 없습니다.
               </p>
               <button
                 onClick={() => setActiveRole("all")}
-                className="mt-4 text-sm font-medium hover:underline"
+                className="mt-4 cursor-pointer border-none bg-transparent font-['Pretendard',sans-serif] text-sm font-medium hover:underline"
                 style={{ color: "rgb(38,139,210)" }}
               >
-                Clear all filters
+                필터 초기화
               </button>
             </div>
           ) : (
-            <div className="flex flex-col gap-3">
+            <ol className="mt-4 list-none p-0">
               {filteredJobs.map((job) => (
                 <JobCard key={job.id} job={job} />
               ))}
-            </div>
+            </ol>
           )}
+        </div>
+      </section>
 
-          {/* See more jobs button — orange */}
-          <div className="mt-8 text-center">
-            <a
-              href="#"
-              className="inline-block rounded-md bg-[#fb651e] px-4 py-2 text-[15px] font-medium text-white"
-            >
-              See more jobs &rsaquo;
-            </a>
+      {/* ── SEO Links Section ────────────────────────────── */}
+      <section className="px-4 pb-24 pt-16">
+        <div className="mx-auto max-w-[1100px]">
+          {/* Jobs by Role */}
+          <div className="mb-10">
+            <h3 className="mb-4 font-['Pretendard',sans-serif] text-base font-semibold text-[#16140f]">
+              포지션별 채용
+            </h3>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-3 md:grid-cols-3">
+              {seoRoles.map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/jobs/role/${r.slug}`}
+                  className="font-['Pretendard',sans-serif] text-sm font-normal text-[#16140f] hover:underline"
+                >
+                  {r.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {/* ── SEO link sections ─────────────────────────── */}
-          <div className="mt-16 border-t border-[#d4d4cc] pt-10">
-            {/* Jobs by Role */}
-            <div className="mb-10">
-              <h3 className="mb-4 text-[16px] font-semibold text-black">
-                Jobs by Role
-              </h3>
-              <div className="grid grid-cols-2 gap-x-8 gap-y-2 md:grid-cols-3 lg:grid-cols-4">
-                {seoRoles.map((r) => (
-                  <Link
-                    key={r.slug}
-                    href={`/jobs/role/${r.slug}`}
-                    className="text-[14px] font-light text-black hover:underline"
-                  >
-                    {r.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Jobs by Location */}
-            <div className="mb-10">
-              <h3 className="mb-4 text-[16px] font-semibold text-black">
-                Jobs by Location
-              </h3>
-              <div className="grid grid-cols-2 gap-x-8 gap-y-2 md:grid-cols-3 lg:grid-cols-4">
-                {seoLocations.map((l) => (
-                  <Link
-                    key={l.slug}
-                    href={`/jobs/location/${l.slug}`}
-                    className="text-[14px] font-light text-black hover:underline"
-                  >
-                    {l.label}
-                  </Link>
-                ))}
-              </div>
+          {/* Jobs by Location */}
+          <div className="mb-10">
+            <h3 className="mb-4 font-['Pretendard',sans-serif] text-base font-semibold text-[#16140f]">
+              지역별 채용
+            </h3>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-3 md:grid-cols-3">
+              {seoLocations.map((l) => (
+                <Link
+                  key={l.slug}
+                  href={`/jobs/location/${l.slug}`}
+                  className="font-['Pretendard',sans-serif] text-sm font-normal text-[#16140f] hover:underline"
+                >
+                  {l.label}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
