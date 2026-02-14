@@ -1,5 +1,9 @@
 import { roleParams, getRoleLabel } from "../../jobsData";
 import RoleClient from "./RoleClient";
+import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/lib/supabase/types";
+
+type Job = Database["public"]["Tables"]["jobs"]["Row"];
 
 export function generateStaticParams() {
   return roleParams;
@@ -13,6 +17,19 @@ export async function generateMetadata({ params }: { params: Promise<{ role: str
   };
 }
 
-export default function RolePage({ params }: { params: Promise<{ role: string }> }) {
-  return <RoleClient params={params} />;
+export const dynamic = "force-dynamic";
+
+export default async function RolePage({ params }: { params: Promise<{ role: string }> }) {
+  const { role } = await params;
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("jobs")
+    .select("*")
+    .eq("active", true)
+    .order("posted", { ascending: false });
+
+  const allJobs: Job[] = data ?? [];
+  const jobs = allJobs.filter((j) => j.role_slug === role);
+
+  return <RoleClient role={role} jobs={jobs} allJobs={allJobs} />;
 }

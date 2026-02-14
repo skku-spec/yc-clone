@@ -1,24 +1,29 @@
 "use client";
 
-import { useState, useMemo, use } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import {
-  allJobs,
-  roleCategoriesWithCounts,
-  locationOptionsWithCounts,
+  roleCategories,
+  locationOptions,
   getLocationLabel,
 } from "../../jobsData";
-import type { Job } from "../../jobsData";
+import type { Database } from "@/lib/supabase/types";
+
+type Job = Database["public"]["Tables"]["jobs"]["Row"];
 
 function JobCard({ job }: { job: Job }) {
   return (
     <div className="group flex items-start gap-4 rounded-lg border border-[#d4d4cc] bg-white px-5 py-4 transition-all hover:border-[#FF6C0F]/30 hover:shadow-md sm:items-center sm:px-6 sm:py-5">
-      <div
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-sm font-bold text-white sm:h-12 sm:w-12 sm:text-base"
-        style={{ backgroundColor: job.logoColor }}
-      >
-        {job.logoLetter}
-      </div>
+      {job.logo_url ? (
+        <img src={job.logo_url} alt={job.company} className="h-10 w-10 shrink-0 rounded-md object-cover sm:h-12 sm:w-12" />
+      ) : (
+        <div
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-sm font-bold text-white sm:h-12 sm:w-12 sm:text-base"
+          style={{ backgroundColor: job.logo_color }}
+        >
+          {job.logo_letter}
+        </div>
+      )}
 
       <div className="min-w-0 flex-1">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
@@ -54,18 +59,29 @@ function JobCard({ job }: { job: Job }) {
   );
 }
 
-export default function LocationClient({ params }: { params: Promise<{ city: string }> }) {
-  const { city } = use(params);
+interface LocationClientProps {
+  city: string;
+  jobs: Job[];
+  allJobs: Job[];
+}
+
+export default function LocationClient({ city, jobs, allJobs }: LocationClientProps) {
   const locationLabel = getLocationLabel(city);
 
   const [activeRole, setActiveRole] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const locationOptionsWithCounts = useMemo(() => {
+    return locationOptions.map((l) => ({
+      ...l,
+      count: l.slug === "all" ? allJobs.length : allJobs.filter((j) => j.location_slug === l.slug).length,
+    }));
+  }, [allJobs]);
+
   const filteredJobs = useMemo(() => {
-    return allJobs.filter((job) => {
-      const matchesLocation = job.locationSlug === city;
+    return jobs.filter((job) => {
       const matchesRole =
-        activeRole === "all" || job.roleSlug === activeRole;
+        activeRole === "all" || job.role_slug === activeRole;
       const matchesSearch =
         searchQuery === "" ||
         job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -73,20 +89,19 @@ export default function LocationClient({ params }: { params: Promise<{ city: str
         job.tags.some((t) =>
           t.toLowerCase().includes(searchQuery.toLowerCase())
         );
-      return matchesLocation && matchesRole && matchesSearch;
+      return matchesRole && matchesSearch;
     });
-  }, [city, activeRole, searchQuery]);
+  }, [jobs, activeRole, searchQuery]);
 
   const roleCounts = useMemo(() => {
-    const cityJobs = allJobs.filter((j) => j.locationSlug === city);
-    return roleCategoriesWithCounts.map((r) => ({
+    return roleCategories.map((r) => ({
       ...r,
       count:
         r.slug === "all"
-          ? cityJobs.length
-          : cityJobs.filter((j) => j.roleSlug === r.slug).length,
+          ? jobs.length
+          : jobs.filter((j) => j.role_slug === r.slug).length,
     }));
-  }, [city]);
+  }, [jobs]);
 
   return (
     <div className="min-h-screen pb-24">
@@ -195,7 +210,7 @@ export default function LocationClient({ params }: { params: Promise<{ city: str
               <div className="mb-6 flex items-center justify-between">
                 <h2 className="font-serif text-xl font-medium italic text-[#16140f] md:text-2xl">
                   {activeRole !== "all"
-                    ? `${roleCategoriesWithCounts.find((r) => r.slug === activeRole)?.label} jobs in ${locationLabel}`
+                    ? `${roleCategories.find((r) => r.slug === activeRole)?.label} jobs in ${locationLabel}`
                     : `All jobs in ${locationLabel}`}
                   <span className="ml-2 font-sans text-sm font-normal not-italic text-[#16140f]/40">
                     {filteredJobs.length} roles
