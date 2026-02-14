@@ -1,25 +1,30 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TAGS, getPostsByTag, getTagLabel } from "../../blogData";
 
-export function generateStaticParams() {
-  return TAGS.map((tag) => ({
-    tag: tag.slug,
-  }));
+import { getBlogPosts, getBlogTags, getTagLabel } from "@/lib/api";
+
+export const revalidate = 60;
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  // Tags are fetched on-demand with ISR (revalidate = 60)
+  // Cannot call Supabase at build time (requires request context)
+  return [];
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ tag: string }>;
 }) {
-  return params.then(({ tag }) => {
-    const label = getTagLabel(tag);
-    return {
-      title: `${label} | SPEC 소식`,
-      description: `SPEC의 ${label} 관련 소식입니다.`,
-    };
-  });
+  const { tag } = await params;
+  const label = await getTagLabel(tag);
+
+  return {
+    title: `${label} | SPEC 소식`,
+    description: `SPEC의 ${label} 관련 소식입니다.`,
+  };
 }
 
 function ArrowIcon() {
@@ -82,17 +87,20 @@ export default async function TagPage({
   params: Promise<{ tag: string }>;
 }) {
   const { tag } = await params;
-  const label = getTagLabel(tag);
-  const posts = getPostsByTag(tag);
-  const tagExists = TAGS.some((t) => t.slug === tag);
+  const tags = await getBlogTags();
+  const posts = await getBlogPosts(tag);
+  const tagExists = tags.some((currentTag) => currentTag.slug === tag);
 
   if (!tagExists) {
     notFound();
   }
 
-   return (
-     <section className="min-h-screen pb-24">
-       <div className="border-b border-[#ddd9cc]">
+  const label = await getTagLabel(tag);
+  const tagLabelBySlug = new Map(tags.map((item) => [item.slug, item.label]));
+
+  return (
+    <section className="min-h-screen pb-24">
+      <div className="border-b border-[#ddd9cc]">
         <div className="mx-auto flex max-w-[1200px] items-center gap-4 px-4 py-4 md:px-8">
           <Link
             href="/blog"
@@ -115,9 +123,9 @@ export default async function TagPage({
         </div>
       </div>
 
-       <div className="mx-auto max-w-[1200px] px-4 pt-10 md:px-8">
-         <div className="flex gap-12">
-           <div className="min-w-0 flex-1">
+      <div className="mx-auto max-w-[1200px] px-4 pt-10 md:px-8">
+        <div className="flex gap-12">
+          <div className="min-w-0 flex-1">
             <h1 className="mb-2 font-[system-ui] text-[clamp(1.75rem,3vw,2.5rem)] font-black leading-tight tracking-tight text-[#16140f]">
               {label}
             </h1>
@@ -142,9 +150,7 @@ export default async function TagPage({
                       {post.title}
                     </Link>
                     <p className="mb-2 font-['Pretendard',sans-serif] text-[13px] text-[#6b6b5e]">
-                      by{" "}
-                      <span className="text-[#16140f]">{post.author}</span>{" "}
-                      &middot; {post.date}
+                      by <span className="text-[#16140f]">{post.author}</span> &middot; {post.date}
                     </p>
                     <p className="mb-3 font-['Pretendard',sans-serif] text-[15px] font-normal leading-relaxed text-[#4a4a40]">
                       {post.excerpt}
@@ -160,8 +166,7 @@ export default async function TagPage({
                               : "bg-[#e8e6dc] text-[#4a4a40] hover:bg-[#FF6C0F] hover:text-white"
                           }`}
                         >
-                          {TAGS.find((t) => t.slug === postTag)?.label ??
-                            postTag}
+                          {tagLabelBySlug.get(postTag) ?? postTag}
                         </Link>
                       ))}
                     </div>
@@ -177,22 +182,22 @@ export default async function TagPage({
             )}
           </div>
 
-           <aside className="hidden w-[220px] shrink-0 lg:block">
+          <aside className="hidden w-[220px] shrink-0 lg:block">
             <p className="mb-4 font-['Pretendard',sans-serif] text-[14px] font-semibold text-[#16140f]">
               Categories
             </p>
             <div className="flex flex-col gap-1.5">
-              {TAGS.map((t) => (
+              {tags.map((currentTag) => (
                 <Link
-                  key={t.slug}
-                  href={`/blog/tag/${t.slug}`}
+                  key={currentTag.slug}
+                  href={`/blog/tag/${currentTag.slug}`}
                   className={`rounded-lg px-3 py-1.5 font-['Pretendard',sans-serif] text-[14px] transition-colors ${
-                    t.slug === tag
+                    currentTag.slug === tag
                       ? "bg-[#FF6C0F] font-medium text-white"
                       : "text-[#4a4a40] hover:bg-[#e8e6dc] hover:text-[#16140f]"
                   }`}
                 >
-                  {t.label}
+                  {currentTag.label}
                 </Link>
               ))}
             </div>

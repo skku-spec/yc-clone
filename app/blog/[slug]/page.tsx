@@ -1,31 +1,45 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  BLOG_POSTS,
-  TAGS,
-  getPostBySlug,
-  getRelatedPosts,
-} from "../blogData";
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({
-    slug: post.slug,
-  }));
+import CommentSection from "@/components/blog/CommentSection";
+import ReactionBar from "@/components/blog/ReactionBar";
+import { getCurrentUser } from "@/lib/auth";
+import { getCommentsByPost } from "@/lib/actions/comments";
+import { getReactionsByPost } from "@/lib/actions/reactions";
+import {
+  getBlogPostBySlug,
+  getBlogTags,
+  getRelatedPosts,
+} from "@/lib/api";
+
+import PostAuthorActions from "./PostAuthorActions";
+
+export const revalidate = 60;
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  // Posts are fetched on-demand with ISR (revalidate = 60)
+  // Cannot call Supabase at build time (requires request context)
+  return [];
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  return params.then(({ slug }) => {
-    const post = getPostBySlug(slug);
-    if (!post) return { title: "Post Not Found | SPEC" };
-    return {
-      title: `${post.title} | SPEC`,
-      description: post.excerpt,
-    };
-  });
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
+
+  if (!post) {
+    return { title: "Post Not Found | SPEC" };
+  }
+
+  return {
+    title: `${post.title} | SPEC`,
+    description: post.excerpt,
+  };
 }
 
 function ArrowLeftIcon() {
@@ -70,18 +84,32 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+
+  const [post, related, tags, currentUser] = await Promise.all([
+    getBlogPostBySlug(slug),
+    getRelatedPosts(slug, 3),
+    getBlogTags(),
+    getCurrentUser(),
+  ]);
 
   if (!post) {
     notFound();
   }
 
-  const related = getRelatedPosts(slug, 3);
-  const paragraphs = post.content.split("\n\n").filter(Boolean);
+  if (!post.id) {
+    notFound();
+  }
 
-   return (
-     <section className="min-h-screen pb-24">
-       <div className="mx-auto max-w-[720px] px-4 pt-14 md:pt-20">
+  const [comments, reactions] = await Promise.all([
+    getCommentsByPost(post.id),
+    getReactionsByPost(post.id),
+  ]);
+
+  const tagLabelBySlug = new Map(tags.map((tag) => [tag.slug, tag.label]));
+
+  return (
+    <section className="min-h-screen pb-24">
+      <div className="mx-auto max-w-[720px] px-4 pt-14 md:pt-20">
         <Link
           href="/blog"
           className="mb-8 inline-flex items-center gap-2 font-['Pretendard',sans-serif] text-[14px] text-[#6b6b5e] transition-colors hover:text-[#FF6C0F]"
@@ -100,7 +128,7 @@ export default async function BlogPostPage({
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6C0F] font-['Pretendard',sans-serif] text-[14px] font-semibold text-white">
                 {post.author
                   .split(" ")
-                  .map((n) => n[0])
+                  .map((name) => name[0])
                   .join("")}
               </div>
               <div>
@@ -112,6 +140,8 @@ export default async function BlogPostPage({
                 </p>
               </div>
             </div>
+
+            <PostAuthorActions slug={post.slug} authorId={post.authorId} />
           </header>
 
           {post.imageUrl && (
@@ -124,16 +154,10 @@ export default async function BlogPostPage({
             </div>
           )}
 
-          <div className="mb-10 space-y-5">
-            {paragraphs.map((paragraph, i) => (
-              <p
-                key={i}
-                className={`font-['MaruBuri',serif] text-[17px] font-normal leading-[1.8] text-[#16140f] ${i === 0 ? "drop-cap" : ""}`}
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <div
+            className="prose-content mb-10"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
           <div className="mb-10 border-t border-[#ddd9cc] pt-6">
             <p className="mb-3 font-['Pretendard',sans-serif] text-[13px] font-semibold uppercase tracking-wider text-[#6b6b5e]">
@@ -146,17 +170,20 @@ export default async function BlogPostPage({
                   href={`/blog/tag/${tag}`}
                   className="rounded-full bg-[#e8e6dc] px-3.5 py-1 font-['Pretendard',sans-serif] text-[13px] font-medium text-[#4a4a40] transition-colors hover:bg-[#FF6C0F] hover:text-white"
                 >
-                  {TAGS.find((t) => t.slug === tag)?.label ?? tag}
+                  {tagLabelBySlug.get(tag) ?? tag}
                 </Link>
               ))}
             </div>
           </div>
+
+          <ReactionBar postId={post.id} initialReactions={reactions} userId={currentUser.user?.id} />
+          <CommentSection postId={post.id} initialComments={comments} />
         </article>
       </div>
 
-       {related.length > 0 && (
-         <div className="border-t border-[#ddd9cc]">
-           <div className="mx-auto max-w-[720px] px-4 pt-10 md:px-8">
+      {related.length > 0 && (
+        <div className="border-t border-[#ddd9cc]">
+          <div className="mx-auto max-w-[720px] px-4 pt-10 md:px-8">
             <h3 className="mb-6 font-[system-ui] text-[22px] font-black text-[#16140f]">
               더 많은 SPEC 소식 보기
             </h3>
@@ -170,11 +197,8 @@ export default async function BlogPostPage({
                     {relatedPost.title}
                   </Link>
                   <p className="mb-2 font-['Pretendard',sans-serif] text-[13px] text-[#6b6b5e]">
-                    by{" "}
-                    <span className="text-[#16140f]">
-                      {relatedPost.author}
-                    </span>{" "}
-                    &middot; {relatedPost.date}
+                    by <span className="text-[#16140f]">{relatedPost.author}</span> &middot;{" "}
+                    {relatedPost.date}
                   </p>
                   <p className="mb-3 font-['Pretendard',sans-serif] text-[14px] font-normal leading-relaxed text-[#4a4a40] line-clamp-2">
                     {relatedPost.excerpt}
@@ -191,6 +215,45 @@ export default async function BlogPostPage({
           </div>
         </div>
       )}
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        .prose-content {
+          font-family: "MaruBuri", serif;
+          font-size: 17px;
+          line-height: 1.8;
+          color: #16140f;
+        }
+        .prose-content h1,
+        .prose-content h2,
+        .prose-content h3,
+        .prose-content h4,
+        .prose-content h5,
+        .prose-content h6 {
+          font-family: system-ui, -apple-system, sans-serif;
+          font-weight: 700;
+          line-height: 1.35;
+          margin: 1em 0 0.45em;
+        }
+        .prose-content p { margin: 0.75em 0; }
+        .prose-content blockquote {
+          border-left: 3px solid #ff6c0f;
+          padding-left: 1em;
+          margin: 1em 0;
+          font-style: italic;
+          color: #6b6b5e;
+        }
+        .prose-content a { color: #ff6c0f; text-decoration: underline; }
+        .prose-content img { max-width: 100%; border-radius: 8px; }
+        .prose-content pre {
+          background: #1a1a1a;
+          color: #fff;
+          padding: 14px 16px;
+          border-radius: 8px;
+          overflow-x: auto;
+        }
+        .prose-content pre code { color: #fff; }
+        .prose-content code { font-family: "SF Mono", Menlo, monospace; }
+      ` }} />
     </section>
   );
 }

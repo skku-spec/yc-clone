@@ -23,8 +23,7 @@
 // ─── Re-export Types ────────────────────────────────────────────────
 export type { Company } from "./companies-data";
 export type { Person, PeopleSection } from "./people-data";
-export type { BlogPost, TagInfo } from "../app/blog/blogData";
-export type { Job, RoleCategory, LocationOption } from "../app/jobs/jobsData";
+export type { RoleCategory, LocationOption } from "../app/jobs/jobsData";
 export type {
   LibraryItem,
   ContentType,
@@ -60,30 +59,21 @@ import {
 } from "./people-data";
 import type { Person } from "./people-data";
 
-import {
-  BLOG_POSTS,
-  TAGS,
-  getPostBySlug as _getPostBySlug,
-  getPostsByTag as _getPostsByTag,
-  getTagLabel as _getTagLabel,
-  getRelatedPosts as _getRelatedPosts,
-} from "../app/blog/blogData";
-import type { BlogPost } from "../app/blog/blogData";
+import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/lib/supabase/types";
 
 import {
-  allJobs,
   roleCategories,
   locationOptions,
   getRoleLabel as _getRoleLabel,
   getLocationLabel as _getLocationLabel,
 } from "../app/jobs/jobsData";
-import type { Job } from "../app/jobs/jobsData";
+type Job = Database["public"]["Tables"]["jobs"]["Row"];
 
 import {
-  libraryItems as _libraryItems,
   categories as _categories,
 } from "../app/library/library-data";
-import type { LibraryItem, Category } from "../app/library/library-data";
+import type { LibraryItem, Category, ContentType } from "../app/library/library-data";
 
 import {
   FOUNDERS as _FOUNDERS,
@@ -94,7 +84,6 @@ import {
 import type { Founder as FounderDirectory } from "./founders-data";
 
 import {
-  LAUNCHES as _LAUNCHES,
   CATEGORIES as _LAUNCH_CATEGORIES,
 } from "./launches-data";
 import type { Launch } from "./launches-data";
@@ -106,6 +95,120 @@ import {
   getRelatedCompanies as _getRelatedCompanies,
 } from "./company-details-data";
 import type { CompanyDetail } from "./company-details-data";
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  authorSlug: string;
+  date: string;
+  tags: string[];
+  featured?: boolean;
+  imageUrl?: string;
+  type?: "news" | "blog";
+  authorId?: string;
+  published?: boolean;
+  id?: string;
+}
+
+export interface TagInfo {
+  slug: string;
+  label: string;
+}
+
+type PostRow = Database["public"]["Tables"]["posts"]["Row"];
+type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
+type TagRow = Database["public"]["Tables"]["tags"]["Row"];
+
+function formatBlogDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "long",
+  });
+}
+
+async function getTagsByPostIds(
+  postIds: string[]
+): Promise<Map<string, string[]>> {
+  const tagsByPostId = new Map<string, string[]>();
+
+  if (postIds.length === 0) {
+    return tagsByPostId;
+  }
+
+  const supabase = await createClient();
+  const { data: postTags, error: postTagsError } = await supabase
+    .from("post_tags")
+    .select("post_id, tag_id")
+    .in("post_id", postIds);
+
+  if (postTagsError || !postTags || postTags.length === 0) {
+    return tagsByPostId;
+  }
+
+  const tagIds = [...new Set(postTags.map((postTag) => postTag.tag_id))];
+  const { data: tags, error: tagsError } = await supabase
+    .from("tags")
+    .select("id, slug")
+    .in("id", tagIds);
+
+  if (tagsError || !tags) {
+    return tagsByPostId;
+  }
+
+  const tagSlugById = new Map(tags.map((tag) => [tag.id, tag.slug]));
+
+  for (const postTag of postTags) {
+    const slug = tagSlugById.get(postTag.tag_id);
+    if (!slug) continue;
+
+    const current = tagsByPostId.get(postTag.post_id) ?? [];
+    current.push(slug);
+    tagsByPostId.set(postTag.post_id, current);
+  }
+
+  return tagsByPostId;
+}
+
+async function mapRowsToBlogPosts(rows: PostRow[]): Promise<BlogPost[]> {
+  if (rows.length === 0) {
+    return [];
+  }
+
+  const supabase = await createClient();
+  const authorIds = [...new Set(rows.map((row) => row.author_id))];
+
+  const [{ data: profiles }, tagsByPostId] = await Promise.all([
+    supabase.from("profiles").select("id, name, slug").in("id", authorIds),
+    getTagsByPostIds(rows.map((row) => row.id)),
+  ]);
+
+  const profileById = new Map<string, Pick<ProfileRow, "name" | "slug">>(
+    (profiles ?? []).map((profile) => [profile.id, profile])
+  );
+
+  return rows.map((row) => {
+    const profile = profileById.get(row.author_id);
+    return {
+      slug: row.slug,
+      title: row.title,
+      excerpt: row.excerpt,
+      content: row.content,
+      author: profile?.name ?? "",
+      authorSlug: profile?.slug ?? "",
+      date: formatBlogDate(row.created_at),
+      tags: tagsByPostId.get(row.id) ?? [],
+      featured: row.featured,
+      imageUrl: row.image_url,
+      type: row.type,
+      authorId: row.author_id,
+      published: row.published,
+      id: row.id,
+    };
+  });
+}
 
 // ─── Companies ──────────────────────────────────────────────────────
 
@@ -192,30 +295,143 @@ export async function getAllPartnerSlugs(): Promise<string[]> {
 
 // ─── Blog ───────────────────────────────────────────────────────────
 
-export async function getBlogPosts(tag?: string): Promise<BlogPost[]> {
-  if (tag) return _getPostsByTag(tag);
-  return BLOG_POSTS;
+export async function getBlogPosts(
+  tag?: string,
+  type?: "news" | "blog"
+): Promise<BlogPost[]> {
+  const supabase = await createClient();
+
+  let postIdsByTag: string[] | null = null;
+  if (tag) {
+    const { data: tagRow } = await supabase
+      .from("tags")
+      .select("id")
+      .eq("slug", tag)
+      .maybeSingle();
+
+    if (!tagRow) {
+      return [];
+    }
+
+    const { data: postTags } = await supabase
+      .from("post_tags")
+      .select("post_id")
+      .eq("tag_id", tagRow.id);
+
+    postIdsByTag = [...new Set((postTags ?? []).map((postTag) => postTag.post_id))];
+    if (postIdsByTag.length === 0) {
+      return [];
+    }
+  }
+
+  let query = supabase
+    .from("posts")
+    .select("*")
+    .eq("published", true)
+    .order("created_at", { ascending: false });
+
+  if (type) {
+    query = query.eq("type", type);
+  }
+
+  if (postIdsByTag) {
+    query = query.in("id", postIdsByTag);
+  }
+
+  const { data: rows } = await query;
+
+  return mapRowsToBlogPosts(rows ?? []);
 }
 
 export async function getBlogPostBySlug(
   slug: string
 ): Promise<BlogPost | undefined> {
-  return _getPostBySlug(slug);
+  const supabase = await createClient();
+  const { data: row } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .maybeSingle();
+
+  if (!row) {
+    return undefined;
+  }
+
+  const [mapped] = await mapRowsToBlogPosts([row]);
+  return mapped;
 }
 
-export async function getBlogTags() {
-  return TAGS;
+export async function getBlogTags(): Promise<TagInfo[]> {
+  const supabase = await createClient();
+  const { data } = await supabase.from("tags").select("slug, label");
+
+  return (data ?? []).map((tag: Pick<TagRow, "slug" | "label">) => ({
+    slug: tag.slug,
+    label: tag.label,
+  }));
 }
 
 export async function getTagLabel(slug: string): Promise<string> {
-  return _getTagLabel(slug);
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("tags")
+    .select("label")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  return data?.label ?? slug;
 }
 
 export async function getRelatedPosts(
   currentSlug: string,
   limit?: number
 ): Promise<BlogPost[]> {
-  return _getRelatedPosts(currentSlug, limit);
+  const supabase = await createClient();
+  const cappedLimit = limit ?? 3;
+
+  const { data: currentPost } = await supabase
+    .from("posts")
+    .select("id")
+    .eq("slug", currentSlug)
+    .maybeSingle();
+
+  if (!currentPost) {
+    return [];
+  }
+
+  const { data: currentPostTags } = await supabase
+    .from("post_tags")
+    .select("tag_id")
+    .eq("post_id", currentPost.id);
+
+  const tagIds = [...new Set((currentPostTags ?? []).map((postTag) => postTag.tag_id))];
+  if (tagIds.length === 0) {
+    return [];
+  }
+
+  const { data: relatedPostTags } = await supabase
+    .from("post_tags")
+    .select("post_id")
+    .in("tag_id", tagIds);
+
+  const relatedPostIds = [...new Set((relatedPostTags ?? []).map((postTag) => postTag.post_id))]
+    .filter((postId) => postId !== currentPost.id);
+
+  if (relatedPostIds.length === 0) {
+    return [];
+  }
+
+  const { data: rows } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("published", true)
+    .neq("slug", currentSlug)
+    .in("id", relatedPostIds)
+    .order("created_at", { ascending: false })
+    .limit(cappedLimit);
+
+  return mapRowsToBlogPosts(rows ?? []);
 }
 
 // ─── Jobs ───────────────────────────────────────────────────────────
@@ -225,22 +441,28 @@ export async function getJobs(filters?: {
   location?: string;
   query?: string;
 }): Promise<Job[]> {
-  let result = [...allJobs];
-  if (filters?.role) {
-    result = result.filter((j) => j.roleSlug === filters.role);
+  const supabase = await createClient();
+
+  let query = supabase.from("jobs").select("*").eq("active", true);
+
+  if (filters?.role && filters.role !== "all") {
+    query = query.eq("role_slug", filters.role);
   }
-  if (filters?.location) {
-    result = result.filter((j) => j.locationSlug === filters.location);
+
+  if (filters?.location && filters.location !== "all") {
+    query = query.eq("location_slug", filters.location);
   }
+
   if (filters?.query) {
-    const q = filters.query.toLowerCase();
-    result = result.filter(
-      (j) =>
-        j.title.toLowerCase().includes(q) ||
-        j.company.toLowerCase().includes(q)
-    );
+    const q = filters.query.trim();
+    if (q) {
+      query = query.or(`title.ilike.%${q}%,company.ilike.%${q}%`);
+    }
   }
-  return result;
+
+  const { data: rows } = await query;
+
+  return rows ?? [];
 }
 
 export async function getRoleCategories() {
@@ -266,30 +488,70 @@ export async function getLibraryItems(filters?: {
   type?: string;
   query?: string;
 }): Promise<LibraryItem[]> {
-  let result = [..._libraryItems];
+  const supabase = await createClient();
+  let query = supabase.from("library_items").select("*");
+
   if (filters?.category) {
-    result = result.filter((item) =>
-      item.categories.includes(filters.category!)
-    );
+    query = query.contains("categories", [filters.category]);
   }
+
   if (filters?.type) {
-    result = result.filter((item) => item.type === filters.type);
+    query = query.eq("type", filters.type);
   }
+
   if (filters?.query) {
-    const q = filters.query.toLowerCase();
-    result = result.filter(
-      (item) =>
-        item.title.toLowerCase().includes(q) ||
-        item.description.toLowerCase().includes(q)
-    );
+    const q = filters.query.trim();
+    if (q) {
+      query = query.or(`title.ilike.%${q}%,description.ilike.%${q}%`);
+    }
   }
-  return result;
+
+  const { data: rows } = await query;
+
+  return (rows ?? []).map((row) => ({
+    slug: row.slug,
+    title: row.title,
+    author: row.author,
+    authorRole: row.author_role,
+    type: row.type as ContentType,
+    categories: row.categories as Category[],
+    description: row.description,
+    body: row.body,
+    date: row.date,
+    views: String(row.views),
+    duration: row.duration,
+    youtubeId: row.youtube_id,
+    featured: row.featured,
+    thumbnailColor: row.thumbnail_color,
+  }));
 }
 
 export async function getLibraryItemBySlug(
   slug: string
 ): Promise<LibraryItem | undefined> {
-  return _libraryItems.find((item) => item.slug === slug);
+  const supabase = await createClient();
+  const { data: row } = await supabase.from("library_items").select("*").eq("slug", slug).maybeSingle();
+
+  if (!row) {
+    return undefined;
+  }
+
+  return {
+    slug: row.slug,
+    title: row.title,
+    author: row.author,
+    authorRole: row.author_role,
+    type: row.type as ContentType,
+    categories: row.categories as Category[],
+    description: row.description,
+    body: row.body,
+    date: row.date,
+    views: String(row.views),
+    duration: row.duration,
+    youtubeId: row.youtube_id,
+    featured: row.featured,
+    thumbnailColor: row.thumbnail_color,
+  };
 }
 
 export async function getLibraryCategories(): Promise<Category[]> {
@@ -336,7 +598,28 @@ export async function getFounderDirectoryFilterOptions() {
 // ─── Launches ───────────────────────────────────────────────────────
 
 export async function getLaunches(): Promise<Launch[]> {
-  return _LAUNCHES;
+  const supabase = await createClient();
+  const { data: rows } = await supabase.from("launches").select("*").order("votes", { ascending: false });
+
+  return (rows ?? []).map((row, index) => {
+    const createdAtTime = new Date(row.created_at).getTime();
+    const daysAgo = Number.isNaN(createdAtTime)
+      ? 0
+      : Math.floor((Date.now() - createdAtTime) / 86400000);
+
+    return {
+      id: index + 1,
+      company: row.company,
+      slug: row.slug,
+      tagline: row.tagline,
+      description: row.description,
+      category: row.category,
+      batch: row.batch,
+      votes: row.votes,
+      datePosted: row.created_at,
+      daysAgo,
+    };
+  });
 }
 
 export async function getLaunchCategories() {
