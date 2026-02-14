@@ -44,3 +44,18 @@ next-env.d.ts
 /capture/
 /screenshots/
 /test-results/
+
+# Agent work notes
+.sisyphus/
+notes.md
+task_plan.md
+*_REFERENCE.md
+*_REFERENCE.txt
+*_MAPPING.md
+*_STRUCTURE.txt
+*_GATES.md
+*_HOTSPOTS.md
+*_INDEX.md
+SITE_ARCHITECTURE.md
+nextjs_branch_cicd_guide.md
+BLOG_MIGRATION_MAP.md
