@@ -5,6 +5,7 @@ export default function Footer() {
   const footerLinks = {
     programs: [
       { label: "SPEC 프로그램", href: "/about" },
+      { label: "커리큘럼", href: "/curriculum" },
       { label: "채용 정보", href: "/jobs" },
       { label: "팀원 찾기", href: "/cofounder-matching" },
     ],
