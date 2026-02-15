@@ -7,10 +7,10 @@ import { useEffect, useRef, useState } from 'react';
  * ─────────────────────────────────────────── */
 
 const stats = [
-  { number: '3', label: '기수', subtext: 'Cohorts Completed' },
-  { number: '120+', label: '멤버', subtext: 'Total Alumni' },
-  { number: '30+', label: '팀', subtext: 'Teams Launched' },
-  { number: '8+', label: '수상', subtext: 'Competition Wins' },
+  { number: '₩X억+', label: '누적 매출', subtext: 'Total Revenue' },
+  { number: '30+', label: '프로젝트 런칭', subtext: 'Projects Launched' },
+  { number: '120+', label: '알럼나이', subtext: 'Total Alumni' },
+  { number: '8+', label: '수상·선정', subtext: 'Awards & Recognitions' },
 ];
 
 const newsItems = [
@@ -121,7 +121,7 @@ export default function Achievements() {
             className="mt-4 text-xl font-normal text-white/70"
             style={{ fontFamily: 'var(--font-korean-sans)' }}
           >
-            3기까지의 누적 성과
+            3기수 누적 성과 — 숫자가 증명합니다
           </p>
         </div>
 

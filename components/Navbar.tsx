@@ -213,7 +213,7 @@ export default function Navbar() {
           <div className="absolute right-8 flex items-center gap-3">
             <Link
               href={isAuthenticated ? "/apply" : "/login?redirect=/apply"}
-              className="inline-flex items-center rounded-full bg-[#FF6C0F] px-5 py-2 font-['Pretendard',sans-serif] text-sm font-semibold text-white transition-opacity hover:opacity-85"
+              className="inline-flex items-center rounded-full bg-[#FF6C0F] px-5 py-2 font-['MaruBuri',serif] text-sm italic text-white transition-opacity hover:opacity-85"
             >
               Apply
             </Link>
@@ -281,7 +281,7 @@ export default function Navbar() {
           <div className="absolute right-14 flex items-center gap-2">
             <Link
               href={isAuthenticated ? "/apply" : "/login?redirect=/apply"}
-              className="inline-flex items-center rounded-full bg-[#FF6C0F] px-4 py-1.5 font-['Pretendard',sans-serif] text-xs font-semibold text-white transition-opacity hover:opacity-85"
+              className="inline-flex items-center rounded-full bg-[#FF6C0F] px-4 py-1.5 font-['MaruBuri',serif] text-xs italic text-white transition-opacity hover:opacity-85"
             >
               Apply
             </Link>

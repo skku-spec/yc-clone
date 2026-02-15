@@ -1,3 +1,9 @@
+/**
+ * WARNING: This component contains PLACEHOLDER data from Y Combinator's website.
+ * The companies listed (OpenAI, Airbnb, Stripe, etc.) are NOT affiliated with SPEC.
+ * DO NOT use this component on any public-facing page until replaced with real SPEC data.
+ * Images are hotlinked from bookface-static.ycombinator.com — do not deploy.
+ */
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
