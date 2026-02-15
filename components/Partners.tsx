@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 const mainPartners = [
-  { name: '성균관대학교\nRISE 사업단', width: 'w-40' },
-  { name: '카카오모빌리티', width: 'w-40' },
-  { name: 'VCC', width: 'w-28' },
+  { name: '성균관대학교 RISE 사업단', logo: '/logos/rise.png', height: 'h-[120px]' },
+  { name: '카카오모빌리티', logo: '/logos/kakao.svg', height: 'h-10' },
+  { name: 'SL IT', logo: '/logos/SL_IT.svg', height: 'h-10' },
 ];
 
 const mentorCompanies = [
@@ -52,16 +53,16 @@ export default function Partners() {
           함께하는 파트너
         </p>
 
-        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
+        <div className="flex items-center justify-center gap-14 sm:gap-20">
           {mainPartners.map((partner) => (
-            <div
+            <Image
               key={partner.name}
-              className={`flex h-[60px] ${partner.width} items-center justify-center rounded-lg border border-white/10 bg-transparent px-5`}
-            >
-              <span className="whitespace-pre-line text-center font-['Pretendard',sans-serif] text-sm font-semibold leading-tight text-white/90">
-                {partner.name}
-              </span>
-            </div>
+              src={partner.logo}
+              alt={partner.name}
+              width={300}
+              height={80}
+              className={`${partner.height} w-auto object-contain brightness-0 invert`}
+            />
           ))}
         </div>
 

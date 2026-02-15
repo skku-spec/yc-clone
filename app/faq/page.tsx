@@ -213,7 +213,7 @@ const otherQA: QA[] = [
     question: "SPEC 이름의 뜻은?",
     answer: (
       <p>
-        SPEC은 'SKKU Prep Entrepreneurs' Club'의 약자입니다.
+         SPEC은 &apos;SKKU Prep Entrepreneurs&apos; Club&apos;의 약자입니다.
       </p>
     ),
   },

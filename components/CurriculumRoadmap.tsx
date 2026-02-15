@@ -6,45 +6,48 @@ const phases = [
   {
     num: '01',
     weeks: 'W1 – W10',
-    motto: 'SELL FIRST. BUILD NEVER.',
+    motto: '팔아라. 만들지 마라.',
+    mottoEn: 'SELL FIRST. BUILD NEVER.',
     subtitle: '돈 버는 감각 익히기',
     description:
       '매주 팀을 셔플하며 10만원부터 시작. 아이디어가 아닌 실제 매출로 증명하는 10주.',
     items: [
-      'Revenue challenges: ₩100K → ₩2M',
-      'Weekly team shuffles — find your co-founders',
-      'Mom Test, Pre-selling, Pivot drills',
-      'Ends with Ideathon (1박2일) → Team lock-in',
+      '매출 챌린지: ₩10만 → ₩200만',
+      '매주 팀 셔플 — 공동창업자 찾기',
+      'Mom Test, Pre-selling, Pivot 훈련',
+      '아이디에이션 (1박2일) → 팀 확정',
     ],
     kpi: '₩100K → ₩2M',
   },
   {
     num: '02',
     weeks: 'W11 – W28',
-    motto: "NUMBERS DON'T LIE.",
+    motto: '숫자는 거짓말하지 않는다.',
+    mottoEn: "NUMBERS DON'T LIE.",
     subtitle: '실제 스타트업 운영',
     description:
       '확정된 팀으로 MVP 빌드 → 런칭 → 매출 → IR. 매주 매출 보드 공개. 숫자가 곧 실력.',
     items: [
-      'BUILD (W11-13): MVP → Launch in 3 weeks',
-      'REVENUE (W14-20): PMF → Recurring revenue → Growth',
-      'SCALE (W21-28): Scaling → Team/Legal → IR prep → Demo Day',
-      'Weekly public revenue board + bi-weekly "insane execution" challenges',
+      'BUILD (W11-13): MVP → 3주 안에 런칭',
+      'REVENUE (W14-20): PMF → 반복 매출 → 성장',
+      'SCALE (W21-28): 스케일링 → 법인/팀 → IR 준비 → 데모데이',
+      '매주 공개 매출 보드 + 격주 도전 과제',
     ],
     kpi: '₩1M → ₩90M+',
   },
   {
     num: '03',
     weeks: 'W29 – W30',
-    motto: 'THE NETWORK IS THE PRODUCT.',
+    motto: '네트워크가 곧 프로덕트다.',
+    mottoEn: 'THE NETWORK IS THE PRODUCT.',
     subtitle: '회고와 연결',
     description:
       '데모데이 이후 알럼나이 네트워크 합류. 후배 멘토링, 월간 동문 모임으로 영원히 연결.',
     items: [
-      'Final Demo Day presentations',
-      'Retrospective & celebration',
-      'Alumni network onboarding',
-      'Lifetime founder community',
+      '최종 데모데이 발표',
+      '회고 & 축하',
+      '알럼나이 네트워크 합류',
+      '평생 파운더 커뮤니티',
     ],
     kpi: 'Demo Day → Alumni',
   },
@@ -102,7 +105,7 @@ export default function CurriculumRoadmap() {
             <span className="text-[#FF6C0F]">ZERO EXCUSES.</span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-xl font-['Pretendard',sans-serif] text-lg leading-relaxed text-white/60 lg:text-xl">
+          <p className="mx-auto mt-5 max-w-xl font-['Pretendard',sans-serif] text-lg leading-relaxed text-white/50 lg:text-xl">
             3단계 커리큘럼 — 매주 매출로 증명하는 30주
           </p>
 
@@ -147,9 +150,12 @@ export default function CurriculumRoadmap() {
                   {phase.weeks}
                 </span>
 
-                <h3 className="mt-3 font-['Outfit',sans-serif] text-2xl font-black uppercase leading-tight tracking-tight text-white md:text-3xl lg:text-[2rem]">
-                  {phase.motto}
+                <h3 className="mt-3 font-['Outfit',sans-serif] text-2xl font-black uppercase leading-tight tracking-tight text-white md:text-3xl">
+                  {phase.mottoEn}
                 </h3>
+                <p className="mt-1.5 font-['Pretendard',sans-serif] text-sm font-semibold text-white/40">
+                  {phase.motto}
+                </p>
 
                 <p className="mt-1.5 font-['Pretendard',sans-serif] text-base font-semibold text-white/70">
                   {phase.subtitle}

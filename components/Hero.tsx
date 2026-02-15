@@ -26,32 +26,41 @@ export default function Hero() {
          >
           {/* Batch badge */}
            <span className="inline-block rounded-full border border-white/20 px-4 py-1 font-['Outfit',sans-serif] text-xs uppercase tracking-[0.08em] text-white/50">
-             2026 Spring · 4th Batch
+              2026 Spring · 4기 모집중
            </span>
 
             {/* Main headline */}
-            <h1
-              className="text-center font-black uppercase leading-[0.9] tracking-[-0.03em] text-white text-[48px] md:text-[72px] lg:text-[96px]"
-              style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
-            >
-              <span className="text-orange-500">EXECUTION</span>
-              <br />
-              IS EVERYTHING.
-            </h1>
+             <h1
+               className="text-center font-black uppercase leading-[0.9] tracking-[-0.03em] text-white text-[48px] md:text-[72px] lg:text-[96px]"
+               style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
+             >
+                EXECUTION
+                <br />
+                IS <span className="text-orange-500">EVERYTHING.</span>
+             </h1>
 
-            {/* Subtext */}
-            <div className="text-center mt-6 flex flex-col gap-3">
-              <p
-                className="font-['Outfit',sans-serif] font-semibold tracking-[0.05em] text-white text-base md:text-lg"
-              >
-                SKKU Prep Entrepreneurs&apos; Club
-              </p>
-              <p
-                className="font-['Outfit',sans-serif] font-light tracking-wide text-white/70 text-base md:text-lg"
-              >
-                Building founders who devour markets — Korea first, then the world.
-              </p>
-            </div>
+              {/* Subtext */}
+               <div className="text-center mt-6 flex flex-col gap-3">
+                 <p className="font-['Pretendard',sans-serif] font-semibold text-white text-base md:text-lg">
+                   SKKU Prep Entrepreneurs&apos; Club
+                 </p>
+                 <p className="font-['MaruBuri',serif] font-normal text-white/70 text-base md:text-lg">
+                   Building founders who devour markets — Korea first, then the world
+                 </p>
+               </div>
+
+             {/* CTA */}
+             <div className="mt-10 flex flex-col items-center gap-3">
+               <a
+                 href="/apply"
+                 className="flex h-14 items-center justify-center rounded-full bg-[#FF6C0F] px-8 font-['Pretendard',sans-serif] text-lg font-semibold text-white transition-all duration-200 hover:brightness-95"
+               >
+                 4기 지원하기
+               </a>
+               <span className="font-['Pretendard',sans-serif] text-sm text-white/40">
+                 마감: 2026년 3월
+               </span>
+             </div>
         </div>
 
          {/* Scroll-down arrow */}

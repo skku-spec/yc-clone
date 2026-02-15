@@ -32,9 +32,9 @@ export default function FeaturedCompaniesPage() {
               Featured
             </h1>
           </div>
-          <p className="mx-auto mb-8 max-w-[640px] text-center font-['Pretendard',sans-serif] text-[17px] font-normal leading-relaxed text-[#16140f]/80">
-           The ones everyone's watching right now.
-         </p>
+           <p className="mx-auto mb-8 max-w-[640px] text-center font-['Pretendard',sans-serif] text-[17px] font-normal leading-relaxed text-[#16140f]/80">
+            The ones everyone&apos;s watching right now.
+          </p>
 
         <div className="mb-8 flex items-center gap-1 border-b border-[#16140f]/10">
            {TABS.map((tab) => (

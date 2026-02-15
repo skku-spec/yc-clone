@@ -20,7 +20,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth removed — causes jank with heavy pages */
 }
 
 body {
