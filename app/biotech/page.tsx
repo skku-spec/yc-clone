@@ -87,7 +87,7 @@ export default function BiotechPage() {
           </ul>
 
           <p className="mb-6">
-            <strong className="font-normal">"실험실에서 시장으로"</strong> — SPEC은 대학 연구를 사업으로 연결하는 것을 돕습니다. 성균관대 캠퍼스 내 연구 시설 접근, 외부 랩 공간 연결, 장비 및 시약 지원까지, 연구 환경이 필요한 모든 부분을 지원합니다.
+            <strong className="font-normal">&quot;실험실에서 시장으로&quot;</strong> — SPEC은 대학 연구를 사업으로 연결하는 것을 돕습니다. 성균관대 캠퍼스 내 연구 시설 접근, 외부 랩 공간 연결, 장비 및 시약 지원까지, 연구 환경이 필요한 모든 부분을 지원합니다.
           </p>
 
           <h3
@@ -189,7 +189,7 @@ export default function BiotechPage() {
 
           <blockquote className="mb-2 border-l-4 border-[#FF6C0F] pl-6 not-italic text-[#16140f]/80">
             <p>
-              처음에는 기술만 있으면 창업할 수 있다고 생각했습니다. SPEC을 통해 비즈니스 모델, 고객 개발, 투자 유치까지 배우면서 진짜 '스타트업'이 무엇인지 알게 되었습니다. 성균관대의 네트워크도 큰 자산이었습니다.
+              처음에는 기술만 있으면 창업할 수 있다고 생각했습니다. SPEC을 통해 비즈니스 모델, 고객 개발, 투자 유치까지 배우면서 진짜 &apos;스타트업&apos;이 무엇인지 알게 되었습니다. 성균관대의 네트워크도 큰 자산이었습니다.
             </p>
           </blockquote>
           <p className="mb-8 text-sm text-[#16140f]/60">

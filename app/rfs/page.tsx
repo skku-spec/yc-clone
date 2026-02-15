@@ -148,9 +148,9 @@ export default function RFSPage() {
     <div className="mx-auto max-w-[1200px] px-4 pb-24 pt-14 sm:pt-16 lg:pt-20 md:pt-20">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="font-[system-ui] text-[clamp(2.5rem,5vw,3.75rem)] font-black tracking-tight uppercase text-[#16140f]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          What We're Looking For
-        </h1>
+         <h1 className="font-[system-ui] text-[clamp(2.5rem,5vw,3.75rem)] font-black tracking-tight uppercase text-[#16140f]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+           What We&apos;re Looking For
+         </h1>
         <p className="mx-auto mt-5 max-w-[800px] font-['Pretendard',sans-serif] text-base font-normal leading-relaxed text-[#16140f]/80 sm:text-lg">
           SPEC이 찾는 분야와 아이디어를 공유합니다. 여기 나열된 분야가 전부는 아닙니다 — 여러분의 독창적인 아이디어가 가장 중요합니다. 이 목록은 참고용으로, 여기 없는 분야라도 얼마든지 지원할 수 있습니다.
         </p>
