@@ -11,12 +11,12 @@ const speakerCards = [
   { name: "한지원", company: "삼성전자 신사업개발" },
 ];
 
-function useScrollReveal() {
-  const ref = useRef<HTMLDivElement>(null);
+export default function InTheRoom() {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = sectionRef.current;
     if (!el) return;
 
     const observer = new IntersectionObserver(
@@ -33,15 +33,9 @@ function useScrollReveal() {
     return () => observer.disconnect();
   }, []);
 
-  return { ref, isVisible };
-}
-
-export default function InTheRoom() {
-  const speakers = useScrollReveal();
-
   return (
     <section className="py-24 lg:py-32 px-6 bg-transparent">
-      <div ref={speakers.ref} className="mx-auto max-w-[1100px]">
+      <div ref={sectionRef} className="mx-auto max-w-[1100px]">
         <span
           className="mb-4 block text-sm font-bold uppercase tracking-[0.2em] text-white/50"
           style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
@@ -67,8 +61,8 @@ export default function InTheRoom() {
                 key={speaker.name}
                 className="rounded-xl border border-white/8 bg-white/[0.02] p-5"
                 style={{
-                  opacity: speakers.isVisible ? 1 : 0,
-                  transform: speakers.isVisible
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible
                     ? "translateY(0)"
                     : "translateY(32px)",
                   transition: "opacity 0.5s ease, transform 0.5s ease",
