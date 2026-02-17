@@ -598,9 +598,6 @@ function VccTrack() {
               >
                 {mod.num}
               </span>
-              <span className="rounded-full border border-[#FF6C0F]/20 bg-[#FF6C0F]/5 px-2.5 py-0.5 font-['Pretendard',sans-serif] text-[11px] font-bold text-[#FF6C0F]">
-                {mod.partner}
-              </span>
             </div>
 
             <h3

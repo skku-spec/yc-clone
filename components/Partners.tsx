@@ -6,19 +6,10 @@ import Image from 'next/image';
 const mainPartners = [
   { name: '성균관대학교 RISE 사업단', logo: '/logos/rise.png', mobileHeight: 'h-14', desktopHeight: 'md:h-[120px]' },
   { name: '카카오모빌리티', logo: '/logos/kakao.svg', mobileHeight: 'h-5', desktopHeight: 'md:h-10' },
-  { name: 'SL IT', logo: '/logos/SL_IT.svg', mobileHeight: 'h-4', desktopHeight: 'md:h-10' },
+  { name: 'SL IT', logo: '/logos/SL_IT.svg', mobileHeight: 'h-3', desktopHeight: 'md:h-10' },
 ];
 
-const mentorCompanies = [
-  '카카오모빌리티',
-  '삼성전자',
-  '네이버',
-  '토스',
-  '쿠팡',
-  '배달의민족',
-  '라인',
-  'SK텔레콤',
-];
+
 
 export default function Partners() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -66,15 +57,7 @@ export default function Partners() {
           ))}
         </div>
 
-        <div className="mx-auto my-10 max-w-md border-t border-white/8" />
 
-        <p className="mb-6 text-center font-['Pretendard',sans-serif] text-xs font-semibold uppercase tracking-[0.06em] text-white/50">
-          멘토진 출신 기업
-        </p>
-
-        <p className="text-center font-['Pretendard',sans-serif] text-base font-normal text-white/60">
-          {mentorCompanies.join(' · ')}
-        </p>
       </div>
     </section>
   );

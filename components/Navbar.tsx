@@ -250,24 +250,24 @@ export default function Navbar() {
                 </button>
                 <div className="dropdown-menu hidden">
                   <div className={`dropdown-container ${dropdownBg} backdrop-blur-sm rounded-lg p-2 mt-2 border min-w-[220px]`}>
-                    <div className="px-4 py-2">
-                      <p className={`truncate text-sm font-medium font-['Pretendard',sans-serif] ${textColor}`}>{displayName}</p>
+                     <div className="px-4 py-2">
+                      <p className="truncate text-sm font-medium font-['Pretendard',sans-serif] text-[#16140f]">{displayName}</p>
                       <span className="mt-1 inline-flex rounded-full bg-[#FF6C0F]/10 px-2 py-0.5 text-xs font-medium text-[#FF6C0F]">
                         {roleLabel}
                       </span>
                     </div>
-                    <Link href="/profile" className={`dropdown-item block px-4 py-2 ${dropdownText} rounded text-sm font-['Pretendard',sans-serif]`}>
+                    <Link href="/profile" className="dropdown-item block px-4 py-2 text-[#16140f] hover:bg-gray-100 rounded text-sm font-['Pretendard',sans-serif]">
                       내 프로필
                     </Link>
                     {role === "admin" && (
-                      <Link href="/admin" className={`dropdown-item block px-4 py-2 ${dropdownText} rounded text-sm font-['Pretendard',sans-serif]`}>
+                      <Link href="/admin" className="dropdown-item block px-4 py-2 text-[#16140f] hover:bg-gray-100 rounded text-sm font-['Pretendard',sans-serif]">
                         관리자
                       </Link>
                     )}
                     <button
                       type="button"
                       onClick={handleSignOut}
-                      className={`dropdown-item block w-full px-4 py-2 text-left ${dropdownText} rounded text-sm font-['Pretendard',sans-serif]`}
+                      className="dropdown-item block w-full px-4 py-2 text-left text-[#16140f] hover:bg-gray-100 rounded text-sm font-['Pretendard',sans-serif]"
                     >
                       로그아웃
                     </button>

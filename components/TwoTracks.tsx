@@ -102,7 +102,7 @@ export default function TwoTracks() {
             return (
               <div
                 key={track.title}
-                className={`flex flex-col rounded-xl border p-5 sm:p-8 ${
+                className={`flex flex-col rounded-xl border p-5 pb-8 sm:p-8 sm:pb-10 ${
                   isPreneur
                     ? 'border-[#FF6C0F]/25 bg-[#FF6C0F]/[0.03]'
                     : 'border-white/10 bg-white/[0.02]'
@@ -163,12 +163,13 @@ export default function TwoTracks() {
                   {isExpanded ? '접기 ↑' : '자세히 보기 ↓'}
                 </button>
 
+                <div className="min-h-6 sm:flex-1" />
                 <Link
                   href={track.cta.href}
-                  className={`mt-auto block pt-4 text-center rounded-lg py-3 text-sm font-semibold transition-all duration-200 sm:pt-6 ${
+                  className={`flex h-11 items-center justify-center rounded-lg text-sm font-semibold transition-all duration-200 sm:h-12 ${
                     isPreneur
                       ? 'bg-[#FF6C0F] text-white hover:brightness-110'
-                      : 'border border-white/15 bg-transparent text-white hover:bg-white/[0.04]'
+                      : 'border border-white/20 bg-transparent text-white hover:bg-white/[0.06]'
                   }`}
                   style={{ fontFamily: "'Pretendard', sans-serif" }}
                 >

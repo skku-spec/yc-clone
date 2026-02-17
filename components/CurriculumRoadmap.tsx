@@ -8,46 +8,61 @@ const phases = [
     weeks: 'W1 – W10',
     motto: '팔아라. 만들지 마라.',
     mottoEn: 'SELL FIRST. BUILD NEVER.',
-    subtitle: '돈 버는 감각 익히기',
+    subtitle: 'BOOTCAMP — 돈 버는 감각 익히기',
     description:
       '매주 팀을 셔플하며 10만원부터 시작. 아이디어가 아닌 실제 매출로 증명하는 10주.',
     items: [
-      '매출 챌린지: ₩10만 → ₩200만',
+      '제로투원 챌린지 → 10만원 챌린지 → 30만원 챌린지',
       '매주 팀 셔플 — 공동창업자 찾기',
-      'Mom Test, Pre-selling, Pivot 훈련',
-      '아이디에이션 (1박2일) → 팀 확정',
+      '비즈니스 케이스 스터디 & 가설 검증 인터뷰',
+      'IR 특강 & 아이디어톤 (1박2일) → 팀 확정',
     ],
-    kpi: '₩100K → ₩2M',
+    kpi: '₩0 → ₩300K',
   },
   {
     num: '02',
-    weeks: 'W11 – W28',
+    weeks: 'W11 – W20',
     motto: '숫자는 거짓말하지 않는다.',
-    mottoEn: "NUMBERS DON'T LIE.",
-    subtitle: '실제 스타트업 운영',
+    mottoEn: 'BUILD & GROW.',
+    subtitle: 'MVP 빌드 → 런칭 → 성장',
     description:
-      '확정된 팀으로 MVP 빌드 → 런칭 → 매출 → IR. 매주 매출 보드 공개. 숫자가 곧 실력.',
+      '확정된 팀으로 3주 안에 MVP 런칭, 이후 그로스 해킹·마케팅·자동화로 반복 매출을 만든다.',
     items: [
-      'BUILD (W11-13): MVP → 3주 안에 런칭',
-      'REVENUE (W14-20): PMF → 반복 매출 → 성장',
-      'SCALE (W21-28): 스케일링 → 법인/팀 → IR 준비 → 데모데이',
-      '매주 공개 매출 보드 + 격주 도전 과제',
+      'MVP 정의 → 개발 스프린트 → 3주 만에 런칭',
+      '그로스 해킹 & 유닛 이코노믹스 (CAC/LTV)',
+      '피봇팅 · 유료 마케팅 · 바이럴 루프 · 운영 자동화',
+      'Death Valley 중간 점검 — 지표 Self-Roasting',
     ],
-    kpi: '₩1M → ₩90M+',
+    kpi: '₩10K → ₩30K',
   },
   {
     num: '03',
+    weeks: 'W21 – W28',
+    motto: '스케일하거나, 죽거나.',
+    mottoEn: 'SCALE OR DIE.',
+    subtitle: '스케일업 → 데모데이',
+    description:
+      'B2B 영업, 수익모델 구체화, PMF 검증을 거쳐 최종 데모데이에서 투자자 앞에 선다.',
+    items: [
+      'B2B 영업 & 수익모델 구체화 (구독 vs 건당)',
+      '고객 경험(CX) · 법률/세무 · PMF 검증',
+      '조직 관리 & 채용 전략',
+      '최종 데모데이 리허설 → Final 해커톤 → 데모데이',
+    ],
+    kpi: '₩100K → Demo Day',
+  },
+  {
+    num: '04',
     weeks: 'W29 – W30',
     motto: '네트워크가 곧 프로덕트다.',
     mottoEn: 'THE NETWORK IS THE PRODUCT.',
-    subtitle: '회고와 연결',
+    subtitle: 'CONNECT — 회고와 연결',
     description:
-      '데모데이 이후 알럼나이 네트워크 합류. 후배 멘토링, 월간 동문 모임으로 영원히 연결.',
+      '데모데이 이후 전체 회고, 알럼나이 네트워크 합류. 평생 파운더 커뮤니티로 연결.',
     items: [
-      '최종 데모데이 발표',
-      '회고 & 축하',
+      '전체 회고 & 다음 단계 안내',
       '알럼나이 네트워크 합류',
-      '평생 파운더 커뮤니티',
+      '스타트업 다음 단계 & 수료식',
     ],
     kpi: 'Demo Day → Alumni',
   },
@@ -97,7 +112,7 @@ export default function CurriculumRoadmap() {
         {/* Header */}
         <div className="mb-12 md:mb-20 text-center">
           <span className="inline-block text-sm font-bold uppercase tracking-[0.25em] text-white/60">
-            Curriculum
+            Learner Track Curriculum
           </span>
 
           <h2 className="mt-5 font-['Outfit',sans-serif] text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white lg:text-7xl">
@@ -107,21 +122,22 @@ export default function CurriculumRoadmap() {
           </h2>
 
           <p className="mx-auto mt-5 max-w-xl font-['Pretendard',sans-serif] text-lg leading-relaxed text-white/50 lg:text-xl">
-            3단계 커리큘럼 — 매주 매출로 증명하는 30주
+            4단계 실전 커리큘럼 — 매주 매출로 증명하는 30주
           </p>
 
           {/* Week count strip */}
-          <div className="mx-auto mt-8 grid max-w-md grid-cols-3 divide-x divide-white/10 rounded-full border border-white/10 bg-white/[0.02]">
+          <div className="mx-auto mt-8 grid max-w-lg grid-cols-4 divide-x divide-white/10 rounded-full border border-white/10 bg-white/[0.02]">
             {[
-              { label: 'W1–10', text: 'Sell' },
-              { label: 'W11–28', text: 'Build & Scale' },
+              { label: 'W1–10', text: 'Bootcamp' },
+              { label: 'W11–20', text: 'Build & Grow' },
+              { label: 'W21–28', text: 'Scale' },
               { label: 'W29–30', text: 'Connect' },
             ].map((seg) => (
               <div key={seg.label} className="flex flex-col items-center justify-center py-2.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-white/60">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-white/60 sm:text-xs">
                   {seg.label}
                 </span>
-                <span className="mt-0.5 text-xs text-white/45">
+                <span className="mt-0.5 text-[10px] text-white/45 sm:text-xs">
                   {seg.text}
                 </span>
               </div>
