@@ -32,13 +32,13 @@ export default function CTA() {
            opacity: visible ? 1 : 0,
          }}
        >
-         <h2 className="text-center text-[40px] md:text-[56px] font-black uppercase leading-[1.1] text-white" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+         <h2 className="text-center text-[28px] sm:text-[36px] md:text-[48px] lg:text-[56px] font-black uppercase leading-[1.1] text-white" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
             It&apos;s never too early
             <br />
             to <span className="text-[#FF6C0F]">execute.</span>
           </h2>
 
-           <p className="mx-auto mt-8 max-w-lg text-center font-['MaruBuri',serif] text-xl leading-relaxed text-white/70">
+           <p className="mx-auto mt-8 max-w-lg text-center font-['MaruBuri',serif] text-base sm:text-lg md:text-xl leading-relaxed text-white/70">
              완벽한 사업계획서도, 완성된 프로덕트도, 검증된 아이디어도 필요 없습니다.
              <br className="hidden md:block" />
              필요한 건 단 하나 — <span className="font-semibold text-white">실행할 의지.</span>

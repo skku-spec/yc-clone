@@ -85,21 +85,22 @@ function useSectionVisible(threshold = 0.1) {
 
 export default function CurriculumRoadmap() {
   const { ref, visible } = useSectionVisible(0.08);
+  const [openPhase, setOpenPhase] = useState<number | null>(0);
 
   return (
     <section
       ref={ref}
-      className="relative w-full py-24 lg:py-36"
+      className="relative w-full py-16 md:py-24 lg:py-36"
       style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.5s ease' }}
     >
       <div className="mx-auto max-w-[1100px] px-6">
         {/* Header */}
-        <div className="mb-20 text-center">
+        <div className="mb-12 md:mb-20 text-center">
           <span className="inline-block text-sm font-bold uppercase tracking-[0.25em] text-white/60">
             Curriculum
           </span>
 
-          <h2 className="mt-5 font-['Outfit',sans-serif] text-5xl font-black uppercase tracking-tight text-white md:text-6xl lg:text-7xl">
+          <h2 className="mt-5 font-['Outfit',sans-serif] text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white lg:text-7xl">
             30 WEEKS.
             <br className="md:hidden" />{' '}
             <span className="text-[#FF6C0F]">ZERO EXCUSES.</span>
@@ -130,8 +131,10 @@ export default function CurriculumRoadmap() {
 
         {/* Phases */}
         <div className="relative">
-          {phases.map((phase, i) => (
-            <div key={phase.num} className="relative flex gap-6 pb-16 last:pb-0 md:gap-10">
+          {phases.map((phase, i) => {
+            const isOpen = openPhase === i;
+            return (
+            <div key={phase.num} className="relative flex gap-4 pb-16 last:pb-0 md:gap-8 lg:gap-10">
               {/* Timeline spine */}
                 <div className="relative flex flex-col items-center">
                 <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-white/20 md:h-16 md:w-16">
@@ -145,41 +148,71 @@ export default function CurriculumRoadmap() {
               </div>
 
               {/* Card */}
-              <div className="flex-1 rounded-lg border border-white/8 bg-transparent p-6 md:p-8">
-                <span className="inline-block rounded-full bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white/60">
-                  {phase.weeks}
-                </span>
+              <div className="flex-1 rounded-lg border border-white/8 bg-transparent p-4 sm:p-6 md:p-8">
+                {/* Card header — tappable on mobile */}
+                <button
+                  type="button"
+                  className="flex w-full items-start justify-between text-left md:pointer-events-none"
+                  onClick={() => setOpenPhase(isOpen ? null : i)}
+                >
+                  <div className="min-w-0">
+                    <span className="inline-block rounded-full bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white/60">
+                      {phase.weeks}
+                    </span>
 
-                <h3 className="mt-3 font-['Outfit',sans-serif] text-2xl font-black uppercase leading-tight tracking-tight text-white md:text-3xl">
-                  {phase.mottoEn}
-                </h3>
-                <p className="mt-1.5 font-['Pretendard',sans-serif] text-sm font-semibold text-white/40">
-                  {phase.motto}
-                </p>
+                    <h3 className="mt-3 font-['Outfit',sans-serif] text-xl font-black uppercase leading-tight tracking-tight text-white sm:text-2xl md:text-3xl">
+                      {phase.mottoEn}
+                    </h3>
+                  </div>
 
-                <p className="mt-1.5 font-['Pretendard',sans-serif] text-base font-semibold text-white/70">
-                  {phase.subtitle}
-                </p>
+                  {/* Chevron — mobile only */}
+                  <svg
+                    className={`mt-3 h-5 w-5 shrink-0 text-white/40 transition-transform duration-300 md:hidden ${isOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
 
-                <p className="mt-3 font-['Pretendard',sans-serif] text-base leading-relaxed text-white/70">
-                  {phase.description}
-                </p>
+                {/* Expandable content — always visible on md+, collapsible on mobile */}
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out md:!max-h-none md:!opacity-100 ${
+                    isOpen ? 'max-h-[600px] opacity-100 mt-1.5' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <p className="font-['Pretendard',sans-serif] text-sm font-semibold text-white/40">
+                    {phase.motto}
+                  </p>
 
-                <ul className="mt-5 space-y-2.5">
-                  {phase.items.map((item, j) => (
-                    <li key={j} className="flex items-start gap-2.5 font-['Pretendard',sans-serif] text-base text-white/70">
-                      <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-white/30" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                  <p className="mt-1.5 font-['Pretendard',sans-serif] text-base font-semibold text-white/70">
+                    {phase.subtitle}
+                  </p>
 
-                <div className="mt-5 text-sm font-semibold text-white/50">
+                  <p className="mt-3 font-['Pretendard',sans-serif] text-sm leading-relaxed text-white/70 md:text-base">
+                    {phase.description}
+                  </p>
+
+                  <ul className="mt-4 space-y-2">
+                    {phase.items.map((item, j) => (
+                      <li key={j} className="flex items-start gap-2.5 font-['Pretendard',sans-serif] text-sm text-white/70 md:text-base">
+                        <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-white/30" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* KPI — always visible */}
+                <div className={`text-sm font-semibold text-[#FF6C0F]/70 ${isOpen ? 'mt-4' : 'mt-3'} md:mt-5 md:text-white/50`}>
                   {phase.kpi}
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Special Events */}

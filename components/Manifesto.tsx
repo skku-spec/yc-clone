@@ -23,14 +23,14 @@ export default function Manifesto() {
   }, []);
 
   return (
-    <section className="relative w-full py-24 lg:py-32 bg-transparent">
+    <section className="relative w-full py-16 md:py-24 lg:py-32 bg-transparent">
       <div
         ref={ref}
         className="mx-auto max-w-[540px] px-6 transition-opacity duration-700 ease-out"
         style={{ opacity: visible ? 1 : 0 }}
       >
         <div
-          className="text-center text-[1.25rem] leading-[1.85] text-white/80 md:text-[1.375rem]"
+          className="text-center text-[1.1rem] sm:text-[1.25rem] leading-[1.85] text-white/80 md:text-[1.375rem]"
           style={{ fontFamily: "'MaruBuri', serif" }}
         >
           <p>

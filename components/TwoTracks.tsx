@@ -49,6 +49,7 @@ const tracks: TrackCard[] = [
 export default function TwoTracks() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [expandedTrack, setExpandedTrack] = useState<number | null>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -69,7 +70,7 @@ export default function TwoTracks() {
   }, []);
 
   return (
-    <section className="relative w-full py-24 lg:py-32 bg-transparent">
+    <section className="relative w-full py-16 md:py-24 lg:py-32 bg-transparent">
       <div ref={sectionRef} className="mx-auto max-w-[1100px] px-6">
         <span
           className="mb-4 block text-sm font-bold uppercase tracking-[0.2em] text-white/50"
@@ -79,7 +80,7 @@ export default function TwoTracks() {
         </span>
 
         <h2
-          className="text-5xl font-black uppercase text-white lg:text-6xl"
+          className="text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white lg:text-6xl"
           style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}
         >
           TWO TRACKS.
@@ -88,7 +89,7 @@ export default function TwoTracks() {
         </h2>
 
         <p
-          className="mt-4 mb-12 text-xl font-normal text-white/50"
+          className="mt-4 mb-12 text-base sm:text-lg md:text-xl font-normal text-white/50"
           style={{ fontFamily: "'Pretendard', sans-serif" }}
         >
           Preneur는 SPEC을 성장시키고, Learner는 매출을 만듭니다.
@@ -97,10 +98,11 @@ export default function TwoTracks() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {tracks.map((track, i) => {
             const isPreneur = track.variant === 'preneur';
+            const isExpanded = expandedTrack === i;
             return (
               <div
                 key={track.title}
-                className={`flex flex-col rounded-xl border p-6 sm:p-8 ${
+                className={`flex flex-col rounded-xl border p-5 sm:p-8 ${
                   isPreneur
                     ? 'border-[#FF6C0F]/25 bg-[#FF6C0F]/[0.03]'
                     : 'border-white/10 bg-white/[0.02]'
@@ -111,45 +113,59 @@ export default function TwoTracks() {
                   transition: `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`,
                 }}
               >
-                <span className="text-4xl">{track.emoji}</span>
+                <span className="text-3xl sm:text-4xl">{track.emoji}</span>
 
                 <h3
-                  className="mt-4 text-2xl font-black uppercase tracking-wide text-white"
+                  className="mt-3 text-xl font-black uppercase tracking-wide text-white sm:mt-4 sm:text-2xl"
                   style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
                 >
                   {track.title}
                 </h3>
 
                 <p
-                  className="mt-1 text-sm font-medium text-white/60"
+                  className="mt-1 text-xs font-medium text-white/60 sm:text-sm"
                   style={{ fontFamily: "'Pretendard', sans-serif" }}
                 >
                   {track.subtitle}
                 </p>
 
-                <p
-                  className="mt-4 text-base leading-relaxed text-white/80"
-                  style={{ fontFamily: "'MaruBuri', serif" }}
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out sm:!max-h-none sm:!opacity-100 ${
+                    isExpanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                  }`}
                 >
-                  {track.description}
-                </p>
+                  <p
+                    className="mt-4 text-sm leading-relaxed text-white/80 sm:text-base"
+                    style={{ fontFamily: "'MaruBuri', serif" }}
+                  >
+                    {track.description}
+                  </p>
 
-                <ul className="mt-5 space-y-2.5">
-                  {track.bullets.map((bullet) => (
-                    <li
-                      key={bullet}
-                      className="flex items-start gap-2.5 text-sm text-white/70"
-                      style={{ fontFamily: "'Pretendard', sans-serif" }}
-                    >
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF6C0F]/60" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="mt-4 space-y-2">
+                    {track.bullets.map((bullet) => (
+                      <li
+                        key={bullet}
+                        className="flex items-start gap-2 text-xs text-white/70 sm:gap-2.5 sm:text-sm"
+                        style={{ fontFamily: "'Pretendard', sans-serif" }}
+                      >
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF6C0F]/60" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  type="button"
+                  className="mt-3 self-start text-xs font-medium text-white/40 transition-colors hover:text-white/60 sm:hidden"
+                  onClick={() => setExpandedTrack(isExpanded ? null : i)}
+                >
+                  {isExpanded ? '접기 ↑' : '자세히 보기 ↓'}
+                </button>
 
                 <Link
                   href={track.cta.href}
-                  className={`mt-auto block pt-6 text-center rounded-lg py-3 text-sm font-semibold transition-all duration-200 ${
+                  className={`mt-auto block pt-4 text-center rounded-lg py-3 text-sm font-semibold transition-all duration-200 sm:pt-6 ${
                     isPreneur
                       ? 'bg-[#FF6C0F] text-white hover:brightness-110'
                       : 'border border-white/15 bg-transparent text-white hover:bg-white/[0.04]'

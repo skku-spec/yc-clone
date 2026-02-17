@@ -34,7 +34,7 @@ export default function InTheRoom() {
   }, []);
 
   return (
-    <section className="py-24 lg:py-32 px-6 bg-transparent">
+    <section className="py-16 md:py-24 lg:py-32 px-6 bg-transparent">
       <div ref={sectionRef} className="mx-auto max-w-[1100px]">
         <span
           className="mb-4 block text-sm font-bold uppercase tracking-[0.2em] text-white/50"
@@ -43,23 +43,23 @@ export default function InTheRoom() {
           Guest Speakers
         </span>
         <h2
-          className="text-5xl font-black uppercase text-white lg:text-6xl"
+          className="text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white lg:text-6xl"
           style={{ fontFamily: "system-ui, -apple-system, sans-serif", letterSpacing: "-0.02em" }}
         >
           IN THE <span className="text-[#FF6C0F]">ROOM.</span>
         </h2>
         <p
-          className="text-white/50 text-xl mt-4 mb-12 font-normal"
+          className="text-white/50 text-base sm:text-lg md:text-xl mt-4 mb-12 font-normal"
           style={{ fontFamily: "'Pretendard', sans-serif" }}
         >
           업계 리더들이 직접 방문해 이야기합니다
         </p>
 
-         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+         <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
             {speakerCards.map((speaker) => (
               <div
                 key={speaker.name}
-                className="rounded-xl border border-white/8 bg-white/[0.02] p-5"
+                className="rounded-xl border border-white/8 bg-white/[0.02] p-3 sm:p-5"
                 style={{
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible
@@ -68,10 +68,10 @@ export default function InTheRoom() {
                   transition: "opacity 0.5s ease, transform 0.5s ease",
                 }}
               >
-                <p className="font-['Pretendard',sans-serif] text-lg font-semibold text-white">
+                <p className="font-['Pretendard',sans-serif] text-sm font-semibold text-white sm:text-lg">
                   {speaker.name}
                 </p>
-                <p className="mt-1 font-['Pretendard',sans-serif] text-sm text-white/60">
+                <p className="mt-0.5 font-['Pretendard',sans-serif] text-xs text-white/60 sm:mt-1 sm:text-sm">
                   {speaker.company}
                 </p>
               </div>

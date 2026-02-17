@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 const mainPartners = [
-  { name: '성균관대학교 RISE 사업단', logo: '/logos/rise.png', height: 'h-[120px]' },
-  { name: '카카오모빌리티', logo: '/logos/kakao.svg', height: 'h-10' },
-  { name: 'SL IT', logo: '/logos/SL_IT.svg', height: 'h-10' },
+  { name: '성균관대학교 RISE 사업단', logo: '/logos/rise.png', mobileHeight: 'h-14', desktopHeight: 'md:h-[120px]' },
+  { name: '카카오모빌리티', logo: '/logos/kakao.svg', mobileHeight: 'h-5', desktopHeight: 'md:h-10' },
+  { name: 'SL IT', logo: '/logos/SL_IT.svg', mobileHeight: 'h-4', desktopHeight: 'md:h-10' },
 ];
 
 const mentorCompanies = [
@@ -53,7 +53,7 @@ export default function Partners() {
           함께하는 파트너
         </p>
 
-        <div className="flex items-center justify-center gap-14 sm:gap-20">
+        <div className="flex items-center justify-center gap-6 sm:gap-14 md:gap-20">
           {mainPartners.map((partner) => (
             <Image
               key={partner.name}
@@ -61,7 +61,7 @@ export default function Partners() {
               alt={partner.name}
               width={300}
               height={80}
-              className={`${partner.height} w-auto object-contain brightness-0 invert`}
+              className={`${partner.mobileHeight} ${partner.desktopHeight} w-auto object-contain brightness-0 invert`}
             />
           ))}
         </div>

@@ -24,6 +24,7 @@ const principles = [
 export default function Philosophy() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -44,7 +45,7 @@ export default function Philosophy() {
   }, []);
 
   return (
-    <section className="relative w-full py-24 lg:py-32 bg-transparent">
+    <section className="relative w-full py-16 md:py-24 lg:py-32 bg-transparent">
       <div ref={sectionRef} className="mx-auto max-w-[640px] px-6">
         <span
           className="mb-4 block text-sm font-bold uppercase tracking-[0.2em] text-white/50"
@@ -54,7 +55,7 @@ export default function Philosophy() {
         </span>
 
         <h2
-          className="mb-4 text-[2.5rem] font-black uppercase leading-[0.95] text-white md:text-[3.5rem]"
+          className="mb-4 text-[2rem] sm:text-[2.5rem] font-black uppercase leading-[0.95] text-white md:text-[3.5rem]"
           style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}
         >
           NON‑NEGOTIABLE.
@@ -66,11 +67,15 @@ export default function Philosophy() {
           타협하지 않는 4가지 원칙
         </p>
 
-        <div className="space-y-6">
-          {principles.map((principle, i) => (
-            <div
+        <div className="space-y-4 md:space-y-6">
+          {principles.map((principle, i) => {
+            const isOpen = expandedIdx === i;
+            return (
+            <button
+              type="button"
               key={principle.title}
-              className="border-l-[3px] border-[#FF6C0F] pl-5"
+              className="block w-full border-l-[3px] border-[#FF6C0F] pl-5 text-left md:pointer-events-none"
+              onClick={() => setExpandedIdx(isOpen ? null : i)}
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible
@@ -79,20 +84,38 @@ export default function Philosophy() {
                 transition: `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`,
               }}
             >
-              <h3
-                className="text-lg font-black uppercase tracking-wide text-white"
-                style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+              <div className="flex items-center justify-between">
+                <h3
+                  className="text-base font-black uppercase tracking-wide text-white sm:text-lg"
+                  style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+                >
+                  {principle.title}
+                </h3>
+                <svg
+                  className={`h-4 w-4 shrink-0 text-white/30 transition-transform duration-200 md:hidden ${isOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+              <div
+                className={`overflow-hidden transition-all duration-300 md:!max-h-40 md:!opacity-100 ${
+                  isOpen ? 'max-h-40 opacity-100 mt-2' : 'max-h-0 opacity-0'
+                }`}
               >
-                {principle.title}
-              </h3>
-              <p
-                className="mt-2 text-base leading-relaxed text-white/80"
-                style={{ fontFamily: "'MaruBuri', serif" }}
-              >
-                {principle.body}
-              </p>
-            </div>
-          ))}
+                <p
+                  className="text-sm leading-relaxed text-white/80 md:text-base"
+                  style={{ fontFamily: "'MaruBuri', serif" }}
+                >
+                  {principle.body}
+                </p>
+              </div>
+            </button>
+            );
+          })}
         </div>
       </div>
     </section>
