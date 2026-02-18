@@ -38,6 +38,13 @@ body {
   color: #FCFCF8;
 }
 
+@supports (content-visibility: auto) {
+  .landing-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 900px;
+  }
+}
+
 ::selection {
   background: black;
   color: white;
