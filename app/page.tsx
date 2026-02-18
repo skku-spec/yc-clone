@@ -7,7 +7,7 @@ import Partners from "@/components/Partners";
 import TwoTracks from "@/components/TwoTracks";
 import CurriculumRoadmap from "@/components/CurriculumRoadmap";
 import AlumniGrid from "@/components/AlumniGrid";
-import InTheRoom from "@/components/InTheRoom";
+
 import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
@@ -60,12 +60,6 @@ export default function Home() {
       <div className="relative z-10 py-16 md:py-32">
         <div className="mx-auto max-w-[1200px] px-6">
           <AlumniGrid />
-        </div>
-      </div>
-
-      <div className="relative z-10 py-16 md:py-32">
-        <div className="mx-auto max-w-[1200px] px-6">
-          <InTheRoom />
         </div>
       </div>
 
