@@ -130,8 +130,8 @@ export default function Navbar() {
                   <Link href="/people" className={`dropdown-item block px-4 py-2 ${dropdownText} rounded text-sm font-['Pretendard',sans-serif]`}>
                     멤버
                   </Link>
-                  <Link href="/blog" className={`dropdown-item block px-4 py-2 ${dropdownText} rounded text-sm font-['Pretendard',sans-serif]`}>
-                    블로그
+                  <Link href="/jobs" className={`dropdown-item block px-4 py-2 ${dropdownText} rounded text-sm font-['Pretendard',sans-serif]`}>
+                    채용
                   </Link>
                 </div>
               </div>
@@ -216,8 +216,9 @@ export default function Navbar() {
               </div>
             </div>
 
-            <Link href="/jobs" className={`nav-link ${textColor} ${hoverColor} font-['Pretendard',sans-serif] text-sm`}>
-              채용
+
+            <Link href="/blog" className={`nav-link ${textColor} ${hoverColor} font-['Pretendard',sans-serif] text-sm`}>
+              블로그
             </Link>
           </div>
 
@@ -358,8 +359,8 @@ export default function Navbar() {
                 <Link href="/people" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   멤버
                 </Link>
-                <Link href="/blog" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
-                  블로그
+                <Link href="/jobs" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
+                  채용
                 </Link>
               </div>
 
@@ -399,9 +400,11 @@ export default function Navbar() {
                 </Link>
               </div>
 
-              <div className="mb-6 flex flex-col gap-1">
-                <Link href="/jobs" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
-                  채용
+
+
+            <div className="mb-6 flex flex-col gap-1">
+                <Link href="/blog" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
+                  블로그
                 </Link>
               </div>
             </div>
