@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 
 const principles = [
   {
@@ -33,7 +33,9 @@ export default function Philosophy() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          startTransition(() => {
+            setIsVisible(true);
+          });
           observer.unobserve(el);
         }
       },
@@ -102,7 +104,7 @@ export default function Philosophy() {
                 </svg>
               </div>
               <div
-                className={`overflow-hidden transition-all duration-300 md:!max-h-40 md:!opacity-100 ${
+                className={`overflow-hidden transition-[max-height,opacity] duration-300 md:!max-h-40 md:!opacity-100 ${
                   isOpen ? 'max-h-40 opacity-100 mt-2' : 'max-h-0 opacity-0'
                 }`}
               >

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 interface TrackCard {
@@ -58,7 +58,9 @@ export default function TwoTracks() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          startTransition(() => {
+            setIsVisible(true);
+          });
           observer.unobserve(el);
         }
       },
@@ -130,7 +132,7 @@ export default function TwoTracks() {
                 </p>
 
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out sm:!max-h-none sm:!opacity-100 ${
+                  className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out sm:!max-h-none sm:!opacity-100 ${
                     isExpanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >

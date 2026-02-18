@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 
 const phases = [
   {
@@ -85,7 +85,9 @@ function useSectionVisible(threshold = 0.1) {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          startTransition(() => {
+            setVisible(true);
+          });
           io.disconnect();
         }
       },
@@ -195,7 +197,7 @@ export default function CurriculumRoadmap() {
 
                 {/* Expandable content — always visible on md+, collapsible on mobile */}
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out md:!max-h-none md:!opacity-100 ${
+                  className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out md:!max-h-none md:!opacity-100 ${
                     isOpen ? 'max-h-[600px] opacity-100 mt-1.5' : 'max-h-0 opacity-0'
                   }`}
                 >
