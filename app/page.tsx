@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import ScrollBackground from "@/components/ScrollBackground";
 import Hero from "@/components/Hero";
+import Philosophy from "@/components/Philosophy";
+import Manifesto from "@/components/Manifesto";
 import Partners from "@/components/Partners";
+import TwoTracks from "@/components/TwoTracks";
 import CurriculumRoadmap from "@/components/CurriculumRoadmap";
-import About from "@/components/About";
-import VCCSection from "@/components/VCCSection";
-import Achievements from "@/components/Achievements";
-import InTheRoom from "@/components/InTheRoom";
+import AlumniGrid from "@/components/AlumniGrid";
+
 import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
@@ -26,43 +27,43 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-white/6 py-20">
+      <div className="relative z-10 py-16 md:py-32">
+        <div className="mx-auto max-w-[960px] px-6">
+          <Philosophy />
+        </div>
+      </div>
+
+      <div className="relative z-10 py-12 md:py-20">
         <div className="mx-auto max-w-[960px] px-6">
           <Partners />
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-white/6 py-32">
+      <div className="relative z-10 py-16 md:py-32">
+        <div className="mx-auto max-w-[960px] px-6">
+          <TwoTracks />
+        </div>
+      </div>
+
+      <div className="relative z-10 py-16 md:py-32">
         <div className="mx-auto max-w-[960px] px-6">
           <CurriculumRoadmap />
         </div>
       </div>
 
-      <div id="about-section" className="relative z-10 border-t border-white/6 py-32">
-        <div className="mx-auto max-w-[640px] px-6">
-          <About />
-        </div>
-      </div>
-
-      <div className="relative z-10 border-t border-white/6 py-32">
+      <div className="relative z-10 py-16 md:py-32">
         <div className="mx-auto max-w-[960px] px-6">
-          <VCCSection />
+          <Manifesto />
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-white/6 py-32">
-        <div className="mx-auto max-w-[960px] px-6">
-          <Achievements />
-        </div>
-      </div>
-
-      <div className="relative z-10 border-t border-white/6 py-32">
+      <div className="relative z-10 py-16 md:py-32">
         <div className="mx-auto max-w-[1200px] px-6">
-          <InTheRoom />
+          <AlumniGrid />
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-white/6 py-24">
+      <div className="relative z-10 py-14 md:py-24">
         <div className="mx-auto max-w-[640px] px-6">
           <CTA />
         </div>

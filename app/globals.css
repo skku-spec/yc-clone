@@ -20,7 +20,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth removed — causes jank with heavy pages */
 }
 
 body {
@@ -127,16 +127,38 @@ body {
   color: #ffffff;
 }
 
+/* body scroll lock for mobile menu */
+.body-no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 /* first letter drop cap */
 .drop-cap::first-letter {
   float: left;
-  font-size: 7.6rem;
+  font-size: 4.5rem;
   font-weight: bold;
   line-height: 0.75;
-  margin-right: 0.75rem;
+  margin-right: 0.5rem;
   color: #16140f;
+}
+
+@media (min-width: 640px) {
+  .drop-cap::first-letter {
+    font-size: 7.6rem;
+    margin-right: 0.75rem;
+  }
 }
 
 .dark-theme .drop-cap::first-letter {
   color: #FCFCF8;
+}
+
+/* Mobile touch targets — ensure min 44px for links/buttons */
+@media (max-width: 767px) {
+  .dropdown-item {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
 }

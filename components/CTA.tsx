@@ -32,26 +32,28 @@ export default function CTA() {
            opacity: visible ? 1 : 0,
          }}
        >
-         <h2 className="text-center text-[40px] md:text-[56px] font-black uppercase leading-[1.1] text-white" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-           4기와 함께할
-           <br />
-           파운더를 찾습니다
-         </h2>
+         <h2 className="text-center text-[28px] sm:text-[36px] md:text-[48px] lg:text-[56px] font-black uppercase leading-[1.1] text-white" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+            It&apos;s never too early
+            <br />
+            to <span className="text-[#FF6C0F]">execute.</span>
+          </h2>
 
-         <p className="mt-6 w-3/4 text-center font-['MaruBuri',serif] text-xl font-normal text-white/80">
-           아이디어보다 실행력. 30주 안에 매출로 증명하세요.
-         </p>
+           <p className="mx-auto mt-8 max-w-lg text-center font-['MaruBuri',serif] text-base sm:text-lg md:text-xl leading-relaxed text-white/70">
+             완벽한 사업계획서도, 완성된 프로덕트도, 검증된 아이디어도 필요 없습니다.
+             <br className="hidden md:block" />
+             필요한 건 단 하나 — <span className="font-semibold text-white">실행할 의지.</span>
+           </p>
 
-         <a
-           href="/apply"
-           className="mt-10 flex h-14 items-center justify-center rounded-full bg-[#FF6C0F] px-8 font-['Pretendard',sans-serif] text-lg font-semibold text-[#FCFCF8] transition-brightness duration-200 hover:brightness-95"
-         >
-            Apply
-          </a>
+           <a
+             href="/apply"
+             className="mt-10 flex h-14 items-center justify-center rounded-full bg-[#FF6C0F] px-8 font-['Pretendard',sans-serif] text-lg font-semibold text-white transition-all duration-200 hover:brightness-95"
+           >
+              4기 지원하기
+            </a>
 
-         <p className="mt-4 font-['Pretendard',sans-serif] text-base text-white/60">
-            Deadline: March 2026
-         </p>
+           <p className="mt-4 font-['Pretendard',sans-serif] text-sm text-white/40">
+              마감: 2026년 3월 | 성균관대 재학생 대상
+           </p>
        </div>
      </section>
    );

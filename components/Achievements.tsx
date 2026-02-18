@@ -7,10 +7,10 @@ import { useEffect, useRef, useState } from 'react';
  * ─────────────────────────────────────────── */
 
 const stats = [
-  { number: '3', label: '기수', subtext: 'Cohorts Completed' },
-  { number: '120+', label: '멤버', subtext: 'Total Alumni' },
-  { number: '30+', label: '팀', subtext: 'Teams Launched' },
-  { number: '8+', label: '수상', subtext: 'Competition Wins' },
+  { number: '₩X억+', label: '누적 매출', subtext: 'Total Revenue' },
+  { number: '30+', label: '프로젝트 런칭', subtext: 'Projects Launched' },
+  { number: '120+', label: '알럼나이', subtext: 'Total Alumni' },
+  { number: '8+', label: '수상·선정', subtext: 'Awards & Recognitions' },
 ];
 
 const newsItems = [
@@ -66,38 +66,35 @@ function getTagStyle(tag: string) {
  *  INTERSECTION OBSERVER HOOK
  * ─────────────────────────────────────────── */
 
-function useReveal(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+export default function Achievements() {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [statsVisible, setStatsVisible] = useState(false);
+  const feedRef = useRef<HTMLDivElement>(null);
+  const [feedVisible, setFeedVisible] = useState(false);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const statsEl = statsRef.current;
+    if (statsEl) {
+      const io = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) { setStatsVisible(true); io.disconnect(); } },
+        { threshold: 0.2 },
+      );
+      io.observe(statsEl);
+      return () => io.disconnect();
+    }
+  }, []);
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
-      },
-      { threshold },
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
-}
-
-/* ───────────────────────────────────────────
- *  COMPONENT
- * ─────────────────────────────────────────── */
-
-export default function Achievements() {
-  const statsReveal = useReveal(0.2);
-  const feedReveal = useReveal(0.1);
+  useEffect(() => {
+    const feedEl = feedRef.current;
+    if (feedEl) {
+      const io = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) { setFeedVisible(true); io.disconnect(); } },
+        { threshold: 0.1 },
+      );
+      io.observe(feedEl);
+      return () => io.disconnect();
+    }
+  }, []);
 
   return (
     <section className="relative w-full py-24 lg:py-32">
@@ -121,23 +118,23 @@ export default function Achievements() {
             className="mt-4 text-xl font-normal text-white/70"
             style={{ fontFamily: 'var(--font-korean-sans)' }}
           >
-            3기까지의 누적 성과
+            3기수 누적 성과 — 숫자가 증명합니다
           </p>
         </div>
 
          {/* ── Quick Stats Bar ───────────────── */}
-         <div ref={statsReveal.ref} className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
-           {stats.map((stat, i) => (
-             <div
-               key={stat.label}
-               className={`
-                 relative rounded-lg border border-white/8
-                 bg-transparent p-6 text-center
-                 transition-all duration-700 ease-out
-                 ${statsReveal.visible
-                   ? 'translate-y-0 opacity-100'
-                   : 'translate-y-10 opacity-0'}
-               `}
+         <div ref={statsRef} className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+           {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className={`
+                  relative rounded-lg border border-white/8
+                  bg-transparent p-6 text-center
+                  transition-all duration-700 ease-out
+                  ${statsVisible
+                    ? 'translate-y-0 opacity-100'
+                    : 'translate-y-10 opacity-0'}
+                `}
                style={{ transitionDuration: '0.5s' }}
              >
 
@@ -164,7 +161,7 @@ export default function Achievements() {
         </div>
 
         {/* ── News Feed ─────────────────────── */}
-        <div ref={feedReveal.ref} className="mt-20">
+        <div ref={feedRef} className="mt-20">
            <p
              className="mb-6 text-base font-bold uppercase text-white/60"
              style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.06em' }}
@@ -173,19 +170,19 @@ export default function Achievements() {
            </p>
 
            <div className="divide-y divide-white/5">
-             {newsItems.map((item, i) => {
-               const tag = getTagStyle(item.tag);
-               return (
-                 <div
-                   key={`${item.date}-${item.title}`}
-                   className={`
-                     group flex items-start gap-5 rounded-lg py-5 px-3
-                     transition-all duration-500 ease-out
-                     hover:bg-white/[0.02]
-                     ${feedReveal.visible
-                       ? 'translate-x-0 opacity-100'
-                       : 'translate-x-0 opacity-0'}
-                   `}
+              {newsItems.map((item) => {
+                const tag = getTagStyle(item.tag);
+                return (
+                  <div
+                    key={`${item.date}-${item.title}`}
+                    className={`
+                      group flex items-start gap-5 rounded-lg py-5 px-3
+                      transition-all duration-500 ease-out
+                      hover:bg-white/[0.02]
+                      ${feedVisible
+                        ? 'translate-x-0 opacity-100'
+                        : 'translate-x-0 opacity-0'}
+                    `}
                    style={{ transitionDuration: '0.5s' }}
                  >
                   {/* date column */}

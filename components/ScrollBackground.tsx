@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const entrepreneurImages = [
   '/heroes/jobs1.jpg',
@@ -21,56 +21,141 @@ const specImages = [
 ];
 
 export default function ScrollBackground() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [phase, setPhase] = useState<'entrepreneur' | 'spec'>('entrepreneur');
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rafId = useRef(0);
+  const maxScrollRef = useRef(1);
+  const prevPhase = useRef('entrepreneur');
+  const prevIndex = useRef(0);
+  const activeElRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const aboutEl = document.getElementById('about-section');
-      const aboutTop = aboutEl ? aboutEl.offsetTop : Infinity;
+    const container = containerRef.current;
+    if (!container) return;
 
-      const isSpec = scrollY + window.innerHeight * 0.3 >= aboutTop;
-      const images = isSpec ? specImages : entrepreneurImages;
-      const sectionStart = isSpec ? aboutTop : 0;
-      const sectionEnd = isSpec
-        ? document.documentElement.scrollHeight - window.innerHeight
-        : aboutTop;
-      const sectionLength = sectionEnd - sectionStart || 1;
-      const sectionProgress = Math.max(0, Math.min(1, (scrollY - sectionStart) / sectionLength));
-      const index = Math.floor(sectionProgress * images.length * 2) % images.length;
+    const imgEls = container.querySelectorAll<HTMLElement>('[data-bg]');
+    const byKey = new Map<string, HTMLElement>();
 
-      setPhase(isSpec ? 'spec' : 'entrepreneur');
-      setCurrentIndex(index);
+    imgEls.forEach((el) => {
+      const phase = el.dataset.phase;
+      const index = el.dataset.index;
+      if (phase && index) {
+        byKey.set(`${phase}:${index}`, el);
+      }
+    });
+
+    const updateMetrics = () => {
+      maxScrollRef.current = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    const setActiveImage = (phase: string, index: number) => {
+      const nextEl = byKey.get(`${phase}:${index}`) ?? null;
+      if (!nextEl || nextEl === activeElRef.current) {
+        return;
+      }
+
+      if (activeElRef.current) {
+        activeElRef.current.style.opacity = '0';
+      }
+      nextEl.style.opacity = '0.25';
+      activeElRef.current = nextEl;
+    };
+
+    const tick = () => {
+      const scrollY = window.scrollY;
+      const progress = scrollY / maxScrollRef.current;
+
+      const isSpec = progress >= 0.5;
+      const phase = isSpec ? 'spec' : 'entrepreneur';
+      const images = isSpec ? specImages : entrepreneurImages;
+      const phaseProgress = isSpec
+        ? (progress - 0.5) / 0.5
+        : progress / 0.5;
+      const clamped = Math.max(0, Math.min(1, phaseProgress));
+      const index =
+        Math.floor(clamped * images.length * 2) % images.length;
+
+      if (phase === prevPhase.current && index === prevIndex.current) return;
+
+      prevPhase.current = phase;
+      prevIndex.current = index;
+
+      setActiveImage(phase, index);
+    };
+
+    const onScroll = () => {
+      if (rafId.current) return;
+      rafId.current = requestAnimationFrame(() => {
+        rafId.current = 0;
+        tick();
+      });
+    };
+
+    updateMetrics();
+    setActiveImage('entrepreneur', 0);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updateMetrics, { passive: true });
+    tick();
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', updateMetrics);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
   }, []);
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none bg-[#0a0a0a]">
+    <div
+      ref={containerRef}
+      className="fixed inset-0 z-0 pointer-events-none bg-[#0a0a0a]"
+    >
       {entrepreneurImages.map((src, i) => (
         <div
           key={src}
-          className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
-            phase === 'entrepreneur' && i === currentIndex ? 'opacity-[0.25]' : 'opacity-0'
-          }`}
+          data-bg=""
+          data-phase="entrepreneur"
+          data-index={i}
+          className="absolute inset-0"
+          style={{
+            opacity: i === 0 ? 0.25 : 0,
+            transition: 'opacity 2s ease-in-out',
+          }}
         >
-          <img src={src} alt="" className="h-full w-full object-cover grayscale" />
+          <img
+            src={src}
+            alt=""
+            className="h-full w-full object-cover grayscale"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
         </div>
       ))}
+
       {specImages.map((src, i) => (
         <div
           key={src}
-          className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
-            phase === 'spec' && i === currentIndex ? 'opacity-[0.25]' : 'opacity-0'
-          }`}
+          data-bg=""
+          data-phase="spec"
+          data-index={i}
+          className="absolute inset-0"
+          style={{
+            opacity: 0,
+            transition: 'opacity 2s ease-in-out',
+          }}
         >
-          <img src={src} alt="" className="h-full w-full object-cover grayscale" />
+          <img
+            src={src}
+            alt=""
+            className="h-full w-full object-cover grayscale"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       ))}
+
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
     </div>
   );

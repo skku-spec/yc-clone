@@ -1,23 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 const mainPartners = [
-  { name: '성균관대학교\nRISE 사업단', width: 'w-40' },
-  { name: '카카오모빌리티', width: 'w-40' },
-  { name: 'VCC', width: 'w-28' },
+  { name: '성균관대학교 RISE 사업단', logo: '/logos/rise.png', mobileHeight: 'h-14', desktopHeight: 'md:h-[120px]' },
+  { name: '카카오모빌리티', logo: '/logos/kakao.svg', mobileHeight: 'h-5', desktopHeight: 'md:h-10' },
+  { name: 'SL IT', logo: '/logos/SL_IT.svg', mobileHeight: 'h-3', desktopHeight: 'md:h-10' },
 ];
 
-const mentorCompanies = [
-  '카카오모빌리티',
-  '삼성전자',
-  '네이버',
-  '토스',
-  '쿠팡',
-  '배달의민족',
-  '라인',
-  'SK텔레콤',
-];
+
 
 export default function Partners() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -52,28 +44,20 @@ export default function Partners() {
           함께하는 파트너
         </p>
 
-        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
+        <div className="flex items-center justify-center gap-6 sm:gap-14 md:gap-20">
           {mainPartners.map((partner) => (
-            <div
+            <Image
               key={partner.name}
-              className={`flex h-[60px] ${partner.width} items-center justify-center rounded-lg border border-white/10 bg-transparent px-5`}
-            >
-              <span className="whitespace-pre-line text-center font-['Pretendard',sans-serif] text-sm font-semibold leading-tight text-white/90">
-                {partner.name}
-              </span>
-            </div>
+              src={partner.logo}
+              alt={partner.name}
+              width={300}
+              height={80}
+              className={`${partner.mobileHeight} ${partner.desktopHeight} w-auto object-contain brightness-0 invert`}
+            />
           ))}
         </div>
 
-        <div className="mx-auto my-10 max-w-md border-t border-white/8" />
 
-        <p className="mb-6 text-center font-['Pretendard',sans-serif] text-xs font-semibold uppercase tracking-[0.06em] text-white/50">
-          멘토진 출신 기업
-        </p>
-
-        <p className="text-center font-['Pretendard',sans-serif] text-base font-normal text-white/60">
-          {mentorCompanies.join(' · ')}
-        </p>
       </div>
     </section>
   );

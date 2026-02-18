@@ -74,12 +74,12 @@ export default function InvestorsPage() {
           <h2 className="mb-3 font-['MaruBuri',serif] text-[22px] font-medium leading-[28px] text-[#16140f]">
             투자 문의
           </h2>
-          <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
-            If you're interested in investing in SPEC-backed companies, reach out at <span className="font-medium">invest@spec-skku.org</span>. 
-            연락주시기 바랍니다. SPEC은 아직 초기 단계이지만, 
-            잠재력 있는 학생 창업가들과의 연결을 도와드리겠습니다. 
-            현재는 투자유치보다는 멘토링과 교육에 집중하고 있습니다.
-          </p>
+           <p className="mb-6 font-['Pretendard',sans-serif] text-lg font-normal leading-[1.7] text-[#16140f]">
+             If you&apos;re interested in investing in SPEC-backed companies, reach out at <span className="font-medium">invest@spec-skku.org</span>. 
+             연락주시기 바랍니다. SPEC은 아직 초기 단계이지만, 
+             잠재력 있는 학생 창업가들과의 연결을 도와드리겠습니다. 
+             현재는 투자유치보다는 멘토링과 교육에 집중하고 있습니다.
+           </p>
         </div>
 
         <div>

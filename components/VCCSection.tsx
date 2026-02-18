@@ -18,37 +18,6 @@ const features = [
   },
 ];
 
-const mentors = [
-  {
-    name: 'Peter Kim',
-    role: '전략 컨설턴트',
-    company: '前 McKinsey',
-    photo:
-      'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face',
-  },
-  {
-    name: 'Sarah Lee',
-    role: '스타트업 투자심사역',
-    company: '前 알토스벤처스',
-    photo:
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face',
-  },
-  {
-    name: 'David Park',
-    role: '연쇄 창업가',
-    company: '2x Exit Founder',
-    photo:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face',
-  },
-  {
-    name: 'Jimin Choi',
-    role: '그로스 해커',
-    company: '前 카카오모빌리티',
-    photo:
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&crop=face',
-  },
-];
-
 export default function VCCSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -93,7 +62,7 @@ export default function VCCSection() {
              fontFamily: 'system-ui, -apple-system, sans-serif',
            }}
          >
-           미니 MBA를 넘어선 실전 창업 교육
+            Beyond <span className="text-[#FF6C0F]">Mini MBA</span>
          </h2>
 
          {/* Description */}
@@ -119,38 +88,6 @@ export default function VCCSection() {
                </p>
              </div>
            ))}
-         </div>
-
-         {/* Mentor Grid */}
-         <div className="mt-20">
-           <p className="mb-6 text-center text-xs font-semibold uppercase tracking-[0.06em] text-white/60">
-             VCC 멘토진
-           </p>
-
-           <div className="mx-auto grid max-w-2xl grid-cols-2 gap-8 lg:max-w-none lg:grid-cols-4">
-             {mentors.map((mentor) => (
-               <div
-                 key={mentor.name}
-                 className="flex flex-col items-center text-center"
-               >
-                 <img
-                   src={mentor.photo}
-                   alt={mentor.name}
-                   loading="lazy"
-                   className="h-20 w-20 rounded-full object-cover ring-1 ring-white/10"
-                 />
-                 <span className="mt-3 font-['Pretendard',sans-serif] text-base font-semibold text-white">
-                   {mentor.name}
-                 </span>
-                 <span className="font-['Pretendard',sans-serif] text-sm text-white/70">
-                   {mentor.role}
-                 </span>
-                 <span className="font-['Pretendard',sans-serif] text-sm text-white/60">
-                   {mentor.company}
-                 </span>
-               </div>
-             ))}
-           </div>
          </div>
 
          {/* CTA Link */}
