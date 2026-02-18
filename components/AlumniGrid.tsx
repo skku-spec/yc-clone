@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 
 const alumni = [
   { name: '김민수', batch: '1기', quote: 'SPEC에서 처음으로 내 힘으로 돈을 벌어봤다.', gradient: 'from-orange-900/60 to-stone-900' },
@@ -25,7 +25,9 @@ export default function AlumniGrid() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          startTransition(() => {
+            setIsVisible(true);
+          });
           observer.unobserve(el);
         }
       },

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 const mainPartners = [
@@ -19,7 +19,10 @@ export default function Partners() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          startTransition(() => {
+            setIsVisible(true);
+          });
+          observer.disconnect();
         }
       },
       { threshold: 0.15 }

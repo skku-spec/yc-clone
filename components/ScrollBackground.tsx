@@ -22,26 +22,27 @@ const specImages = [
 
 export default function ScrollBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const layerARef = useRef<HTMLImageElement>(null);
+  const layerBRef = useRef<HTMLImageElement>(null);
   const rafId = useRef(0);
   const maxScrollRef = useRef(1);
   const prevPhase = useRef('entrepreneur');
   const prevIndex = useRef(0);
-  const activeElRef = useRef<HTMLElement | null>(null);
+  const activeLayer = useRef<'a' | 'b'>('a');
+  const activeSrcRef = useRef(entrepreneurImages[0]);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (prefersReducedMotion || isMobile) {
+      return;
+    }
 
-    const imgEls = container.querySelectorAll<HTMLElement>('[data-bg]');
-    const byKey = new Map<string, HTMLElement>();
-
-    imgEls.forEach((el) => {
-      const phase = el.dataset.phase;
-      const index = el.dataset.index;
-      if (phase && index) {
-        byKey.set(`${phase}:${index}`, el);
-      }
-    });
+    const layerA = layerARef.current;
+    const layerB = layerBRef.current;
+    if (!layerA || !layerB) {
+      return;
+    }
 
     const updateMetrics = () => {
       maxScrollRef.current = Math.max(
@@ -51,16 +52,31 @@ export default function ScrollBackground() {
     };
 
     const setActiveImage = (phase: string, index: number) => {
-      const nextEl = byKey.get(`${phase}:${index}`) ?? null;
-      if (!nextEl || nextEl === activeElRef.current) {
+      const images = phase === 'spec' ? specImages : entrepreneurImages;
+      const nextSrc = images[index] ?? images[0];
+
+      if (nextSrc === activeSrcRef.current) {
         return;
       }
 
-      if (activeElRef.current) {
-        activeElRef.current.style.opacity = '0';
+      const activeEl = activeLayer.current === 'a' ? layerA : layerB;
+      const hiddenEl = activeLayer.current === 'a' ? layerB : layerA;
+
+      const reveal = () => {
+        hiddenEl.style.opacity = '0.25';
+        activeEl.style.opacity = '0';
+        activeLayer.current = activeLayer.current === 'a' ? 'b' : 'a';
+        activeSrcRef.current = nextSrc;
+      };
+
+      hiddenEl.src = nextSrc;
+      if (hiddenEl.complete) {
+        reveal();
+        return;
       }
-      nextEl.style.opacity = '0.25';
-      activeElRef.current = nextEl;
+
+      hiddenEl.onload = reveal;
+      hiddenEl.onerror = reveal;
     };
 
     const tick = () => {
@@ -74,8 +90,7 @@ export default function ScrollBackground() {
         ? (progress - 0.5) / 0.5
         : progress / 0.5;
       const clamped = Math.max(0, Math.min(1, phaseProgress));
-      const index =
-        Math.floor(clamped * images.length * 2) % images.length;
+      const index = Math.floor(clamped * images.length) % images.length;
 
       if (phase === prevPhase.current && index === prevIndex.current) return;
 
@@ -104,6 +119,10 @@ export default function ScrollBackground() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', updateMetrics);
       if (rafId.current) cancelAnimationFrame(rafId.current);
+      layerA.onload = null;
+      layerA.onerror = null;
+      layerB.onload = null;
+      layerB.onerror = null;
     };
   }, []);
 
@@ -112,49 +131,24 @@ export default function ScrollBackground() {
       ref={containerRef}
       className="fixed inset-0 z-0 pointer-events-none bg-[#0a0a0a]"
     >
-      {entrepreneurImages.map((src, i) => (
-        <div
-          key={src}
-          data-bg=""
-          data-phase="entrepreneur"
-          data-index={i}
-          className="absolute inset-0"
-          style={{
-            opacity: i === 0 ? 0.25 : 0,
-            transition: 'opacity 2s ease-in-out',
-          }}
-        >
-          <img
-            src={src}
-            alt=""
-            className="h-full w-full object-cover grayscale"
-            loading={i === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-          />
-        </div>
-      ))}
-
-      {specImages.map((src, i) => (
-        <div
-          key={src}
-          data-bg=""
-          data-phase="spec"
-          data-index={i}
-          className="absolute inset-0"
-          style={{
-            opacity: 0,
-            transition: 'opacity 2s ease-in-out',
-          }}
-        >
-          <img
-            src={src}
-            alt=""
-            className="h-full w-full object-cover grayscale"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-      ))}
+      <img
+        ref={layerARef}
+        src={entrepreneurImages[0]}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover grayscale"
+        style={{ opacity: 0.25, transition: 'opacity 0.8s ease-out', willChange: 'opacity' }}
+        loading="eager"
+        decoding="async"
+      />
+      <img
+        ref={layerBRef}
+        src={entrepreneurImages[1]}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover grayscale"
+        style={{ opacity: 0, transition: 'opacity 0.8s ease-out', willChange: 'opacity' }}
+        loading="lazy"
+        decoding="async"
+      />
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
     </div>

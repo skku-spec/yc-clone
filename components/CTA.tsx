@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 
 export default function CTA() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -13,7 +13,9 @@ export default function CTA() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          startTransition(() => {
+            setVisible(true);
+          });
           observer.unobserve(el);
         }
       },

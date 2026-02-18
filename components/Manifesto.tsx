@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 
 export default function Manifesto() {
   const ref = useRef<HTMLDivElement>(null);
@@ -12,7 +12,9 @@ export default function Manifesto() {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          startTransition(() => {
+            setVisible(true);
+          });
           io.disconnect();
         }
       },
