@@ -37,7 +37,7 @@ export default function AlumniGrid() {
   }, []);
 
   return (
-    <section className="relative w-full py-24 lg:py-32 bg-transparent">
+    <section className="relative w-full py-16 md:py-24 lg:py-32 bg-transparent">
       <div ref={sectionRef} className="mx-auto max-w-6xl px-6">
         <div className="mb-16 text-center">
           <span
@@ -48,7 +48,7 @@ export default function AlumniGrid() {
           </span>
 
           <h2
-            className="mb-4 text-5xl font-black uppercase text-white lg:text-6xl"
+            className="mb-4 text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white lg:text-6xl"
             style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}
           >
             WE ARE SPEC.
@@ -62,13 +62,13 @@ export default function AlumniGrid() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="flex gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:pb-0 lg:grid-cols-3">
           {alumni.map((person, i) => (
             <div
               key={`${person.name}-${person.batch}`}
-              className="group relative overflow-hidden rounded-xl border border-white/[0.08]"
+              className="group relative min-w-[220px] w-[65vw] max-w-[260px] shrink-0 snap-start overflow-hidden rounded-xl border border-white/[0.08] md:min-w-0 md:w-auto md:max-w-none md:shrink"
               style={{
-                aspectRatio: '4 / 5',
+                aspectRatio: '3 / 4',
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? 'translateY(0)' : 'translateY(32px)',
                 transition: `opacity 0.6s ease ${i * 0.07}s, transform 0.6s ease ${i * 0.07}s`,
@@ -78,29 +78,35 @@ export default function AlumniGrid() {
 
               <div className="absolute inset-0 flex items-center justify-center">
                 <span
-                  className="select-none text-[8rem] font-black leading-none text-white/[0.06]"
+                  className="select-none text-[6rem] font-black leading-none text-white/[0.06] md:text-[8rem]"
                   style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
                 >
                   {person.name.charAt(0)}
                 </span>
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-5">
+              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
                 <p
-                  className="text-base font-bold text-white"
+                  className="text-sm font-bold text-white md:text-base"
                   style={{ fontFamily: "'Pretendard', sans-serif" }}
                 >
                   {person.name}
                 </p>
                 <p
-                  className="mt-0.5 text-sm text-white/50"
+                  className="mt-0.5 text-xs text-white/50 md:text-sm"
                   style={{ fontFamily: "'Pretendard', sans-serif" }}
                 >
                   {person.batch}
                 </p>
+                <p
+                  className="mt-2 line-clamp-2 text-xs italic leading-snug text-white/60 md:hidden"
+                  style={{ fontFamily: "'MaruBuri', serif" }}
+                >
+                  &ldquo;{person.quote}&rdquo;
+                </p>
               </div>
 
-              <div className="absolute inset-0 flex items-center justify-center bg-black/60 p-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <div className="absolute inset-0 hidden items-center justify-center bg-black/60 p-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:flex">
                 <p
                   className="text-center text-base italic leading-relaxed text-white/90 lg:text-lg"
                   style={{ fontFamily: "'MaruBuri', serif" }}

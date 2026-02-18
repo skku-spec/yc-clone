@@ -23,20 +23,49 @@ const specImages = [
 export default function ScrollBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafId = useRef(0);
+  const maxScrollRef = useRef(1);
   const prevPhase = useRef('entrepreneur');
   const prevIndex = useRef(0);
+  const activeElRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const imgEls = container.querySelectorAll<HTMLElement>('[data-bg]');
+    const byKey = new Map<string, HTMLElement>();
+
+    imgEls.forEach((el) => {
+      const phase = el.dataset.phase;
+      const index = el.dataset.index;
+      if (phase && index) {
+        byKey.set(`${phase}:${index}`, el);
+      }
+    });
+
+    const updateMetrics = () => {
+      maxScrollRef.current = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
+    };
+
+    const setActiveImage = (phase: string, index: number) => {
+      const nextEl = byKey.get(`${phase}:${index}`) ?? null;
+      if (!nextEl || nextEl === activeElRef.current) {
+        return;
+      }
+
+      if (activeElRef.current) {
+        activeElRef.current.style.opacity = '0';
+      }
+      nextEl.style.opacity = '0.25';
+      activeElRef.current = nextEl;
+    };
 
     const tick = () => {
       const scrollY = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? scrollY / docHeight : 0;
+      const progress = scrollY / maxScrollRef.current;
 
       const isSpec = progress >= 0.5;
       const phase = isSpec ? 'spec' : 'entrepreneur';
@@ -53,12 +82,7 @@ export default function ScrollBackground() {
       prevPhase.current = phase;
       prevIndex.current = index;
 
-      imgEls.forEach((el) => {
-        const match =
-          el.dataset.phase === phase &&
-          el.dataset.index === String(index);
-        el.style.opacity = match ? '0.25' : '0';
-      });
+      setActiveImage(phase, index);
     };
 
     const onScroll = () => {
@@ -69,11 +93,16 @@ export default function ScrollBackground() {
       });
     };
 
+    updateMetrics();
+    setActiveImage('entrepreneur', 0);
+
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updateMetrics, { passive: true });
     tick();
 
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', updateMetrics);
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
   }, []);
@@ -93,7 +122,6 @@ export default function ScrollBackground() {
           style={{
             opacity: i === 0 ? 0.25 : 0,
             transition: 'opacity 2s ease-in-out',
-            willChange: 'opacity',
           }}
         >
           <img
@@ -116,7 +144,6 @@ export default function ScrollBackground() {
           style={{
             opacity: 0,
             transition: 'opacity 2s ease-in-out',
-            willChange: 'opacity',
           }}
         >
           <img

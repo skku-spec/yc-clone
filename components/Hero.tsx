@@ -15,7 +15,7 @@ export default function Hero() {
       id="hero"
       className="relative -ml-[calc(50vw-50%)] w-screen overflow-hidden"
     >
-      <div className="relative flex h-[90vh] flex-col items-center justify-center px-6">
+      <div className="relative flex h-[85vh] md:h-[90vh] flex-col items-center justify-center px-6">
        <div
            className="flex max-w-[1200px] flex-col items-center gap-8 mx-auto"
            style={{
@@ -31,7 +31,7 @@ export default function Hero() {
 
             {/* Main headline */}
              <h1
-               className="text-center font-black uppercase leading-[0.9] tracking-[-0.03em] text-white text-[48px] md:text-[72px] lg:text-[96px]"
+               className="text-center font-black uppercase leading-[0.9] tracking-[-0.03em] text-white text-[36px] sm:text-[48px] md:text-[72px] lg:text-[96px]"
                style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
              >
                 EXECUTION
@@ -50,10 +50,10 @@ export default function Hero() {
                </div>
 
              {/* CTA */}
-             <div className="mt-10 flex flex-col items-center gap-3">
+              <div className="mt-8 md:mt-10 flex flex-col items-center gap-3">
                <a
                  href="/apply"
-                 className="flex h-14 items-center justify-center rounded-full bg-[#FF6C0F] px-8 font-['Pretendard',sans-serif] text-lg font-semibold text-white transition-all duration-200 hover:brightness-95"
+                 className="flex h-12 px-6 text-base md:h-14 md:px-8 md:text-lg items-center justify-center rounded-full bg-[#FF6C0F] font-['Pretendard',sans-serif] font-semibold text-white transition-all duration-200 hover:brightness-95"
                >
                  4기 지원하기
                </a>
