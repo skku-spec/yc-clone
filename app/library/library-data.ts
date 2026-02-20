@@ -57,7 +57,6 @@ export const libraryItems: LibraryItem[] = [
     duration: "42:15",
     youtubeId: "CBYhVcO4WgI",
     views: "3200",
-    featured: true,
     thumbnailColor: "#e8e4dc",
   },
   {
