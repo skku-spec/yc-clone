@@ -184,31 +184,73 @@ function FeaturedCard({ item }: { item: LibraryItem }) {
 function Carousel({
   title,
   items,
+  comingSoon,
 }: {
   title: string;
   items: LibraryItem[];
+  comingSoon?: boolean;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  if (items.length === 0) return null;
+  if (!comingSoon && items.length === 0) return null;
 
   return (
     <div className="mb-0 pt-3">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center gap-3">
         <h2 className="font-['Pretendard',sans-serif] text-[24px] font-semibold text-[#16140f]">
           {title}
         </h2>
+        {comingSoon && (
+          <span
+            className="font-['Pretendard',sans-serif] text-[11px] font-bold tracking-[1px] uppercase px-2.5 py-1 rounded-full"
+            style={{
+              background: "linear-gradient(135deg, #ff6b35, #f7931e)",
+              color: "#fff",
+            }}
+          >
+            Coming Soon
+          </span>
+        )}
       </div>
 
-      <div
-        ref={scrollRef}
-        className="flex gap-5 overflow-x-auto pb-2 scrollbar-hide"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {items.map((item) => (
-          <CarouselCard key={item.slug} item={item} />
-        ))}
-      </div>
+      {comingSoon ? (
+        <div
+          className="flex gap-5 overflow-hidden pb-2"
+        >
+          {[0, 1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="flex-none rounded-[8px] border border-dashed border-[#16140f]/15"
+              style={{
+                width: 240,
+                height: 200,
+                background: "linear-gradient(135deg, #f5f5ee 0%, #eaeae0 100%)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                opacity: 0.6,
+              }}
+            >
+              <div className="text-center">
+                <div className="font-['Pretendard',sans-serif] text-[28px] mb-1 opacity-30">📚</div>
+                <div className="font-['Pretendard',sans-serif] text-[12px] font-medium text-[#16140f]/30">
+                  준비 중
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div
+          ref={scrollRef}
+          className="flex gap-5 overflow-x-auto pb-2 scrollbar-hide"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {items.map((item) => (
+            <CarouselCard key={item.slug} item={item} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -233,21 +275,23 @@ export default function LibraryPage() {
       return monthB - monthA;
     });
 
-    const categoryGroups: { title: string; category: Category }[] = [
-      { title: "VCC 프로그램", category: "VCC" },
+    const categoryGroups: { title: string; category: Category; comingSoon?: boolean }[] = [
       { title: "창업 기초", category: "창업-기초" },
-      { title: "매출 & 성장", category: "매출-성장" },
-      { title: "IR & 투자", category: "IR-투자" },
-      { title: "팀빌딩", category: "팀빌딩" },
-      { title: "기술 & MVP", category: "기술-MVP" },
-      { title: "알럼나이", category: "알럼나이" },
+      { title: "IR & 투자", category: "IR-투자", comingSoon: true },
+      { title: "VCC 프로그램", category: "VCC", comingSoon: true },
+      { title: "매출 & 성장", category: "매출-성장", comingSoon: true },
+      { title: "팀빌딩", category: "팀빌딩", comingSoon: true },
+      { title: "기술 & MVP", category: "기술-MVP", comingSoon: true },
+      { title: "알럼나이", category: "알럼나이", comingSoon: true },
     ];
 
-    const sections: { title: string; items: LibraryItem[] }[] = [
-      { title: "추천", items: allSorted.slice(0, 10) },
-    ];
+    const sections: { title: string; items: LibraryItem[]; comingSoon?: boolean }[] = [];
 
     for (const group of categoryGroups) {
+      if (group.comingSoon) {
+        sections.push({ title: group.title, items: [], comingSoon: true });
+        continue;
+      }
       const items = libraryItems.filter((item) =>
         item.categories.includes(group.category)
       );
@@ -309,6 +353,7 @@ export default function LibraryPage() {
             key={section.title}
             title={section.title}
             items={section.items}
+            comingSoon={section.comingSoon}
           />
         ))}
       </div>
