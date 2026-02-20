@@ -16,6 +16,10 @@ export type ProfileRole =
 
 export type PostType = "news" | "blog";
 
+export type MemberType = "러너" | "프러너" | "alumni";
+
+export type ProjectStatus = "Active" | "Inactive" | "Acquired" | "Public";
+
 export type Database = {
   public: {
     Tables: {
@@ -318,6 +322,198 @@ export type Database = {
           youtube_id?: string;
           featured?: boolean;
           thumbnail_color?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      members: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          student_id: string | null;
+          phone: string | null;
+          email: string | null;
+          major: string | null;
+          runner_batch: string | null;
+          preneur_batch: string | null;
+          batch_tags: string[];
+          member_type: MemberType;
+          department: string | null;
+          role: string | null;
+          parts: string[];
+          photo_url: string | null;
+          linkedin_url: string | null;
+          bio: string | null;
+          notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          slug: string;
+          student_id?: string | null;
+          phone?: string | null;
+          email?: string | null;
+          major?: string | null;
+          runner_batch?: string | null;
+          preneur_batch?: string | null;
+          batch_tags?: string[];
+          member_type?: MemberType;
+          department?: string | null;
+          role?: string | null;
+          parts?: string[];
+          photo_url?: string | null;
+          linkedin_url?: string | null;
+          bio?: string | null;
+          notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          slug?: string;
+          student_id?: string | null;
+          phone?: string | null;
+          email?: string | null;
+          major?: string | null;
+          runner_batch?: string | null;
+          preneur_batch?: string | null;
+          batch_tags?: string[];
+          member_type?: MemberType;
+          department?: string | null;
+          role?: string | null;
+          parts?: string[];
+          photo_url?: string | null;
+          linkedin_url?: string | null;
+          bio?: string | null;
+          notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      projects: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          one_liner: string | null;
+          description: string | null;
+          batch: string | null;
+          industries: string[];
+          region: string | null;
+          team_size: number | null;
+          is_hiring: boolean;
+          status: ProjectStatus;
+          website: string | null;
+          linkedin_url: string | null;
+          twitter_url: string | null;
+          github_url: string | null;
+          logo_url: string | null;
+          category: string | null;
+          founded_year: number | null;
+          is_top_company: boolean;
+          is_nonprofit: boolean;
+          is_women_founded: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          slug: string;
+          one_liner?: string | null;
+          description?: string | null;
+          batch?: string | null;
+          industries?: string[];
+          region?: string | null;
+          team_size?: number | null;
+          is_hiring?: boolean;
+          status?: ProjectStatus;
+          website?: string | null;
+          linkedin_url?: string | null;
+          twitter_url?: string | null;
+          github_url?: string | null;
+          logo_url?: string | null;
+          category?: string | null;
+          founded_year?: number | null;
+          is_top_company?: boolean;
+          is_nonprofit?: boolean;
+          is_women_founded?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          slug?: string;
+          one_liner?: string | null;
+          description?: string | null;
+          batch?: string | null;
+          industries?: string[];
+          region?: string | null;
+          team_size?: number | null;
+          is_hiring?: boolean;
+          status?: ProjectStatus;
+          website?: string | null;
+          linkedin_url?: string | null;
+          twitter_url?: string | null;
+          github_url?: string | null;
+          logo_url?: string | null;
+          category?: string | null;
+          founded_year?: number | null;
+          is_top_company?: boolean;
+          is_nonprofit?: boolean;
+          is_women_founded?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      member_projects: {
+        Row: {
+          member_id: string;
+          project_id: string;
+          role: string | null;
+        };
+        Insert: {
+          member_id: string;
+          project_id: string;
+          role?: string | null;
+        };
+        Update: {
+          member_id?: string;
+          project_id?: string;
+          role?: string | null;
+        };
+        Relationships: [];
+      };
+      project_news: {
+        Row: {
+          id: string;
+          project_id: string;
+          title: string;
+          url: string | null;
+          date: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          project_id: string;
+          title: string;
+          url?: string | null;
+          date?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          project_id?: string;
+          title?: string;
+          url?: string | null;
+          date?: string | null;
           created_at?: string;
         };
         Relationships: [];
