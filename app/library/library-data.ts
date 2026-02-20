@@ -28,12 +28,12 @@ export interface LibraryItem {
 
 export const categories: Category[] = [
   "창업-기초",
-  "매출-성장",
   "IR-투자",
-  "팀빌딩",
   "VCC",
-  "알럼나이",
+  "매출-성장",
+  "팀빌딩",
   "기술-MVP",
+  "알럼나이",
 ];
 
 export const libraryItems: LibraryItem[] = [
@@ -88,7 +88,7 @@ export const libraryItems: LibraryItem[] = [
     author: "이정훈",
     authorRole: "전략 멘토, SPEC",
     type: "Essay",
-    categories: ["매출-성장", "창업-기초"],
+    categories: ["매출-성장"],
     description:
       "완벽한 제품을 만들기 전에 먼저 팔아야 하는 이유. 대학생 창업에서 가장 흔한 함정을 피하는 법.",
     body: `대학생 창업자들이 가장 많이 빠지는 함정이 있습니다. '제품이 완성되면 그때 팔겠다'는 생각입니다. 이 함정에 빠지면 6개월을 개발에 쏟고, 런칭했을 때 아무도 원하지 않는 제품을 만들었다는 사실을 알게 됩니다.
@@ -151,7 +151,7 @@ Q&A 세션에서는 SPEC 팀들의 실제 그로스 고민에 대한 1:1 피드�
     author: "David Park",
     authorRole: "SPEC 공동창립자",
     type: "Essay",
-    categories: ["창업-기초", "알럼나이"],
+    categories: ["알럼나이"],
     description:
       "대학 시절이 창업에 가장 유리한 시기인 이유. 실패 비용이 가장 낮을 때 시작하라.",
     body: `'졸업하고 경력 쌓은 뒤에 창업해도 늦지 않다'는 말을 자주 듣습니다. 물론 맞는 말입니다. 하지만 대학 시절에만 가능한 창업의 이점을 무시하는 것이기도 합니다.
@@ -172,7 +172,7 @@ SPEC은 이 황금기를 최대한 활용할 수 있도록 설계된 프로그�
     author: "Peter Kim",
     authorRole: "SPEC 창립자",
     type: "Guide",
-    categories: ["창업-기초", "VCC"],
+    categories: ["VCC"],
     description:
       "린 캔버스 한 장으로 비즈니스 모델을 명확하게 정리하는 방법. VCC 지원자 필독.",
     body: `린 캔버스는 비즈니스 모델 캔버스를 스타트업에 맞게 변형한 도구입니다. 9개의 칸에 비즈니스의 핵심을 압축하는 연습은 창업의 첫 단계에서 반드시 거쳐야 합니다.
@@ -195,7 +195,7 @@ VCC 지원 시 린 캔버스를 기반으로 비즈니스 모델을 설명하면
     author: "한유진",
     authorRole: "프로그램 디렉터, SPEC",
     type: "Podcast",
-    categories: ["알럼나이", "창업-기초"],
+    categories: ["알럼나이"],
     description:
       "SPEC 12기~18기 알럼나이 4명이 들려주는 솔직한 실패담. 실패는 끝이 아니라 데이터다.",
     body: `이 에피소드에서는 SPEC을 거친 알럼나이 4명이 모여 각자의 실패 경험을 솔직하게 나눕니다.
@@ -215,28 +215,19 @@ VCC 지원 시 린 캔버스를 기반으로 비즈니스 모델을 설명하면
     thumbnailColor: "#dce8e4",
   },
   {
-    slug: "customer-interview-mom-test",
-    title: "고객 인터뷰 기법 — Mom Test 실전편",
-    author: "Sarah Lee",
-    authorRole: "투자 멘토, SPEC",
+    slug: "yc-lecture5-competition-is-for-losers",
+    title: "경쟁은 패자의 게임이다 — Competition is for Losers",
+    author: "Peter Thiel",
+    authorRole: "PayPal, Palantir 창업자",
     type: "Video",
-    categories: ["창업-기초", "매출-성장"],
+    categories: ["창업-기초"],
     description:
-      "엄마에게 물어봐도 진짜 답을 얻는 인터뷰법. Mom Test 핵심 원칙과 SPEC 팀 실전 사례.",
-    body: `고객 인터뷰의 가장 큰 실수는 '우리 제품 어때요?'라고 묻는 것입니다. 사람들은 당신의 기분을 상하게 하고 싶지 않아서 거의 항상 '좋다'고 답합니다. 이것은 데이터가 아니라 예의입니다.
-
-Rob Fitzpatrick의 Mom Test는 이 문제를 해결하는 프레임워크입니다. 핵심 원칙은 세 가지입니다:
-1. 당신의 아이디어가 아닌 그들의 삶에 대해 이야기하라
-2. 미래의 가정이 아닌 과거의 구체적 경험을 물어라
-3. 말이 아닌 행동(커밋먼트)을 관찰하라
-
-이 특강에서는 Mom Test의 원칙을 SPEC 팀들이 실제로 적용한 사례를 통해 설명합니다. 인터뷰 스크립트 템플릿, 좋은 질문과 나쁜 질문의 구분, 그리고 인터뷰에서 얻은 데이터를 어떻게 의사결정에 반영하는지를 다룹니다.
-
-실습: 참가자들은 실제로 짝을 이루어 Mom Test 방식의 인터뷰를 연습합니다.`,
-    date: "May 2024",
-    duration: "35:40",
-    youtubeId: "LVKn4Q3JwQA",
-    views: "2350",
+      "YC How to Start a Startup Lecture 5. PayPal 창업자 Peter Thiel이 경쟁을 피하고 독점을 만드는 비즈니스 전략을 설명합니다.",
+    body: `Peter Thiel이 '경쟁은 패자의 게임'이라는 도발적인 주제로 비즈니스 전략과 독점 이론을 풀어냅니다.\n\n핵심 내용:\n- 완전 경쟁 시장에서는 아무도 돈을 벌지 못한다. 독점을 목표로 하라.\n- 독점 기업은 자신이 독점이 아닌 척하고, 경쟁 기업은 독점인 척한다.\n- 작은 시장에서 시작해 지배적 점유율을 확보한 뒤, 동심원 모양으로 확장하라.\n- '경쟁'에 집착하는 것은 가치 창출이 아닌 가치 파괴로 이어진다.\n\nPeter Thiel은 성공적인 스타트업은 '다른 누구도 하지 않는 것'을 해야 한다고 강조합니다. 구글이 검색 시장을, 페이스북이 소셜 네트워크를 만든 것처럼, 기존 시장에서 경쟁하는 것이 아니라 새로운 카테고리를 만들어야 합니다.\n\n이 강의는 스타트업 전략뿐만 아니라 커리어와 인생 전반에 적용할 수 있는 사고 프레임워크를 제공합니다.`,
+    date: "October 2014",
+    duration: "50:27",
+    youtubeId: "5_0dVHMpJlo",
+    views: "957378",
     thumbnailColor: "#e8e0dc",
   },
   {
@@ -294,29 +285,19 @@ D-Day: 현장
     thumbnailColor: "#e0dce8",
   },
   {
-    slug: "team-building-cofounder-chemistry",
-    title: "팀빌딩의 기술 — 공동창업자 케미 만들기",
-    author: "David Park",
-    authorRole: "SPEC 공동창립자",
+    slug: "yc-lecture2-team-and-execution",
+    title: "팀 구성과 실행 — Team and Execution",
+    author: "Sam Altman",
+    authorRole: "Y Combinator",
     type: "Video",
     categories: ["팀빌딩", "창업-기초"],
     description:
-      "좋은 팀이 좋은 아이디어를 이깁니다. 공동창업자를 찾고, 팀 케미를 만드는 실전 가이드.",
-    body: `스타트업 실패 원인 1위는 시장이 아닙니다. 팀의 해체입니다. 아무리 좋은 아이디어도 팀이 깨지면 실행할 수 없습니다.
-
-공동창업자를 찾을 때 가장 중요한 것은 기술적 역량이 아닙니다. '이 사람과 힘든 시기를 함께 버틸 수 있는가?'입니다. SPEC에서 15개 기수를 관찰한 결과, 성공적으로 프로그램을 완주한 팀의 공통점은 '어려울 때 솔직하게 대화할 수 있는 관계'였습니다.
-
-팀빌딩 체크리스트:
-1. 보완적 스킬셋 — 같은 역할의 사람 둘이 모이면 갈등이 생깁니다
-2. 공유된 비전 — '왜 이 문제를 풀어야 하는가'에 대한 합의
-3. 시간 투자 수준의 합의 — 풀타임 vs 파트타임 기대치 조율
-4. 갈등 해결 프로세스 — 의견이 다를 때의 의사결정 규칙
-
-이 특강에서는 팀 빌딩 워크숍도 함께 진행합니다. 서로의 강점, 약점, 동기를 공유하는 구조화된 대화를 통해 팀의 기초를 다집니다.`,
-    date: "February 2024",
-    duration: "32:15",
-    youtubeId: "prKi3-rUPHc",
-    views: "2100",
+      "YC How to Start a Startup Lecture 2. 공동창업자 선택, 채용, 그리고 스타트업 실행력에 대한 핵심 조언.",
+    body: `Sam Altman이 스타트업의 4대 핵심 요소 중 나머지 두 가지 — 팀과 실행 — 을 다룹니다.\n\n팀에 대해:\n- 공동창업자는 제임스 본드 같아야 한다: 강인하고, 결단력 있고, 끝없이 자원을 발굴하는 사람.\n- 최적의 공동창업자 수는 2~3명. 혼자는 힘들고, 너무 많으면 복잡해진다.\n- 초기에는 채용을 최소화하라. 적은 인원으로 이룰 수 있는 것에 자부심을 가져라.\n\n실행에 대해:\n- CEO의 핵심 역할: 비전 설정, 자금 조달, 전도, 채용/관리, 그리고 실행 기준 설정.\n- 실행은 두 가지 질문: '무엇을 해야 하는지 파악할 수 있는가?'와 '해낼 수 있는가?'\n- 집중과 강도. 매일 하나의 가장 중요한 일을 정하고, 거기에 몰입하라.\n- 모멘텀을 유지하라. 성장하는 회사는 이긴다.`,
+    date: "September 2014",
+    duration: "28:53",
+    youtubeId: "CVfnkM44Urs",
+    views: "996040",
     thumbnailColor: "#e8e4dc",
   },
   {
@@ -325,7 +306,7 @@ D-Day: 현장
     author: "김수진",
     authorRole: "법률 자문, SPEC",
     type: "Guide",
-    categories: ["창업-기초"],
+    categories: ["IR-투자"],
     description:
       "법인 설립, 주주간 계약, 지식재산권 — 대학생 창업자가 반드시 알아야 할 법률 기초.",
     body: `대학생 창업자들이 법률 문제를 간과하는 경우가 많습니다. 하지만 초기에 제대로 된 법률적 기반을 갖추지 않으면 나중에 큰 문제가 될 수 있습니다.
@@ -349,7 +330,7 @@ D-Day: 현장
     author: "이정훈",
     authorRole: "전략 멘토, SPEC",
     type: "Essay",
-    categories: ["매출-성장", "창업-기초"],
+    categories: ["매출-성장"],
     description:
       "Product-Market Fit의 한국적 특수성. 빠른 트렌드 변화와 높은 기대치의 시장에서 PMF를 찾는 법.",
     body: `한국 시장은 독특합니다. 소비자들의 기대치가 매우 높고, 트렌드 변화가 빠르며, 입소문의 영향력이 큽니다. 실리콘밸리의 PMF 프레임워크를 그대로 적용하면 맞지 않는 부분이 있습니다.
@@ -395,30 +376,19 @@ SPEC 팀들의 PMF 탐색 사례를 분석하면, 성공한 팀들은 대부분 
     thumbnailColor: "#e4e0e8",
   },
   {
-    slug: "vcc-module-overview",
-    title: "VCC 프로그램 전체 모듈 해설",
-    author: "Peter Kim",
-    authorRole: "SPEC 창립자",
+    slug: "yc-lecture3-before-the-startup",
+    title: "창업 전에 알아야 할 것들 — Before the Startup",
+    author: "Paul Graham",
+    authorRole: "Y Combinator 공동창립자",
     type: "Video",
     categories: ["VCC", "창업-기초"],
     description:
-      "VCC 3개 Phase의 구성과 각 단계에서 기대하는 성과. 지원자와 현 참가자를 위한 필수 시청 영상.",
-    body: `VCC(Venture Creation Course)는 SPEC의 핵심 프로그램으로, 아이디어에서 시장 검증까지의 여정을 3개 Phase로 구조화합니다.
-
-Phase 1: 매출 챌린지 (8주)
-목표: 첫 매출 달성. 제품이 없어도 됩니다. 프리셀링, 서비스 판매, 크라우드펀딩 등 어떤 방법이든 '고객이 돈을 내는' 경험을 합니다. 이 Phase에서 가장 중요한 것은 속도입니다.
-
-Phase 2: 성장 실험 (8주)
-목표: 체계적 성장. Phase 1에서 만든 초기 매출을 기반으로, 반복 가능한 성장 모델을 만듭니다. 주간 성장률을 추적하고, A/B 테스트를 통해 성장 레버를 찾습니다.
-
-Phase 3: 스케일업 준비 (8주)
-목표: 투자 준비. 비즈니스 모델을 정교화하고, IR 자료를 준비하며, 데모데이에서 발표합니다. 이 Phase에서는 실제 투자자들과의 미팅 기회도 제공됩니다.
-
-각 Phase 사이에는 게이트웨이 심사가 있으며, 일정 기준을 충족하지 못하면 다음 Phase로 진행하지 못합니다. 이 구조는 탈락이 아닌, 아직 준비되지 않은 팀에게 더 많은 준비 시간을 주기 위한 것입니다.`,
-    date: "October 2023",
-    duration: "52:00",
-    youtubeId: "ASABxNenD_U",
-    views: "4200",
+      "YC 공동창립자 Paul Graham이 전하는 반직관적인 창업 조언. 스타트업을 시작하기 전에 반드시 알아야 할 것들.",
+    body: `Paul Graham이 스타트업에 대한 반직관적인 진실들을 유머러스하게 풀어냅니다.\n\n핵심 메시지:\n- 스타트업은 반직관적이다. 본능을 믿지 말고, 데이터와 사용자를 믿어라.\n- 스타트업 전문가가 될 필요는 없다. 사용자에 대한 전문가가 되어라.\n- 게임의 법칙(학교에서 만들어진 습관)이 스타트업에서는 통하지 않는다.\n- '좋은 아이디어'를 억지로 떠올리려 하지 마라. 대신 흥미로운 문제에 몰두하라.\n\nPaul Graham은 창업을 결심하기 전에 해야 할 가장 중요한 일은 '무언가에 대해 도메인 전문가가 되는 것'이라고 강조합니다. 아이디어는 전문성에서 자연스럽게 나옵니다.\n\n\"당신의 자녀가 창업을 고려한다면 이 강의를 보여주겠다\"는 것이 Paul Graham의 말입니다.`,
+    date: "September 2014",
+    duration: "44:31",
+    youtubeId: "ii1jcLg-eIQ",
+    views: "1044711",
     thumbnailColor: "#dce8e0",
   },
   {
@@ -520,30 +490,19 @@ SPEC 팀들의 가격 실험 사례:
     thumbnailColor: "#e4dce0",
   },
   {
-    slug: "alumni-startup-exits",
-    title: "SPEC-Backed Companies: Growth Stories",
-    author: "한유진",
-    authorRole: "프로그램 디렉터, SPEC",
+    slug: "yc-lecture4-building-product",
+    title: "제품 만들기, 사용자와 대화하기, 성장하기",
+    author: "Adora Cheung",
+    authorRole: "Y Combinator, Homejoy 창업자",
     type: "Video",
-    categories: ["알럼나이", "창업-기초"],
+    categories: ["창업-기초", "매출-성장"],
     description:
-      "Stories of SPEC-backed companies that made it past Series A — what they learned at SPEC and the journey after.",
-    body: `SPEC을 졸업한 후 실제로 투자를 유치하고 성장한 팀들의 이야기를 모았습니다.
-
-사례 1: 에듀플랫폼 (SPEC 8기)
-캠퍼스 내 과외 매칭으로 시작 → 온라인 교육 플랫폼으로 피벗 → 시리즈 A 30억 유치. SPEC에서의 매출 챌린지가 '고객의 목소리를 듣는 습관'을 만들어줬다고 합니다.
-
-사례 2: 물류 SaaS (SPEC 11기)
-성균관대 주변 소상공인 배달 최적화로 시작 → B2B 물류 SaaS로 확장 → 현재 MAU 5만, 시리즈 B 준비 중. SPEC에서의 린 캔버스 작성이 비즈니스 모델의 기초를 잡아줬습니다.
-
-사례 3: 헬스케어 앱 (SPEC 14기)
-학생 건강 관리 앱으로 시작 → 기업 웰니스 솔루션으로 전환 → Pre-A 15억 유치. VCC Phase 2에서의 성장 실험이 데이터 기반 의사결정의 첫 경험이었습니다.
-
-공통점: 세 팀 모두 SPEC-backed companies로서 졸업 후 아이디어를 크게 피벗했습니다. SPEC에서 배운 것은 특정 아이디어가 아니라, '빠르게 실행하고 검증하는 방법론'이었습니다.`,
-    date: "June 2023",
-    duration: "40:15",
-    youtubeId: "xXRMRE_-dLM",
-    views: "2650",
+      "YC How to Start a Startup Lecture 4. 아이디어에서 시작해 제품을 만들고, 사용자를 찾고, 성장하는 구체적인 방법론.",
+    body: `Homejoy 창업자 Adora Cheung이 아이디어 단계에서 제품을 만들고 사용자를 확보하는 전 과정을 설명합니다.\n\n핵심 프레임워크:\n1. 아이디어 → 제품:\n- 문제를 직접 경험하라. Adora는 직접 청소 서비스를 하며 고객의 고통을 이해했다.\n- MVP를 빠르게 만들어 시장에 내놓아라.\n\n2. 사용자와 대화하기:\n- 사용자가 있는 곳으로 가라. 온라인이든 오프라인이든.\n- 제품에 대해 묻지 말고, 그들의 문제에 대해 물어라.\n\n3. 성장하기:\n- 확장 불가능한 일(Things that Don't Scale)부터 시작하라.\n- 핵심 지표를 정하고 매주 추적하라.\n- 사용자 피드백 → 제품 개선 → 더 많은 사용자의 선순환을 만들어라.\n\n모든 위대한 회사는 소수의 열렬한 팬에서 시작합니다.`,
+    date: "October 2014",
+    duration: "32:26",
+    youtubeId: "yP176MBG9Tk",
+    views: "540103",
     thumbnailColor: "#dce4e0",
   },
   {
@@ -616,7 +575,7 @@ Hour 36-48: 의사결정
     author: "David Park",
     authorRole: "SPEC 공동창립자",
     type: "Essay",
-    categories: ["창업-기초", "IR-투자"],
+    categories: ["IR-투자"],
     description:
       "경쟁사가 없다고 말하지 마세요. 경쟁 환경을 체계적으로 분석하고 차별화 포인트를 찾는 방법.",
     body: `'경쟁사가 없습니다'라는 말은 두 가지를 의미합니다: 시장이 없거나, 분석을 안 했거나. 투자자가 이 말을 들으면 둘 다 나쁜 신호로 받아들입니다.
@@ -642,5 +601,230 @@ X축과 Y축을 정해 경쟁사와 우리의 위치를 시각화하세요. 비�
 이 에세이의 마지막에 SPEC 팀들이 실제로 사용한 경쟁사 분석 템플릿을 첨부합니다.`,
     date: "March 2023",
     thumbnailColor: "#e4e8dc",
+  },
+  {
+    slug: "yc-lecture1-how-to-start-a-startup",
+    title: "How to Start a Startup — 아이디어, 제품, 팀, 실행",
+    author: "Sam Altman, Dustin Moskovitz",
+    authorRole: "Y Combinator",
+    type: "Video",
+    categories: ["창업-기초"],
+    description:
+      "YC How to Start a Startup 첫 번째 강의. 좋은 아이디어를 고르는 법, 훌륭한 제품을 만드는 법, 그리고 왜 창업을 해야 하는지.",
+    body: `Y Combinator 사장 Sam Altman과 Facebook 공동창업자 Dustin Moskovitz가 스타트업의 4대 핵심 요소를 다룹니다.\n\n핵심 내용:\n- 좋은 아이디어는 처음에 나빠 보일 수 있다\n- 소수가 열렬히 사랑하는 제품이 다수가 그냥 좋아하는 제품보다 낫다\n- 창업의 이유가 '돈'이나 '멋있어서'라면 다시 생각해보라\n- Dustin Moskovitz가 'Why to Start a Startup'에서 창업의 현실을 설명합니다`,
+    date: "September 2014",
+    duration: "44:24",
+    youtubeId: "CBYhVcO4WgI",
+    views: "4860244",
+    featured: true,
+    thumbnailColor: "#e8e0dc",
+  },
+  {
+    slug: "yc-lecture6-growth",
+    title: "성장 전략 — Growth",
+    author: "Alex Schultz",
+    authorRole: "Facebook VP of Growth",
+    type: "Video",
+    categories: ["창업-기초", "매출-성장"],
+    description:
+      "YC How to Start a Startup Lecture 6. Facebook 성장 담당 VP Alex Schultz가 스타트업 성장의 핵심을 이야기합니다.",
+    body: `Alex Schultz가 Facebook에서의 경험을 바탕으로 스타트업 성장 전략을 설명합니다.\n\n핵심 내용:\n- 리텐션이 성장의 가장 중요한 요소다. 리텐션 없이는 성장도 없다.\n- 성장은 좋은 아이디어와 Product-Market Fit에서 시작된다.\n- CEO를 포함한 전사가 성장에 집중해야 한다.\n- 초기 스타트업에는 별도의 성장 팀이 필요 없다.\n- 핵심 지표(magic moment)를 정의하고 그것을 최적화하라.`,
+    date: "October 2014",
+    duration: "46:21",
+    youtubeId: "n_yHZ_vKjno",
+    views: "562272",
+    thumbnailColor: "#dce8e4",
+  },
+  {
+    slug: "yc-lecture7-products-users-love",
+    title: "사용자가 사랑하는 제품 만들기",
+    author: "Kevin Hale",
+    authorRole: "Y Combinator, Wufoo 창업자",
+    type: "Video",
+    categories: ["창업-기초"],
+    description:
+      "YC How to Start a Startup Lecture 7. Wufoo 창업자 Kevin Hale이 사용자가 진심으로 사랑하는 제품을 만드는 비결을 공유합니다.",
+    body: `Kevin Hale이 Wufoo에서의 경험을 바탕으로 사용자의 마음을 사로잡는 제품을 만드는 방법을 설명합니다.\n\n핵심 내용:\n- 첫인상(첫 사용 경험)이 모든 것을 결정한다.\n- Wufoo에서는 모든 직원이 고객 지원을 했다 — Support-Driven Development.\n- 주목할 만한 제품은 입소문 성장을 만든다.\n- 전환율 최적화는 랜딩 페이지에서 시작한다.\n- 사용자와의 관계를 연애처럼 대하라.`,
+    date: "October 2014",
+    duration: "38:07",
+    youtubeId: "sz_LgBAGYyo",
+    views: "396156",
+    thumbnailColor: "#e0dce8",
+  },
+  {
+    slug: "yc-lecture8-doing-things-dont-scale",
+    title: "확장 불가능한 일 하기, 시작하는 법, PR",
+    author: "Stanley Tang, Walker Williams, Justin Kan",
+    authorRole: "DoorDash, Teespring, Twitch 창업자",
+    type: "Video",
+    categories: ["창업-기초"],
+    description:
+      "YC How to Start a Startup Lecture 8. 세 명의 창업자가 시작하는 법, 스케일하지 않는 일의 중요성, PR 전략을 공유합니다.",
+    body: `세 명의 성공한 창업자가 각자의 경험을 나눕니다.\n\nStanley Tang (DoorDash):\n- 처음에는 직접 배달을 했다. 확장 불가능한 일이 핵심 인사이트를 준다.\n\nWalker Williams (Teespring):\n- 유저 한 명 한 명을 직접 확보하라. Do things that don't scale.\n\nJustin Kan (Twitch):\n- PR이 유용한 경우와 그렇지 않은 경우를 구분하라.\n- 언론에 의존하지 말고 제품으로 승부하라.`,
+    date: "October 2014",
+    duration: "51:26",
+    youtubeId: "oQOC-qy-GDY",
+    views: "365365",
+    thumbnailColor: "#e8dce0",
+  },
+  {
+    slug: "yc-lecture9-how-to-raise-money",
+    title: "자금 조달 방법 — How to Raise Money",
+    author: "Marc Andreessen, Ron Conway, Parker Conrad",
+    authorRole: "a16z, SV Angel, Zenefits",
+    type: "Video",
+    categories: ["창업-기초", "IR-투자"],
+    description:
+      "YC How to Start a Startup Lecture 9. 실리콘밸리 최고의 투자자들과 함께하는 자금 조달 Q&A.",
+    body: `Sam Altman이 진행하는 패널 Q&A로, 실리콘밸리 최고의 투자자들과 창업자가 참여합니다.\n\n패널:\n- Marc Andreessen (Netscape 창업자, a16z 파트너)\n- Ron Conway (SV Angel 창업자)\n- Parker Conrad (Zenefits 창업자)\n\n핵심 내용:\n- 투자를 받아야 할 때와 받지 말아야 할 때를 구분하라.\n- 리스크를 줄일수록 더 좋은 조건으로 투자 받을 수 있다.\n- 투자자와의 관계는 결혼과 같다 — 신중하게 선택하라.`,
+    date: "October 2014",
+    duration: "42:38",
+    youtubeId: "uFX95HahaUs",
+    views: "280851",
+    thumbnailColor: "#dce0e8",
+  },
+  {
+    slug: "yc-lecture10-culture",
+    title: "기업 문화 만들기 — Culture",
+    author: "Brian Chesky, Alfred Lin",
+    authorRole: "Airbnb 창업자, Sequoia Capital",
+    type: "Video",
+    categories: ["창업-기초", "팀빌딩"],
+    description:
+      "YC How to Start a Startup Lecture 10. Airbnb 창업자 Brian Chesky와 Sequoia Capital의 Alfred Lin이 기업 문화의 중요성을 이야기합니다.",
+    body: `Brian Chesky와 Alfred Lin이 위대한 기업 문화를 만드는 방법을 논의합니다.\n\n핵심 내용:\n- 문화는 창업자의 가치관에서 시작된다.\n- 초기 직원이 회사의 DNA를 결정한다.\n- Airbnb에서는 문화 적합성 면접을 별도로 진행한다.\n- Zappos는 문화를 지키기 위해 신입 직원에게 퇴직 보너스를 제안했다.\n- 강한 문화는 의사결정을 빠르게 만든다.`,
+    date: "October 2014",
+    duration: "50:05",
+    youtubeId: "RfWgVWGEuGE",
+    views: "302518",
+    thumbnailColor: "#e4dce8",
+  },
+  {
+    slug: "yc-lecture11-hiring-culture-part2",
+    title: "채용과 문화 Part 2",
+    author: "Patrick Collison, John Collison, Ben Silbermann",
+    authorRole: "Stripe, Pinterest 창업자",
+    type: "Video",
+    categories: ["창업-기초", "팀빌딩"],
+    description:
+      "YC How to Start a Startup Lecture 11. Stripe와 Pinterest 창업자들이 채용과 문화에 대해 Q&A 형식으로 이야기합니다.",
+    body: `Stripe와 Pinterest — 강한 문화로 유명한 두 회사의 창업자들이 Q&A 형식으로 채용과 문화를 다룹니다.\n\n핵심 내용:\n- Patrick Collison: 처음 10명의 채용이 회사의 방향을 결정한다.\n- John Collison: 문화는 명문화하지 않으면 자연스럽게 희석된다.\n- Ben Silbermann: Pinterest의 초기 성장은 직접 사용자를 만나는 것에서 시작했다.\n- 채용에서 가장 중요한 것은 기술 능력이 아니라 문화 적합성이다.`,
+    date: "October 2014",
+    duration: "35:13",
+    youtubeId: "H8Dl8rZ6qwE",
+    views: "154852",
+    thumbnailColor: "#e8e4dc",
+  },
+  {
+    slug: "yc-lecture12-building-for-enterprise",
+    title: "엔터프라이즈를 위한 제품 만들기",
+    author: "Aaron Levie",
+    authorRole: "Box 창업자",
+    type: "Video",
+    categories: ["창업-기초"],
+    description:
+      "YC How to Start a Startup Lecture 12. Box 창업자 Aaron Levie가 B2B/엔터프라이즈 시장에서 제품을 만드는 전략을 공유합니다.",
+    body: `Aaron Levie가 B2B/엔터프라이즈 시장 공략법을 설명합니다.\n\n핵심 내용:\n- 엔터프라이즈 시장은 거대한 기회다. 기술 변화가 새로운 진입점을 만든다.\n- 기존 워크플로우를 10배 개선하는 제품을 만들어라.\n- 단순함이 핵심이다. 복잡한 제품은 채택되지 않는다.\n- 작은 팀도 엔터프라이즈 시장에서 성공할 수 있다.\n- 모바일, 클라우드 등 기술 트렌드가 새로운 카테고리를 만든다.`,
+    date: "October 2014",
+    duration: "34:37",
+    youtubeId: "tFVDjrvQJdw",
+    views: "155576",
+    thumbnailColor: "#dce8dc",
+  },
+  {
+    slug: "yc-lecture13-how-to-be-great-founder",
+    title: "위대한 창업자가 되는 법",
+    author: "Reid Hoffman",
+    authorRole: "LinkedIn 창업자, Greylock Partners",
+    type: "Video",
+    categories: ["창업-기초"],
+    description:
+      "YC How to Start a Startup Lecture 13. LinkedIn 창업자 Reid Hoffman이 위대한 창업자의 자질과 역할을 설명합니다.",
+    body: `Reid Hoffman이 창업자에 대한 흔한 오해를 바로잡고 위대한 창업자의 특성을 설명합니다.\n\n핵심 내용:\n- 위대한 창업자는 모순적인 자질을 동시에 가진다: 비전과 데이터, 리스크와 안전, 고집과 유연성.\n- 혼자 하는 것보다 팀과 네트워크를 활용하는 것이 중요하다.\n- 실리콘밸리의 장점은 네트워크와 인재풀이다.\n- 창업자의 역할은 회사가 성장함에 따라 변화해야 한다.`,
+    date: "November 2014",
+    duration: "42:14",
+    youtubeId: "dQ7ZvO5DpIw",
+    views: "218680",
+    thumbnailColor: "#e0e8dc",
+  },
+  {
+    slug: "yc-lecture14-how-to-operate",
+    title: "운영의 기술 — How to Operate",
+    author: "Keith Rabois",
+    authorRole: "Khosla Ventures, Square COO",
+    type: "Video",
+    categories: ["창업-기초"],
+    description:
+      "YC How to Start a Startup Lecture 14. Square의 전 COO Keith Rabois가 스타트업을 효과적으로 운영하는 방법을 공유합니다.",
+    body: `Keith Rabois가 CEO가 매일 해야 할 일과 회사를 올바른 방향으로 이끄는 방법을 설명합니다.\n\n핵심 내용:\n- 회사를 엔진에 비유: 각 부품(팀)이 잘 돌아가는지 확인하라.\n- 편집자처럼 일하라: 불필요한 것을 제거하고 핵심에 집중하라.\n- 지표를 통해 회사의 건강 상태를 진단하라.\n- 위임의 기술: 자신감 * 결과의 중요도로 위임 수준을 결정하라.\n- 배럴(Barrel)과 탄약(Ammunition)의 개념: 배럴이 될 수 있는 사람을 찾아라.`,
+    date: "November 2014",
+    duration: "44:27",
+    youtubeId: "6fQHLK1aIBs",
+    views: "290146",
+    thumbnailColor: "#dce4e8",
+  },
+  {
+    slug: "yc-lecture15-how-to-manage",
+    title: "관리의 기술 — How to Manage",
+    author: "Ben Horowitz",
+    authorRole: "Andreessen Horowitz 창업자",
+    type: "Video",
+    categories: ["창업-기초"],
+    description:
+      "YC How to Start a Startup Lecture 15. a16z 창업자 Ben Horowitz가 창업자가 놓치기 쉬운 경영의 관점을 이야기합니다.",
+    body: `Ben Horowitz가 경영에서 가장 중요한 것은 '당신의 결정이 영향을 미치는 사람은 당신만이 아니다'라는 관점을 설명합니다.\n\n핵심 내용:\n- 관리자의 관점에서 생각하라: 당신의 결정이 전체 조직에 미치는 영향을 고려하라.\n- 일대일 미팅의 중요성: 직원의 목소리를 듣는 가장 효과적인 방법.\n- 피드백은 빠르게, 직접적으로 하라.\n- 좋은 제품 관리자 vs 나쁜 제품 관리자의 차이.\n- 어려운 결정을 내리는 용기가 리더십의 핵심이다.`,
+    date: "November 2014",
+    duration: "37:14",
+    youtubeId: "uVhTvQXfibU",
+    views: "187355",
+    thumbnailColor: "#e8dce4",
+  },
+  {
+    slug: "yc-lecture17-hardware-products",
+    title: "하드웨어 제품 디자인하기",
+    author: "Hosain Rahman",
+    authorRole: "Jawbone CEO",
+    type: "Video",
+    categories: ["창업-기초", "기술-MVP"],
+    description:
+      "YC How to Start a Startup Lecture 17. Jawbone CEO Hosain Rahman이 하드웨어 제품의 디자인과 개발 과정을 설명합니다.",
+    body: `Hosain Rahman이 Jawbone에서의 경험을 바탕으로 하드웨어 제품을 만드는 과정을 설명합니다.\n\n핵심 내용:\n- 하드웨어 제품은 소프트웨어와 달리 이터레이션 비용이 높다.\n- 디자인은 단순한 외관이 아니라 사용자 경험 전체를 포함한다.\n- 하드웨어와 소프트웨어의 융합이 차세대 제품을 만든다.\n- 제조 파트너와의 관계가 제품 품질을 결정한다.\n- 사용자의 일상에 자연스럽게 녹아드는 제품을 목표로 하라.`,
+    date: "November 2014",
+    duration: "36:09",
+    youtubeId: "9u6-BL-Fskc",
+    views: "89000",
+    thumbnailColor: "#dce0e4",
+  },
+  {
+    slug: "yc-lecture18-legal-accounting-basics",
+    title: "스타트업 법률 & 회계 기초",
+    author: "Kirsty Nathoo, Carolynn Levy",
+    authorRole: "Y Combinator CFO & 법무",
+    type: "Video",
+    categories: ["창업-기초"],
+    description:
+      "YC How to Start a Startup Lecture 18. YC의 CFO와 법무 담당이 스타트업에 필요한 법률과 회계 기초를 설명합니다.",
+    body: `Kirsty Nathoo와 Carolynn Levy가 스타트업 창업자가 반드시 알아야 할 법률과 회계 기초를 다룹니다.\n\n핵심 내용:\n- 법인 설립: 델라웨어 C-Corp 설립이 가장 일반적이다.\n- 주식 배분: 공동창업자 간의 지분 배분을 초기에 결정하라.\n- 베스팅(Vesting): 4년 베스팅, 1년 클리프가 표준이다.\n- 83(b) Election: 세금 절약을 위해 반드시 제출하라.\n- 회계 기초: 수입과 비용을 추적하고, 세금 신고를 놓치지 마라.\n- 투자 관련 서류: SAFE, 전환사채 등의 기초 개념.`,
+    date: "November 2014",
+    duration: "55:34",
+    youtubeId: "EHzvmyMJEK4",
+    views: "120000",
+    thumbnailColor: "#e4e0dc",
+  },
+  {
+    slug: "yc-lecture20-later-stage-advice",
+    title: "후기 단계 조언 — Later-stage Advice",
+    author: "Sam Altman",
+    authorRole: "Y Combinator",
+    type: "Video",
+    categories: ["창업-기초"],
+    description:
+      "YC How to Start a Startup Lecture 20. Sam Altman이 시리즈 마지막 강의에서 후기 단계 스타트업을 위한 조언을 전합니다.",
+    body: `Sam Altman이 시리즈의 마지막 강의로 성장 이후 단계의 회사 운영에 대한 조언을 전합니다.\n\n핵심 내용:\n- 경영: 회사가 성장하면 창업자의 역할이 변해야 한다.\n- HR: 채용과 해고의 원칙을 명확히 하라.\n- 회사 생산성: 조직이 커질수록 의사소통 비용이 증가한다.\n- 법률 문제: 성장 단계에서 마주치는 법적 이슈들.\n- 경쟁사 대응: 경쟁에 신경 쓰되 집착하지 마라.\n- 수익 모델: 돈을 버는 것에 대해 두려워하지 마라.\n\n이 강의는 전체 How to Start a Startup 시리즈의 마무리 강의입니다.`,
+    date: "December 2014",
+    duration: "25:35",
+    youtubeId: "59ZQ-rf6iIc",
+    views: "150000",
+    thumbnailColor: "#dce8e0",
   },
 ];
