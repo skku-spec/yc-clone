@@ -595,7 +595,7 @@ function VccTrack() {
           &ldquo;Venture Creation Course&rdquo;
         </p>
         <p className="mt-2 font-['MaruBuri',serif] text-[16px] leading-relaxed text-[#16140f]/60">
-          RISE 사업단 &times; 카카오모빌리티 &times; SPEC 합동 프로그램.
+          RISE 사업단 &times; 카카오모빌리티 &times; SPEC 합동 프로그램.<br />
           모빌리티·라이프스타일 영역에서 실제 벤처를 만들어 냅니다.
           SPEC 소속이면 누구나 수강 가능합니다.
         </p>
