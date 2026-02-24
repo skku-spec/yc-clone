@@ -15,7 +15,7 @@ export default function ApplyPage() {
       <article className="mx-auto max-w-[800px]">
         <div className="mb-14 rounded-[10px] border border-[#ddd9cc] bg-white p-10 md:p-14 shadow-sm">
           <h1 className="mb-8 text-4xl font-black text-[#16140f] [font-family:system-ui,-apple-system,sans-serif] leading-tight">
-            실전창업동아리 SPEC 3기 <br /> 러너 리쿠르팅
+            실전창업동아리 SPEC 4기 <br /> 러너 리쿠르팅
           </h1>
           
           <div className="prose prose-lg max-w-none text-[#4a4a40] space-y-10 font-['Pretendard',sans-serif]">

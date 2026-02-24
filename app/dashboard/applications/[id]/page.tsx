@@ -64,7 +64,11 @@ export default async function ApplicationDetailPage({ params }: PageProps) {
               {app.major}
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-2 text-sm text-[#6b6b5e] sm:grid-cols-2 md:text-right">
+          <div className="grid grid-cols-1 gap-2 text-sm text-[#6b6b5e] sm:grid-cols-3 md:text-right">
+            <div>
+              <p className="font-semibold text-[#16140f]">학번</p>
+              <p>{app.student_id || "-"}</p>
+            </div>
             <div>
               <p className="font-semibold text-[#16140f]">이메일</p>
               <p>{app.email}</p>
@@ -94,6 +98,69 @@ export default async function ApplicationDetailPage({ params }: PageProps) {
           <div className="whitespace-pre-wrap font-['Pretendard',sans-serif] leading-relaxed text-[#16140f]">
             {app.vision || "작성된 내용이 없습니다."}
           </div>
+        </section>
+
+        <section className="rounded-[10px] border border-[#ddd9cc] bg-white p-8">
+          <h2 className="mb-6 border-b border-[#f0efe6] pb-3 text-xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif]">
+            함께 도전해보고 싶은 창업 아이템
+          </h2>
+          <div className="whitespace-pre-wrap font-['Pretendard',sans-serif] leading-relaxed text-[#16140f]">
+            {app.startup_idea || "작성된 내용이 없습니다."}
+          </div>
+        </section>
+
+        <section className="rounded-[10px] border border-[#ddd9cc] bg-white p-8">
+          <h2 className="mb-6 border-b border-[#f0efe6] pb-3 text-xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif]">
+            촬영/디자인 경험 조사 (우대 사항)
+          </h2>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="space-y-4">
+              <h3 className="font-semibold text-[#16140f]">영상 촬영</h3>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center gap-2">
+                  <span className={app.equip ? "text-green-600" : "text-gray-400"}>
+                    {app.equip ? "✓" : "✗"}
+                  </span>
+                  <span>촬영 장비 소지</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className={app.photo_exp ? "text-green-600" : "text-gray-400"}>
+                    {app.photo_exp ? "✓" : "✗"}
+                  </span>
+                  <span>촬영 경력 있음</span>
+                </li>
+              </ul>
+            </div>
+            <div className="space-y-4">
+              <h3 className="font-semibold text-[#16140f]">디자인</h3>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center gap-2">
+                  <span className={app.design_exp ? "text-green-600" : "text-gray-400"}>
+                    {app.design_exp ? "✓" : "✗"}
+                  </span>
+                  <span>디자인 경력 있음</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className={app.figma ? "text-green-600" : "text-gray-400"}>
+                    {app.figma ? "✓" : "✗"}
+                  </span>
+                  <span>피그마 사용 가능</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className={app.illustrator ? "text-green-600" : "text-gray-400"}>
+                    {app.illustrator ? "✓" : "✗"}
+                  </span>
+                  <span>일러스트레이터 사용 가능</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {app.experience_extra && (
+            <div className="mt-6 border-t border-[#f0efe6] pt-4 text-sm">
+              <p className="mb-2 font-semibold text-[#16140f]">기타 경험 및 역량</p>
+              <p className="text-[#4a4a40] leading-relaxed">{app.experience_extra}</p>
+            </div>
+          )}
         </section>
 
         {app.portfolio_url && (

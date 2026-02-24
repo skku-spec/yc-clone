@@ -123,7 +123,7 @@ export default function ApplicationFormPage() {
           
           <div className="space-y-6 text-lg leading-relaxed text-[#6b6b5e] font-['Pretendard',sans-serif]">
             <p>
-              성균관대학교 실전창업동아리 <span className="font-bold text-[#16140f]">SPEC 3기</span>에 <br className="hidden md:block"/>
+              성균관대학교 실전창업동아리 <span className="font-bold text-[#16140f]">SPEC 4기</span>에 <br className="hidden md:block"/>
               소중한 시간을 내어 지원해주셔서 진심으로 감사합니다.
             </p>
             
@@ -182,7 +182,7 @@ export default function ApplicationFormPage() {
           <div className="space-y-12">
             <div className="rounded-[10px] border border-[#ddd9cc] bg-white p-8 md:p-12 shadow-sm">
               <h1 className="mb-8 text-3xl font-black text-[#16140f] [font-family:system-ui,-apple-system,sans-serif] leading-tight">
-                실전창업동아리 SPEC 3기 <br /> 러너 리쿠르팅
+                실전창업동아리 SPEC 4기 <br /> 러너 리쿠르팅
               </h1>
               
               <div className="prose prose-sm max-w-none text-[#4a4a40] space-y-8 font-['Pretendard',sans-serif]">
@@ -587,7 +587,7 @@ export default function ApplicationFormPage() {
         <input type="hidden" name="introduction" value={introduction} />
         <input type="hidden" name="vision" value={vision} />
         <input type="hidden" name="startup_idea" value={startupIdea} />
-        <input type="hidden" name="batch" value="3" />
+        <input type="hidden" name="batch" value="4" />
 
         {/* hidden survey inputs */}
         <input type="hidden" name="equip" value={equip ? "true" : "false"} />
@@ -608,7 +608,7 @@ export default function ApplicationFormPage() {
                 <h3 className="font-bold text-[#16140f] mb-3">개인정보 수집 및 이용 안내</h3>
                 <ul className="space-y-2 list-disc pl-4">
                   <li>수집 항목: 성명, 학번, 이메일, 연락처, 전공, 자기소개 등 지원 시 기재한 내용</li>
-                  <li>수집 목적: SPEC 3기 회원 선발 및 활동 관리</li>
+                  <li>수집 목적: SPEC 4기 회원 선발 및 활동 관리</li>
                   <li>보유 기간: 선발 종료 후 1년 간 보관 후 파기</li>
                 </ul>
                 <p className="mt-4 text-xs font-medium text-[#16140f]">
