@@ -22,7 +22,7 @@
 
 // ─── Re-export Types ────────────────────────────────────────────────
 export type { Company } from "./companies-data";
-export type { Person, PeopleSection } from "./people-data";
+export type { Person, PeopleSection, TeamDescription } from "./people-data";
 export type { RoleCategory, LocationOption } from "../app/jobs/jobsData";
 export type {
   LibraryItem,
@@ -52,11 +52,11 @@ import {
 import type { Company } from "./companies-data";
 
 import {
-  partners as _partners,
-  founders as _founders,
-  staffSections as _staffSections,
+  managingLeads as _managingLeads,
+  preneurs as _preneurs,
+  teamDescriptions as _teamDescriptions,
   getPersonBySlug as _getPersonBySlug,
-  getAllPartnerSlugs as _getAllPartnerSlugs,
+  getAllPersonSlugs as _getAllPersonSlugs,
 } from "./people-data";
 import type { Person } from "./people-data";
 
@@ -274,16 +274,16 @@ export async function getCompanyFilterOptions() {
 
 // ─── People ─────────────────────────────────────────────────────────
 
-export async function getPartners(): Promise<Person[]> {
-  return _partners;
+export async function getManagingLeads(): Promise<Person[]> {
+  return _managingLeads;
 }
 
-export async function getFounders(): Promise<Person[]> {
-  return _founders;
+export async function getPreneurs(): Promise<Person[]> {
+  return _preneurs;
 }
 
-export async function getStaffSections() {
-  return _staffSections;
+export async function getTeamDescriptions() {
+  return _teamDescriptions;
 }
 
 export async function getPersonBySlug(
@@ -292,8 +292,8 @@ export async function getPersonBySlug(
   return _getPersonBySlug(slug);
 }
 
-export async function getAllPartnerSlugs(): Promise<string[]> {
-  return _getAllPartnerSlugs();
+export async function getAllPersonSlugs(): Promise<string[]> {
+  return _getAllPersonSlugs();
 }
 
 // ─── Blog ───────────────────────────────────────────────────────────
