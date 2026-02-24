@@ -88,7 +88,7 @@ export default function AboutPage() {
             <p id="intro" className={`scroll-mt-28 ${pClass}`}>
               SPEC은 성균관대학교에서 시작된 실전 창업 학회입니다. 아이디어를
               떠드는 곳이 아닙니다. 만들고, 팔고, 증명하는 곳입니다. 30주 안에
-              매출을 만들어내는 것 &mdash; 그것이 우리가 하는 일의 전부입니다.
+              매출을 만들어내는 것, 그것이 우리가 하는 일의 전부입니다.
             </p>
 
             {/* ── Philosophy ── */}
