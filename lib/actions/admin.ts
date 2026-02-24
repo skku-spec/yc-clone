@@ -65,8 +65,6 @@ export async function updateUserRole(userId: string, newRole: ProfileRole): Prom
       throw new Error("Only admins can manage user roles.");
     }
 
-
-
     const { error: updateError } = await supabase.from("profiles").update({ role: newRole }).eq("id", userId);
 
     if (updateError) {

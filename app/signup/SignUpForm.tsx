@@ -32,13 +32,8 @@ export default function SignUpForm() {
       return;
     }
 
-    let normalizedLinkedInUrl = linkedinUrl;
-    if (!linkedinUrl.startsWith("http://") && !linkedinUrl.startsWith("https://")) {
-      normalizedLinkedInUrl = "https://" + linkedinUrl;
-    }
-
     try {
-      const parsedLinkedInUrl = new URL(normalizedLinkedInUrl);
+      const parsedLinkedInUrl = new URL(linkedinUrl);
       if (!parsedLinkedInUrl.hostname.includes("linkedin.com")) {
         setError("Please enter a valid LinkedIn profile URL.");
         return;
@@ -47,8 +42,6 @@ export default function SignUpForm() {
       setError("Please enter a valid LinkedIn profile URL.");
       return;
     }
-
-    formData.set("linkedin_url", normalizedLinkedInUrl);
 
     startTransition(async () => {
       const result = await signUp(formData);
