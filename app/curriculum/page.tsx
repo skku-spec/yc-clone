@@ -15,7 +15,7 @@ const preneurAreas = [
     title: '조직 운영 & 스케일업',
     subtitle: 'Operations & Scale-up',
     description:
-      'SPEC 자체를 스타트업처럼 운영합니다. 내부 프로세스를 설계하고, 기수 운영을 체계화하며, SPEC만의 문화를 구축합니다. 조직이 성장하려면 시스템이 먼저 성장해야 합니다.',
+      'SPEC을 하나의 스타트업으로 정의하고 시스템 설계를 주도합니다. 운영 체계화와 문화 구축을 통해 조직의 선행 성장을 최우선으로 실현합니다.',
     activities: [
       'SPEC 내부 운영 프로세스 설계 및 최적화',
       '기수별 온보딩/오프보딩 체계 구축',
@@ -29,7 +29,7 @@ const preneurAreas = [
     title: '투자사 IR & 파트너십',
     subtitle: 'Investor Relations & Partnerships',
     description:
-      'SPEC의 자원을 확대합니다. 투자사와 기업을 대상으로 IR을 진행하고, 전략적 파트너십을 발굴하며, 후원과 협업을 유치합니다. SPEC이 지속 가능하려면 외부 자원이 흘러들어와야 합니다.',
+      '전략적 IR과 파트너십 발굴로 핵심 자원을 확보합니다. 자원 유입을 체계화하여 SPEC이 지속 성장하는 비즈니스 구조를 설계합니다.',
     activities: [
       '투자사/기업 대상 SPEC IR 덱 작성 및 피칭',
       '전략적 파트너십 발굴 — 기업, 대학, 정부 기관',
@@ -43,7 +43,7 @@ const preneurAreas = [
     title: 'Learner 서포트 & 멘토링',
     subtitle: 'Learner Support & Mentoring',
     description:
-      'Learner 팀이 최대한 빠르게 성장하도록 돕습니다. 오피스아워를 운영하고, 팀별 코칭을 진행하며, 성장 지표를 트래킹합니다. Learner의 성공이 곧 SPEC의 성공입니다.',
+      '밀착 코칭으로 러너의 잠재력을 깨우고 성장을 견인합니다. 지표를 정교하게 트래킹하여 러너와 SPEC의 공동 성공을 실현합니다.',
     activities: [
       'Learner 팀 주간 코칭 세션 운영',
       '오피스아워 — 1:1 멘토링 및 문제 해결',
@@ -477,10 +477,11 @@ function PreneurTrack() {
           className="text-[clamp(1.25rem,2.5vw,1.75rem)] font-black uppercase leading-tight tracking-tight text-[#16140f]"
           style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
         >
-          &ldquo;SPEC 자체가 우리의 스타트업이다&rdquo;
+          SPEC 자체가 우리의 스타트업이다.
         </p>
         <p className="mt-2 font-['MaruBuri',serif] text-[16px] leading-relaxed text-[#16140f]/60">
-          Preneur는 SPEC을 운영하고 성장시키는 리더십 트랙입니다. 조직을 스케일업하고, 파트너십을 확대하고, Learner를 서포트합니다. 3월부터 11월까지.
+          Preneur는 SPEC을 운영하고 성장시키는 리더십 트랙입니다.<br />
+          조직의 스케일업과 파트너십 확대를 설계하며, Learner의 여정을 밀착 서포트합니다. | 2026.03 — 2026.11
         </p>
       </div>
 
