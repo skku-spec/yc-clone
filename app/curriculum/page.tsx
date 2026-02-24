@@ -593,7 +593,7 @@ function VccTrack() {
           className="text-[clamp(1.25rem,2.5vw,1.75rem)] font-black uppercase leading-tight tracking-tight text-[#16140f]"
           style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
         >
-          &ldquo;Venture Creation Course&rdquo;
+          Venture Creation Course
         </p>
         <p className="mt-2 font-['MaruBuri',serif] text-[16px] leading-relaxed text-[#16140f]/60">
           RISE 사업단 &times; 카카오모빌리티 &times; SPEC 합동 프로그램.<br />
@@ -725,13 +725,14 @@ function LearnerTrack() {
           10만 원부터 시작해서 수억을 만든다.
         </p>
         <p className="mt-2 font-['MaruBuri',serif] text-[16px] leading-relaxed text-[#16140f]/60">
-          교실을 넘어 현장에서 매출로 증명하며 비즈니스의 본질을 체득합니다. 10만 원의 첫 수익에서 시작해 수억 원의 가치를 향한 폭발적 성장을 일궈냅니다.
+          교실을 넘어 현장에서 매출로 증명하며 비즈니스의 본질을 체득합니다.<br />
+          10만 원의 첫 수익에서 시작해 수억 원의 가치를 향한 폭발적 성장을 일궈냅니다.
         </p>
       </div>
       <div className="mb-10 grid grid-cols-4 divide-x divide-[#d9d9cc] rounded-lg border border-[#d9d9cc] bg-[#f5f5ee]">
         {[
           { month: '3월', label: '프로그램 시작 & 첫 매출' },
-          { month: '5월', label: '아이디어톤 & 팀 확정' },
+          { month: '6월', label: '아이디어톤 & MVP 해커톤' },
           { month: '8월', label: '중간 데모데이' },
           { month: '11월', label: '최종 데모데이' },
         ].map((ms) => (
