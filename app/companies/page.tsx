@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
 import {
   COMPANIES,
@@ -21,9 +22,7 @@ export default function CompaniesPage() {
   const [topCompaniesOnly, setTopCompaniesOnly] = useState(false);
   const [isHiringOnly, setIsHiringOnly] = useState(false);
   const [nonprofitOnly, setNonprofitOnly] = useState(false);
-  const [blackFoundedOnly, setBlackFoundedOnly] = useState(false);
   const [womenFoundedOnly, setWomenFoundedOnly] = useState(false);
-  const [hispanicLatinoFoundedOnly, setHispanicLatinoFoundedOnly] = useState(false);
   const [selectedBatches, setSelectedBatches] = useState<string[]>([]);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
@@ -45,9 +44,7 @@ export default function CompaniesPage() {
       if (topCompaniesOnly && !c.isTopCompany) return false;
       if (isHiringOnly && !c.isHiring) return false;
       if (nonprofitOnly && !c.isNonprofit) return false;
-      if (blackFoundedOnly && !c.isBlackFounded) return false;
       if (womenFoundedOnly && !c.isWomenFounded) return false;
-      if (hispanicLatinoFoundedOnly && !c.isHispanicLatinoFounded) return false;
       if (selectedBatches.length > 0 && !selectedBatches.includes(c.batch)) return false;
       if (selectedIndustries.length > 0 && !c.industry.some((ind) => selectedIndustries.includes(ind))) return false;
       if (selectedRegions.length > 0 && !selectedRegions.includes(c.region)) return false;
@@ -64,8 +61,7 @@ export default function CompaniesPage() {
     return filtered;
   }, [
     searchQuery, topCompaniesOnly, isHiringOnly, nonprofitOnly,
-    blackFoundedOnly, womenFoundedOnly, hispanicLatinoFoundedOnly,
-    selectedBatches, selectedIndustries, selectedRegions, sortBy,
+    womenFoundedOnly, selectedBatches, selectedIndustries, selectedRegions, sortBy,
   ]);
 
   const displayedCompanies = filteredCompanies.slice(0, visibleCount);
@@ -74,13 +70,10 @@ export default function CompaniesPage() {
   return (
     <div className="min-h-screen px-4 pb-24 pt-14 md:px-8 md:pt-20">
       <div className="mx-auto max-w-[1200px]">
-        <PageHeader title="SPEC-Backed Companies" align="center" />
+        <PageHeader title="SPEC Projects" align="center" />
         <p className="mx-auto mb-8 max-w-[640px] text-center font-['Pretendard',sans-serif] text-[15px] font-normal leading-relaxed text-black/60">
-          SPEC 1~3기에서 탄생한 기업들입니다. 매주 매출 챌린지를 거쳐 실제 사업으로
-          성장한 팀들을 만나보세요.{" "}
-          <Link href="/jobs" className="text-[#FF6C0F] underline hover:text-[#e55c00]">
-            Companies 채용
-          </Link>
+          SPEC 1~2기에서 탄생한 프로젝트들입니다. 매주 챌린지를 거쳐 실제 사업으로
+          성장한 팀들을 만나보세요.
         </p>
       </div>
 
@@ -118,7 +111,7 @@ export default function CompaniesPage() {
            <div className="mb-6">
               <input
                 type="text"
-                placeholder="기업 검색..."
+                placeholder="프로젝트 검색..."
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -131,7 +124,7 @@ export default function CompaniesPage() {
 
            <div className="mb-4 flex items-center justify-between">
             <p className="font-['Pretendard',sans-serif] text-[14px] font-normal text-black/60">
-              {filteredCompanies.length}개 기업
+              {filteredCompanies.length}개 프로젝트
             </p>
             <div className="flex items-center gap-2">
               <span className="font-['Pretendard',sans-serif] text-[13px] font-normal text-black/50">
@@ -194,9 +187,13 @@ function CompanyCard({ company, isFirst = false, isLast = false }: { company: Co
       className={`group flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 transition-colors hover:bg-[#f5f5ee] ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
     >
       <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#efefe8]">
-        <span className="font-['Pretendard',sans-serif] text-[18px] font-bold text-[#FF6C0F]">
-          {company.name.charAt(0)}
-        </span>
+        {company.logoUrl ? (
+          <Image src={company.logoUrl} alt={company.name} width={56} height={56} className="h-full w-full object-cover" />
+        ) : (
+          <span className="font-['Pretendard',sans-serif] text-[18px] font-bold text-[#FF6C0F]">
+            {company.name.charAt(0)}
+          </span>
+        )}
       </div>
 
       <div className="min-w-0 flex-1">

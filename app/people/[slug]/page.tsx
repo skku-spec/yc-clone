@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { partners, founders, getPersonBySlug, getAllPartnerSlugs } from "@/lib/people-data";
+import { managingLeads, preneurs, getPersonBySlug, getAllPersonSlugs } from "@/lib/people-data";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return getAllPartnerSlugs().map((slug) => ({ slug }));
+  return getAllPersonSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -44,13 +44,13 @@ export default async function PersonPage({ params }: PageProps) {
     )
     .map((sentences) => sentences.join(" "));
 
-  const otherPartners = [...partners, ...founders]
+  const otherPartners = [...managingLeads, ...preneurs]
     .filter((p) => p.slug !== slug && p.slug !== "")
     .slice(0, 4);
 
-   return (
-     <div className="px-4 pb-24 pt-12 md:pt-16">
-       <div className="mx-auto max-w-[720px]">
+  return (
+    <div className="px-4 pb-24 pt-12 md:pt-16">
+      <div className="mx-auto max-w-[720px]">
         <Link
           href="/people"
           className="mb-8 inline-flex items-center gap-1.5 font-['Pretendard',sans-serif] text-[0.875rem] font-medium text-[#FF6C0F] transition-colors hover:text-[#e55c00]"
