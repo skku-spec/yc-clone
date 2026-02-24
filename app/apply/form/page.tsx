@@ -23,6 +23,14 @@ export default function ApplicationFormPage() {
   const [startupIdea, setStartupIdea] = useState("");
   const [acceptedConsent, setAcceptedConsent] = useState(false);
 
+  // Survey states (Step 3)
+  const [equip, setEquip] = useState(false);
+  const [photoExp, setPhotoExp] = useState(false);
+  const [designExp, setDesignExp] = useState(false);
+  const [figma, setFigma] = useState(false);
+  const [illustrator, setIllustrator] = useState(false);
+  const [experienceExtra, setExperienceExtra] = useState("");
+
   const totalSteps = 5;
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -472,11 +480,23 @@ export default function ApplicationFormPage() {
                   </div>
                   <div className="space-y-3">
                     <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" name="equip" className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" />
+                      <input 
+                        type="checkbox" 
+                        name="equip" 
+                        checked={equip}
+                        onChange={(e) => setEquip(e.target.checked)}
+                        className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" 
+                      />
                       <span className="text-[#6b6b5e] group-hover:text-[#16140f] transition-colors">촬영 장비 소지</span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" name="photo_exp" className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" />
+                      <input 
+                        type="checkbox" 
+                        name="photo_exp" 
+                        checked={photoExp}
+                        onChange={(e) => setPhotoExp(e.target.checked)}
+                        className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" 
+                      />
                       <span className="text-[#6b6b5e] group-hover:text-[#16140f] transition-colors">촬영 경력 있음</span>
                     </label>
                   </div>
@@ -489,15 +509,33 @@ export default function ApplicationFormPage() {
                   </div>
                   <div className="space-y-3">
                     <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" name="design_exp" className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" />
+                      <input 
+                        type="checkbox" 
+                        name="design_exp" 
+                        checked={designExp}
+                        onChange={(e) => setDesignExp(e.target.checked)}
+                        className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" 
+                      />
                       <span className="text-[#6b6b5e] group-hover:text-[#16140f] transition-colors">디자인 경력 있음</span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" name="figma" className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" />
+                      <input 
+                        type="checkbox" 
+                        name="figma" 
+                        checked={figma}
+                        onChange={(e) => setFigma(e.target.checked)}
+                        className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" 
+                      />
                       <span className="text-[#6b6b5e] group-hover:text-[#16140f] transition-colors">피그마 사용 가능</span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" name="illustrator" className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" />
+                      <input 
+                        type="checkbox" 
+                        name="illustrator" 
+                        checked={illustrator}
+                        onChange={(e) => setIllustrator(e.target.checked)}
+                        className="h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]" 
+                      />
                       <span className="text-[#6b6b5e] group-hover:text-[#16140f] transition-colors">일러스트레이터 사용 가능</span>
                     </label>
                     <div className="pt-2">
@@ -508,6 +546,8 @@ export default function ApplicationFormPage() {
                         </div>
                         <textarea
                           name="experience_extra"
+                          value={experienceExtra}
+                          onChange={(e) => setExperienceExtra(e.target.value)}
                           className="w-full rounded-md border border-[#ddd9cc] p-4 text-sm focus:border-[#FF6C0F] focus:ring-1 focus:ring-[#FF6C0F] focus:outline-none transition-all"
                           placeholder="다양한 AI 툴들을 활용해 간단한 영상을 만든 경험이 있습니다. 등"
                           rows={3}
@@ -538,6 +578,25 @@ export default function ApplicationFormPage() {
           </div>
         )}
 
+        {/* Hidden inputs to preserve data across steps for final submission */}
+        <input type="hidden" name="name" value={name} />
+        <input type="hidden" name="student_id" value={studentId} />
+        <input type="hidden" name="email" value={email} />
+        <input type="hidden" name="phone" value={phone} />
+        <input type="hidden" name="major" value={major} />
+        <input type="hidden" name="introduction" value={introduction} />
+        <input type="hidden" name="vision" value={vision} />
+        <input type="hidden" name="startup_idea" value={startupIdea} />
+        <input type="hidden" name="batch" value="3" />
+
+        {/* hidden survey inputs */}
+        <input type="hidden" name="equip" value={equip ? "true" : "false"} />
+        <input type="hidden" name="photo_exp" value={photoExp ? "true" : "false"} />
+        <input type="hidden" name="design_exp" value={designExp ? "true" : "false"} />
+        <input type="hidden" name="figma" value={figma ? "true" : "false"} />
+        <input type="hidden" name="illustrator" value={illustrator ? "true" : "false"} />
+        <input type="hidden" name="experience_extra" value={experienceExtra} />
+
         {step === 4 && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="rounded-[10px] border border-[#ddd9cc] bg-white p-8 space-y-7 shadow-sm">
@@ -563,65 +622,7 @@ export default function ApplicationFormPage() {
                   type="checkbox"
                   checked={acceptedConsent}
                   onChange={(e) => setAcceptedConsent(e.target.checked)}
-                  className="mt-1 h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]"
-                />
-                <label htmlFor="consent-checkbox" className="text-sm font-medium text-[#16140f] select-none cursor-pointer">
-                  개인정보 수집 및 이용에 동의합니다. (필수)
-                </label>
-              </div>
-            </div>
-
-            {error && (
-              <div className="rounded-md bg-red-50 p-4 text-sm text-red-600 border border-red-100 animate-shake">
-                {error}
-              </div>
-            )}
-
-            <div className="flex gap-4">
-              <button
-                type="button"
-                onClick={goToPrevStep}
-                className="h-14 flex-1 rounded-full border border-[#ddd9cc] font-semibold text-[#6b6b5e] hover:bg-gray-50 transition-colors"
-                disabled={isPending}
-              >
-                이전으로
-              </button>
-              <button
-                type="button"
-                onClick={goToNextStep}
-                className="h-14 flex-[2] rounded-full bg-[#16140f] font-semibold text-white hover:opacity-90 transition-opacity"
-              >
-                다음 단계로 →
-              </button>
-            </div>
-          </div>
-        )}
-
-        {step === 4 && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="rounded-[10px] border border-[#ddd9cc] bg-white p-8 space-y-7 shadow-sm">
-              <h2 className="text-2xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif] border-b border-[#f0efe6] pb-4">
-                개인정보 수집 및 동의
-              </h2>
-
-              <div className="rounded-lg bg-[#fcfcf8] p-6 text-sm text-[#6b6b5e] leading-relaxed border border-[#f0efe6]">
-                <h3 className="font-bold text-[#16140f] mb-3">개인정보 수집 및 이용 안내</h3>
-                <ul className="space-y-2 list-disc pl-4">
-                  <li>수집 항목: 성명, 학번, 이메일, 연락처, 전공, 학점, 자기소개 등 지원 시 기재한 내용</li>
-                  <li>수집 목적: SPEC 3기 회원 선발 및 활동 관리</li>
-                  <li>보유 기간: 선발 종료 후 1년 간 보관 후 파기</li>
-                </ul>
-                <p className="mt-4 text-xs font-medium text-[#16140f]">
-                  * 귀하는 동의를 거부할 권리가 있으나, 동의 거부 시 선발 과정에서 제외될 수 있습니다.
-                </p>
-              </div>
-
-              <div className="flex items-start gap-3 pt-4">
-                <input
-                  id="consent-checkbox"
-                  type="checkbox"
-                  checked={acceptedConsent}
-                  onChange={(e) => setAcceptedConsent(e.target.checked)}
+                  required
                   className="mt-1 h-5 w-5 rounded border-[#ddd9cc] text-[#FF6C0F] focus:ring-[#FF6C0F]"
                 />
                 <label htmlFor="consent-checkbox" className="text-sm font-medium text-[#16140f] select-none cursor-pointer">

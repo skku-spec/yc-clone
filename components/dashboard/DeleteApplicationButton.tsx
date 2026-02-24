@@ -24,8 +24,12 @@ export default function DeleteApplicationButton({ id, applicantName }: DeleteApp
       if (result.error) {
         alert(result.error);
       } else {
-        // 성공 시 목록 갱신을 위해 router.refresh() 호출 또는 상세 페이지의 경우 목록으로 이동
-        router.refresh();
+        // 상세 페이지에서 삭제한 경우 목록으로 이동, 목록에서 삭제한 경우 현재 페이지 새로고침
+        if (typeof window !== "undefined" && window.location.pathname.includes("/dashboard/applications/")) {
+          router.push("/dashboard/applications");
+        } else {
+          router.refresh();
+        }
       }
     } catch (error) {
       alert("삭제 중 오류가 발생했습니다.");

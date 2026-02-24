@@ -22,6 +22,14 @@ export async function submitApplication(formData: FormData): Promise<Application
   const startup_idea = formData.get("startup_idea") as string;
   const portfolio_url = formData.get("portfolio_url") as string;
 
+  // Survey fields (Step 3) - these are optional but gathered if filled
+  const equip = formData.get("equip") === "true";
+  const photo_exp = formData.get("photo_exp") === "true";
+  const design_exp = formData.get("design_exp") === "true";
+  const figma = formData.get("figma") === "true";
+  const illustrator = formData.get("illustrator") === "true";
+  const experience_extra = formData.get("experience_extra") as string;
+
   if (!name || !email || !introduction || !student_id || !vision || !startup_idea) {
     return { error: "필수 항목을 모두 입력해주세요." };
   }
@@ -37,14 +45,21 @@ export async function submitApplication(formData: FormData): Promise<Application
     vision,
     startup_idea,
     portfolio_url,
+    equip,
+    photo_exp,
+    design_exp,
+    figma,
+    illustrator,
+    experience_extra,
   });
 
   if (error) {
     console.error("Application submission error:", error);
-    if (error.code === "P0001" || error.message.includes("column \"student_id\" of relation \"applications\" does not exist")) {
-      return { error: "데이터베이스 설정이 완료되지 않았습니다. 관리자에게 문의해주세요. (student_id 컬럼 누락)" };
+    // 컬럼 누락 에러 처리
+    if (error.message.includes("column") && error.message.includes("does not exist")) {
+      return { error: `데이터베이스 설정 오류: ${error.message}. 관리자 페이지나 SQL 에디터에서 필요한 컬럼을 추가해주세요.` };
     }
-    return { error: "지원서 제출 중 오류가 발생했습니다. 다시 시도해주세요." };
+    return { error: `지원서 제출 중 오류가 발생했습니다: ${error.message}` };
   }
 
 
@@ -69,14 +84,19 @@ export async function deleteApplication(id: string): Promise<ApplicationState> {
     return { error: "삭제 권한이 없습니다. 관리자만 삭제 가능합니다." };
   }
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("applications")
     .delete()
-    .eq("id", id);
+    .eq("id", id)
+    .select();
 
   if (error) {
     console.error("Error deleting application:", error);
     return { error: "지원서 삭제 중 오류가 발생했습니다." };
+  }
+
+  if (!data || data.length === 0) {
+    return { error: "삭제 권한이 없거나 해당 데이터를 찾을 수 없습니다. (RLS 정책 확인 필요)" };
   }
 
   revalidatePath("/dashboard/applications");
