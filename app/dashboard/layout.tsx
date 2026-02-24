@@ -28,12 +28,6 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
             </Link>
             {/* 향후 다른 대시보드 메뉴가 추가될 수 있습니다 */}
           </nav>
-          <Link
-            href="/"
-            className="mt-10 rounded-lg px-3 py-2 text-sm text-[#6b6b5e] transition-colors hover:bg-[#f0efe6] hover:text-[#16140f]"
-          >
-            사이트로 돌아가기
-          </Link>
         </aside>
         <main className="flex-1 px-8 py-10 sm:px-10">{children}</main>
       </div>

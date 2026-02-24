@@ -1,8 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
+import { getCurrentUser } from "@/lib/auth";
+import DeleteApplicationButton from "@/components/dashboard/DeleteApplicationButton";
 
 export default async function ApplicationsDashboardPage() {
   const supabase = await createClient();
+  const { profile } = await getCurrentUser();
+  const isAdmin = profile?.role === "admin";
 
   const { data: applications, error } = await supabase
     .from("applications")
@@ -30,7 +34,7 @@ export default async function ApplicationsDashboardPage() {
         <p className="text-sm text-[#6b6b5e]">총 {applications?.length ?? 0}개의 지원서</p>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-[#ddd9cc] bg-white">
+      <div className="overflow-hidden rounded-lg border border-[#ddd9cc] bg-white text-nowrap">
         <table className="w-full text-left text-sm font-['Pretendard',sans-serif]">
           <thead className="bg-[#fcfcf8] border-b border-[#ddd9cc] text-[#6b6b5e] font-medium">
             <tr>
@@ -39,7 +43,7 @@ export default async function ApplicationsDashboardPage() {
               <th className="px-6 py-4">지원 차수</th>
               <th className="px-6 py-4">지원일</th>
               <th className="px-6 py-4">상태</th>
-              <th className="px-6 py-4 text-right">상세보기</th>
+              <th className="px-6 py-4 text-right">관리</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#ddd9cc]">
@@ -74,12 +78,17 @@ export default async function ApplicationsDashboardPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <Link
-                      href={`/dashboard/applications/${app.id}`}
-                      className="inline-flex h-8 items-center rounded-md border border-[#ddd9cc] px-3 text-xs font-medium text-[#16140f] hover:bg-[#fcfcf8]"
-                    >
-                      열람하기
-                    </Link>
+                    <div className="flex justify-end gap-2">
+                      <Link
+                        href={`/dashboard/applications/${app.id}`}
+                        className="inline-flex h-8 items-center rounded-md border border-[#ddd9cc] px-3 text-xs font-medium text-[#16140f] hover:bg-[#fcfcf8]"
+                      >
+                        열람하기
+                      </Link>
+                      {isAdmin && (
+                        <DeleteApplicationButton id={app.id} applicantName={app.name} />
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))

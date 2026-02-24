@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { getCurrentUser } from "@/lib/auth";
+import DeleteApplicationButton from "@/components/dashboard/DeleteApplicationButton";
 
 
 type PageProps = {
@@ -10,6 +12,8 @@ type PageProps = {
 export default async function ApplicationDetailPage({ params }: PageProps) {
   const { id } = await params;
   const supabase = await createClient();
+  const { profile } = await getCurrentUser();
+  const isAdmin = profile?.role === "admin";
 
   const { data: app, error } = await supabase
     .from("applications")
@@ -24,13 +28,21 @@ export default async function ApplicationDetailPage({ params }: PageProps) {
   return (
     <article className="max-w-[900px]">
       <div className="mb-8 flex items-center justify-between">
-        <Link
-          href="/dashboard/applications"
-          className="inline-flex items-center gap-2 text-sm text-[#6b6b5e] hover:text-[#16140f]"
-        >
-          <span>←</span>
-          <span>목록으로 돌아가기</span>
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/dashboard/applications"
+            className="inline-flex items-center gap-2 text-sm text-[#6b6b5e] hover:text-[#16140f]"
+          >
+            <span>←</span>
+            <span>목록으로 돌아가기</span>
+          </Link>
+          {isAdmin && (
+            <>
+              <div className="h-4 w-[1px] bg-[#ddd9cc]" />
+              <DeleteApplicationButton id={app.id} applicantName={app.name} />
+            </>
+          )}
+        </div>
         <div className="flex gap-2">
            <span className="inline-flex rounded-full bg-[#FFF0E5] px-3 py-1 text-sm font-medium text-[#FF6C0F]">
             {app.batch}기 지원서
