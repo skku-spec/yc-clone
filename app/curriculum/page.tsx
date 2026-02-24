@@ -728,7 +728,26 @@ function LearnerTrack() {
           교실을 넘어 현장에서 매출로 증명하며 비즈니스의 본질을 체득합니다. 10만 원의 첫 수익에서 시작해 수억 원의 가치를 향한 폭발적 성장을 일궈냅니다.
         </p>
       </div>
-
+      <div className="mb-10 grid grid-cols-4 divide-x divide-[#d9d9cc] rounded-lg border border-[#d9d9cc] bg-[#f5f5ee]">
+        {[
+          { month: '3월', label: '프로그램 시작 & 첫 매출' },
+          { month: '5월', label: '아이디어톤 & 팀 확정' },
+          { month: '8월', label: '중간 데모데이' },
+          { month: '11월', label: '최종 데모데이' },
+        ].map((ms) => (
+          <div key={ms.month} className="flex flex-col items-center justify-center px-2 py-4">
+            <span
+              className="text-sm font-black uppercase tracking-tight text-[#FF6C0F]"
+              style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+            >
+              {ms.month}
+            </span>
+            <span className="mt-1 text-center font-['Pretendard',sans-serif] text-xs text-[#16140f]/50">
+              {ms.label}
+            </span>
+          </div>
+        ))}
+      </div>
 
 
       <div
