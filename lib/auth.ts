@@ -65,8 +65,6 @@ export async function requireRole(minRole: UserRole): Promise<AuthResult> {
   return currentUser;
 }
 
-
-
 export function isAdmin(role: string | null): boolean {
   return role === "admin";
 }

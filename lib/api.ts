@@ -22,14 +22,14 @@
 
 // ─── Re-export Types ────────────────────────────────────────────────
 export type { Company } from "./companies-data";
-export type { Person, PeopleSection, TeamDescription } from "./people-data";
+export type { Person, PeopleSection } from "./people-data";
 export type { RoleCategory, LocationOption } from "../app/jobs/jobsData";
 export type {
   LibraryItem,
   ContentType,
   Category,
 } from "../app/library/library-data";
-export type { Member as FounderDirectory } from "./founders-data";
+export type { Founder as FounderDirectory } from "./founders-data";
 export type { Launch } from "./launches-data";
 export type {
   CompanyDetail,
@@ -37,7 +37,6 @@ export type {
   Job as CompanyJob,
   NewsItem,
 } from "./company-details-data";
-export type { MemberRow, ProjectRow };
 
 // ─── Internal Imports (mock data sources) ───────────────────────────
 import {
@@ -52,16 +51,16 @@ import {
 import type { Company } from "./companies-data";
 
 import {
-  managingLeads as _managingLeads,
-  preneurs as _preneurs,
-  teamDescriptions as _teamDescriptions,
+  partners as _partners,
+  founders as _founders,
+  staffSections as _staffSections,
   getPersonBySlug as _getPersonBySlug,
-  getAllPersonSlugs as _getAllPersonSlugs,
+  getAllPartnerSlugs as _getAllPartnerSlugs,
 } from "./people-data";
 import type { Person } from "./people-data";
 
 import { createClient } from "@/lib/supabase/server";
-import type { Database, MemberType } from "@/lib/supabase/types";
+import type { Database } from "@/lib/supabase/types";
 
 import {
   roleCategories,
@@ -70,8 +69,6 @@ import {
   getLocationLabel as _getLocationLabel,
 } from "../app/jobs/jobsData";
 type Job = Database["public"]["Tables"]["jobs"]["Row"];
-type MemberRow = Database["public"]["Tables"]["members"]["Row"];
-type ProjectRow = Database["public"]["Tables"]["projects"]["Row"];
 
 import {
   categories as _categories,
@@ -79,12 +76,12 @@ import {
 import type { LibraryItem, Category, ContentType } from "../app/library/library-data";
 
 import {
-  MEMBERS as _MEMBERS,
+  FOUNDERS as _FOUNDERS,
   BATCH_OPTIONS as _FOUNDER_BATCH_OPTIONS,
-  MEMBER_TYPE_OPTIONS as _FOUNDER_MEMBER_TYPE_OPTIONS,
-  PROJECT_OPTIONS as _FOUNDER_PROJECT_OPTIONS,
+  INDUSTRY_OPTIONS as _FOUNDER_INDUSTRY_OPTIONS,
+  LOCATION_OPTIONS as _FOUNDER_LOCATION_OPTIONS,
 } from "./founders-data";
-import type { Member as FounderDirectory } from "./founders-data";
+import type { Founder as FounderDirectory } from "./founders-data";
 
 import {
   CATEGORIES as _LAUNCH_CATEGORIES,
@@ -274,16 +271,16 @@ export async function getCompanyFilterOptions() {
 
 // ─── People ─────────────────────────────────────────────────────────
 
-export async function getManagingLeads(): Promise<Person[]> {
-  return _managingLeads;
+export async function getPartners(): Promise<Person[]> {
+  return _partners;
 }
 
-export async function getPreneurs(): Promise<Person[]> {
-  return _preneurs;
+export async function getFounders(): Promise<Person[]> {
+  return _founders;
 }
 
-export async function getTeamDescriptions() {
-  return _teamDescriptions;
+export async function getStaffSections() {
+  return _staffSections;
 }
 
 export async function getPersonBySlug(
@@ -292,8 +289,8 @@ export async function getPersonBySlug(
   return _getPersonBySlug(slug);
 }
 
-export async function getAllPersonSlugs(): Promise<string[]> {
-  return _getAllPersonSlugs();
+export async function getAllPartnerSlugs(): Promise<string[]> {
+  return _getAllPartnerSlugs();
 }
 
 // ─── Blog ───────────────────────────────────────────────────────────
@@ -561,30 +558,30 @@ export async function getLibraryCategories(): Promise<Category[]> {
   return _categories;
 }
 
-// ─── Member Directory ───────────────────────────────────────────────
+// ─── Founder Directory ──────────────────────────────────────────────
 
 export async function getFounderDirectory(filters?: {
   batch?: string;
-  memberType?: string;
-  project?: string;
+  industry?: string;
+  location?: string;
   query?: string;
 }): Promise<FounderDirectory[]> {
-  let result = [..._MEMBERS];
+  let result = [..._FOUNDERS];
   if (filters?.batch) {
-    result = result.filter((m) => m.batchTags.some((t) => t.startsWith(filters.batch!)));
+    result = result.filter((f) => f.batch === filters.batch);
   }
-  if (filters?.memberType) {
-    result = result.filter((m) => m.memberType === filters.memberType);
+  if (filters?.industry) {
+    result = result.filter((f) => f.industry === filters.industry);
   }
-  if (filters?.project) {
-    result = result.filter((m) => m.projects.includes(filters.project!));
+  if (filters?.location) {
+    result = result.filter((f) => f.location === filters.location);
   }
   if (filters?.query) {
     const q = filters.query.toLowerCase();
     result = result.filter(
-      (m) =>
-        m.name.toLowerCase().includes(q) ||
-        (m.major?.toLowerCase().includes(q) ?? false)
+      (f) =>
+        f.name.toLowerCase().includes(q) ||
+        f.company.toLowerCase().includes(q)
     );
   }
   return result;
@@ -593,8 +590,8 @@ export async function getFounderDirectory(filters?: {
 export async function getFounderDirectoryFilterOptions() {
   return {
     batches: _FOUNDER_BATCH_OPTIONS,
-    memberTypes: _FOUNDER_MEMBER_TYPE_OPTIONS,
-    projects: _FOUNDER_PROJECT_OPTIONS,
+    industries: _FOUNDER_INDUSTRY_OPTIONS,
+    locations: _FOUNDER_LOCATION_OPTIONS,
   };
 }
 
@@ -645,104 +642,4 @@ export async function getRelatedCompanies(
   currentSlug: string
 ): Promise<CompanyDetail[]> {
   return _getRelatedCompanies(currentSlug);
-}
-
-// ─── Members ────────────────────────────────────────────────────────
-
-export async function getMembers(filters?: {
-  batch?: string;
-  memberType?: MemberType;
-  query?: string;
-}): Promise<MemberRow[]> {
-  const supabase = await createClient();
-
-  let query = supabase.from("members").select("*");
-
-  if (filters?.batch) {
-    query = query.or(`runner_batch.eq.${filters.batch},preneur_batch.eq.${filters.batch}`);
-  }
-
-  if (filters?.memberType) {
-    query = query.eq("member_type", filters.memberType);
-  }
-
-  if (filters?.query) {
-    const q = filters.query.trim();
-    if (q) {
-      query = query.or(`name.ilike.%${q}%,email.ilike.%${q}%`);
-    }
-  }
-
-  const { data: rows } = await query;
-
-  return rows ?? [];
-}
-
-export async function getMemberBySlug(slug: string): Promise<MemberRow | undefined> {
-  const supabase = await createClient();
-  const { data: row } = await supabase
-    .from("members")
-    .select("*")
-    .eq("slug", slug)
-    .maybeSingle();
-
-  return row ?? undefined;
-}
-
-// ─── Projects ───────────────────────────────────────────────────────
-
-export async function getProjects(filters?: {
-  batch?: string;
-  query?: string;
-}): Promise<ProjectRow[]> {
-  const supabase = await createClient();
-
-  let query = supabase.from("projects").select("*");
-
-  if (filters?.batch) {
-    query = query.eq("batch", filters.batch);
-  }
-
-  if (filters?.query) {
-    const q = filters.query.trim();
-    if (q) {
-      query = query.or(`name.ilike.%${q}%,one_liner.ilike.%${q}%`);
-    }
-  }
-
-  const { data: rows } = await query;
-
-  return rows ?? [];
-}
-
-export async function getProjectBySlug(slug: string): Promise<ProjectRow | undefined> {
-  const supabase = await createClient();
-  const { data: row } = await supabase
-    .from("projects")
-    .select("*")
-    .eq("slug", slug)
-    .maybeSingle();
-
-  return row ?? undefined;
-}
-
-export async function getMembersByProject(projectId: string): Promise<MemberRow[]> {
-  const supabase = await createClient();
-
-  const { data: memberProjects } = await supabase
-    .from("member_projects")
-    .select("member_id")
-    .eq("project_id", projectId);
-
-  if (!memberProjects || memberProjects.length === 0) {
-    return [];
-  }
-
-  const memberIds = memberProjects.map((mp) => mp.member_id);
-  const { data: members } = await supabase
-    .from("members")
-    .select("*")
-    .in("id", memberIds);
-
-  return members ?? [];
 }

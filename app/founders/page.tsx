@@ -5,58 +5,55 @@ import Link from "next/link";
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
 import {
-  Member,
-  MEMBERS,
+  Founder,
+  FOUNDERS,
   BATCH_OPTIONS,
-  MEMBER_TYPE_OPTIONS,
-  PROJECT_OPTIONS,
+  INDUSTRY_OPTIONS,
 } from "@/lib/founders-data";
-
-const PROJECT_LABEL_MAP: Record<string, string> = Object.fromEntries(
-  PROJECT_OPTIONS.map((p) => [p.value, p.label])
-);
 
 export default function FoundersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBatch, setSelectedBatch] = useState("");
-  const [selectedMemberType, setSelectedMemberType] = useState("");
-  const [selectedProject, setSelectedProject] = useState("");
+  const [selectedIndustry, setSelectedIndustry] = useState("");
+  const [topFoundersOnly, setTopFoundersOnly] = useState(false);
 
   const filtered = useMemo(() => {
-    return MEMBERS.filter((m) => {
+    return FOUNDERS.filter((f) => {
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const match =
-          m.name.toLowerCase().includes(q) ||
-          (m.major?.toLowerCase().includes(q) ?? false) ||
-          m.batchTags.some((t) => t.toLowerCase().includes(q)) ||
-          m.projects.some((p) => (PROJECT_LABEL_MAP[p] ?? p).toLowerCase().includes(q));
+          f.name.toLowerCase().includes(q) ||
+          f.company.toLowerCase().includes(q) ||
+          f.oneLiner.toLowerCase().includes(q) ||
+          f.batch.toLowerCase().includes(q) ||
+          f.industry.toLowerCase().includes(q);
         if (!match) return false;
       }
 
-      if (selectedBatch && !m.batchTags.some((t) => t.startsWith(selectedBatch))) return false;
-      if (selectedMemberType && m.memberType !== selectedMemberType) return false;
-      if (selectedProject && !m.projects.includes(selectedProject)) return false;
+      if (selectedBatch && f.batch !== selectedBatch) return false;
+      if (selectedIndustry && f.industry !== selectedIndustry) return false;
+      if (topFoundersOnly && !f.isTopCompanyFounder) return false;
 
       return true;
     });
-  }, [searchQuery, selectedBatch, selectedMemberType, selectedProject]);
+  }, [searchQuery, selectedBatch, selectedIndustry, topFoundersOnly]);
 
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedBatch("");
-    setSelectedMemberType("");
-    setSelectedProject("");
+    setSelectedIndustry("");
+    setTopFoundersOnly(false);
   };
 
   const hasActiveFilters =
-    selectedBatch || selectedMemberType || selectedProject;
+    selectedBatch || selectedIndustry || topFoundersOnly;
 
   return (
     <div className="min-h-screen px-4 pb-24 pt-14 md:px-8 md:pt-20">
       <div className="mx-auto max-w-[1068px]">
+        {/* Hero Section — centered */}
         <div className="mb-10 text-center">
-          <PageHeader title="Members" subtitle="SPEC 1~4기 멤버 디렉토리입니다." align="center" className="mb-0 md:mb-0" />
+          <PageHeader title="Founders" subtitle="SPEC 1~3기를 거쳐 자신만의 사업을 시작한 창업가들입니다." align="center" className="mb-0 md:mb-0" />
           <p className="mx-auto mt-6 font-['Pretendard',sans-serif] text-[15px] font-normal text-black/60">
             SPEC 알럼나이를 찾고 계신가요?{" "}
             <Link href="/login" className="underline text-[#FF6C0F] hover:text-[#e55c00]">
@@ -67,12 +64,13 @@ export default function FoundersPage() {
         </div>
 
         <div className="flex gap-8">
+          {/* Sidebar Filters */}
           <aside className="hidden w-[240px] shrink-0 lg:block">
             <div className="sticky top-24 space-y-5 rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5">
               <div>
                 <input
                   type="text"
-                  placeholder="멤버 검색..."
+                  placeholder="창업가 검색..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full font-['Pretendard',sans-serif] text-black outline-none transition-all placeholder:text-black/40 focus:ring-1 focus:ring-[#FF6C0F]/10"
@@ -89,13 +87,19 @@ export default function FoundersPage() {
 
               <div className="h-px bg-[#c6c6c6]" />
 
-              <FilterSelect
-                label="구분"
-                value={selectedMemberType}
-                onChange={setSelectedMemberType}
-                options={MEMBER_TYPE_OPTIONS}
-                placeholder="전체"
-              />
+              <label className="flex cursor-pointer items-center gap-2.5 rounded-md px-1 py-1.5 transition-colors hover:bg-black/3">
+                <input
+                  type="checkbox"
+                  checked={topFoundersOnly}
+                  onChange={() => setTopFoundersOnly(!topFoundersOnly)}
+                  className="h-4 w-4 shrink-0 cursor-pointer rounded border-black/20 text-[#FF6C0F] accent-[#FF6C0F] focus:ring-[#FF6C0F]/30"
+                />
+                <span className="font-['Pretendard',sans-serif] text-[14px] font-normal text-black/80">
+                  주요 창업가만 보기
+                </span>
+              </label>
+
+              <div className="h-px bg-[#c6c6c6]" />
 
               <FilterSelect
                 label="기수"
@@ -106,11 +110,11 @@ export default function FoundersPage() {
               />
 
               <FilterSelect
-                label="프로젝트"
-                value={selectedProject}
-                onChange={setSelectedProject}
-                options={PROJECT_OPTIONS}
-                placeholder="전체 프로젝트"
+                label="분야"
+                value={selectedIndustry}
+                onChange={setSelectedIndustry}
+                options={INDUSTRY_OPTIONS}
+                placeholder="전체 분야"
               />
 
               {hasActiveFilters && (
@@ -127,11 +131,13 @@ export default function FoundersPage() {
             </div>
           </aside>
 
+          {/* Main Content */}
           <div className="flex-1">
+            {/* Mobile Filters */}
             <div className="mb-4 flex flex-wrap items-center gap-3 lg:hidden">
               <input
                 type="text"
-                placeholder="멤버 검색..."
+                placeholder="창업가 검색..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full font-['Pretendard',sans-serif] text-black outline-none placeholder:text-black/40"
@@ -144,12 +150,17 @@ export default function FoundersPage() {
                   border: "none",
                 }}
               />
-              <MobileFilterSelect
-                value={selectedMemberType}
-                onChange={setSelectedMemberType}
-                options={MEMBER_TYPE_OPTIONS}
-                placeholder="구분"
-              />
+              <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 transition-colors hover:border-[#FF6C0F]/30">
+                <input
+                  type="checkbox"
+                  checked={topFoundersOnly}
+                  onChange={() => setTopFoundersOnly(!topFoundersOnly)}
+                  className="h-3.5 w-3.5 cursor-pointer rounded border-black/20 accent-[#FF6C0F]"
+                />
+                <span className="font-['Pretendard',sans-serif] text-[12px] font-medium text-black/70">
+                  주요
+                </span>
+              </label>
               <MobileFilterSelect
                 value={selectedBatch}
                 onChange={setSelectedBatch}
@@ -157,15 +168,15 @@ export default function FoundersPage() {
                 placeholder="기수"
               />
               <MobileFilterSelect
-                value={selectedProject}
-                onChange={setSelectedProject}
-                options={PROJECT_OPTIONS}
-                placeholder="프로젝트"
+                value={selectedIndustry}
+                onChange={setSelectedIndustry}
+                options={INDUSTRY_OPTIONS}
+                placeholder="분야"
               />
             </div>
 
             <p className="mb-4 font-['Pretendard',sans-serif] text-[14px] font-normal text-black/60">
-              {filtered.length}명의 멤버
+              {filtered.length}명의 창업가
             </p>
 
             {filtered.length === 0 ? (
@@ -189,10 +200,10 @@ export default function FoundersPage() {
               </div>
             ) : (
               <div className="overflow-hidden rounded-lg border border-[#c6c6c6]">
-                {filtered.map((member, index) => (
-                  <MemberRow
-                    key={member.id}
-                    member={member}
+                {filtered.map((founder, index) => (
+                  <FounderRow
+                    key={founder.id}
+                    founder={founder}
                     isFirst={index === 0}
                     isLast={index === filtered.length - 1}
                   />
@@ -206,12 +217,12 @@ export default function FoundersPage() {
   );
 }
 
-function MemberRow({
-  member,
+function FounderRow({
+  founder,
   isFirst,
   isLast,
 }: {
-  member: Member;
+  founder: Founder;
   isFirst: boolean;
   isLast: boolean;
 }) {
@@ -223,16 +234,19 @@ function MemberRow({
         ? "rounded-b-lg"
         : "";
 
+  const isUrl = founder.photoPlaceholder.startsWith("http");
+
   return (
     <Link
-      href={`/people/${member.slug}`}
+      href={`/people/${founder.slug}`}
       className={`flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 transition-colors hover:bg-[#f5f5ee] ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
     >
+      {/* Avatar */}
       <div className="relative h-[78px] w-[78px] shrink-0 overflow-hidden rounded-full bg-[#efefe8]">
-        {member.photoUrl ? (
+        {isUrl ? (
           <Image
-            src={member.photoUrl}
-            alt={member.name}
+            src={founder.photoPlaceholder}
+            alt={founder.name}
             fill
             className="object-cover"
             sizes="78px"
@@ -240,43 +254,37 @@ function MemberRow({
         ) : (
           <div className="flex h-full w-full items-center justify-center">
             <span className="font-['Pretendard',sans-serif] text-[18px] font-bold text-[#8a8575]">
-              {member.name.charAt(0)}
+              {founder.name.charAt(0)}
             </span>
           </div>
         )}
       </div>
 
+      {/* Info */}
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-3">
           <span className="font-['Pretendard',sans-serif] text-[18px] font-semibold text-black">
-            {member.name}
+            {founder.name}
           </span>
-          <span className="font-['Pretendard',sans-serif] text-[14px] font-normal text-black/50">
-            {member.major ?? "전공 미정"}
+          <span className="font-['Pretendard',sans-serif] text-[15px] font-normal text-black/70">
+            {founder.company}
           </span>
-          <MemberTypeBadge type={member.memberType} />
-        </div>
-        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-          {member.batchTags.map((tag) => (
-            <span key={tag} className="rounded bg-[#e6e6dd] px-2 py-0.5 font-['Pretendard',sans-serif] text-[10px] font-medium text-[#333]">
-              {tag}
+          <span className="rounded bg-[#e6e6dd] px-2.5 py-1 font-['Pretendard',sans-serif] text-[10px] font-medium text-[#333]">
+            {founder.batch}
+          </span>
+          {founder.isTopCompanyFounder && (
+            <span className="rounded bg-[#FF6C0F]/10 px-2 py-0.5 font-['Pretendard',sans-serif] text-[10px] font-semibold text-[#FF6C0F]">
+              주요
             </span>
-          ))}
-          {member.projects.length > 0 && (
-            <>
-              <span className="mx-1 text-black/20">·</span>
-              <span className="font-['Pretendard',sans-serif] text-[12px] font-normal text-black/40">
-                {member.projects.map((s) => PROJECT_LABEL_MAP[s] ?? s).join(", ")}
-              </span>
-            </>
           )}
         </div>
+        <p className="mt-1 truncate font-['Pretendard',sans-serif] text-[13px] font-normal text-black/50">
+          {founder.oneLiner}
+        </p>
       </div>
     </Link>
   );
 }
-
-type FilterOption = string | { value: string; label: string };
 
 function FilterSelect({
   label,
@@ -288,7 +296,7 @@ function FilterSelect({
   label: string;
   value: string;
   onChange: (v: string) => void;
-  options: FilterOption[];
+  options: string[];
   placeholder: string;
 }) {
   return (
@@ -305,15 +313,11 @@ function FilterSelect({
         className="w-full rounded-lg border border-[#c6c6c6] bg-[#f5f5ee]/50 px-3 py-2 font-['Pretendard',sans-serif] text-[13px] font-normal text-black/80 outline-none transition-all focus:border-[#FF6C0F]/30 focus:ring-1 focus:ring-[#FF6C0F]/10"
       >
         <option value="">{placeholder}</option>
-        {options.map((opt) => {
-          const v = typeof opt === "string" ? opt : opt.value;
-          const l = typeof opt === "string" ? opt : opt.label;
-          return (
-            <option key={v} value={v}>
-              {l}
-            </option>
-          );
-        })}
+        {options.map((opt) => (
+          <option key={opt} value={opt}>
+            {opt}
+          </option>
+        ))}
       </select>
     </div>
   );
@@ -327,7 +331,7 @@ function MobileFilterSelect({
 }: {
   value: string;
   onChange: (v: string) => void;
-  options: FilterOption[];
+  options: string[];
   placeholder: string;
 }) {
   return (
@@ -337,31 +341,11 @@ function MobileFilterSelect({
       className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 font-['Pretendard',sans-serif] text-[12px] font-medium text-black/70 outline-none transition-all focus:border-[#FF6C0F]/30"
     >
       <option value="">{placeholder}</option>
-      {options.map((opt) => {
-        const v = typeof opt === "string" ? opt : opt.value;
-        const l = typeof opt === "string" ? opt : opt.label;
-        return (
-          <option key={v} value={v}>
-            {l}
-          </option>
-        );
-      })}
+      {options.map((opt) => (
+        <option key={opt} value={opt}>
+          {opt}
+        </option>
+      ))}
     </select>
-  );
-}
-
-const MEMBER_TYPE_STYLES: Record<string, { bg: string; text: string; label: string }> = {
-  "러너": { bg: "bg-blue-500/10", text: "text-blue-600", label: "러너" },
-  "프러너": { bg: "bg-[#FF6C0F]/10", text: "text-[#FF6C0F]", label: "프러너" },
-  alumni: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Alumni" },
-};
-
-function MemberTypeBadge({ type }: { type: string }) {
-  const style = MEMBER_TYPE_STYLES[type];
-  if (!style) return null;
-  return (
-    <span className={`rounded px-2 py-0.5 font-['Pretendard',sans-serif] text-[10px] font-semibold ${style.bg} ${style.text}`}>
-      {style.label}
-    </span>
   );
 }
