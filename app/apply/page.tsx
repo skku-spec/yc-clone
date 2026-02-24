@@ -28,11 +28,12 @@ export default function ApplyPage() {
         </div>
 
         <Link
-          href="https://apply.spec.skku.edu"
+          href="/apply/form"
           className="mx-auto mb-12 flex h-[80px] w-fit items-center rounded-full bg-black px-10 pb-1 font-['MaruBuri',serif] text-[28px] italic tracking-[0.015rem] text-[#f5f5ee] transition-opacity hover:opacity-80"
         >
           Apply →
         </Link>
+
 
         <div className="mb-10">
           <h2 className="mb-3 font-['Pretendard',sans-serif] text-[1.375rem] font-bold text-[#16140f]">
