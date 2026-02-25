@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import Link from "next/link";
+
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
 import {
@@ -72,7 +72,7 @@ export default function CompaniesPage() {
       <div className="mx-auto max-w-[1200px]">
         <PageHeader title="SPEC Projects" align="center" />
         <p className="mx-auto mb-8 max-w-[640px] text-center font-['Pretendard',sans-serif] text-[15px] font-normal leading-relaxed text-black/60">
-          SPEC 1~2기에서 탄생한 프로젝트들입니다. 매주 챌린지를 거쳐 실제 사업으로
+          SPEC에서 탄생한 프로젝트들입니다. 매주 챌린지를 거쳐 실제 사업으로
           성장한 팀들을 만나보세요.
         </p>
       </div>
@@ -182,9 +182,8 @@ function CompanyCard({ company, isFirst = false, isLast = false }: { company: Co
         : "";
 
   return (
-    <Link
-      href={`/companies/${company.slug}`}
-      className={`group flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 transition-colors hover:bg-[#f5f5ee] ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
+    <div
+      className={`group flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
     >
       <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#efefe8]">
         {company.logoUrl ? (
@@ -226,7 +225,7 @@ function CompanyCard({ company, isFirst = false, isLast = false }: { company: Co
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
