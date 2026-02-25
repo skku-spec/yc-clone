@@ -83,7 +83,7 @@ const learnerWeeks = [
   {
     week: 1,
     topic: 'Kickoff',
-    objectives: 'SPEC 철학 / 전원 Edge(자기소개) 발표 / 러너 3기 발표 / 아이스브레이킹',
+    objectives: 'SPEC 철학 / 전원 Edge(자기소개) 발표 / 러너 4기 발표 / 아이스브레이킹',
     assignment: '-',
     notes: '프로그램 시작',
   },

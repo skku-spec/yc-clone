@@ -554,6 +554,73 @@ export type Database = {
         };
         Relationships: [];
       };
+      applications: {
+        Row: {
+          id: string;
+          name: string;
+          email: string;
+          student_id: string | null;
+          phone: string | null;
+          major: string | null;
+          batch: string;
+          introduction: string;
+          vision: string | null;
+          startup_idea: string | null;
+          portfolio_url: string | null;
+          equip: boolean;
+          photo_exp: boolean;
+          design_exp: boolean;
+          figma: boolean;
+          illustrator: boolean;
+          experience_extra: string | null;
+          status: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          email: string;
+          student_id?: string | null;
+          phone?: string | null;
+          major?: string | null;
+          batch: string;
+          introduction: string;
+          vision?: string | null;
+          startup_idea?: string | null;
+          portfolio_url?: string | null;
+          equip?: boolean;
+          photo_exp?: boolean;
+          design_exp?: boolean;
+          figma?: boolean;
+          illustrator?: boolean;
+          experience_extra?: string | null;
+          status?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          email?: string;
+          student_id?: string | null;
+          phone?: string | null;
+          major?: string | null;
+          batch?: string;
+          introduction?: string;
+          vision?: string | null;
+          startup_idea?: string | null;
+          portfolio_url?: string | null;
+          equip?: boolean;
+          photo_exp?: boolean;
+          design_exp?: boolean;
+          figma?: boolean;
+          illustrator?: boolean;
+          experience_extra?: string | null;
+          status?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+
     };
     Views: {
       [_ in never]: never;
