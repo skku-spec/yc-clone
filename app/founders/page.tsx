@@ -56,7 +56,7 @@ export default function FoundersPage() {
     <div className="min-h-screen px-4 pb-24 pt-14 md:px-8 md:pt-20">
       <div className="mx-auto max-w-[1068px]">
         <div className="mb-10 text-center">
-          <PageHeader title="Members" subtitle="SPEC 1~4기 멤버 디렉토리입니다." align="center" className="mb-0 md:mb-0" />
+          <PageHeader title="Members" subtitle="SPEC 멤버 디렉토리입니다." align="center" className="mb-0 md:mb-0" />
           <p className="mx-auto mt-6 font-['Pretendard',sans-serif] text-[15px] font-normal text-black/60">
             SPEC 알럼나이를 찾고 계신가요?{" "}
             <Link href="/login" className="underline text-[#FF6C0F] hover:text-[#e55c00]">
@@ -224,9 +224,8 @@ function MemberRow({
         : "";
 
   return (
-    <Link
-      href={`/people/${member.slug}`}
-      className={`flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 transition-colors hover:bg-[#f5f5ee] ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
+    <div
+      className={`flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
     >
       <div className="relative h-[78px] w-[78px] shrink-0 overflow-hidden rounded-full bg-[#efefe8]">
         {member.photoUrl ? (
@@ -272,7 +271,7 @@ function MemberRow({
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
