@@ -176,9 +176,9 @@ export default function Navbar() {
               </div>
             </div>
 
-            <Link href="/library" className={`nav-link ${textColor} ${hoverColor} font-['Pretendard',sans-serif] text-sm`}>
+{/* <Link href="/library" className={`nav-link ${textColor} ${hoverColor} font-['Pretendard',sans-serif] text-sm`}>
               라이브러리
-            </Link>
+            </Link> */}
           </div>
 
           <Link href="/" className="mx-8 shrink-0">
@@ -190,7 +190,7 @@ export default function Navbar() {
               파트너
             </Link>
 
-            <div className="nav-item relative">
+{/* <div className="nav-item relative">
               <button className={`nav-link ${textColor} ${hoverColor} flex items-center gap-1 font-['Pretendard',sans-serif] text-sm`}>
                 리소스
                 <svg
@@ -219,7 +219,7 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <Link href="/blog" className={`nav-link ${textColor} ${hoverColor} font-['Pretendard',sans-serif] text-sm`}>
               블로그
@@ -382,15 +382,15 @@ export default function Navbar() {
               </div>
 
               <div className="mb-6 flex flex-col gap-1">
-                <Link href="/library" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
+{/* <Link href="/library" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   라이브러리
-                </Link>
+                </Link> */}
                 <Link href="/partners" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   파트너
                 </Link>
               </div>
 
-              <p className={`mb-3 text-xs font-semibold uppercase tracking-widest font-['Pretendard',sans-serif] ${isHome ? "text-white/40" : "text-[#16140f]/40"}`}>
+{/* <p className={`mb-3 text-xs font-semibold uppercase tracking-widest font-['Pretendard',sans-serif] ${isHome ? "text-white/40" : "text-[#16140f]/40"}`}>
                 리소스
               </p>
               <div className="mb-6 flex flex-col gap-1">
@@ -400,7 +400,7 @@ export default function Navbar() {
                 <Link href="/cofounder-matching" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   팀원 찾기
                 </Link>
-              </div>
+              </div> */}
 
               <div className="mb-6 flex flex-col gap-1">
                 <Link href="/blog" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
