@@ -115,10 +115,8 @@ export default function TwoTracks() {
                   transition: `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`,
                 }}
               >
-                <span className="text-3xl sm:text-4xl">{track.emoji}</span>
-
                 <h3
-                  className="mt-3 text-xl font-black uppercase tracking-wide text-white sm:mt-4 sm:text-2xl"
+                  className="text-2xl font-black uppercase tracking-wide text-white sm:text-4xl"
                   style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
                 >
                   {track.title}

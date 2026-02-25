@@ -57,7 +57,7 @@ export default function About() {
             주부터 직접 돈을 벌고, 팀을 만들고, 제품을 런칭합니다.
           </p>
           <p className="font-['MaruBuri',serif] text-[1.35rem] leading-[1.7] text-white/90">
-            30주 동안 매주 매출 챌린지를 수행하며, 10만원에서 시작해 9000만원을
+            30주 동안 매주 매출 챌린지를 수행하며, 10만원에서 시작해 1억을
             향해 달립니다. 카카오모빌리티와 함께 멘토링을 받고, RISE 사업단의 VCC
             미니 MBA를 병행하며, 데모데이에서 투자자 앞에 섭니다.
           </p>

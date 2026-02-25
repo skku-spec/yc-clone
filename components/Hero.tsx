@@ -34,9 +34,9 @@ export default function Hero() {
                className="text-center font-black uppercase leading-[0.9] tracking-[-0.03em] text-white text-[36px] sm:text-[48px] md:text-[72px] lg:text-[96px]"
                style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
              >
-                EXECUTION
+                <span className="text-orange-500">EXECUTION</span>
                 <br />
-                IS <span className="text-orange-500">EVERYTHING.</span>
+                Over EVERYTHING.
              </h1>
 
               {/* Subtext */}
@@ -53,9 +53,9 @@ export default function Hero() {
               <div className="mt-8 md:mt-10 flex flex-col items-center gap-3">
                <a
                  href="/apply"
-                 className="flex h-12 px-6 text-base md:h-14 md:px-8 md:text-lg items-center justify-center rounded-full bg-[#FF6C0F] font-['Pretendard',sans-serif] font-semibold text-white transition-all duration-200 hover:brightness-95"
+                 className="flex h-12 px-6 text-base md:h-14 md:px-8 md:text-lg items-center justify-center rounded-full bg-[#FF6C0F] font-['MaruBuri',serif] italic font-semibold text-white transition-all duration-200 hover:brightness-95"
                >
-                 4기 지원하기
+                 Apply Now
                </a>
                <span className="font-['Pretendard',sans-serif] text-sm text-white/40">
                  마감: 2026년 3월

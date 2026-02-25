@@ -119,7 +119,7 @@ export default function CurriculumRoadmap() {
 
           <h2 className="mt-5 font-['Outfit',sans-serif] text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white lg:text-7xl">
             30 WEEKS.
-            <br className="md:hidden" />{' '}
+            <br />
             <span className="text-[#FF6C0F]">ZERO EXCUSES.</span>
           </h2>
 
