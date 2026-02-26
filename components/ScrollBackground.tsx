@@ -3,13 +3,13 @@
 import { useEffect, useRef } from 'react';
 
 const entrepreneurImages = [
-  '/heroes/jobs1.jpg',
-  '/heroes/elon1.jpg',
-  '/heroes/jensen2.jpg',
-  '/heroes/elon3.jpg',
-  '/heroes/jobs3.jpg',
-  '/heroes/elon2.jpg',
-  '/heroes/jensen1.jpeg',
+  '/member/spec1.jpg',
+  '/member/spec2.jpg',
+  '/member/spec3.jpg',
+  '/member/spec4.png',
+  '/member/spec5.jpg',
+  '/member/spec6.jpg',
+  '/member/spec7.png',
 ];
 
 const specImages = [
