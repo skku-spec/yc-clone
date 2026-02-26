@@ -267,9 +267,6 @@ export default function AboutPage() {
                 {/* Preneur Track Card */}
                 <div className="flex flex-col rounded-xl border border-[#FF6C0F]/25 bg-[#FF6C0F]/[0.03] p-6">
                   <div className="mb-4">
-                    <span className="mb-2 inline-block font-[system-ui] text-[2rem] leading-none">
-                      🚀
-                    </span>
                     <h3 className="font-[system-ui] text-[1.2rem] font-black uppercase leading-tight text-[#16140f]">
                       Preneur
                     </h3>
@@ -316,9 +313,6 @@ export default function AboutPage() {
                 {/* Learner Track Card */}
                 <div className="flex flex-col rounded-xl border border-[#16140f]/10 bg-[#f5f5ee]/60 p-6">
                   <div className="mb-4">
-                    <span className="mb-2 inline-block font-[system-ui] text-[2rem] leading-none">
-                      🔥
-                    </span>
                     <h3 className="font-[system-ui] text-[1.2rem] font-black uppercase leading-tight text-[#16140f]">
                       Learner
                     </h3>

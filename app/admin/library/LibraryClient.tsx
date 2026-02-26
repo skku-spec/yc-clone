@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 import { createLibraryItem, deleteLibraryItem } from "@/lib/actions/library";
 import type { Database } from "@/lib/supabase/types";
@@ -119,18 +120,12 @@ export default function LibraryClient({ initialItems }: LibraryClientProps) {
               </label>
               <label className="text-sm font-medium text-[#4a4a40]">
                 Type
-                <select
+                <CustomSelect
                   name="type"
-                  required
                   defaultValue={TYPE_OPTIONS[0]}
-                  className="mt-1 h-10 w-full rounded-md border border-[#ddd9cc] bg-white px-3 text-sm outline-none focus:border-[#FF6C0F]"
-                >
-                  {TYPE_OPTIONS.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
+                  options={TYPE_OPTIONS}
+                  className="mt-1"
+                />
               </label>
               <label className="text-sm font-medium text-[#4a4a40]">
                 Date

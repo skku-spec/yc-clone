@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { updateUserRole } from "@/lib/actions/admin";
+import CustomSelect from "@/components/ui/CustomSelect";
 import type { Database, ProfileRole } from "@/lib/supabase/types";
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
@@ -108,23 +109,20 @@ export default function UsersClient({ initialProfiles }: UsersClientProps) {
                         >
                           {formatRoleLabel(profile.role)}
                         </span>
-                        <select
+                        <CustomSelect
                           value={profile.role}
-                          onChange={(event) => {
-                            const nextRole = event.target.value;
+                          onChange={(nextRole) => {
                             if (isProfileRole(nextRole)) {
                               handleRoleChange(profile.id, nextRole);
                             }
                           }}
                           disabled={isPending}
-                          className="h-8 rounded-md border border-[#ddd9cc] bg-white px-2 font-['Pretendard',sans-serif] text-xs text-[#16140f] disabled:cursor-not-allowed disabled:opacity-60"
-                        >
-                          {ROLE_OPTIONS.map((role) => (
-                            <option key={role} value={role}>
-                              {formatRoleLabel(role)}
-                            </option>
-                          ))}
-                        </select>
+                          options={ROLE_OPTIONS.map((role) => ({
+                            value: role,
+                            label: formatRoleLabel(role),
+                          }))}
+                          className="w-[130px]"
+                        />
                       </div>
                     </td>
                     <td className="px-4 py-3 font-['Pretendard',sans-serif] text-sm text-[#4a4a40]">

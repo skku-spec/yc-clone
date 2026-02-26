@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { Launch, LAUNCHES, CATEGORIES } from "@/lib/launches-data";
 import PageHeader from "@/components/PageHeader";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 type SortMode = "top" | "new" | "";
 
@@ -103,60 +104,30 @@ export default function LaunchesPage() {
         </div>
 
         <div className="mb-5 flex flex-wrap items-center gap-3">
-          <select
+          <CustomSelect
             value={selectedBatch}
-            onChange={(e) => setSelectedBatch(e.target.value)}
-            className="border border-[#ddd] bg-white font-['Pretendard',sans-serif] text-[#16140f]/80 outline-none"
-            style={{
-              fontSize: 15,
-              height: 42,
-              borderRadius: 6,
-              padding: "8px 40px 8px 12px",
-            }}
-          >
-            <option value="">기수</option>
-            {batchOptions.map((b) => (
-              <option key={b} value={b}>
-                {b}
-              </option>
-            ))}
-          </select>
+            onChange={(v) => setSelectedBatch(v)}
+            options={batchOptions}
+            placeholder="기수"
+            className="w-[140px]"
+          />
 
-          <select
+          <CustomSelect
             value={selectedIndustry}
-            onChange={(e) => setSelectedIndustry(e.target.value)}
-            className="border border-[#ddd] bg-white font-['Pretendard',sans-serif] text-[#16140f]/80 outline-none"
-            style={{
-              fontSize: 15,
-              height: 42,
-              borderRadius: 6,
-              padding: "8px 40px 8px 12px",
-            }}
-          >
-            <option value="">분야</option>
-            {industryOptions.map((ind) => (
-              <option key={ind} value={ind}>
-                {ind}
-              </option>
-            ))}
-          </select>
+            onChange={(v) => setSelectedIndustry(v)}
+            options={industryOptions}
+            placeholder="분야"
+            className="w-[140px]"
+          />
 
           <span className="text-[15px] font-normal text-[#333]">정렬:</span>
-          <select
+          <CustomSelect
             value={sortMode}
-            onChange={(e) => setSortMode(e.target.value as SortMode)}
-            className="border border-[#ddd] bg-white font-['Pretendard',sans-serif] text-[#16140f]/80 outline-none"
-            style={{
-              fontSize: 15,
-              height: 42,
-              borderRadius: 6,
-              padding: "8px 40px 8px 12px",
-            }}
-          >
-            <option disabled>정렬 기준</option>
-            <option value="top">투표순</option>
-            <option value="new">최신순</option>
-          </select>
+            onChange={(v) => setSortMode(v as SortMode)}
+            options={[{ label: "투표순", value: "top" }, { label: "최신순", value: "new" }]}
+            placeholder="정렬 기준"
+            className="w-[140px]"
+          />
         </div>
 
         <div className="mb-6 flex flex-wrap gap-2">

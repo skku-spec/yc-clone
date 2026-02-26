@@ -4,6 +4,8 @@ import { useTransition, useState } from "react";
 import PageHeader from "@/components/PageHeader";
 import { submitApplication } from "@/lib/actions/applications";
 import { useRouter } from "next/navigation";
+import CustomSelect from "@/components/ui/CustomSelect";
+
 
 export default function ApplicationFormPage() {
   const router = useRouter();
@@ -246,12 +248,12 @@ export default function ApplicationFormPage() {
                 </label>
                 <label className="block">
                   <span className="mb-2 block text-sm font-semibold text-[#16140f]">지원 차수 *</span>
-                  <select
+                  <CustomSelect
                     name="batch"
-                    className="h-12 w-full rounded-md border border-[#ddd9cc] px-4 text-sm focus:border-[#FF6C0F] focus:outline-none bg-white transition-all"
-                  >
-                    <option value="4">SPEC 4기 러너</option>
-                  </select>
+                    defaultValue="4"
+                    options={[{ value: "4", label: "SPEC 4기 러너" }]}
+                    className="h-12"
+                  />
                 </label>
               </div>
             </div>

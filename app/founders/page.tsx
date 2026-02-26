@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, Children } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
+import CustomSelect from "@/components/ui/CustomSelect";
 import {
   Member,
   MEMBERS,
@@ -18,9 +19,17 @@ const PROJECT_LABEL_MAP: Record<string, string> = Object.fromEntries(
 
 export default function FoundersPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedBatch, setSelectedBatch] = useState("");
-  const [selectedMemberType, setSelectedMemberType] = useState("");
-  const [selectedProject, setSelectedProject] = useState("");
+  const [selectedBatches, setSelectedBatches] = useState<string[]>([]);
+  const [selectedMemberTypes, setSelectedMemberTypes] = useState<string[]>([]);
+  const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
+
+  const [batchExpanded, setBatchExpanded] = useState(true);
+  const [memberTypeExpanded, setMemberTypeExpanded] = useState(true);
+  const [projectExpanded, setProjectExpanded] = useState(true);
+
+  const toggleItem = useCallback((arr: string[], item: string): string[] => {
+    return arr.includes(item) ? arr.filter((i) => i !== item) : [...arr, item];
+  }, []);
 
   const filtered = useMemo(() => {
     return MEMBERS.filter((m) => {
@@ -34,23 +43,53 @@ export default function FoundersPage() {
         if (!match) return false;
       }
 
-      if (selectedBatch && !m.batchTags.some((t) => t.startsWith(selectedBatch))) return false;
-      if (selectedMemberType && m.memberType !== selectedMemberType) return false;
-      if (selectedProject && !m.projects.includes(selectedProject)) return false;
+      if (selectedBatches.length > 0 && !m.batchTags.some((t) => selectedBatches.some((b) => t.startsWith(b)))) return false;
+      if (selectedMemberTypes.length > 0 && !selectedMemberTypes.includes(m.memberType)) return false;
+      if (selectedProjects.length > 0 && !m.projects.some((p) => selectedProjects.includes(p))) return false;
 
       return true;
     });
-  }, [searchQuery, selectedBatch, selectedMemberType, selectedProject]);
+  }, [searchQuery, selectedBatches, selectedMemberTypes, selectedProjects]);
 
-  const clearFilters = () => {
-    setSearchQuery("");
-    setSelectedBatch("");
-    setSelectedMemberType("");
-    setSelectedProject("");
-  };
+  const batchCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const m of MEMBERS) {
+      for (const b of BATCH_OPTIONS) {
+        if (m.batchTags.some((t) => t.startsWith(b))) {
+          counts[b] = (counts[b] || 0) + 1;
+        }
+      }
+    }
+    return counts;
+  }, []);
+
+  const memberTypeCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const m of MEMBERS) {
+      counts[m.memberType] = (counts[m.memberType] || 0) + 1;
+    }
+    return counts;
+  }, []);
+
+  const projectCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const m of MEMBERS) {
+      for (const p of m.projects) {
+        counts[p] = (counts[p] || 0) + 1;
+      }
+    }
+    return counts;
+  }, []);
 
   const hasActiveFilters =
-    selectedBatch || selectedMemberType || selectedProject;
+    selectedBatches.length > 0 || selectedMemberTypes.length > 0 || selectedProjects.length > 0;
+
+  const clearFilters = () => {
+    setSelectedBatches([]);
+    setSelectedMemberTypes([]);
+    setSelectedProjects([]);
+    setSearchQuery("");
+  };
 
   return (
     <div className="min-h-screen px-4 pb-24 pt-14 md:px-8 md:pt-20">
@@ -66,56 +105,99 @@ export default function FoundersPage() {
           </p>
         </div>
 
-        <div className="flex gap-8">
-          <aside className="hidden w-[240px] shrink-0 lg:block">
-            <div className="sticky top-24 space-y-5 rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5">
-              <div>
-                <input
-                  type="text"
-                  placeholder="멤버 검색..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full font-['Pretendard',sans-serif] text-black outline-none transition-all placeholder:text-black/40 focus:ring-1 focus:ring-[#FF6C0F]/10"
-                  style={{
-                    height: 30.5,
-                    borderRadius: 4,
-                    fontSize: 13,
-                    padding: "6px 10px",
-                    background: "rgb(239,239,232)",
-                    border: "none",
-                  }}
+        {/* Mobile filters */}
+        <div className="mb-4 flex flex-wrap items-center gap-3 lg:hidden">
+          <MobileFilterSelect
+            value={selectedMemberTypes.length === 1 ? selectedMemberTypes[0] : ""}
+            onChange={(v) => setSelectedMemberTypes(v ? [v] : [])}
+            options={MEMBER_TYPE_OPTIONS}
+            placeholder="구분"
+          />
+          <MobileFilterSelect
+            value={selectedBatches.length === 1 ? selectedBatches[0] : ""}
+            onChange={(v) => setSelectedBatches(v ? [v] : [])}
+            options={BATCH_OPTIONS}
+            placeholder="기수"
+          />
+          <MobileFilterSelect
+            value={selectedProjects.length === 1 ? selectedProjects[0] : ""}
+            onChange={(v) => setSelectedProjects(v ? [v] : [])}
+            options={PROJECT_OPTIONS}
+            placeholder="프로젝트"
+          />
+        </div>
+
+        <div className="flex gap-5">
+          {/* Sidebar */}
+          <aside className="hidden w-[300px] shrink-0 lg:block">
+            <div
+              className="space-y-1 overflow-y-auto rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5"
+              style={{ maxHeight: "calc(100vh - 120px)", position: "fixed", width: 300 }}
+            >
+              {/* 구분 section */}
+              <FilterSection title="구분" expanded={memberTypeExpanded} onToggle={() => setMemberTypeExpanded(!memberTypeExpanded)}>
+                <FilterCheckbox
+                  label="전체"
+                  checked={selectedMemberTypes.length === 0}
+                  onChange={() => setSelectedMemberTypes([])}
+                  count={MEMBERS.length}
                 />
-              </div>
+                {MEMBER_TYPE_OPTIONS.map((type) => (
+                  <FilterCheckbox
+                    key={type}
+                    label={type}
+                    checked={selectedMemberTypes.includes(type)}
+                    onChange={() => setSelectedMemberTypes(toggleItem(selectedMemberTypes, type))}
+                    count={memberTypeCounts[type] || 0}
+                  />
+                ))}
+              </FilterSection>
 
-              <div className="h-px bg-[#c6c6c6]" />
+              <Divider />
 
-              <FilterSelect
-                label="구분"
-                value={selectedMemberType}
-                onChange={setSelectedMemberType}
-                options={MEMBER_TYPE_OPTIONS}
-                placeholder="전체"
-              />
+              {/* 기수 section */}
+              <FilterSection title="기수" expanded={batchExpanded} onToggle={() => setBatchExpanded(!batchExpanded)}>
+                <FilterCheckbox
+                  label="전체"
+                  checked={selectedBatches.length === 0}
+                  onChange={() => setSelectedBatches([])}
+                  count={MEMBERS.length}
+                />
+                {BATCH_OPTIONS.map((batch) => (
+                  <FilterCheckbox
+                    key={batch}
+                    label={batch}
+                    checked={selectedBatches.includes(batch)}
+                    onChange={() => setSelectedBatches(toggleItem(selectedBatches, batch))}
+                    count={batchCounts[batch] || 0}
+                  />
+                ))}
+              </FilterSection>
 
-              <FilterSelect
-                label="기수"
-                value={selectedBatch}
-                onChange={setSelectedBatch}
-                options={BATCH_OPTIONS}
-                placeholder="전체 기수"
-              />
+              <Divider />
 
-              <FilterSelect
-                label="프로젝트"
-                value={selectedProject}
-                onChange={setSelectedProject}
-                options={PROJECT_OPTIONS}
-                placeholder="전체 프로젝트"
-              />
+              {/* 프로젝트 section */}
+              <FilterSection title="프로젝트" expanded={projectExpanded} onToggle={() => setProjectExpanded(!projectExpanded)}>
+                <FilterCheckbox
+                  label="전체"
+                  checked={selectedProjects.length === 0}
+                  onChange={() => setSelectedProjects([])}
+                  count={MEMBERS.length}
+                />
+                {PROJECT_OPTIONS.map((proj) => (
+                  <FilterCheckbox
+                    key={proj.value}
+                    label={proj.label}
+                    checked={selectedProjects.includes(proj.value)}
+                    onChange={() => setSelectedProjects(toggleItem(selectedProjects, proj.value))}
+                    count={projectCounts[proj.value] || 0}
+                  />
+                ))}
+              </FilterSection>
 
               {hasActiveFilters && (
                 <>
-                  <div className="h-px bg-[#c6c6c6]" />
+                  <Divider />
                   <button
                     onClick={clearFilters}
                     className="w-full rounded-lg border border-black/10 bg-black/3 py-2 font-['Pretendard',sans-serif] text-[13px] font-medium text-black/60 transition-all hover:bg-black/5 hover:text-black"
@@ -127,46 +209,23 @@ export default function FoundersPage() {
             </div>
           </aside>
 
+          {/* Content */}
           <div className="flex-1">
-            <div className="mb-4 flex flex-wrap items-center gap-3 lg:hidden">
-              <input
-                type="text"
-                placeholder="멤버 검색..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full font-['Pretendard',sans-serif] text-black outline-none placeholder:text-black/40"
-                style={{
-                  height: 30.5,
-                  borderRadius: 4,
-                  fontSize: 13,
-                  padding: "6px 10px",
-                  background: "rgb(239,239,232)",
-                  border: "none",
-                }}
-              />
-              <MobileFilterSelect
-                value={selectedMemberType}
-                onChange={setSelectedMemberType}
-                options={MEMBER_TYPE_OPTIONS}
-                placeholder="구분"
-              />
-              <MobileFilterSelect
-                value={selectedBatch}
-                onChange={setSelectedBatch}
-                options={BATCH_OPTIONS}
-                placeholder="기수"
-              />
-              <MobileFilterSelect
-                value={selectedProject}
-                onChange={setSelectedProject}
-                options={PROJECT_OPTIONS}
-                placeholder="프로젝트"
-              />
+            {/* Search bar */}
+            <div className="mb-4">
+              <div className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5">
+                <input
+                  type="text"
+                  placeholder="멤버 검색..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="h-[42px] w-full rounded-lg border border-[#ccc] bg-white px-2.5 py-2.5 font-['Pretendard',sans-serif] text-base text-black outline-none placeholder:text-black/30 focus:border-[#999] focus:ring-0"
+                />
+              </div>
+              <p className="mt-2 px-1 font-['Pretendard',sans-serif] text-[13px] font-normal text-black/50">
+                Showing {filtered.length}명 of {MEMBERS.length}+명 멤버
+              </p>
             </div>
-
-            <p className="mb-4 font-['Pretendard',sans-serif] text-[14px] font-normal text-black/60">
-              {filtered.length}명의 멤버
-            </p>
 
             {filtered.length === 0 ? (
               <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#c6c6c6] py-20">
@@ -205,6 +264,8 @@ export default function FoundersPage() {
     </div>
   );
 }
+
+/* ─────────── Member Row (unchanged) ─────────── */
 
 function MemberRow({
   member,
@@ -275,48 +336,101 @@ function MemberRow({
   );
 }
 
-type FilterOption = string | { value: string; label: string };
+/* ─────────── Filter Components ─────────── */
 
-function FilterSelect({
+function FilterCheckbox({
   label,
-  value,
+  checked,
   onChange,
-  options,
-  placeholder,
+  count,
 }: {
   label: string;
-  value: string;
-  onChange: (v: string) => void;
-  options: FilterOption[];
-  placeholder: string;
+  checked: boolean;
+  onChange: () => void;
+  count?: number;
 }) {
   return (
-    <div>
-      <h4
-        className="mb-2 font-['Pretendard',sans-serif] text-[#333]"
-        style={{ fontSize: 14, fontWeight: 600 }}
+    <label className="flex cursor-pointer items-center gap-2.5 rounded-md px-1 py-1.5 transition-colors hover:bg-black/3">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="h-4 w-4 shrink-0 cursor-pointer rounded border-black/20 text-[#FF6C0F] accent-[#FF6C0F] focus:ring-[#FF6C0F]/30"
+      />
+      <span className="font-['Pretendard',sans-serif] text-[13px] font-normal text-black/80">{label}</span>
+      {count !== undefined && (
+        <span className="ml-auto rounded-full bg-[#eee] px-2 py-0.5 text-[11px] font-medium text-[#666]">{count}</span>
+      )}
+    </label>
+  );
+}
+
+/* ── Collapse Icons (YC-style square minus/plus) ── */
+function MinusIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 448 512" fill="currentColor" className="text-[#666]">
+      <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 200h144c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+    </svg>
+  );
+}
+
+function PlusIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 448 512" fill="currentColor" className="text-[#666]">
+      <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 200h80V152c0-13.3 10.7-24 24-24s24 10.7 24 24v80h80c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v80c0 13.3-10.7 24-24 24s-24-10.7-24-24V280H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+    </svg>
+  );
+}
+
+function FilterSection({
+  title,
+  expanded,
+  onToggle,
+  children,
+}: {
+  title: string;
+  expanded: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
+  const [showAll, setShowAll] = useState(false);
+  const childArray = Children.toArray(children);
+  const visibleChildren = showAll ? childArray : childArray.slice(0, 7);
+  const hasMoreOptions = childArray.length > 7;
+
+  return (
+    <div className="py-1">
+      <button
+        onClick={onToggle}
+        className="flex w-full items-center justify-between px-1 py-1.5 font-['Pretendard',sans-serif] text-[14px] font-semibold text-[#333] transition-colors hover:text-black"
       >
-        {label}
-      </h4>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-[#c6c6c6] bg-[#f5f5ee]/50 px-3 py-2 font-['Pretendard',sans-serif] text-[13px] font-normal text-black/80 outline-none transition-all focus:border-[#FF6C0F]/30 focus:ring-1 focus:ring-[#FF6C0F]/10"
-      >
-        <option value="">{placeholder}</option>
-        {options.map((opt) => {
-          const v = typeof opt === "string" ? opt : opt.value;
-          const l = typeof opt === "string" ? opt : opt.label;
-          return (
-            <option key={v} value={v}>
-              {l}
-            </option>
-          );
-        })}
-      </select>
+        {title}
+        {expanded ? <MinusIcon /> : <PlusIcon />}
+      </button>
+      {expanded && (
+        <div className="mt-1 space-y-0">
+          {visibleChildren}
+          {hasMoreOptions && !showAll && (
+            <button
+              onClick={() => setShowAll(true)}
+              className="mt-1 px-1 font-['Pretendard',sans-serif] text-[13px] font-extralight text-[#268bd2] underline transition-colors hover:text-[#1a6ca8]"
+            >
+              See all options
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
+
+function Divider() {
+  return <div className="h-px bg-[#c6c6c6]" />;
+}
+
+/* ─────────── Mobile Filter Select ─────────── */
+
+type FilterOption = string | { value: string; label: string };
 
 function MobileFilterSelect({
   value,
@@ -330,24 +444,16 @@ function MobileFilterSelect({
   placeholder: string;
 }) {
   return (
-    <select
+    <CustomSelect
       value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] px-3 py-2 font-['Pretendard',sans-serif] text-[12px] font-medium text-black/70 outline-none transition-all focus:border-[#FF6C0F]/30"
-    >
-      <option value="">{placeholder}</option>
-      {options.map((opt) => {
-        const v = typeof opt === "string" ? opt : opt.value;
-        const l = typeof opt === "string" ? opt : opt.label;
-        return (
-          <option key={v} value={v}>
-            {l}
-          </option>
-        );
-      })}
-    </select>
+      onChange={onChange}
+      options={options}
+      placeholder={placeholder}
+    />
   );
 }
+
+/* ─────────── Badges (unchanged) ─────────── */
 
 const MEMBER_TYPE_STYLES: Record<string, { bg: string; text: string; label: string }> = {
   "러너": { bg: "bg-blue-500/10", text: "text-blue-600", label: "러너" },

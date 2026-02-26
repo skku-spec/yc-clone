@@ -147,7 +147,7 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
 
   return (
     <section
-      className="mt-8 rounded-xl border px-4 py-5 md:px-6"
+      className="mt-8 rounded-xl border px-4 py-8 md:px-6"
       style={{
         backgroundColor: "#f5f5ee",
         borderColor: "#ddd9cc",
