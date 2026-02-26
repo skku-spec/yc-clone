@@ -5,6 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import { requireAuth } from "@/lib/auth";
 import type { UserRole } from "@/lib/auth";
 import LogoutButton from "@/app/profile/LogoutButton";
+import ProfileAvatarEditor from "@/components/profile/ProfileAvatarEditor";
 
 type RoleMeta = {
   label: string;
@@ -24,10 +25,6 @@ export const metadata: Metadata = {
   title: "내 프로필 | SPEC",
   description: "SPEC 멤버 프로필 페이지",
 };
-
-function getInitial(name: string) {
-  return name.trim().charAt(0).toUpperCase();
-}
 
 function formatDate(dateValue?: string | null) {
   if (!dateValue) {
@@ -64,17 +61,7 @@ export default async function ProfilePage() {
 
         <section className="rounded-2xl border border-[#d7d5ca] bg-[#fcfcf7] p-6 shadow-[0_14px_35px_rgba(22,20,15,0.05)] md:p-8">
           <div className="flex items-start gap-4 md:gap-5">
-            {profile?.photo ? (
-              <img
-                src={profile.photo}
-                alt={`${name} 아바타`}
-                className="h-16 w-16 rounded-full border border-[#16140f]/10 object-cover md:h-20 md:w-20"
-              />
-            ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FF6C0F] text-[26px] font-bold text-white md:h-20 md:w-20 md:text-[32px]">
-                {getInitial(name)}
-              </div>
-            )}
+            <ProfileAvatarEditor name={name} photoUrl={profile?.photo ?? ""} />
 
             <div className="min-w-0 flex-1">
               <p className="truncate font-['Pretendard',sans-serif] text-[26px] font-bold leading-tight text-[#16140f]">
