@@ -115,10 +115,10 @@ export default function CompaniesPage() {
 
       <div className="mx-auto flex max-w-[1068px] gap-5">
         {/* ── Sidebar ── */}
-        <aside className="hidden w-[300px] shrink-0 lg:block">
+        <aside className="hidden w-[300px] shrink-0 self-start lg:block" style={{ position: "sticky", top: 100 }}>
           <div
             className="space-y-0 overflow-y-auto rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5"
-            style={{ maxHeight: "calc(100vh - 120px)", position: "fixed", width: 300 }}
+            style={{ maxHeight: "calc(100vh - 120px)" }}
           >
             {/* ── Top-level boolean filters ── */}
             <div className="space-y-0">

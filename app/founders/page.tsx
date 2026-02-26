@@ -129,10 +129,10 @@ export default function FoundersPage() {
 
         <div className="flex gap-5">
           {/* Sidebar */}
-          <aside className="hidden w-[300px] shrink-0 lg:block">
+          <aside className="hidden w-[300px] shrink-0 self-start lg:block" style={{ position: "sticky", top: 100 }}>
             <div
               className="space-y-1 overflow-y-auto rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5"
-              style={{ maxHeight: "calc(100vh - 120px)", position: "fixed", width: 300 }}
+              style={{ maxHeight: "calc(100vh - 120px)" }}
             >
               {/* 구분 section */}
               <FilterSection title="구분" expanded={memberTypeExpanded} onToggle={() => setMemberTypeExpanded(!memberTypeExpanded)}>
