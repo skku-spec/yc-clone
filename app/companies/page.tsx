@@ -17,11 +17,8 @@ const ITEMS_PER_PAGE = 40;
 export default function CompaniesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
-  const [sortBy, setSortBy] = useState<"default" | "launch">("default");
+  const [sortBy, setSortBy] = useState<"default" | "batch-asc" | "batch-desc">("default");
 
-  const [topCompaniesOnly, setTopCompaniesOnly] = useState(false);
-  const [isHiringOnly, setIsHiringOnly] = useState(false);
-  const [nonprofitOnly, setNonprofitOnly] = useState(false);
   const [womenFoundedOnly, setWomenFoundedOnly] = useState(false);
   const [selectedBatches, setSelectedBatches] = useState<string[]>([]);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
@@ -52,9 +49,6 @@ export default function CompaniesPage() {
     return counts;
   }, []);
 
-  const topCompanyCount = useMemo(() => COMPANIES.filter((c) => c.isTopCompany).length, []);
-  const hiringCount = useMemo(() => COMPANIES.filter((c) => c.isHiring).length, []);
-  const nonprofitCount = useMemo(() => COMPANIES.filter((c) => c.isNonprofit).length, []);
 
   const filteredCompanies = useMemo(() => {
     const filtered = COMPANIES.filter((c) => {
@@ -62,25 +56,29 @@ export default function CompaniesPage() {
       if (q && !c.name.toLowerCase().includes(q) && !c.oneLiner.toLowerCase().includes(q)) {
         return false;
       }
-      if (topCompaniesOnly && !c.isTopCompany) return false;
-      if (isHiringOnly && !c.isHiring) return false;
-      if (nonprofitOnly && !c.isNonprofit) return false;
       if (womenFoundedOnly && !c.isWomenFounded) return false;
       if (selectedBatches.length > 0 && !selectedBatches.includes(c.batch)) return false;
       if (selectedIndustries.length > 0 && !c.industry.some((ind) => selectedIndustries.includes(ind))) return false;
       return true;
     });
 
-    if (sortBy === "launch") {
+    if (sortBy === "batch-asc") {
       return [...filtered].sort((a, b) => {
         const batchOrder = BATCH_OPTIONS.map((o) => o.value);
         return batchOrder.indexOf(a.batch) - batchOrder.indexOf(b.batch);
       });
     }
 
+    if (sortBy === "batch-desc") {
+      return [...filtered].sort((a, b) => {
+        const batchOrder = BATCH_OPTIONS.map((o) => o.value);
+        return batchOrder.indexOf(b.batch) - batchOrder.indexOf(a.batch);
+      });
+    }
+
     return filtered;
   }, [
-    searchQuery, topCompaniesOnly, isHiringOnly, nonprofitOnly,
+    searchQuery,
     womenFoundedOnly, selectedBatches, selectedIndustries, sortBy,
   ]);
 
@@ -104,12 +102,13 @@ export default function CompaniesPage() {
         </span>
         <CustomSelect
           value={sortBy}
-          onChange={(v) => setSortBy(v as "default" | "launch")}
+          onChange={(v) => setSortBy(v as "default" | "batch-asc" | "batch-desc")}
           options={[
             { value: "default", label: "기본" },
-            { value: "launch", label: "기수순" },
+            { value: "batch-asc", label: "기수순 ↑" },
+            { value: "batch-desc", label: "기수순 ↓" },
           ]}
-          className="w-[120px]"
+          className="w-[140px]"
         />
       </div>
 
@@ -120,15 +119,9 @@ export default function CompaniesPage() {
             className="space-y-0 overflow-y-auto rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5"
             style={{ maxHeight: "calc(100vh - 120px)" }}
           >
-            {/* ── Top-level boolean filters ── */}
-            <div className="space-y-0">
-              <FilterCheckbox label="Top 기업" checked={topCompaniesOnly} onChange={() => setTopCompaniesOnly(!topCompaniesOnly)} count={topCompanyCount} />
-              <FilterCheckbox label="채용 중" checked={isHiringOnly} onChange={() => setIsHiringOnly(!isHiringOnly)} count={hiringCount} />
-              <FilterCheckbox label="비영리" checked={nonprofitOnly} onChange={() => setNonprofitOnly(!nonprofitOnly)} count={nonprofitCount} />
-            </div>
 
             {/* ── Batch filter ── */}
-            <FilterSection title="기수" expanded={batchExpanded} onToggle={() => setBatchExpanded(!batchExpanded)} allCount={COMPANIES.length} allChecked={selectedBatches.length === 0} onAllChange={() => setSelectedBatches([])}>
+            <FilterSection title="기수" isFirst expanded={batchExpanded} onToggle={() => setBatchExpanded(!batchExpanded)} allCount={COMPANIES.length} allChecked={selectedBatches.length === 0} onAllChange={() => setSelectedBatches([])}>
               {BATCH_OPTIONS.map((batch) => (
                 <FilterCheckbox key={batch.value} label={batch.label} checked={selectedBatches.includes(batch.value)} onChange={() => setSelectedBatches(toggleArrayItem(selectedBatches, batch.value))} count={batchCounts[batch.value] || 0} small />
               ))}
@@ -296,7 +289,7 @@ function FilterCheckbox({
 /* ── Collapse Icons (YC-style square minus/plus) ── */
 function MinusIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 448 512" fill="currentColor" className="text-[#666]">
+    <svg width="20" height="20" viewBox="0 0 448 512" fill="currentColor" className="text-[#bbb]">
       <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 200h144c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
     </svg>
   );
@@ -304,7 +297,7 @@ function MinusIcon() {
 
 function PlusIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 448 512" fill="currentColor" className="text-[#666]">
+    <svg width="20" height="20" viewBox="0 0 448 512" fill="currentColor" className="text-[#bbb]">
       <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 200h80V152c0-13.3 10.7-24 24-24s24 10.7 24 24v80h80c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v80c0 13.3-10.7 24-24 24s-24-10.7-24-24V280H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
     </svg>
   );
@@ -319,6 +312,7 @@ function FilterSection({
   allChecked,
   onAllChange,
   children,
+  isFirst,
 }: {
   title: string;
   expanded: boolean;
@@ -327,6 +321,7 @@ function FilterSection({
   allChecked?: boolean;
   onAllChange?: () => void;
   children: React.ReactNode;
+  isFirst?: boolean;
 }) {
   const [showAll, setShowAll] = useState(false);
   const childArray = Children.toArray(children);
@@ -335,7 +330,7 @@ function FilterSection({
 
   return (
     <div>
-      <Divider />
+      {!isFirst && <Divider />}
       <div className="py-2">
         <button
           onClick={onToggle}
