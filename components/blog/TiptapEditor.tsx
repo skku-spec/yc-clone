@@ -1,12 +1,21 @@
 "use client";
 
 import { useEditor, EditorContent, Editor } from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react/menus";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
+import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
+import { all, createLowlight } from "lowlight";
+import CharacterCount from "@tiptap/extension-character-count";
+import TextAlign from "@tiptap/extension-text-align";
+import Highlight from "@tiptap/extension-highlight";
+import Typography from "@tiptap/extension-typography";
 import { useCallback, useEffect, useRef } from "react";
+
+import "./tiptap-editor.css";
 
 /* ------------------------------------------------------------------ */
 /*  Props                                                              */
@@ -18,7 +27,14 @@ interface TiptapEditorProps {
   onImageUpload?: (file: File) => Promise<string>;
   placeholder?: string;
   editable?: boolean;
+  onWordCountChange?: (count: number) => void;
 }
+
+/* ------------------------------------------------------------------ */
+/*  Lowlight instance (created once at module level)                    */
+/* ------------------------------------------------------------------ */
+
+const lowlight = createLowlight(all);
 
 /* ------------------------------------------------------------------ */
 /*  Toolbar button                                                     */
@@ -83,32 +99,10 @@ function Separator() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  MenuBar                                                            */
+/*  MenuBar (block-level controls — inline formatting in BubbleMenu)   */
 /* ------------------------------------------------------------------ */
 
-function MenuBar({ editor }: { editor: Editor }) {
-  const setLink = useCallback(() => {
-    const previousUrl = editor.getAttributes("link").href;
-    const url = window.prompt("링크 URL을 입력하세요", previousUrl || "https://");
-
-    if (url === null) return;
-
-    if (url === "") {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run();
-      return;
-    }
-
-    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
-  }, [editor]);
-
-  const addImage = useCallback(() => {
-    const url = window.prompt("이미지 URL을 입력하세요", "https://");
-
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
-    }
-  }, [editor]);
-
+function MenuBar({ editor, onAddImage }: { editor: Editor; onAddImage: () => void }) {
   return (
     <div
       style={{
@@ -123,55 +117,6 @@ function MenuBar({ editor }: { editor: Editor }) {
         fontFamily: "'Pretendard', sans-serif",
       }}
     >
-      {/* ── Inline formatting ── */}
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleBold().run()}
-        isActive={editor.isActive("bold")}
-        title="굵게 (Ctrl+B)"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" />
-          <path d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" />
-        </svg>
-      </ToolbarButton>
-
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleItalic().run()}
-        isActive={editor.isActive("italic")}
-        title="기울임 (Ctrl+I)"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="19" y1="4" x2="10" y2="4" />
-          <line x1="14" y1="20" x2="5" y2="20" />
-          <line x1="15" y1="4" x2="9" y2="20" />
-        </svg>
-      </ToolbarButton>
-
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleUnderline().run()}
-        isActive={editor.isActive("underline")}
-        title="밑줄 (Ctrl+U)"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M6 3v7a6 6 0 006 6 6 6 0 006-6V3" />
-          <line x1="4" y1="21" x2="20" y2="21" />
-        </svg>
-      </ToolbarButton>
-
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleStrike().run()}
-        isActive={editor.isActive("strike")}
-        title="취소선"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <path d="M16 6C16 6 14.5 4 12 4 9 4 7 6 7 8c0 1.5 1 2.5 3 3.5" />
-          <path d="M8 18c0 0 1.5 2 4 2 3 0 5-2 5-4 0-1.5-1-2.5-3-3.5" />
-        </svg>
-      </ToolbarButton>
-
-      <Separator />
-
       {/* ── Headings ── */}
       <ToolbarButton
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
@@ -271,21 +216,58 @@ function MenuBar({ editor }: { editor: Editor }) {
         </svg>
       </ToolbarButton>
 
-      <Separator />
-
-      {/* ── Link & Image ── */}
       <ToolbarButton
-        onClick={setLink}
-        isActive={editor.isActive("link")}
-        title="링크"
+        onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        title="구분선"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
-          <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+          <line x1="3" y1="12" x2="21" y2="12" />
         </svg>
       </ToolbarButton>
 
-      <ToolbarButton onClick={addImage} title="이미지">
+      <Separator />
+
+      {/* ── Text alignment ── */}
+      <ToolbarButton
+        onClick={() => editor.chain().focus().setTextAlign("left").run()}
+        isActive={editor.isActive({ textAlign: "left" })}
+        title="왼쪽 정렬"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="15" y2="12" />
+          <line x1="3" y1="18" x2="18" y2="18" />
+        </svg>
+      </ToolbarButton>
+
+      <ToolbarButton
+        onClick={() => editor.chain().focus().setTextAlign("center").run()}
+        isActive={editor.isActive({ textAlign: "center" })}
+        title="가운데 정렬"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="6" y1="12" x2="18" y2="12" />
+          <line x1="4" y1="18" x2="20" y2="18" />
+        </svg>
+      </ToolbarButton>
+
+      <ToolbarButton
+        onClick={() => editor.chain().focus().setTextAlign("right").run()}
+        isActive={editor.isActive({ textAlign: "right" })}
+        title="오른쪽 정렬"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="9" y1="12" x2="21" y2="12" />
+          <line x1="6" y1="18" x2="21" y2="18" />
+        </svg>
+      </ToolbarButton>
+
+      <Separator />
+
+      {/* ── Image ── */}
+      <ToolbarButton onClick={onAddImage} title="이미지">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
           <circle cx="8.5" cy="8.5" r="1.5" />
@@ -320,145 +302,158 @@ function MenuBar({ editor }: { editor: Editor }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Prose styling (injected once via <style>)                          */
+/*  EditorBubbleMenu (inline formatting on text selection)             */
 /* ------------------------------------------------------------------ */
 
-const PROSE_STYLES = `
-.tiptap-editor-root .ProseMirror {
-  outline: none;
-  min-height: 400px;
-  padding: 24px;
-  font-family: 'MaruBuri', serif;
-  font-size: 17px;
-  line-height: 1.8;
-  color: #16140f;
+function EditorBubbleMenu({ editor }: { editor: Editor }) {
+  const setLink = useCallback(() => {
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("링크 URL을 입력하세요", previousUrl || "https://");
+
+    if (url === null) return;
+
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+  }, [editor]);
+
+  return (
+    <BubbleMenu
+      editor={editor}
+      options={{
+        placement: "top",
+      }}
+      shouldShow={({ editor: ed, from, to }) => {
+        // Don't show for empty selections
+        if (from === to) return false;
+        // Don't show inside code blocks
+        if (ed.isActive("codeBlock")) return false;
+        // Don't show if an image is selected
+        if (ed.isActive("image")) return false;
+        return true;
+      }}
+    >
+      <div className="tiptap-bubble-menu">
+        {/* Bold */}
+        <button
+          type="button"
+          className={`bubble-btn ${editor.isActive("bold") ? "is-active" : ""}`}
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          title="굵게 (Ctrl+B)"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" />
+            <path d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" />
+          </svg>
+        </button>
+
+        {/* Italic */}
+        <button
+          type="button"
+          className={`bubble-btn ${editor.isActive("italic") ? "is-active" : ""}`}
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          title="기울임 (Ctrl+I)"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="19" y1="4" x2="10" y2="4" />
+            <line x1="14" y1="20" x2="5" y2="20" />
+            <line x1="15" y1="4" x2="9" y2="20" />
+          </svg>
+        </button>
+
+        {/* Underline */}
+        <button
+          type="button"
+          className={`bubble-btn ${editor.isActive("underline") ? "is-active" : ""}`}
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
+          title="밑줄 (Ctrl+U)"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 3v7a6 6 0 006 6 6 6 0 006-6V3" />
+            <line x1="4" y1="21" x2="20" y2="21" />
+          </svg>
+        </button>
+
+        {/* Strikethrough */}
+        <button
+          type="button"
+          className={`bubble-btn ${editor.isActive("strike") ? "is-active" : ""}`}
+          onClick={() => editor.chain().focus().toggleStrike().run()}
+          title="취소선"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <path d="M16 6C16 6 14.5 4 12 4 9 4 7 6 7 8c0 1.5 1 2.5 3 3.5" />
+            <path d="M8 18c0 0 1.5 2 4 2 3 0 5-2 5-4 0-1.5-1-2.5-3-3.5" />
+          </svg>
+        </button>
+
+        <div className="bubble-separator" />
+
+        {/* Link */}
+        <button
+          type="button"
+          className={`bubble-btn ${editor.isActive("link") ? "is-active" : ""}`}
+          onClick={setLink}
+          title="링크"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+          </svg>
+        </button>
+
+        <div className="bubble-separator" />
+
+        {/* Highlight */}
+        <button
+          type="button"
+          className={`bubble-btn ${editor.isActive("highlight") ? "is-active" : ""}`}
+          onClick={() => editor.chain().focus().toggleHighlight().run()}
+          title="하이라이트"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 20h9" />
+            <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+          </svg>
+        </button>
+      </div>
+    </BubbleMenu>
+  );
 }
 
-.tiptap-editor-root .ProseMirror h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 1em 0 0.5em;
-  font-family: system-ui, -apple-system, sans-serif;
-}
+/* ------------------------------------------------------------------ */
+/*  FooterStats bar                                                    */
+/* ------------------------------------------------------------------ */
 
-.tiptap-editor-root .ProseMirror h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 0.9em 0 0.4em;
-  font-family: system-ui, -apple-system, sans-serif;
-}
+function FooterStats({ editor }: { editor: Editor }) {
+  const characters = editor.storage.characterCount.characters();
+  const words = editor.storage.characterCount.words();
+  const readingTime = Math.max(1, Math.ceil(words / 200));
 
-.tiptap-editor-root .ProseMirror h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.4;
-  margin: 0.8em 0 0.3em;
-  font-family: system-ui, -apple-system, sans-serif;
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 16,
+        padding: "8px 16px",
+        fontSize: 12,
+        color: "#6b6b5e",
+        background: "#f5f5ee",
+        borderTop: "1px solid #ddd9cc",
+        fontFamily: "'Pretendard', sans-serif",
+      }}
+    >
+      <span>{characters.toLocaleString()} / 50,000</span>
+      <span>{words.toLocaleString()} 단어</span>
+      <span>~{readingTime}분 읽기</span>
+    </div>
+  );
 }
-
-.tiptap-editor-root .ProseMirror p {
-  font-size: 17px;
-  margin: 0.75em 0;
-}
-
-.tiptap-editor-root .ProseMirror ul {
-  list-style-type: disc;
-  padding-left: 1.5em;
-  margin: 0.5em 0;
-}
-
-.tiptap-editor-root .ProseMirror ol {
-  list-style-type: decimal;
-  padding-left: 1.5em;
-  margin: 0.5em 0;
-}
-
-.tiptap-editor-root .ProseMirror li {
-  margin: 0.25em 0;
-}
-
-.tiptap-editor-root .ProseMirror li p {
-  margin: 0.15em 0;
-}
-
-.tiptap-editor-root .ProseMirror blockquote {
-  border-left: 3px solid #FF6C0F;
-  padding-left: 1em;
-  margin: 1em 0;
-  font-style: italic;
-  color: #6b6b5e;
-}
-
-.tiptap-editor-root .ProseMirror code {
-  background: #e8e6dc;
-  border-radius: 4px;
-  padding: 0.15em 0.4em;
-  font-size: 0.9em;
-  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, monospace;
-}
-
-.tiptap-editor-root .ProseMirror pre {
-  background: #1a1a1a;
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin: 1em 0;
-  overflow-x: auto;
-}
-
-.tiptap-editor-root .ProseMirror pre code {
-  display: block;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  color: #e4e4e4;
-  font-size: 0.875em;
-  line-height: 1.6;
-}
-
-.tiptap-editor-root .ProseMirror img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin: 1em 0;
-}
-
-.tiptap-editor-root .ProseMirror a {
-  color: #FF6C0F;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.tiptap-editor-root .ProseMirror a:hover {
-  opacity: 0.8;
-}
-
-.tiptap-editor-root .ProseMirror hr {
-  border: none;
-  border-top: 1px solid #ddd9cc;
-  margin: 1.5em 0;
-}
-
-/* Placeholder */
-.tiptap-editor-root .ProseMirror p.is-editor-empty:first-child::before {
-  content: attr(data-placeholder);
-  float: left;
-  color: #a3a295;
-  font-style: italic;
-  pointer-events: none;
-  height: 0;
-}
-
-.tiptap-editor-root .ProseMirror .is-empty::before {
-  content: attr(data-placeholder);
-  float: left;
-  color: #a3a295;
-  font-style: italic;
-  pointer-events: none;
-  height: 0;
-}
-`;
 
 /* ------------------------------------------------------------------ */
 /*  Main component                                                     */
@@ -470,40 +465,88 @@ export default function TiptapEditor({
   onImageUpload,
   placeholder = "내용을 입력하세요...",
   editable = true,
+  onWordCountChange,
 }: TiptapEditorProps) {
-  const stylesInjected = useRef(false);
+  /* Track blob URLs for cleanup */
+  const blobUrlsRef = useRef<Map<string, string>>(new Map());
 
-  /* Inject prose styles once */
-  useEffect(() => {
-    if (stylesInjected.current) return;
-    stylesInjected.current = true;
-
-    const style = document.createElement("style");
-    style.setAttribute("data-tiptap-editor", "true");
-    style.textContent = PROSE_STYLES;
-    document.head.appendChild(style);
-
-    return () => {
-      style.remove();
-      stylesInjected.current = false;
-    };
-  }, []);
-
-  /* Handle pasted / dropped images */
+  /* Image upload with immediate blob preview */
   const handleImageUpload = useCallback(
-    async (file: File, editor: Editor) => {
+    async (file: File, ed: Editor) => {
       if (!onImageUpload) return;
 
+      // Create an immediate blob preview
+      const blobUrl = URL.createObjectURL(file);
+
+      // Insert the blob preview immediately for instant feedback
+      ed.chain().focus().setImage({ src: blobUrl }).run();
+
       try {
-        const url = await onImageUpload(file);
-        if (url) {
-          editor.chain().focus().setImage({ src: url }).run();
+        const uploadedUrl = await onImageUpload(file);
+
+        if (uploadedUrl) {
+          // Find and replace the blob URL with the real uploaded URL
+          const { doc } = ed.state;
+          let replaced = false;
+
+          doc.descendants((node, pos) => {
+            if (replaced) return false;
+            if (node.type.name === "image" && node.attrs.src === blobUrl) {
+              ed.chain()
+                .focus()
+                .command(({ tr }) => {
+                  tr.setNodeMarkup(pos, undefined, {
+                    ...node.attrs,
+                    src: uploadedUrl,
+                  });
+                  return true;
+                })
+                .run();
+              replaced = true;
+              return false;
+            }
+            return true;
+          });
+
+          // Track for cleanup
+          blobUrlsRef.current.set(blobUrl, uploadedUrl);
         }
-      } catch {
-        // silently fail – the consumer handles errors
+      } catch (error) {
+        console.error("Image upload failed:", error);
+
+        // Remove the image node on failure
+        const { doc } = ed.state;
+        doc.descendants((node, pos) => {
+          if (node.type.name === "image" && node.attrs.src === blobUrl) {
+            ed.chain()
+              .focus()
+              .command(({ tr }) => {
+                tr.delete(pos, pos + node.nodeSize);
+                return true;
+              })
+              .run();
+            return false;
+          }
+          return true;
+        });
+      } finally {
+        // Revoke the blob URL to free memory
+        URL.revokeObjectURL(blobUrl);
+        blobUrlsRef.current.delete(blobUrl);
       }
     },
     [onImageUpload],
+  );
+
+  /* Toolbar image button — prompt for URL */
+  const addImage = useCallback(
+    (ed: Editor) => {
+      const url = window.prompt("이미지 URL을 입력하세요", "https://");
+      if (url) {
+        ed.chain().focus().setImage({ src: url }).run();
+      }
+    },
+    [],
   );
 
   const editor = useEditor({
@@ -511,20 +554,39 @@ export default function TiptapEditor({
     extensions: [
       StarterKit.configure({
         heading: { levels: [1, 2, 3] },
+        codeBlock: false, // Replaced by CodeBlockLowlight
       }),
       Underline,
       Link.configure({
         openOnClick: false,
         autolink: true,
+        linkOnPaste: true,
+        defaultProtocol: "https",
         HTMLAttributes: {
-          class: "text-[#FF6C0F] underline",
+          class: "text-[#FF6C0F] underline underline-offset-2",
+          rel: "noopener noreferrer",
+          target: "_blank",
         },
       }),
       Image.configure({
+        allowBase64: false,
         HTMLAttributes: {
-          class: "rounded-lg",
+          class: "rounded-lg max-w-full h-auto my-4",
         },
       }),
+      CodeBlockLowlight.configure({
+        lowlight,
+      }),
+      CharacterCount.configure({
+        limit: 50000,
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      Highlight.configure({
+        multicolor: false,
+      }),
+      Typography,
       Placeholder.configure({
         placeholder,
       }),
@@ -576,8 +638,20 @@ export default function TiptapEditor({
     },
     onUpdate: ({ editor: ed }) => {
       onChange?.(ed.getHTML());
+      onWordCountChange?.(ed.storage.characterCount.words());
     },
   });
+
+  /* Cleanup blob URLs on unmount */
+  useEffect(() => {
+    const blobUrls = blobUrlsRef.current;
+    return () => {
+      blobUrls.forEach((_realUrl, blobUrl) => {
+        URL.revokeObjectURL(blobUrl);
+      });
+      blobUrls.clear();
+    };
+  }, []);
 
   return (
     <div className="tiptap-editor-root">
@@ -600,8 +674,15 @@ export default function TiptapEditor({
           }
         }}
       >
-        {editor && <MenuBar editor={editor} />}
+        {editor && (
+          <MenuBar
+            editor={editor}
+            onAddImage={() => addImage(editor)}
+          />
+        )}
+        {editor && <EditorBubbleMenu editor={editor} />}
         <EditorContent editor={editor} />
+        {editor && <FooterStats editor={editor} />}
       </div>
     </div>
   );

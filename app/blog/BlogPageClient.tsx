@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 import { useUser } from "@/hooks/useUser";
 import type { BlogPost, TagInfo } from "@/lib/api";
@@ -38,6 +38,8 @@ function getTagLabel(tags: TagInfo[], slug: string) {
 
 export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
   const [activeTab, setActiveTab] = useState<"all" | "news" | "blog">("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const { role, isAuthenticated } = useUser();
 
   const tabs = [
@@ -48,13 +50,33 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
 
   const canWrite = isAuthenticated && WRITER_ROLES.includes(role);
 
-  const filteredPosts = useMemo(() => {
-    if (activeTab === "all") {
-      return posts;
-    }
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedQuery(searchQuery), 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
-    return posts.filter((post) => post.type === activeTab);
-  }, [activeTab, posts]);
+  const filteredPosts = useMemo(() => {
+    let result = posts;
+    
+    // Search filter
+    if (debouncedQuery.trim()) {
+      const q = debouncedQuery.trim().toLowerCase();
+      result = result.filter(
+        (post) =>
+          post.title.toLowerCase().includes(q) ||
+          post.excerpt.toLowerCase().includes(q) ||
+          post.tags.some((tag) => tag.toLowerCase().includes(q))
+      );
+    }
+    
+    // Tab filter
+    if (activeTab !== "all") {
+      result = result.filter((post) => post.type === activeTab);
+    }
+    
+    return result;
+  }, [activeTab, posts, debouncedQuery]);
 
   const featuredPost = useMemo(
     () => filteredPosts.find((post) => post.featured) ?? filteredPosts[0],
@@ -103,11 +125,24 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
           </div>
 
           <div className="flex w-full items-center gap-3 md:w-auto">
-            <input
-              type="text"
-              placeholder="검색..."
-              className="font-['Pretendard',sans-serif] h-[38px] w-full min-w-0 flex-1 rounded-[6px] border-[1px] border-[#d9d9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)] md:w-[320px] md:flex-none"
-            />
+            <div className="relative flex-1 md:w-[320px] md:flex-none">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="검색..."
+                className="font-['Pretendard',sans-serif] h-[38px] w-full min-w-0 flex-1 rounded-[6px] border-[1px] border-[#d9d9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)] md:w-[320px] md:flex-none"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b6b5e] hover:text-[#16140f]"
+                  type="button"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
             {canWrite && (
               <Link
                 href="/blog/write"
@@ -116,7 +151,6 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
                 글쓰기
               </Link>
             )}
-          </div>
         </div>
       </div>
 
@@ -232,6 +266,13 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
             <h3 className="mb-6 font-['Pretendard',sans-serif] text-[20px] font-semibold text-[oklch(0.705_0.213_47.604)]">
               전체 글
             </h3>
+            {allPosts.length === 0 ? (
+              <div className="py-16 text-center">
+                <p className="text-[#6b6b5e] font-['Pretendard',sans-serif]">
+                  {debouncedQuery ? `"${debouncedQuery}"에 대한 검색 결과가 없습니다.` : "게시글이 없습니다."}
+                </p>
+              </div>
+            ) : (
             <div className="space-y-0">
               {allPosts.map((post) => (
                 <article key={post.slug} className="py-7 first:pt-0">
@@ -266,6 +307,8 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
                   </Link>
                 </article>
               ))}
+            </div>
+            )}
             </div>
           </div>
 

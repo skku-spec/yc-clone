@@ -1,0 +1,56 @@
+.prose-content {
+  font-family: "MaruBuri", serif;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #16140f;
+}
+
+.prose-content h1,
+.prose-content h2,
+.prose-content h3,
+.prose-content h4,
+.prose-content h5,
+.prose-content h6 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 1em 0 0.45em;
+}
+
+.prose-content p {
+  margin: 0.75em 0;
+}
+
+.prose-content blockquote {
+  border-left: 3px solid #ff6c0f;
+  padding-left: 1em;
+  margin: 1em 0;
+  font-style: italic;
+  color: #6b6b5e;
+}
+
+.prose-content a {
+  color: #ff6c0f;
+  text-decoration: underline;
+}
+
+.prose-content img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.prose-content pre {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 14px 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.prose-content pre code {
+  color: #fff;
+}
+
+.prose-content code {
+  font-family: "SF Mono", Menlo, monospace;
+}
