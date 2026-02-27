@@ -13,7 +13,7 @@ export type ProfileRole =
 
 export type PostType = "news" | "blog";
 
-export type MemberType = "러너" | "프러너" | "member";
+export type MemberType = "러너" | "프러너" | "alumni";
 
 export type ProjectStatus = "Active" | "Inactive" | "Acquired" | "Public";
 export type Database = {

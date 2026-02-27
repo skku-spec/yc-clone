@@ -1,52 +1,131 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { managingLeads, preneurs, getPersonBySlug, getAllPersonSlugs } from "@/lib/people-data";
+
+import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/lib/supabase/types";
+
+type MemberRow = Database["public"]["Tables"]["members"]["Row"];
+
+interface Person {
+  name: string;
+  slug: string;
+  title: string;
+  bio: string;
+  photo: string;
+  isLead?: boolean;
+  isPartner?: boolean;
+  isMentor?: boolean;
+  twitter?: string;
+  linkedin?: string;
+  website?: string;
+  company?: string;
+  batch?: string;
+}
+
+const DEFAULT_PHOTO =
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face";
+
+function isManagingLead(member: Pick<MemberRow, "name" | "batch_tags">): boolean {
+  if (member.name === "전도현" || member.name === "한지상") {
+    return true;
+  }
+
+  return (member.batch_tags ?? []).some(
+    (tag) => tag.includes("4기 회장") || tag.includes("4기 부회장"),
+  );
+}
+
+function getMemberTitle(member: Pick<MemberRow, "role" | "name" | "batch_tags">): string {
+  if (member.role && member.role.trim()) {
+    return member.role;
+  }
+  if (isManagingLead(member)) {
+    return "Managing Lead";
+  }
+  return "Preneur";
+}
+
+function mapMemberToPerson(
+  member: Pick<
+    MemberRow,
+    "name" | "slug" | "role" | "bio" | "photo_url" | "batch_tags" | "linkedin_url"
+  >,
+): Person {
+  return {
+    name: member.name,
+    slug: member.slug,
+    title: getMemberTitle(member),
+    bio: member.bio ?? "",
+    photo: member.photo_url ?? DEFAULT_PHOTO,
+    isLead: isManagingLead(member),
+    linkedin: member.linkedin_url ?? undefined,
+  };
+}
+
+async function getPersonPageData(
+  slug: string,
+): Promise<{ person: Person; otherPartners: Person[] } | null> {
+  const supabase = await createClient();
+
+  const { data: member } = await supabase
+    .from("members")
+    .select("name, slug, role, bio, photo_url, batch_tags, linkedin_url")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (!member) {
+    return null;
+  }
+
+  const { data: relatedMemberRows } = await supabase
+    .from("members")
+    .select("name, slug, role, bio, photo_url, batch_tags, linkedin_url")
+    .eq("preneur_batch", "4기")
+    .neq("slug", slug)
+    .order("name", { ascending: true })
+    .limit(4);
+
+  return {
+    person: mapMemberToPerson(member),
+    otherPartners: (relatedMemberRows ?? []).map(mapMemberToPerson),
+  };
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return getAllPersonSlugs().map((slug) => ({ slug }));
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const person = getPersonBySlug(slug);
-  if (!person) {
+  const pageData = await getPersonPageData(slug);
+
+  if (!pageData) {
     return { title: "멤버를 찾을 수 없습니다 | SPEC" };
   }
+
+  const descriptionSource = pageData.person.bio || pageData.person.title;
+
   return {
-    title: `${person.name} | SPEC — 성균관대 창업학회`,
-    description: person.bio.slice(0, 160),
+    title: `${pageData.person.name} | SPEC — 성균관대 창업학회`,
+    description: descriptionSource.slice(0, 160),
   };
 }
 
 export default async function PersonPage({ params }: PageProps) {
   const { slug } = await params;
-  const person = getPersonBySlug(slug);
+  const pageData = await getPersonPageData(slug);
 
-  if (!person) {
+  if (!pageData) {
     notFound();
   }
 
-  const bioParagraphs = person.bio
-    .split(/(?<=[.!?])\s+(?=[A-Z])/)
-    .reduce<string[][]>(
-      (acc, sentence, i) => {
-        const paragraphIndex = Math.floor(i / 2);
-        if (!acc[paragraphIndex]) acc[paragraphIndex] = [];
-        acc[paragraphIndex].push(sentence);
-        return acc;
-      },
-      []
-    )
-    .map((sentences) => sentences.join(" "));
+  const { person, otherPartners } = pageData;
 
-  const otherPartners = [...managingLeads, ...preneurs]
-    .filter((p) => p.slug !== slug && p.slug !== "")
-    .slice(0, 4);
+  const bioParagraphs = person.bio
+    .split(/\n+/)
+    .map((paragraph) => paragraph.trim())
+    .filter((paragraph) => paragraph.length > 0);
 
   return (
     <div className="px-4 pb-24 pt-12 md:pt-16">
@@ -116,7 +195,7 @@ export default async function PersonPage({ params }: PageProps) {
               )}
               {person.linkedin && (
                 <a
-                  href={`https://linkedin.com/in/${person.linkedin}`}
+                  href={person.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#16140f]/5 text-[#16140f]/60 transition-colors hover:bg-[#16140f]/10 hover:text-[#16140f]"
@@ -146,32 +225,34 @@ export default async function PersonPage({ params }: PageProps) {
           </div>
         </div>
 
-        <article className="mt-10 border-t border-[#16140f]/10 pt-8">
-          {bioParagraphs.map((paragraph, i) => (
-            <p
-              key={i}
-              className="mb-5 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f] last:mb-0"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </article>
+        {bioParagraphs.length > 0 && (
+          <article className="mt-10 border-t border-[#16140f]/10 pt-8">
+            {bioParagraphs.map((paragraph, i) => (
+              <p
+                key={i}
+                className="mb-5 font-['MaruBuri',serif] text-[17px] font-normal leading-[1.75] text-[#16140f] last:mb-0"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </article>
+        )}
 
         <section className="mt-16 border-t border-[#16140f]/10 pt-10">
           <h2 className="mb-6 font-['Pretendard',sans-serif] text-[0.8125rem] font-semibold uppercase tracking-[0.1em] text-[#16140f]/50">
             Other Members
           </h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {otherPartners.map((p) => (
+            {otherPartners.map((partner) => (
               <Link
-                key={p.slug}
-                href={`/people/${p.slug}`}
+                key={partner.slug}
+                href={`/people/${partner.slug}`}
                 className="group block rounded-lg p-3 transition-colors hover:bg-[#eceadf]"
               >
                 <figure className="mb-2 aspect-square w-full overflow-hidden rounded-lg bg-[#e8e8df]">
                   <img
-                    src={p.photo}
-                    alt={p.name}
+                    src={partner.photo}
+                    alt={partner.name}
                     width={160}
                     height={160}
                     className="h-full w-full object-cover"
@@ -179,10 +260,10 @@ export default async function PersonPage({ params }: PageProps) {
                   />
                 </figure>
                 <div className="font-['MaruBuri',serif] text-[0.875rem] font-semibold leading-tight text-[#16140f]">
-                  {p.name}
+                  {partner.name}
                 </div>
                 <div className="font-['Pretendard',sans-serif] text-[0.75rem] font-normal text-[#16140f]/50">
-                  {p.title}
+                  {partner.title}
                 </div>
               </Link>
             ))}

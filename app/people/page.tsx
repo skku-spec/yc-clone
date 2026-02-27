@@ -1,12 +1,99 @@
 import type { Metadata } from "next";
-import { managingLeads, preneurs, teamDescriptions } from "@/lib/people-data";
-import type { Person, TeamDescription } from "@/lib/people-data";
+
 import PageHeader from "@/components/PageHeader";
+import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/lib/supabase/types";
+
+type MemberRow = Database["public"]["Tables"]["members"]["Row"];
+
+interface Person {
+  name: string;
+  slug: string;
+  title: string;
+  bio: string;
+  photo: string;
+  isLead?: boolean;
+  isPartner?: boolean;
+  isMentor?: boolean;
+  twitter?: string;
+  linkedin?: string;
+  website?: string;
+  company?: string;
+  batch?: string;
+}
+
+interface TeamDescription {
+  name: string;
+  description: string;
+}
+
+const TEAM_DESCRIPTIONS: TeamDescription[] = [
+  {
+    name: "Contents",
+    description:
+      "창업가 인터뷰 영상 기획·제작, 알럼나이 성공 사례 콘텐츠화, 릴스·숏폼 제작, 유튜브·인스타그램 운영",
+  },
+  {
+    name: "Partnerships",
+    description:
+      "VC 네트워킹, IR 지원, 창업 멘토 섭외, 데모데이 심사위원·연사 섭외, 기관 협업",
+  },
+  {
+    name: "Engineering",
+    description:
+      "내부 소프트웨어 개발, 멘토링 신청·과제 관리·KPI 트래킹 시스템 구축, 운영 업무 자동화",
+  },
+  {
+    name: "Design",
+    description:
+      "포스터·카드뉴스 디자인, 브랜드 아이덴티티 관리, 홍보물 제작, SNS 콘텐츠 디자인",
+  },
+  {
+    name: "Community",
+    description: "멤버 간 네트워킹, 알럼나이·동문 모임 운영, 커뮤니티 활성화",
+  },
+];
+
+const DEFAULT_PHOTO =
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face";
 
 export const metadata: Metadata = {
   title: "멤버 | SPEC — 성균관대 창업학회",
   description: "SPEC 창업학회의 Managing Lead, Preneur, Learner를 만나보세요.",
 };
+
+function isManagingLead(member: Pick<MemberRow, "name" | "batch_tags">): boolean {
+  if (member.name === "전도현" || member.name === "한지상") {
+    return true;
+  }
+
+  return (member.batch_tags ?? []).some(
+    (tag) => tag.includes("4기 회장") || tag.includes("4기 부회장"),
+  );
+}
+
+function getMemberTitle(member: Pick<MemberRow, "role" | "name" | "batch_tags">): string {
+  if (member.role && member.role.trim()) {
+    return member.role;
+  }
+  if (isManagingLead(member)) {
+    return "Managing Lead";
+  }
+  return "Preneur";
+}
+
+function mapMemberToPerson(
+  member: Pick<MemberRow, "name" | "slug" | "role" | "bio" | "photo_url" | "batch_tags">,
+): Person {
+  return {
+    name: member.name,
+    slug: member.slug,
+    title: getMemberTitle(member),
+    bio: member.bio ?? "",
+    photo: member.photo_url ?? DEFAULT_PHOTO,
+    isLead: isManagingLead(member),
+  };
+}
 
 function LeadCard({ person }: { person: Person }) {
   return (
@@ -31,7 +118,11 @@ function LeadCard({ person }: { person: Person }) {
               if (!person.isLead) return person.title;
               const parts = person.title.split(" | ");
               return parts.length > 1 ? (
-                <><span className="text-[#FF6C0F]">{parts[0]}</span>{" | "}{parts.slice(1).join(" | ")}</>
+                <>
+                  <span className="text-[#FF6C0F]">{parts[0]}</span>
+                  {" | "}
+                  {parts.slice(1).join(" | ")}
+                </>
               ) : (
                 <span className="text-[#FF6C0F]">{person.title}</span>
               );
@@ -70,7 +161,11 @@ function PreneurCard({ person }: { person: Person }) {
             if (!person.isLead) return person.title;
             const parts = person.title.split(" | ");
             return parts.length > 1 ? (
-              <><span className="text-[#FF6C0F]">{parts[0]}</span>{" | "}{parts.slice(1).join(" | ")}</>
+              <>
+                <span className="text-[#FF6C0F]">{parts[0]}</span>
+                {" | "}
+                {parts.slice(1).join(" | ")}
+              </>
             ) : (
               <span className="text-[#FF6C0F]">{person.title}</span>
             );
@@ -100,13 +195,32 @@ function TeamDescriptionBlock({ team }: { team: TeamDescription }) {
   );
 }
 
-export default function PeoplePage() {
+export default async function PeoplePage() {
+  const supabase = await createClient();
+  const { data: memberRows } = await supabase
+    .from("members")
+    .select("name, slug, role, bio, photo_url, batch_tags")
+    .eq("preneur_batch", "4기")
+    .order("name", { ascending: true });
+
+  const preneurMembers = (memberRows ?? []) as Pick<
+    MemberRow,
+    "name" | "slug" | "role" | "bio" | "photo_url" | "batch_tags"
+  >[];
+
+  const managingLeads = preneurMembers
+    .filter((member) => isManagingLead(member))
+    .map(mapMemberToPerson);
+
+  const preneurs = preneurMembers
+    .filter((member) => !isManagingLead(member))
+    .map(mapMemberToPerson);
+
   return (
     <div className="px-4 pb-24 pt-14 md:pt-20">
       <div className="mx-auto max-w-[1100px]">
         <PageHeader title="People" />
 
-        {/* ── Managing Lead ── */}
         <section className="mb-12">
           <h2 className="mb-2 border-b border-[#16140f]/10 pb-3 font-['Pretendard',sans-serif] text-[0.8125rem] font-semibold uppercase tracking-[0.1em] text-[#16140f]/50">
             Managing Lead
@@ -118,31 +232,28 @@ export default function PeoplePage() {
           </ul>
         </section>
 
-        {/* ── Preneur ── */}
         <section className="mb-12">
           <h2 className="mb-2 border-b border-[#16140f]/10 pb-3 font-['Pretendard',sans-serif] text-[0.8125rem] font-semibold uppercase tracking-[0.1em] text-[#16140f]/50">
             Preneur
           </h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+          <ul className="grid grid-cols-1 gap-x-8 sm:grid-cols-2">
             {preneurs.map((person) => (
               <PreneurCard key={person.slug} person={person} />
             ))}
           </ul>
 
-          {/* 팀별 역할 설명 */}
           <div className="mt-8 border-t border-[#16140f]/10 pt-6">
             <h3 className="mb-3 font-['Pretendard',sans-serif] text-[0.8125rem] font-semibold uppercase tracking-[0.1em] text-[#16140f]/50">
               Teams
             </h3>
             <div className="space-y-1">
-              {teamDescriptions.map((team) => (
+              {TEAM_DESCRIPTIONS.map((team) => (
                 <TeamDescriptionBlock key={team.name} team={team} />
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Learner ── */}
         <section className="mb-12">
           <h2 className="mb-2 border-b border-[#16140f]/10 pb-3 font-['Pretendard',sans-serif] text-[0.8125rem] font-semibold uppercase tracking-[0.1em] text-[#16140f]/50">
             Learner

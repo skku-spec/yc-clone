@@ -105,18 +105,29 @@ CREATE OR REPLACE FUNCTION public.custom_access_token_hook(event jsonb)
 RETURNS jsonb
 LANGUAGE plpgsql
 STABLE
+SECURITY DEFINER
+SET search_path = public
 AS $$
 DECLARE
   claims jsonb;
   profile_role public.user_role;
 BEGIN
-  claims := event->'claims';
-  SELECT role INTO profile_role FROM public.profiles WHERE id = (event->>'user_id')::uuid;
-  claims := jsonb_set(claims, '{user_role}', to_jsonb(COALESCE(profile_role::text, 'outsider')));
-  event := jsonb_set(event, '{claims}', claims);
+  SELECT p.role INTO profile_role
+    FROM public.profiles p
+    WHERE p.id = (event->>'user_id')::uuid;
+
+  profile_role := COALESCE(profile_role, 'outsider'::public.user_role);
+  claims := COALESCE(event->'claims', '{}'::jsonb);
+  claims := jsonb_set(claims, '{user_role}', to_jsonb(profile_role::text), true);
+
+  event := jsonb_set(event, '{claims}', claims, true);
   RETURN event;
 END;
 $$;
+
+GRANT USAGE ON SCHEMA public TO supabase_auth_admin;
+GRANT EXECUTE ON FUNCTION public.custom_access_token_hook(jsonb) TO supabase_auth_admin;
+REVOKE EXECUTE ON FUNCTION public.custom_access_token_hook(jsonb) FROM anon, authenticated, public;
 
 -- ──────────────────────────────────────────────────────────────
 -- Step 4: Recreate ALL dropped RLS policies
