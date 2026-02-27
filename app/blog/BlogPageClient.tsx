@@ -78,8 +78,8 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
   );
 
   return (
-    <section className="min-h-screen pb-24">
-      <div className="border-b border-[#ddd9cc]">
+    <section className="min-h-screen bg-[#f5f5ee] pb-24">
+      <div>
         <div className="mx-auto max-w-[1068px] px-6 pt-14 pb-8 text-center">
           <h1
             className="text-[clamp(2.5rem,5vw,3.75rem)] font-black leading-[1.15] tracking-tight uppercase text-[#16140f]"
@@ -90,14 +90,14 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
         </div>
       </div>
 
-      <div className="border-b border-[#ddd9cc]">
-        <div className="mx-auto flex max-w-[1068px] items-center justify-between px-6 py-5">
-          <div className="flex gap-8">
+      <div>
+        <div className="mx-auto flex max-w-[1068px] flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between">
+          <div className="flex gap-4 md:gap-8">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`font-['Pretendard',sans-serif] text-[14px] font-[500] padding-[8px_4px] border-b-[2px] transition-colors ${
+                className={`whitespace-nowrap font-['Pretendard',sans-serif] text-[14px] font-[500] border-b-[2px] transition-colors ${
                   activeTab === tab.id
                     ? "border-b-[oklch(0.705_0.213_47.604)] text-[#16140f]"
                     : "border-b-transparent text-[#8a8a7e]"
@@ -108,16 +108,16 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex w-full items-center gap-3 md:w-auto">
             <input
               type="text"
               placeholder="검색..."
-              className="font-['Pretendard',sans-serif] w-[320px] h-[38px] rounded-[6px] border-[1px] border-[#ddd9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)]"
+              className="font-['Pretendard',sans-serif] h-[38px] w-full min-w-0 flex-1 rounded-[6px] border-[1px] border-[#ddd9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)] md:w-[320px] md:flex-none"
             />
             {canWrite && (
               <Link
                 href="/blog/write"
-                className="inline-flex h-[38px] items-center rounded-[6px] bg-[#FF6C0F] px-4 font-['Pretendard',sans-serif] text-[14px] font-medium text-white transition-opacity hover:opacity-85"
+                className="inline-flex h-[38px] shrink-0 items-center rounded-[6px] bg-[#FF6C0F] px-4 font-['Pretendard',sans-serif] text-[14px] font-medium text-white transition-opacity hover:opacity-85"
               >
                 글쓰기
               </Link>
@@ -127,7 +127,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
       </div>
 
       {featuredPost && (
-        <div className="border-b border-[#ddd9cc]">
+        <div>
           <div className="mx-auto max-w-[1200px] px-6 py-12">
             <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
               <div className="max-w-[518px] shrink-0">
@@ -177,7 +177,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
         </div>
       )}
 
-      <div id="recent-posts" className="border-b border-[#ddd9cc]">
+      <div id="recent-posts">
         <div className="mx-auto max-w-[1200px] px-6 py-12">
           <h3 className="mb-8 font-['Pretendard',sans-serif] text-[20px] font-semibold text-[oklch(0.705_0.213_47.604)]">
             최근 소식
@@ -238,7 +238,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
             <h3 className="mb-6 font-['Pretendard',sans-serif] text-[20px] font-semibold text-[oklch(0.705_0.213_47.604)]">
               전체 글
             </h3>
-            <div className="space-y-0 divide-y divide-[#ddd9cc]">
+            <div className="space-y-0">
               {allPosts.map((post) => (
                 <article key={post.slug} className="py-7 first:pt-0">
                   <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
