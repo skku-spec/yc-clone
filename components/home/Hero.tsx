@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import ApplyButton from "@/components/ui/ApplyButton";
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
 
@@ -25,9 +26,18 @@ export default function Hero() {
            }}
          >
           {/* Batch badge */}
-           <span className="inline-block rounded-full border border-white/20 px-4 py-1 font-['Outfit',sans-serif] text-xs uppercase tracking-[0.08em] text-white/50">
+          <div className="relative inline-flex rounded-full p-[1.5px]" style={{ background: 'linear-gradient(135deg, #f97316 0%, rgba(255,255,255,0.4) 50%, #f97316 100%)' }}>
+            <span
+              className="relative inline-flex items-center gap-2 rounded-full px-5 py-2 font-['Outfit',sans-serif] text-xs uppercase tracking-[0.12em] text-white"
+              style={{
+                background: 'linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(10,10,10,0.95) 60%)',
+                boxShadow: '0 0 24px rgba(249,115,22,0.4), 0 0 48px rgba(249,115,22,0.15), inset 0 0 20px rgba(249,115,22,0.08)'
+              }}
+            >
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-orange-500" style={{ boxShadow: '0 0 6px #f97316' }} />
               2026 Spring · 4기 모집중
-           </span>
+            </span>
+          </div>
 
             {/* Main headline */}
              <h1
@@ -51,12 +61,9 @@ export default function Hero() {
 
              {/* CTA */}
               <div className="mt-8 md:mt-10 flex flex-col items-center gap-3">
-               <a
-                 href="/apply"
-                 className="flex h-12 px-6 text-base md:h-14 md:px-8 md:text-lg items-center justify-center rounded-full bg-[#FF6C0F] font-['Pretendard',sans-serif] font-semibold text-white transition-all duration-200 hover:brightness-95"
-               >
-                 4기 지원하기
-               </a>
+              <ApplyButton href="/apply" size="md">
+                4기 지원하기
+              </ApplyButton>
                <span className="font-['Pretendard',sans-serif] text-sm text-white/40">
                  마감: 2026년 3월
                </span>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import ApplyButton from "@/components/ui/ApplyButton";
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
 
@@ -25,9 +26,11 @@ export default function Hero() {
            }}
          >
           {/* Batch badge */}
-           <span className="inline-block rounded-full border border-white/20 px-4 py-1 font-['Outfit',sans-serif] text-xs uppercase tracking-[0.08em] text-white/50">
+          <div className="relative inline-flex rounded-full p-[1px]" style={{ background: 'linear-gradient(135deg, rgba(249,115,22,0.6) 0%, rgba(255,255,255,0.12) 100%)' }}>
+            <span className="inline-block rounded-full bg-black/80 px-5 py-1.5 font-['Outfit',sans-serif] text-xs uppercase tracking-[0.1em] text-white/75">
               2026 Spring · 4기 모집중
-           </span>
+            </span>
+          </div>
 
             {/* Main headline */}
              <h1
@@ -51,12 +54,9 @@ export default function Hero() {
 
              {/* CTA */}
               <div className="mt-8 md:mt-10 flex flex-col items-center gap-3">
-               <a
-                 href="/apply"
-                 className="flex h-12 px-6 text-base md:h-14 md:px-8 md:text-lg items-center justify-center rounded-full bg-[#FF6C0F] font-['MaruBuri',serif] italic font-semibold text-white transition-all duration-200 hover:brightness-95"
-               >
-                 Apply Now
-               </a>
+              <ApplyButton href="/apply" size="md">
+                Apply Now
+              </ApplyButton>
                <span className="font-['Pretendard',sans-serif] text-sm text-white/40">
                  마감: 2026년 3월
                </span>

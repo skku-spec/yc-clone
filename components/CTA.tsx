@@ -2,6 +2,8 @@
 
 import { startTransition, useEffect, useRef, useState } from "react";
 
+import ApplyButton from "@/components/ui/ApplyButton";
+
 export default function CTA() {
   const sectionRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
@@ -44,12 +46,9 @@ export default function CTA() {
              완벽한 사업계획서도, 완성된 프로덕트도, 검증된 아이디어도 필요 없습니다. 필요한 건 단 하나 — <span className="font-semibold text-white">실행할 의지.</span>
            </p>
 
-           <a
-             href="/apply"
-            className="mt-10 flex h-14 items-center justify-center rounded-full bg-[#FF6C0F] px-8 font-['Source_Serif_4',serif] text-lg font-semibold italic text-white transition-all duration-200 hover:brightness-95"
-           >
-              Apply
-            </a>
+          <ApplyButton href="/apply" size="lg">
+            Apply
+          </ApplyButton>
 
            <p className="mt-4 font-['Pretendard',sans-serif] text-sm text-white/40">
               마감: 2026년 3월 | 성균관대 재학생 대상

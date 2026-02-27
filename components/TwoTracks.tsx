@@ -75,14 +75,14 @@ export default function TwoTracks() {
     <section className="relative w-full py-16 md:py-24 lg:py-32 bg-transparent">
       <div ref={sectionRef} className="mx-auto max-w-[1100px] px-6">
         <span
-          className="mb-4 block text-sm font-bold uppercase tracking-[0.2em] text-white/50"
+          className="mb-4 block text-center text-sm font-bold uppercase tracking-[0.2em] text-white/50"
           style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
         >
           Two Tracks
         </span>
 
         <h2
-          className="text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white lg:text-6xl"
+          className="text-center text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white lg:text-6xl"
           style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}
         >
           TWO TRACKS.
@@ -91,7 +91,7 @@ export default function TwoTracks() {
         </h2>
 
         <p
-          className="mt-4 mb-12 text-base sm:text-lg md:text-xl font-normal text-white/50"
+          className="mt-4 mb-12 text-center text-base sm:text-lg md:text-xl font-normal text-white/50"
           style={{ fontFamily: "'Pretendard', sans-serif" }}
         >
           Preneur는 SPEC을 성장시키고, Learner는 매출을 만듭니다.

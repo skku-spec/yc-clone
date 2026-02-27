@@ -5,8 +5,8 @@ import Image from 'next/image';
 
 const mainPartners = [
   { name: '성균관대학교 RISE 사업단', logo: '/logos/rise.png', mobileHeight: 'h-14', desktopHeight: 'md:h-[120px]' },
-  { name: '카카오모빌리티', logo: '/logos/kakao.svg', mobileHeight: 'h-5', desktopHeight: 'md:h-10' },
-  { name: 'SL IT', logo: '/logos/SL_IT.svg', mobileHeight: 'h-2', desktopHeight: 'md:h-7' },
+  { name: '카카오모빌리티', logo: '/logos/kakao.svg', mobileHeight: 'h-8', desktopHeight: 'md:h-10' },
+  { name: 'SL IT', logo: '/logos/SL_IT.svg', mobileHeight: 'h-5', desktopHeight: 'md:h-7' },
 ];
 
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import ApplyButton from "@/components/ui/ApplyButton";
 
 export const metadata: Metadata = {
   title: "지원하기 | SPEC — 성균관대 창업학회",
@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 
 export default function ApplyPage() {
   return (
-    <div className="bg-[#fcfcf8] min-h-screen">
+    <div className="bg-[#f5f5ee] min-h-screen">
       {/* ── Hero ──────────────────────────────────── */}
       <section className="mx-auto max-w-[760px] px-6 pt-20 pb-16 md:pt-32 md:pb-24">
-        <h1 className="text-[clamp(2.75rem,6vw,4.25rem)] font-black leading-[1.08] tracking-tight text-[#16140f] font-[family-name:'Source_Serif_4',serif]">
+        <h1 className="text-[clamp(2.75rem,6vw,4.25rem)] font-black leading-[1.08] tracking-tight text-[#16140f]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
           Apply to SPEC
         </h1>
 
@@ -32,13 +32,10 @@ export default function ApplyPage() {
           </p>
         </div>
 
-        <div className="mt-10">
-          <Link
-            href="/apply/form"
-            className="inline-flex items-center justify-center rounded-full bg-[#FF6C0F] px-10 py-4 text-lg font-semibold text-white transition-all hover:brightness-110 active:scale-[0.98] font-['Pretendard',sans-serif]"
-          >
+        <div className="mt-10 flex justify-center">
+          <ApplyButton href="/apply/form" size="xl">
             Apply
-          </Link>
+          </ApplyButton>
         </div>
       </section>
 

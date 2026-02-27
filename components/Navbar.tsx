@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
 
+import ApplyButton from "@/components/ui/ApplyButton";
 const ROLE_LABEL: Record<string, string> = {
   outsider: "외부",
   pre_runner: "예비 Learner",
@@ -227,12 +228,9 @@ export default function Navbar() {
           </div>
 
           <div className="absolute right-8 flex items-center gap-3">
-            <Link
-              href="/apply"
-              className="inline-flex items-center rounded-full bg-[#FF6C0F] px-5 py-2 font-['MaruBuri',serif] text-sm italic text-white transition-opacity hover:opacity-85"
-            >
+           <ApplyButton href="/apply" size="sm">
               Apply
-            </Link>
+            </ApplyButton>
 
 
             {isAuthenticated ? (
@@ -438,13 +436,15 @@ export default function Navbar() {
             </div>
 
             <div className={`px-6 py-5 ${isHome ? "border-t border-white/10" : "border-t border-[#16140f]/10"}`}>
-              <Link
+             <ApplyButton
                 href="/apply"
+                size="sm"
+                fullWidth
+                className="mb-4 py-3"
                 onClick={() => setMenuOpen(false)}
-                className="mb-4 flex w-full items-center justify-center rounded-full bg-[#FF6C0F] px-6 py-3 font-['MaruBuri',serif] text-sm italic text-white transition-opacity hover:opacity-85"
               >
                 Apply Now
-              </Link>
+              </ApplyButton>
 
 
               {isAuthenticated ? (
