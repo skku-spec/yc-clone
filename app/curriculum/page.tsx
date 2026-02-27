@@ -83,8 +83,8 @@ const learnerWeeks = [
   {
     week: 1,
     topic: 'Kickoff',
-    objectives: 'SPEC 철학 / 전원 Edge(자기소개) 발표 / 러너 4기 발표 / 아이스브레이킹',
-    assignment: '-',
+    objectives: 'SPEC 철학 / 전원 Edge(자기소개) 발표 / 러너 3기 발표 / 아이스브레이킹',
+    assignment: '0원',
     notes: '프로그램 시작',
   },
   {
@@ -112,21 +112,21 @@ const learnerWeeks = [
     week: 4,
     topic: '10만원 챌린지',
     objectives: '10만원 챌린지 / 팀 배정 / 아이디어 발표 / 프리토타입 검증 방법 / 피그마 간단 실습',
-    assignment: '매출 자유·자본금 10만원',
+    assignment: '매출 10만원·자본금 10만원',
     notes: '',
   },
   {
     week: 5,
-    topic: '10만원 챌린지 (중간)',
+    topic: '10만원 챌린지 (중간) / 데이터 분석 교육',
     objectives: '10만원 챌린지 / 데이터 분석 교육',
-    assignment: '매출 자유·자본금 10만원',
+    assignment: '매출 10만원·자본금 10만원',
     notes: '',
   },
   {
     week: 6,
     topic: '10만원 챌린지 (성과 공유) / 30만원 챌린지',
     objectives: '10만원 챌린지 성과 공유 / 30만원 챌린지 / 아이디어 발표',
-    assignment: '매출 10만원·자본금 10만원\n매출 30만원·자본금 30만원',
+    assignment: '매출 10만원·자본금 10만원\n매출 30만원·자본금 10만원',
     notes: '',
   },
   {
@@ -216,14 +216,14 @@ const learnerWeeks = [
   {
     week: 16,
     topic: '피봇팅(Pivoting)의 기술',
-    objectives: '중간 데모데이 전야제 / 피칭 리허설 / 외부 심사위원 피칭',
+    objectives: '피보팅 기술 / 가설 실패를 인정하는 법 / 핵심 가치만 남기고 깎아내기',
     assignment: '만원',
     notes: '',
   },
   {
     week: 'EVENT',
     topic: 'Demo Eve 밤샘',
-    objectives: '피보팅 기술 / 가설 실패를 인정하는 법 / 핵심 가치만 남기고 깎아내기',
+    objectives: '중간 데모데이 전야제 / 피칭 리허설 / 외부 심사위원 피칭',
     assignment: '-',
     notes: '중간 데모데이 & 서울대 창업동아리와 합동 데모데이',
   },
