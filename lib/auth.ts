@@ -6,20 +6,10 @@ import type { Database } from "@/lib/supabase/types";
 
 export type UserRole = "outsider" | "member" | "admin";
 
-/**
- * DB의 ProfileRole(6값)을 새 UserRole(3값)로 정규화.
- * types.ts가 재생성되기 전까지 과도기 호환용.
- */
+/** DB role 값을 UserRole로 변환. 알 수 없는 값은 outsider로 처리. */
 export function normalizeRole(role: string | null | undefined): UserRole {
   if (role === "admin") return "admin";
-  if (
-    role === "member" ||
-    role === "pre_runner" ||
-    role === "runner" ||
-    role === "alumni" ||
-    role === "mentor"
-  )
-    return "member";
+  if (role === "member") return "member";
   return "outsider";
 }
 
