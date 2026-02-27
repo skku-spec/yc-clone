@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
 import { signIn } from "@/lib/actions/auth";
@@ -12,7 +11,6 @@ type LoginFormProps = {
 };
 
 export default function LoginForm({ registered, redirect }: LoginFormProps) {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -24,8 +22,8 @@ export default function LoginForm({ registered, redirect }: LoginFormProps) {
       if (result?.error) {
         setError(result.error);
       } else {
-        router.refresh();
-        router.push(redirect && redirect.startsWith("/") ? redirect : "/");
+        const target = redirect && redirect.startsWith("/") ? redirect : "/";
+        window.location.href = target;
       }
     });
   };
@@ -48,7 +46,7 @@ export default function LoginForm({ registered, redirect }: LoginFormProps) {
           type="text"
           required
           autoComplete="username"
-          className="w-full border-0 border-b border-[#ccc] rounded-none bg-transparent px-0 py-3 text-base outline-none transition-colors focus:border-[#ff6600] focus:ring-0"
+          className="w-full border-0 border-b border-[#ccc] rounded-none bg-transparent px-0 py-3 text-base outline-none transition-colors focus:border-[#FF6C0F] focus:ring-0"
         />
       </div>
 
@@ -62,17 +60,17 @@ export default function LoginForm({ registered, redirect }: LoginFormProps) {
           type="password"
           required
           autoComplete="current-password"
-          className="w-full border-0 border-b border-[#ccc] rounded-none bg-transparent px-0 py-3 text-base outline-none transition-colors focus:border-[#ff6600] focus:ring-0"
+          className="w-full border-0 border-b border-[#ccc] rounded-none bg-transparent px-0 py-3 text-base outline-none transition-colors focus:border-[#FF6C0F] focus:ring-0"
         />
       </div>
 
       <p className="text-sm text-[#555]">
         Forgot your{" "}
-        <Link href="/forgot-password" className="text-[#ff6600] hover:underline">
+        <Link href="/forgot-password" className="text-[#FF6C0F] hover:underline">
           username
         </Link>{" "}
         or{" "}
-        <Link href="/forgot-password" className="text-[#ff6600] hover:underline">
+        <Link href="/forgot-password" className="text-[#FF6C0F] hover:underline">
           password?
         </Link>
       </p>
@@ -80,14 +78,14 @@ export default function LoginForm({ registered, redirect }: LoginFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded bg-[#ff6600] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#e55b00] disabled:cursor-not-allowed disabled:opacity-70"
+        className="w-full rounded bg-[#FF6C0F] px-6 py-3 font-semibold text-white transition-colors hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {isPending ? "Logging in..." : "Log In"}
       </button>
 
       <p className="text-center text-sm text-[#555]">
         Don&apos;t have an account?{" "}
-        <Link href="/signup" className="text-[#ff6600] hover:underline">
+        <Link href="/signup" className="text-[#FF6C0F] hover:underline">
           Create an account.
         </Link>
       </p>

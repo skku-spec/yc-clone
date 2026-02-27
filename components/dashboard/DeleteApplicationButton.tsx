@@ -42,7 +42,7 @@ export default function DeleteApplicationButton({ id, applicantName }: DeleteApp
     <button
       onClick={handleDelete}
       disabled={isDeleting}
-      className="inline-flex h-8 items-center rounded-md border border-red-200 bg-white px-3 text-xs font-medium text-red-600 hover:bg-red-50 disabled:opacity-50 transition-colors"
+      className="inline-flex h-8 items-center rounded-md border border-[#f5c6c6] bg-white px-3 text-xs font-medium text-[#c53030] hover:bg-[#fff5f5] disabled:opacity-50 transition-colors"
     >
       {isDeleting ? "삭제 중..." : "삭제하기"}
     </button>

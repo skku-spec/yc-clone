@@ -46,7 +46,7 @@ export default function Hero() {
              >
                 EXECUTION
                 <br />
-                IS <span className="text-orange-500">EVERYTHING.</span>
+                IS <span className="text-[#FF6C0F]">EVERYTHING.</span>
              </h1>
 
               {/* Subtext */}

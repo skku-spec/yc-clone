@@ -21,7 +21,7 @@
  */
 
 // ─── Re-export Types ────────────────────────────────────────────────
-export type { Company } from "./companies-data";
+export type { CompanyListItem as Company } from "./company-details-data";
 export type { Person, PeopleSection, TeamDescription } from "./people-data";
 export type { RoleCategory, LocationOption } from "../app/jobs/jobsData";
 export type {
@@ -41,15 +41,11 @@ export type { MemberRow, ProjectRow };
 
 // ─── Internal Imports (mock data sources) ───────────────────────────
 import {
-  COMPANIES,
+  getCompanyList,
   BATCH_OPTIONS,
   INDUSTRY_OPTIONS,
-  REGION_OPTIONS,
-  getTopCompanies as _getTopCompanies,
-  getFeaturedCompanies as _getFeaturedCompanies,
-  getBreakthroughCompanies as _getBreakthroughCompanies,
-} from "./companies-data";
-import type { Company } from "./companies-data";
+} from "./company-details-data";
+import type { CompanyListItem as Company } from "./company-details-data";
 
 import {
   managingLeads as _managingLeads,
@@ -222,7 +218,7 @@ export async function getCompanies(filters?: {
   query?: string;
   isHiring?: boolean;
 }): Promise<Company[]> {
-  let result = [...COMPANIES];
+  let result = [...getCompanyList()];
   if (filters?.industry) {
     result = result.filter((c) => c.industry.includes(filters.industry!));
   }
@@ -249,26 +245,26 @@ export async function getCompanies(filters?: {
 export async function getCompanyBySlug(
   slug: string
 ): Promise<Company | undefined> {
-  return COMPANIES.find((c) => c.slug === slug);
+  return getCompanyList().find((c) => c.slug === slug);
 }
 
 export async function getTopCompanies(): Promise<Company[]> {
-  return _getTopCompanies();
+  return getCompanyList().filter((c) => c.isTopCompany);
 }
 
 export async function getFeaturedCompanies(): Promise<Company[]> {
-  return _getFeaturedCompanies();
+  return getCompanyList().filter((c) => c.isTopCompany);
 }
 
 export async function getBreakthroughCompanies(): Promise<Company[]> {
-  return _getBreakthroughCompanies();
+  return getCompanyList().filter((c) => c.isTopCompany);
 }
 
 export async function getCompanyFilterOptions() {
   return {
     batches: BATCH_OPTIONS,
     industries: INDUSTRY_OPTIONS,
-    regions: REGION_OPTIONS,
+    regions: ["서울"],
   };
 }
 

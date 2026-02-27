@@ -485,7 +485,7 @@ function PreneurTrack() {
         </p>
       </div>
 
-      <div className="mb-12 grid grid-cols-4 divide-x divide-[#d9d9cc] rounded-lg border border-[#d9d9cc] bg-[#f5f5ee]">
+      <div className="mb-12 grid grid-cols-2 md:grid-cols-4 divide-x divide-[#d9d9cc] rounded-lg border border-[#d9d9cc] bg-[#f5f5ee]">
         {preneurMilestones.map((ms) => (
           <div key={ms.month} className="flex flex-col items-center justify-center px-2 py-4">
             <span
@@ -618,7 +618,7 @@ function VccTrack() {
         </p>
       </div>
 
-      <div className="mb-12 grid grid-cols-4 divide-x divide-[#d9d9cc] rounded-lg border border-[#d9d9cc] bg-[#f5f5ee]">
+      <div className="mb-12 grid grid-cols-2 md:grid-cols-4 divide-x divide-[#d9d9cc] rounded-lg border border-[#d9d9cc] bg-[#f5f5ee]">
         {vccTimeline.map((ms) => (
           <div key={ms.month} className="flex flex-col items-center justify-center px-2 py-4">
             <span
@@ -729,7 +729,7 @@ function LearnerTrack() {
           10만 원의 첫 수익에서 시작해 수억 원의 가치를 향한 폭발적 성장을 일궈냅니다.
         </p>
       </div>
-      <div className="mb-10 grid grid-cols-4 divide-x divide-[#d9d9cc] rounded-lg border border-[#d9d9cc] bg-[#f5f5ee]">
+        <div className="mb-10 grid grid-cols-2 md:grid-cols-4 divide-x divide-[#d9d9cc] rounded-lg border border-[#d9d9cc] bg-[#f5f5ee]">
         {[
           { month: '3월', label: '프로그램 시작 & 첫 매출' },
           { month: '6월', label: '아이디어톤 & MVP 해커톤' },

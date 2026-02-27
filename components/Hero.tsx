@@ -37,7 +37,7 @@ export default function Hero() {
                className="text-center font-black uppercase leading-[0.9] tracking-[-0.03em] text-white text-[36px] sm:text-[48px] md:text-[72px] lg:text-[96px]"
                style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
              >
-                <span className="text-orange-500">EXECUTION</span>
+                <span className="text-[#FF6C0F]">EXECUTION</span>
                 <br />
                 Over EVERYTHING.
              </h1>

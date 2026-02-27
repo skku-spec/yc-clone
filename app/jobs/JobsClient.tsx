@@ -100,7 +100,7 @@ function JobCard({ job }: { job: Job }) {
         <div className="hidden shrink-0 items-start pt-4 md:flex">
           <a
             href="#"
-            className="rounded-md bg-[#fb651e] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
+            className="rounded-md bg-[#FF6C0F] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
           >
             지원하기
           </a>
@@ -111,7 +111,7 @@ function JobCard({ job }: { job: Job }) {
       <div className="mt-3 flex md:hidden">
         <a
           href="#"
-          className="rounded-md bg-[#fb651e] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white"
+          className="rounded-md bg-[#FF6C0F] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white"
         >
           지원하기
         </a>
@@ -165,7 +165,7 @@ export default function JobsClient({ jobs }: { jobs: Job[] }) {
           <div className="mt-6">
             <a
               href="#"
-              className="inline-block rounded-md bg-[#fb651e] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="inline-block rounded-md bg-[#FF6C0F] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
               지원하기
             </a>

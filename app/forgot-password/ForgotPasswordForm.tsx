@@ -43,20 +43,20 @@ export default function ForgotPasswordForm() {
           type="email"
           required
           autoComplete="email"
-          className="w-full border-0 border-b border-[#ccc] rounded-none bg-transparent px-0 py-3 text-base outline-none transition-colors focus:border-[#ff6600] focus:ring-0"
+          className="w-full border-0 border-b border-[#ccc] rounded-none bg-transparent px-0 py-3 text-base outline-none transition-colors focus:border-[#FF6C0F] focus:ring-0"
         />
       </div>
 
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded bg-[#ff6600] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#e55b00] disabled:cursor-not-allowed disabled:opacity-70"
+        className="w-full rounded bg-[#FF6C0F] px-6 py-3 font-semibold text-white transition-colors hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {isPending ? "Sending..." : "Send reset link"}
       </button>
 
       <p className="text-center text-sm text-[#555]">
-        <Link href="/login" className="text-[#ff6600] hover:underline">
+        <Link href="/login" className="text-[#FF6C0F] hover:underline">
           Back to Log in
         </Link>
       </p>

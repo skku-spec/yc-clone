@@ -170,7 +170,7 @@ export async function POST(request: Request) {
       );
     }
 
-    revalidatePath("/profile");
+    revalidatePath("/", "layout");
 
     return NextResponse.json({
       success: true,

@@ -29,7 +29,7 @@ const pClass =
 const sectionClass = "mb-10";
 
 const h2Class =
-  "mb-3 font-['system-ui'] text-[1.5rem] font-bold leading-tight uppercase text-[#16140f]";
+  "mb-3 font-[system-ui] text-[1.5rem] font-bold leading-tight uppercase text-[#16140f]";
 
 const spanClass =
   "mb-3 block font-['Pretendard',sans-serif] font-semibold leading-[1.4] text-[#16140f]";
@@ -58,7 +58,7 @@ export default function AboutPage() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="block leading-relaxed text-[#16140f] transition-colors hover:text-orange-600"
+                  className="block leading-relaxed text-[#16140f] transition-colors hover:text-[#FF6C0F]"
                 >
                   {link.label}
                 </a>
@@ -71,7 +71,7 @@ export default function AboutPage() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="block leading-relaxed text-[#16140f]/60 transition-colors hover:text-orange-600"
+                    className="block leading-relaxed text-[#16140f]/60 transition-colors hover:text-[#FF6C0F]"
                   >
                     {link.label}
                   </Link>

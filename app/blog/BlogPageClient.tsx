@@ -5,15 +5,9 @@ import { useMemo, useState } from "react";
 
 import { useUser } from "@/hooks/useUser";
 import type { BlogPost, TagInfo } from "@/lib/api";
-import type { ProfileRole } from "@/lib/supabase/types";
+import type { UserRole } from "@/lib/auth";
 
-const WRITER_ROLES: ProfileRole[] = [
-  "pre_runner",
-  "runner",
-  "alumni",
-  "mentor",
-  "admin",
-];
+const WRITER_ROLES: UserRole[] = ["member", "admin"];
 
 type BlogPageClientProps = {
   posts: BlogPost[];
@@ -80,7 +74,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
   return (
     <section className="min-h-screen bg-[#f5f5ee] pb-24">
       <div>
-        <div className="mx-auto max-w-[1068px] px-6 pt-14 pb-8 text-center">
+        <div className="mx-auto max-w-[1100px] px-6 pt-14 pb-8 text-center">
           <h1
             className="text-[clamp(2.5rem,5vw,3.75rem)] font-black leading-[1.15] tracking-tight uppercase text-[#16140f]"
             style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
@@ -91,7 +85,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
       </div>
 
       <div>
-        <div className="mx-auto flex max-w-[1068px] flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto flex max-w-[1100px] flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between">
           <div className="flex gap-4 md:gap-8">
             {tabs.map((tab) => (
               <button
@@ -112,7 +106,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
             <input
               type="text"
               placeholder="검색..."
-              className="font-['Pretendard',sans-serif] h-[38px] w-full min-w-0 flex-1 rounded-[6px] border-[1px] border-[#ddd9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)] md:w-[320px] md:flex-none"
+              className="font-['Pretendard',sans-serif] h-[38px] w-full min-w-0 flex-1 rounded-[6px] border-[1px] border-[#d9d9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)] md:w-[320px] md:flex-none"
             />
             {canWrite && (
               <Link

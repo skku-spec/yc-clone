@@ -51,7 +51,7 @@ export default function About() {
       <div className="mx-auto flex max-w-[550px] flex-col gap-7 px-5">
         {/* Part 1: SPEC Story */}
         <div className="flex flex-col gap-7">
-          <p className="font-['MaruBuri',serif] text-[1.35rem] leading-[1.7] text-white first-letter:float-left first-letter:mr-3 first-letter:text-[7.6rem] first-letter:font-bold first-letter:leading-[0.75] first-letter:text-orange-500">
+          <p className="font-['MaruBuri',serif] text-[1.35rem] leading-[1.7] text-white first-letter:float-left first-letter:mr-3 first-letter:text-[7.6rem] first-letter:font-bold first-letter:leading-[0.75] first-letter:text-[#FF6C0F]">
             SPEC은 성균관대학교에서 시작된 창업 학회입니다. 우리는
             &lsquo;실행&rsquo;만을 믿습니다. 강의실에서 이론을 배우는 대신, 첫
             주부터 직접 돈을 벌고, 팀을 만들고, 제품을 런칭합니다.

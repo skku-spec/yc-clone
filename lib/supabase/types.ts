@@ -8,10 +8,7 @@ export type Json =
 
 export type ProfileRole =
   | "outsider"
-  | "pre_runner"
-  | "runner"
-  | "alumni"
-  | "mentor"
+  | "member"
   | "admin";
 
 export type PostType = "news" | "blog";

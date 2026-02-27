@@ -9,11 +9,8 @@ import { createClient } from "@/lib/supabase/client";
 
 import ApplyButton from "@/components/ui/ApplyButton";
 const ROLE_LABEL: Record<string, string> = {
-  outsider: "외부",
-  pre_runner: "예비 Learner",
-  runner: "Learner",
-  alumni: "알럼나이",
-  mentor: "멘토",
+  outsider: "외부인",
+  member: "부원",
   admin: "관리자",
 };
 
@@ -239,9 +236,13 @@ export default function Navbar() {
                   className={`nav-link ${textColor} ${hoverColor} inline-flex items-center gap-2 font-['Pretendard',sans-serif] text-sm`}
                   aria-label="계정 메뉴"
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6C0F] text-xs font-semibold text-white">
-                    {initials}
-                  </span>
+                  {profile?.photo ? (
+                    <img src={profile.photo} alt={displayName} className="h-8 w-8 rounded-full object-cover" />
+                  ) : (
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6C0F] text-xs font-semibold text-white">
+                      {initials}
+                    </span>
+                  )}
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="mt-0.5">
                     <path
                       d="M6 9L12 15L18 9"
@@ -450,9 +451,13 @@ export default function Navbar() {
               {isAuthenticated ? (
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FF6C0F] text-xs font-semibold text-white">
-                      {initials}
-                    </span>
+                    {profile?.photo ? (
+                      <img src={profile.photo} alt={displayName} className="h-8 w-8 shrink-0 rounded-full object-cover" />
+                    ) : (
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FF6C0F] text-xs font-semibold text-white">
+                        {initials}
+                      </span>
+                    )}
                     <div className="min-w-0">
                       <p className={`truncate text-sm font-medium font-['Pretendard',sans-serif] ${isHome ? "text-white" : "text-[#16140f]"}`}>
                         {displayName}

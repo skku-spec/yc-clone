@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { createClient } from "@/lib/supabase/server";
+import type { UserRole } from "@/lib/auth";
 
 type ActionResult = {
   success: boolean;
@@ -20,7 +21,7 @@ export type ReactionSummary = {
 // Shared constant also in components/blog/ReactionBar.tsx
 const ALLOWED_EMOJIS = ["👍", "🔥", "❤️", "🎉", "🤔", "👀"] as const;
 
-const WRITER_ROLES = new Set(["pre_runner", "runner", "alumni", "mentor", "admin"]);
+const WRITER_ROLES = new Set<UserRole>(["member", "admin"]);
 
 export async function toggleReaction(postId: string, emoji: string): Promise<ActionResult> {
   try {
@@ -52,7 +53,7 @@ export async function toggleReaction(postId: string, emoji: string): Promise<Act
       throw new Error(`Failed to verify user role: ${profileError.message}`);
     }
 
-    if (!WRITER_ROLES.has(profile?.role ?? "outsider")) {
+    if (!WRITER_ROLES.has((profile?.role as UserRole | null) ?? "outsider")) {
       throw new Error("You do not have permission to react.");
     }
 

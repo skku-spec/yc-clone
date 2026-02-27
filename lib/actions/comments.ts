@@ -3,7 +3,8 @@
 import { revalidatePath } from "next/cache";
 
 import { createClient } from "@/lib/supabase/server";
-import type { Database, ProfileRole } from "@/lib/supabase/types";
+import type { Database } from "@/lib/supabase/types";
+import type { UserRole } from "@/lib/auth";
 
 type ActionResult = {
   success: boolean;
@@ -12,7 +13,7 @@ type ActionResult = {
 
 type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
 
-const WRITER_ROLES: ProfileRole[] = ["pre_runner", "runner", "alumni", "mentor", "admin"];
+const WRITER_ROLES: UserRole[] = ["member", "admin"];
 
 export type CommentWithAuthor = {
   id: string;
@@ -28,14 +29,14 @@ export type CommentWithAuthor = {
   };
 };
 
-async function getCurrentUserRole(supabase: Awaited<ReturnType<typeof createClient>>, userId: string): Promise<ProfileRole> {
+async function getCurrentUserRole(supabase: Awaited<ReturnType<typeof createClient>>, userId: string): Promise<UserRole> {
   const { data: profile, error } = await supabase.from("profiles").select("role").eq("id", userId).maybeSingle();
 
   if (error) {
     throw new Error(`Failed to verify user role: ${error.message}`);
   }
 
-  return profile?.role ?? "outsider";
+  return (profile?.role as UserRole | null) ?? "outsider";
 }
 
 export async function addComment(postId: string, content: string, parentId?: string): Promise<ActionResult> {

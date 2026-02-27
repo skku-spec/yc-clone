@@ -3,15 +3,17 @@
 import { useState, useMemo, useCallback, Children } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 import CustomSelect from "@/components/ui/CustomSelect";
 import PageHeader from "@/components/PageHeader";
 import {
-  COMPANIES,
+  getCompanyList,
   BATCH_OPTIONS,
   INDUSTRY_OPTIONS,
-  type Company,
-} from "@/lib/companies-data";
+  type CompanyListItem,
+} from "@/lib/company-details-data";
 
+const COMPANIES = getCompanyList();
 const ITEMS_PER_PAGE = 40;
 
 export default function CompaniesPage() {
@@ -19,7 +21,7 @@ export default function CompaniesPage() {
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [sortBy, setSortBy] = useState<"default" | "batch-asc" | "batch-desc">("default");
 
-  const [womenFoundedOnly, setWomenFoundedOnly] = useState(false);
+
   const [selectedBatches, setSelectedBatches] = useState<string[]>([]);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
 
@@ -56,7 +58,7 @@ export default function CompaniesPage() {
       if (q && !c.name.toLowerCase().includes(q) && !c.oneLiner.toLowerCase().includes(q)) {
         return false;
       }
-      if (womenFoundedOnly && !c.isWomenFounded) return false;
+
       if (selectedBatches.length > 0 && !selectedBatches.includes(c.batch)) return false;
       if (selectedIndustries.length > 0 && !c.industry.some((ind) => selectedIndustries.includes(ind))) return false;
       return true;
@@ -79,7 +81,7 @@ export default function CompaniesPage() {
     return filtered;
   }, [
     searchQuery,
-    womenFoundedOnly, selectedBatches, selectedIndustries, sortBy,
+    selectedBatches, selectedIndustries, sortBy,
   ]);
 
   const displayedCompanies = filteredCompanies.slice(0, visibleCount);
@@ -87,7 +89,7 @@ export default function CompaniesPage() {
 
   return (
     <div className="min-h-screen px-4 pb-24 pt-14 md:px-8 md:pt-20">
-      <div className="mx-auto max-w-[1068px]">
+      <div className="mx-auto max-w-[1100px]">
         <PageHeader title="SPEC Projects" align="center" />
         <p className="mx-auto mb-8 max-w-[640px] text-center font-['Pretendard',sans-serif] text-[15px] font-normal leading-relaxed text-black/60">
           SPEC에서 탄생한 프로젝트들입니다. 매주 챌린지를 거쳐 실제 사업으로
@@ -96,7 +98,7 @@ export default function CompaniesPage() {
       </div>
 
       {/* Sort row - above the two-column layout like YC */}
-      <div className="mx-auto mb-4 flex max-w-[1068px] items-center justify-end gap-2">
+      <div className="mx-auto mb-4 flex max-w-[1100px] items-center justify-end gap-2">
         <span className="font-['Pretendard',sans-serif] text-[13px] font-normal text-black/50">
           정렬:
         </span>
@@ -112,12 +114,11 @@ export default function CompaniesPage() {
         />
       </div>
 
-      <div className="mx-auto flex max-w-[1068px] gap-5">
+      <div className="mx-auto flex max-w-[1100px] gap-5">
         {/* ── Sidebar ── */}
-        <aside className="hidden w-[300px] shrink-0 self-start lg:block" style={{ position: "sticky", top: 100 }}>
+        <aside className="sticky top-[100px] hidden w-[300px] shrink-0 self-start lg:block">
           <div
-            className="space-y-0 overflow-y-auto rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5"
-            style={{ maxHeight: "calc(100vh - 120px)" }}
+            className="max-h-[calc(100vh-120px)] space-y-0 overflow-y-auto rounded-lg border border-[#d9d9cc] bg-white p-5"
           >
 
             {/* ── Batch filter ── */}
@@ -140,7 +141,7 @@ export default function CompaniesPage() {
         <div className="min-w-0 flex-1">
           {/* Search bar */}
           <div className="mb-4">
-            <div className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5">
+            <div className="rounded-lg border border-[#d9d9cc] bg-white p-5">
               <input
                 type="text"
                 placeholder="프로젝트 검색..."
@@ -149,25 +150,26 @@ export default function CompaniesPage() {
                   setSearchQuery(e.target.value);
                   setVisibleCount(ITEMS_PER_PAGE);
                 }}
-                className="h-[42px] w-full rounded-lg border border-[#ccc] bg-white px-2.5 py-2.5 font-['Pretendard',sans-serif] text-base font-normal text-black outline-none placeholder:text-black/40 focus:border-[#999] focus:ring-0"
+                className="h-[42px] w-full rounded-lg border border-[#d9d9cc] bg-white px-2.5 py-2.5 font-['Pretendard',sans-serif] text-base font-normal text-black outline-none placeholder:text-black/40 focus:border-[#999] focus:ring-0"
               />
             </div>
             <p className="mt-2 px-1 font-['Pretendard',sans-serif] text-[13px] font-normal text-black/50">
-              Showing {filteredCompanies.length} of {COMPANIES.length}개 프로젝트
+              Showing {filteredCompanies.length} of {COMPANIES.length} 프로젝트
             </p>
           </div>
 
           {displayedCompanies.length === 0 ? (
             <EmptyState />
           ) : (
-            <div className="overflow-hidden rounded-lg border border-[#c6c6c6]">
+            <div className="overflow-hidden rounded-lg border border-[#d9d9cc]">
                {displayedCompanies.map((company, index) => (
-                 <CompanyCard
-                   key={company.slug}
-                   company={company}
-                   isFirst={index === 0}
-                   isLast={index === displayedCompanies.length - 1}
-                 />
+                 <Link key={company.slug} href={`/companies/${company.slug}`}>
+                   <CompanyCard
+                     company={company}
+                     isFirst={index === 0}
+                     isLast={index === displayedCompanies.length - 1}
+                   />
+                 </Link>
                ))}
              </div>
           )}
@@ -189,7 +191,7 @@ export default function CompaniesPage() {
 }
 
 /* ── CompanyCard (UNCHANGED) ── */
-function CompanyCard({ company, isFirst = false, isLast = false }: { company: Company; isFirst?: boolean; isLast?: boolean }) {
+function CompanyCard({ company, isFirst = false, isLast = false }: { company: CompanyListItem; isFirst?: boolean; isLast?: boolean }) {
   const roundingClass = isFirst && isLast
     ? "rounded-lg"
     : isFirst
@@ -200,7 +202,7 @@ function CompanyCard({ company, isFirst = false, isLast = false }: { company: Co
 
   return (
     <div
-      className={`group flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
+      className={`group flex items-center gap-4 bg-white px-5 py-4 ${!isLast ? "border-b border-[#d9d9cc]" : ""} ${roundingClass}`}
     >
       <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#efefe8]">
         {company.logoUrl ? (
@@ -368,13 +370,13 @@ function FilterSection({
 
 /* ── Divider ── */
 function Divider() {
-  return <div className="h-px bg-[#c6c6c6]" />;
+  return <div className="h-px bg-[#d9d9cc]" />;
 }
 
 /* ── EmptyState (UNCHANGED) ── */
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#c6c6c6] py-20">
+    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#d9d9cc] py-20">
       <svg className="mb-4 h-12 w-12 text-black/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>

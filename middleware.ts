@@ -2,9 +2,10 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { updateSession } from "@/lib/supabase/middleware";
-import type { Database, ProfileRole } from "@/lib/supabase/types";
+import type { Database } from "@/lib/supabase/types";
 
-const WRITER_ROLES: ProfileRole[] = ["pre_runner", "runner", "alumni", "mentor", "admin"];
+const WRITER_ROLES = ["member", "admin"];
+type UserRole = "outsider" | "member" | "admin";
 
 function isAdminRoute(pathname: string) {
   return pathname === "/admin" || pathname.startsWith("/admin/");
@@ -36,7 +37,7 @@ async function getUserRole(
   request: NextRequest,
   response: NextResponse,
   userId: string,
-): Promise<ProfileRole> {
+): Promise<UserRole> {
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "",
@@ -61,7 +62,7 @@ async function getUserRole(
     .eq("id", userId)
     .maybeSingle();
 
-  return profile?.role ?? "outsider";
+  return (profile?.role as UserRole | null) ?? "outsider";
 }
 
 export async function middleware(request: NextRequest) {

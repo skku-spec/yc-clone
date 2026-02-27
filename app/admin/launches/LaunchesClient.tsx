@@ -91,7 +91,7 @@ export default function LaunchesClient({ initialLaunches }: LaunchesClientProps)
   };
 
   return (
-    <section className="min-h-screen bg-[#f5f5ee] px-6 py-10 text-[#16140f] [font-family:Pretendard,system-ui,sans-serif]">
+    <section>
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <h1 className="font-[system-ui] text-[clamp(2rem,4vw,2.75rem)] font-black">Launches</h1>

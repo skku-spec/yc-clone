@@ -8,17 +8,11 @@ import TiptapEditor from "@/components/blog/TiptapEditor";
 import { useUser } from "@/hooks/useUser";
 import { createPost, updatePost } from "@/lib/actions/posts";
 import type { BlogPost, TagInfo } from "@/lib/api";
+import type { UserRole } from "@/lib/auth";
 import { uploadBlogImage } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/client";
-import type { ProfileRole } from "@/lib/supabase/types";
 
-const WRITER_ROLES: ProfileRole[] = [
-  "pre_runner",
-  "runner",
-  "alumni",
-  "mentor",
-  "admin",
-];
+const WRITER_ROLES: UserRole[] = ["member", "admin"];
 
 type PostEditorFormProps = {
   mode: "create" | "edit";
@@ -190,7 +184,7 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
           <h1 className="font-[system-ui] text-[28px] font-bold text-[#16140f]">권한이 없습니다</h1>
           <p className="mt-3 font-['Pretendard',sans-serif] text-[15px] text-[#6b6b5e]">
             {mode === "create"
-              ? "글쓰기는 pre_runner 이상 권한에서만 가능합니다."
+              ? "글쓰기는 member 이상 권한에서만 가능합니다."
               : "본인 글 작성자 또는 관리자만 수정할 수 있습니다."}
           </p>
           <Link

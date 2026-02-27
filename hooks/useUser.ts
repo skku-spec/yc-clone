@@ -3,15 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 
+import type { UserRole } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/client";
-import type { Database, ProfileRole } from "@/lib/supabase/types";
+import type { Database } from "@/lib/supabase/types";
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
 type UseUserResult = {
   user: User | null;
   profile: Profile | null;
-  role: ProfileRole;
+  role: UserRole;
   isLoading: boolean;
   isAuthenticated: boolean;
 };
@@ -64,7 +65,7 @@ export function useUser(): UseUserResult {
     () => ({
       user,
       profile,
-      role: profile?.role ?? "outsider",
+      role: (profile?.role as UserRole | null) ?? "outsider",
       isLoading,
       isAuthenticated: Boolean(user),
     }),

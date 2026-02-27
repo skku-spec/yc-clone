@@ -34,6 +34,7 @@ export default function ApplicationFormPage() {
   const [experienceExtra, setExperienceExtra] = useState("");
 
   const totalSteps = 4;
+  const stepLabels = ["기본 정보", "자기 소개", "경험 조사", "동의 확인"];
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
@@ -148,7 +149,7 @@ export default function ApplicationFormPage() {
           <div className="mt-12">
             <button
               onClick={() => router.push("/")}
-              className="inline-flex h-16 items-center rounded-full bg-[#16140f] px-12 font-['MaruBuri',serif] text-xl italic text-white transition-all hover:scale-105 active:scale-95 shadow-lg"
+              className="inline-flex h-16 items-center rounded-full bg-[#16140f] px-12 font-['Pretendard',sans-serif] text-xl font-semibold text-white transition-all hover:scale-105 active:scale-95 shadow-lg"
             >
               홈으로 이동하기 →
             </button>
@@ -161,18 +162,25 @@ export default function ApplicationFormPage() {
   return (
     <div className="mx-auto max-w-[1100px] px-4 pb-24 pt-14 md:pt-20">
       <div className="mb-12 flex justify-center">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-0">
           {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="flex items-center">
-              <div
-                className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold transition-colors ${
-                  step === i ? "bg-[#FF6C0F] text-white" : step > i ? "bg-[#16140f] text-white" : "bg-[#ddd9cc] text-[#6b6b5e]"
-                }`}
-              >
-                {i + 1}
+            <div key={i} className="flex items-start">
+              <div className="flex flex-col items-center">
+                <div
+                  className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold transition-colors ${
+                    step > i ? "bg-[#16140f] text-white" : step === i ? "bg-[#FF6C0F] text-white" : "bg-[#ddd9cc] text-[#6b6b5e]"
+                  }`}
+                >
+                  {step > i ? "✓" : i + 1}
+                </div>
+                <span className={`mt-1.5 text-[11px] font-medium ${
+                  step >= i ? "text-[#16140f]" : "text-[#6b6b5e]"
+                } hidden sm:block`}>
+                  {stepLabels[i]}
+                </span>
               </div>
               {i < 3 && (
-                <div className={`ml-4 h-[2px] w-8 md:w-12 rounded-full ${step > i ? "bg-[#16140f]" : "bg-[#ddd9cc]"}`} />
+                <div className={`mx-2 sm:mx-3 mt-[15px] h-[2px] w-6 sm:w-8 md:w-12 rounded-full ${step > i ? "bg-[#16140f]" : "bg-[#ddd9cc]"}`} />
               )}
             </div>
           ))}
@@ -183,9 +191,13 @@ export default function ApplicationFormPage() {
         {step === 0 && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="rounded-[10px] border border-[#ddd9cc] bg-white p-8 space-y-7 shadow-sm">
-              <h2 className="text-2xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif] border-b border-[#f0efe6] pb-4">
-                기본 정보
-              </h2>
+              <div className="border-b border-[#f0efe6] pb-4">
+                <p className="text-xs font-medium text-[#FF6C0F] mb-1">Step {step + 1} of 4</p>
+                <h2 className="text-2xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif]">
+                  기본 정보
+                </h2>
+                <p className="mt-2 text-sm text-[#6b6b5e] font-normal">이름, 학번, 연락처 등 기본 정보를 입력해주세요.</p>
+              </div>
               
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <label className="block">
@@ -286,9 +298,13 @@ export default function ApplicationFormPage() {
         {step === 1 && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="rounded-[10px] border border-[#ddd9cc] bg-white p-8 space-y-10 shadow-sm">
-              <h2 className="text-2xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif] border-b border-[#f0efe6] pb-4">
-                자기소개 및 지원 동기
-              </h2>
+              <div className="border-b border-[#f0efe6] pb-4">
+                <p className="text-xs font-medium text-[#FF6C0F] mb-1">Step {step + 1} of 4</p>
+                <h2 className="text-2xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif]">
+                  자기소개 및 지원 동기
+                </h2>
+                <p className="mt-2 text-sm text-[#6b6b5e] font-normal">창업 경험과 SPEC 지원 동기를 자유롭게 작성해주세요.</p>
+              </div>
 
               <label className="block">
                 <span className="mb-2 block text-sm font-semibold text-[#16140f]">
@@ -378,9 +394,13 @@ export default function ApplicationFormPage() {
         {step === 2 && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="rounded-[10px] border border-[#ddd9cc] bg-white p-8 space-y-7 shadow-sm font-['Pretendard',sans-serif]">
-              <h2 className="text-2xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif] border-b border-[#f0efe6] pb-4">
-                촬영/디자인 경험 조사
-              </h2>
+              <div className="border-b border-[#f0efe6] pb-4">
+                <p className="text-xs font-medium text-[#FF6C0F] mb-1">Step {step + 1} of 4</p>
+                <h2 className="text-2xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif]">
+                  촬영/디자인 경험 조사
+                </h2>
+                <p className="mt-2 text-sm text-[#6b6b5e] font-normal">해당 사항이 없어도 불이익은 없습니다.</p>
+              </div>
               
               <div className="space-y-10 pt-4">
                 <p className="text-sm leading-relaxed text-[#4a4a40]">
@@ -514,9 +534,13 @@ export default function ApplicationFormPage() {
         {step === 3 && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="rounded-[10px] border border-[#ddd9cc] bg-white p-8 space-y-7 shadow-sm">
-              <h2 className="text-2xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif] border-b border-[#f0efe6] pb-4">
-                개인정보 수집 및 동의
-              </h2>
+              <div className="border-b border-[#f0efe6] pb-4">
+                <p className="text-xs font-medium text-[#FF6C0F] mb-1">Step {step + 1} of 4</p>
+                <h2 className="text-2xl font-bold text-[#16140f] [font-family:system-ui,-apple-system,sans-serif]">
+                  개인정보 수집 및 동의
+                </h2>
+                <p className="mt-2 text-sm text-[#6b6b5e] font-normal">지원 완료를 위해 동의가 필요합니다.</p>
+              </div>
 
               <div className="rounded-lg bg-[#fcfcf8] p-6 text-sm text-[#6b6b5e] leading-relaxed border border-[#f0efe6]">
                 <h3 className="font-bold text-[#16140f] mb-3">개인정보 수집 및 이용 안내</h3>

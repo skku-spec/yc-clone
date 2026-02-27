@@ -93,7 +93,7 @@ export default function FoundersPage() {
 
   return (
     <div className="min-h-screen px-4 pb-24 pt-14 md:px-8 md:pt-20">
-      <div className="mx-auto max-w-[1068px]">
+      <div className="mx-auto max-w-[1100px]">
         <div className="mb-10 text-center">
           <PageHeader title="Members" subtitle="SPEC 멤버 디렉토리입니다." align="center" className="mb-0 md:mb-0" />
           <p className="mx-auto mt-6 font-['Pretendard',sans-serif] text-[15px] font-normal text-black/60">
@@ -129,10 +129,9 @@ export default function FoundersPage() {
 
         <div className="flex gap-5">
           {/* Sidebar */}
-          <aside className="hidden w-[300px] shrink-0 self-start lg:block" style={{ position: "sticky", top: 100 }}>
+          <aside className="sticky top-[100px] hidden w-[300px] shrink-0 self-start lg:block">
             <div
-              className="space-y-1 overflow-y-auto rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5"
-              style={{ maxHeight: "calc(100vh - 120px)" }}
+              className="max-h-[calc(100vh-120px)] space-y-1 overflow-y-auto rounded-lg border border-[#d9d9cc] bg-white p-5"
             >
               {/* 구분 section */}
               <FilterSection title="구분" expanded={memberTypeExpanded} onToggle={() => setMemberTypeExpanded(!memberTypeExpanded)}>
@@ -213,13 +212,13 @@ export default function FoundersPage() {
           <div className="flex-1">
             {/* Search bar */}
             <div className="mb-4">
-              <div className="rounded-lg border border-[#c6c6c6] bg-[#fdfdf8] p-5">
+              <div className="rounded-lg border border-[#d9d9cc] bg-white p-5">
                 <input
                   type="text"
                   placeholder="멤버 검색..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="h-[42px] w-full rounded-lg border border-[#ccc] bg-white px-2.5 py-2.5 font-['Pretendard',sans-serif] text-base text-black outline-none placeholder:text-black/30 focus:border-[#999] focus:ring-0"
+                  className="h-[42px] w-full rounded-lg border border-[#d9d9cc] bg-white px-2.5 py-2.5 font-['Pretendard',sans-serif] text-base text-black outline-none placeholder:text-black/30 focus:border-[#999] focus:ring-0"
                 />
               </div>
               <p className="mt-2 px-1 font-['Pretendard',sans-serif] text-[13px] font-normal text-black/50">
@@ -228,7 +227,7 @@ export default function FoundersPage() {
             </div>
 
             {filtered.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#c6c6c6] py-20">
+              <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#d9d9cc] py-20">
                 <svg
                   className="mb-4 h-12 w-12 text-black/20"
                   fill="none"
@@ -247,7 +246,7 @@ export default function FoundersPage() {
                 </p>
               </div>
             ) : (
-              <div className="overflow-hidden rounded-lg border border-[#c6c6c6]">
+              <div className="overflow-hidden rounded-lg border border-[#d9d9cc]">
                 {filtered.map((member, index) => (
                   <MemberRow
                     key={member.id}
@@ -286,7 +285,7 @@ function MemberRow({
 
   return (
     <div
-      className={`flex items-center gap-4 bg-[#fdfdf8] px-5 py-4 ${!isLast ? "border-b border-[#c6c6c6]" : ""} ${roundingClass}`}
+      className={`flex items-center gap-4 bg-white px-5 py-4 ${!isLast ? "border-b border-[#d9d9cc]" : ""} ${roundingClass}`}
     >
       <div className="relative h-[78px] w-[78px] shrink-0 overflow-hidden rounded-full bg-[#efefe8]">
         {member.photoUrl ? (
@@ -425,7 +424,7 @@ function FilterSection({
 }
 
 function Divider() {
-  return <div className="h-px bg-[#c6c6c6]" />;
+  return <div className="h-px bg-[#d9d9cc]" />;
 }
 
 /* ─────────── Mobile Filter Select ─────────── */
@@ -458,7 +457,7 @@ function MobileFilterSelect({
 const MEMBER_TYPE_STYLES: Record<string, { bg: string; text: string; label: string }> = {
   "러너": { bg: "bg-blue-500/10", text: "text-blue-600", label: "러너" },
   "프러너": { bg: "bg-[#FF6C0F]/10", text: "text-[#FF6C0F]", label: "프러너" },
-  alumni: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Alumni" },
+  member: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "부원" },
 };
 
 function MemberTypeBadge({ type }: { type: string }) {

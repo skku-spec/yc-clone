@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { addComment, deleteComment, type CommentWithAuthor } from "@/lib/actions/comments";
 import { useUser } from "@/hooks/useUser";
+import type { UserRole } from "@/lib/auth";
 
 type CommentSectionProps = {
   postId: string;
@@ -16,7 +17,7 @@ type ThreadNode = CommentWithAuthor & {
   replies: CommentWithAuthor[];
 };
 
-const WRITER_ROLES = new Set(["pre_runner", "runner", "alumni", "mentor", "admin"]);
+const WRITER_ROLES = new Set<UserRole>(["member", "admin"]);
 
 function formatDate(value: string): string {
   return new Date(value).toLocaleDateString("ko-KR", {

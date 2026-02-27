@@ -3,27 +3,25 @@
 import { revalidatePath } from "next/cache";
 
 import { createClient } from "@/lib/supabase/server";
-import type { ProfileRole } from "@/lib/supabase/types";
+
+type UserRole = "outsider" | "member" | "admin";
 
 type AdminActionResult = {
   success: boolean;
   error?: string;
 };
 
-const VALID_ROLES: Record<ProfileRole, true> = {
-  outsider: true,
-  pre_runner: true,
-  runner: true,
-  alumni: true,
-  mentor: true,
-  admin: true,
+const VALID_ROLES: Record<UserRole, string> = {
+  outsider: "외부인",
+  member: "부원",
+  admin: "관리자",
 };
 
-function isValidRole(role: string): role is ProfileRole {
+function isValidRole(role: string): role is UserRole {
   return role in VALID_ROLES;
 }
 
-export async function updateUserRole(userId: string, newRole: ProfileRole): Promise<AdminActionResult> {
+export async function updateUserRole(userId: string, newRole: UserRole): Promise<AdminActionResult> {
   try {
     if (!userId) {
       throw new Error("Target user is required.");
@@ -67,7 +65,11 @@ export async function updateUserRole(userId: string, newRole: ProfileRole): Prom
 
 
 
-    const { error: updateError } = await supabase.from("profiles").update({ role: newRole }).eq("id", userId);
+    // types.ts is auto-generated from pre-migration DB; "member" is valid after enum swap (007-enum-swap.sql)
+    const { error: updateError } = await supabase
+      .from("profiles")
+      .update({ role: newRole as unknown as import("@/lib/supabase/types").ProfileRole })
+      .eq("id", userId);
 
     if (updateError) {
       throw new Error(`Failed to update user role: ${updateError.message}`);

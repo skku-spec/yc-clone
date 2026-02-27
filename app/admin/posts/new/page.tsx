@@ -5,7 +5,7 @@ import PostEditorForm from "@/app/blog/PostEditorForm";
 export default function AdminCreateNewsPostPage() {
   return (
     <>
-      <section className="bg-[#f5f5ee] px-6 pb-0 pt-10 text-[#16140f]">
+      <section>
         <div className="mx-auto flex w-full max-w-[800px] flex-col gap-3">
           <Link
             href="/admin/posts"
