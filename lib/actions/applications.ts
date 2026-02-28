@@ -95,10 +95,13 @@ export async function submitApplication(formData: FormData): Promise<Application
     return { error: lengthErrors[0]! };
   }
 
-  // 6. Insert with .select() to detect silent RLS failures
+  // 6. Insert application
+  // NOTE: Do NOT chain .select() here — the SELECT RLS policy is admin-only,
+  // so non-admin users would get a 42501 error even though INSERT succeeded.
+  // The INSERT policy is WITH CHECK (true), so silent failures cannot occur.
   const supabase = await createClient();
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("applications")
     .insert({
       name,
@@ -117,9 +120,7 @@ export async function submitApplication(formData: FormData): Promise<Application
       figma,
       illustrator,
       experience_extra: experience_extra || null,
-    })
-    .select("id")
-    .single();
+    });
 
   if (error) {
     if (process.env.NODE_ENV === "development") {
@@ -144,10 +145,8 @@ export async function submitApplication(formData: FormData): Promise<Application
     return { error: "지원서 제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요." };
   }
 
-  // 7. Verify data was actually saved (catches silent RLS failures)
-  if (!data?.id) {
-    return { error: "지원서가 정상적으로 저장되지 않았습니다. 관리자에게 문의해주세요." };
-  }
+  // 7. Success — INSERT policy is permissive (WITH CHECK true),
+  // so if error is null the row was definitely saved.
 
   revalidatePath("/dashboard/applications");
   return { success: true };
