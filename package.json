@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "test": "playwright test",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:all": "vitest run && playwright test"
   },
   "dependencies": {
     "@blocknote/code-block": "^0.47.0",
@@ -29,14 +32,20 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5.1.4",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "jsdom": "^28.1.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "@playwright/test": "^1.50.0"
+    "vitest": "^4.0.18"
   }
 }

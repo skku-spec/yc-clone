@@ -56,16 +56,14 @@ export async function submitApplication(formData: FormData): Promise<Application
   const startup_idea = (formData.get("startup_idea") as string)?.trim() ?? "";
   const portfolio_url = (formData.get("portfolio_url") as string)?.trim() ?? "";
 
-  // Survey fields (Step 3) - optional
-  const equip = formData.get("equip") === "true";
-  const photo_exp = formData.get("photo_exp") === "true";
-  const design_exp = formData.get("design_exp") === "true";
-  const figma = formData.get("figma") === "true";
-  const illustrator = formData.get("illustrator") === "true";
+  // New fields (4기)
+  const grade = (formData.get("grade") as string)?.trim() ?? "";
+  const enrollment_status = (formData.get("enrollment_status") as string)?.trim() ?? "";
   const experience_extra = (formData.get("experience_extra") as string)?.trim() ?? "";
+  const additional_comments = (formData.get("additional_comments") as string)?.trim() ?? "";
 
   // 3. Required field validation
-  if (!name || !email || !introduction || !student_id || !vision || !startup_idea || !batch) {
+  if (!name || !email || !introduction || !student_id || !vision || !startup_idea || !batch || !grade || !enrollment_status || !portfolio_url || !experience_extra) {
     return { error: "필수 항목을 모두 입력해주세요." };
   }
 
@@ -85,12 +83,13 @@ export async function submitApplication(formData: FormData): Promise<Application
   // 5. Length validation
   const lengthErrors = [
     validateLength(name, "이름", 2, 50),
-    validateLength(introduction, "자기소개", 10, 5000),
-    validateLength(vision, "비전", 10, 5000),
-    validateLength(startup_idea, "스타트업 아이디어", 10, 5000),
+    validateLength(introduction, "Q1 답변", 50, 5000),
+    validateLength(vision, "Q2 답변", 50, 5000),
+    validateLength(startup_idea, "Q3 답변", 50, 5000),
+    validateLength(portfolio_url, "Q4 답변", 10, 5000),
+    validateLength(experience_extra, "Q5 답변", 50, 5000),
     major ? validateLength(major, "전공", 1, 100) : null,
-    portfolio_url ? validateLength(portfolio_url, "포트폴리오 URL", 1, 500) : null,
-    experience_extra ? validateLength(experience_extra, "추가 경험", 1, 5000) : null,
+    additional_comments ? validateLength(additional_comments, "추가 코멘트", 1, 5000) : null,
   ].filter(Boolean);
 
   if (lengthErrors.length > 0) {
@@ -115,16 +114,14 @@ export async function submitApplication(formData: FormData): Promise<Application
       phone: phone || null,
       major: major || null,
       batch,
+      grade: grade || null,
+      enrollment_status: enrollment_status || null,
       introduction,
       vision,
       startup_idea,
       portfolio_url: portfolio_url || null,
-      equip,
-      photo_exp,
-      design_exp,
-      figma,
-      illustrator,
       experience_extra: experience_extra || null,
+      additional_comments: additional_comments || null,
       user_id: user?.id ?? null,
     });
 

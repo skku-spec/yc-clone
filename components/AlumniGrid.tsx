@@ -1,14 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { startTransition, useCallback, useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 
 const alumni = [
   {
     name: '이송목', batch: 'SPEC 창립자, 초대 회장', photo: '/member/이송목.png',
-    quote: 'SPEC에서 처음으로 내 힘으로 돈을 벌어봤다.',
-    shortQuote: 'SPEC에서 처음으로 내 힘으로 돈을 벌어봤다.',
-    longQuote: 'SPEC은 단순한 창업 동아리가 아니었다. 아이디어를 실제 매출로 연결하는 30주의 여정이었고, 그 과정에서 나는 처음으로 내 힘으로 돈을 버는 경험을 했다. 그게 모든 것을 바꿨다.',
+    quote: '창업에서 가장 중요한 SPEC',
+    shortQuote: '창업에서 가장 중요한 SPEC',
+    longQuote: '저희 SPEC은 성균관대학교 창업 생태계에 기여하기 위해 만들어졌습니다. 여러분들에게 도움이 되면 좋겠습니다.',
   },
   {
     name: '장지민', batch: '2기', photo: '/member/장지민.png',
@@ -30,9 +30,9 @@ const alumni = [
   },
   {
     name: '서원준', batch: '2기', photo: '/member/서원준.png',
-    quote: '불편함이 성장의 연료라는 말, SPEC에서 체감했다.',
-    shortQuote: '불편함이 성장의 연료라는 말, SPEC에서 체감했다.',
-    longQuote: '편한 팀원, 편한 아이디어만 고르다가는 아무것도 못 만든다. SPEC의 팀 셔플과 피드백 문화는 나를 계속 불편한 상황에 밀어 넣었고, 그게 진짜 성장이었다.',
+    quote: 'AI 시대, 많이 경험한 한 사람이 곧 하나의 팀이 됩니다.',
+    shortQuote: 'AI 시대, 많이 경험한 한 사람이 곧 하나의 팀이 됩니다.',
+    longQuote: 'AI가 도구의 장벽을 허물면서, 다양한 경험을 가진 사람일수록 더 많은 것을 혼자서도 만들어낼 수 있는 시대가 되었습니다. 기획, 개발, 마케팅, 디자인을 직접 해온 경험이 지금 이 흐름 위에서 창업의 가장 큰 무기가 되고 있습니다.',
   },
   {
     name: '신지은', batch: '2, 3기', photo: '/member/신지은.png',
@@ -62,10 +62,7 @@ const alumni = [
 
 export default function AlumniGrid() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const autoScrollTimer = useRef<ReturnType<typeof setInterval> | null>(null);
-  const userInteracted = useRef(false);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -87,59 +84,13 @@ export default function AlumniGrid() {
     return () => observer.disconnect();
   }, []);
 
-  const startAutoScroll = useCallback(() => {
-    if (autoScrollTimer.current) clearInterval(autoScrollTimer.current);
-    const container = scrollRef.current;
-    if (!container) return;
-
-    autoScrollTimer.current = setInterval(() => {
-      if (userInteracted.current || window.innerWidth >= 768) return;
-      const card = container.querySelector('div') as HTMLElement;
-      if (!card) return;
-      const cardWidth = card.offsetWidth + 16; // card width + gap
-      const maxScroll = container.scrollWidth - container.clientWidth;
-
-      if (container.scrollLeft >= maxScroll - 2) {
-        container.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        container.scrollBy({ left: cardWidth, behavior: 'smooth' });
-      }
-    }, 3000);
-  }, []);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const handleInteraction = () => {
-      userInteracted.current = true;
-      if (autoScrollTimer.current) {
-        clearInterval(autoScrollTimer.current);
-        autoScrollTimer.current = null;
-      }
-      // 5초 후 자동 슬라이드 재개
-      setTimeout(() => {
-        userInteracted.current = false;
-        startAutoScroll();
-      }, 5000);
-    };
-
-    container.addEventListener('touchstart', handleInteraction, { passive: true });
-    container.addEventListener('pointerdown', handleInteraction);
-
-    if (isVisible) startAutoScroll();
-
-    return () => {
-      container.removeEventListener('touchstart', handleInteraction);
-      container.removeEventListener('pointerdown', handleInteraction);
-      if (autoScrollTimer.current) clearInterval(autoScrollTimer.current);
-    };
-  }, [isVisible, startAutoScroll]);
+  /* Duplicate cards for seamless horizontal marquee loop */
+  const marqueeCards = [...alumni, ...alumni];
 
   return (
     <section className="relative w-full py-16 md:py-24 lg:py-32 bg-transparent">
       <div ref={sectionRef} className="mx-auto max-w-6xl px-6">
-        <div className="mb-16 text-center">
+        <div className="mb-8 md:mb-16 text-center">
           <span
             className="mb-4 block text-sm font-bold uppercase tracking-[0.2em] text-white/50"
             style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
@@ -162,11 +113,12 @@ export default function AlumniGrid() {
           </p>
         </div>
 
-        <div ref={scrollRef} className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:pb-0 lg:grid-cols-3">
+        {/* ── Desktop: grid (md+) ── */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {alumni.map((person, i) => (
             <div
               key={`${person.name}-${person.batch}`}
-              className="group relative min-w-[220px] w-[65vw] max-w-[260px] shrink-0 snap-start overflow-hidden rounded-xl border border-white/[0.08] md:min-w-0 md:w-auto md:max-w-none md:shrink"
+              className="group relative overflow-hidden rounded-xl border border-white/[0.08]"
               style={{
                 aspectRatio: '3 / 4',
                 opacity: isVisible ? 1 : 0,
@@ -174,16 +126,14 @@ export default function AlumniGrid() {
                 transition: `opacity 0.6s ease ${i * 0.07}s, transform 0.6s ease ${i * 0.07}s`,
               }}
             >
-              {/* 배경 이미지 */}
               <Image
                 src={person.photo}
                 alt={person.name}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 65vw, (max-width: 1024px) 50vw, 33vw"
+                sizes="(max-width: 1024px) 50vw, 33vw"
               />
 
-              {/* 기본 그라데이션 오버레이 (인덱스별 어두움) */}
               <div
                 className="absolute inset-0 transition-all duration-500"
                 style={{
@@ -191,13 +141,11 @@ export default function AlumniGrid() {
                 }}
               />
 
-              {/* 호버 시 추가 어두움 */}
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
                 style={{ background: 'rgba(0,0,0,0.45)' }}
               />
 
-              {/* 하단 텍스트 영역 (항상 보임, 호버 시 사라짐) */}
               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 transition-opacity duration-300 group-hover:opacity-0">
                 <p
                   className="text-2xl font-black text-white md:text-3xl"
@@ -212,14 +160,13 @@ export default function AlumniGrid() {
                   {person.batch}
                 </p>
                 <p
-                  className="mt-2 text-sm italic leading-snug text-white/70 line-clamp-2 md:line-clamp-1 md:text-base"
+                  className="mt-2 text-sm italic leading-snug text-white/70 md:text-base"
                   style={{ fontFamily: "'MaruBuri', serif" }}
                 >
                   &ldquo;{person.shortQuote}&rdquo;
                 </p>
               </div>
 
-              {/* 호버 시 longQuote (데스크탑) */}
               <div className="absolute inset-0 hidden items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 md:flex">
                 <p
                   className="text-center text-base italic leading-relaxed text-white/90 md:text-lg lg:text-xl"
@@ -232,6 +179,85 @@ export default function AlumniGrid() {
           ))}
         </div>
       </div>
+
+      {/* ── Mobile: horizontal marquee (<md) ── */}
+      <div className="md:hidden overflow-hidden">
+        <div
+          className="flex"
+          style={{
+            animation: isVisible ? 'alumni-marquee 18s linear infinite' : 'none',
+            opacity: isVisible ? 1 : 0,
+            transition: 'opacity 0.4s ease',
+          }}
+        >
+          {marqueeCards.map((person, i) => (
+            <div
+              key={`m-${person.name}-${i}`}
+              className="group relative w-[65vw] max-w-[260px] shrink-0 overflow-hidden rounded-xl border border-white/[0.08]"
+              style={{ aspectRatio: '3 / 4', marginLeft: i === 0 ? '24px' : '0', marginRight: '16px' }}
+            >
+              <Image
+                src={person.photo}
+                alt={person.name}
+                fill
+                className="object-cover"
+                sizes="65vw"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)',
+                }}
+              />
+
+              {/* 호버/탭 시 어두움 */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+                style={{ background: 'rgba(0,0,0,0.45)' }}
+              />
+
+              {/* 기본 하단 텍스트 — 호버/탭 시 사라짐 */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 transition-opacity duration-300 group-hover:opacity-0">
+                <p
+                  className="text-2xl font-black text-white"
+                  style={{ fontFamily: "'Pretendard', sans-serif" }}
+                >
+                  {person.name}
+                </p>
+                <p
+                  className="mt-1 text-base text-white/60"
+                  style={{ fontFamily: "'Pretendard', sans-serif" }}
+                >
+                  {person.batch}
+                </p>
+                <p
+                  className="mt-2 text-sm italic leading-snug text-white/70"
+                  style={{ fontFamily: "'MaruBuri', serif" }}
+                >
+                  &ldquo;{person.shortQuote}&rdquo;
+                </p>
+              </div>
+
+              {/* 호버/탭 시 longQuote */}
+              <div className="absolute inset-0 flex items-center justify-center p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <p
+                  className="text-center text-sm italic leading-relaxed text-white/90"
+                  style={{ fontFamily: "'MaruBuri', serif" }}
+                >
+                  &ldquo;{person.longQuote}&rdquo;
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes alumni-marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
     </section>
   );
 }
