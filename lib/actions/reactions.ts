@@ -113,7 +113,7 @@ export async function getReactionsByPost(postId: string): Promise<ReactionSummar
     .order("created_at", { ascending: true });
 
   if (error) {
-    throw new Error(`Failed to fetch reactions: ${error.message}`);
+    return [];
   }
 
   const grouped = new Map<string, { count: number; userIds: string[] }>();

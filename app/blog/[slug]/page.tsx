@@ -103,10 +103,16 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  const [comments, reactions] = await Promise.all([
-    getCommentsByPost(post.id),
-    getReactionsByPost(post.id),
-  ]);
+  let comments: Awaited<ReturnType<typeof getCommentsByPost>> = [];
+  let reactions: Awaited<ReturnType<typeof getReactionsByPost>> = [];
+  try {
+    [comments, reactions] = await Promise.all([
+      getCommentsByPost(post.id),
+      getReactionsByPost(post.id),
+    ]);
+  } catch {
+    // Comments/reactions failure should not crash the page
+  }
 
   const tagLabelBySlug = new Map(tags.map((tag) => [tag.slug, tag.label]));
 

@@ -152,7 +152,7 @@ export async function getCommentsByPost(postId: string): Promise<CommentWithAuth
     .order("created_at", { ascending: true });
 
   if (commentsError) {
-    throw new Error(`Failed to fetch comments: ${commentsError.message}`);
+    return [];
   }
 
   if (!comments || comments.length === 0) {
@@ -166,7 +166,7 @@ export async function getCommentsByPost(postId: string): Promise<CommentWithAuth
     .in("id", authorIds);
 
   if (profilesError) {
-    throw new Error(`Failed to fetch comment authors: ${profilesError.message}`);
+    return [];
   }
 
   const profileById = new Map<string, Pick<ProfileRow, "id" | "name" | "slug" | "photo">>(
