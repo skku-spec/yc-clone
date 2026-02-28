@@ -17,27 +17,21 @@ export function getStorageUrl(path: string): string {
 }
 
 export async function uploadBlogImage(file: File): Promise<string> {
-  const supabase = createClient();
-  const extension = file.name.includes(".") ? file.name.split(".").pop() : "bin";
-  const safeExtension = extension ? extension.toLowerCase() : "bin";
-  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${safeExtension}`;
-  const filePath = `images/${fileName}`;
+  const formData = new FormData();
+  formData.append("image", file);
 
-  const { error: uploadError } = await supabase.storage.from(BLOG_IMAGE_BUCKET).upload(filePath, file, {
-    upsert: false,
+  const response = await fetch("/api/upload/blog-image", {
+    method: "POST",
+    body: formData,
   });
 
-  if (uploadError) {
-    throw new Error(`Failed to upload blog image: ${uploadError.message}`);
+  const result = await response.json();
+
+  if (!response.ok || !result.success) {
+    throw new Error(result.error || "이미지 업로드에 실패했습니다.");
   }
 
-  const { data } = supabase.storage.from(BLOG_IMAGE_BUCKET).getPublicUrl(filePath);
-
-  if (!data.publicUrl) {
-    throw new Error("Image uploaded successfully, but failed to generate public URL.");
-  }
-
-  return data.publicUrl;
+  return result.url;
 }
 
 export async function uploadJobLogo(file: File): Promise<string> {

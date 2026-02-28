@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { createJob, updateJob, deleteJob, toggleJobActive } from "@/lib/actions/jobs";
 import { uploadJobLogo } from "@/lib/storage";
 import type { Database } from "@/lib/supabase/types";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 type Job = Database["public"]["Tables"]["jobs"]["Row"];
 
@@ -100,19 +101,19 @@ function JobForm({
         </label>
         <label className={LABEL_CLS}>
           Role
-          <select name="role" required defaultValue={job?.role ?? ROLE_OPTIONS[0]} className={`${INPUT_CLS} bg-white`}>
-            {ROLE_OPTIONS.map((r) => (
-              <option key={r} value={r}>{r}</option>
-            ))}
-          </select>
+          <CustomSelect
+            name="role"
+            defaultValue={job?.role ?? ROLE_OPTIONS[0]}
+            options={ROLE_OPTIONS}
+          />
         </label>
         <label className={LABEL_CLS}>
           Location
-          <select name="location" required defaultValue={job?.location ?? LOCATION_OPTIONS[0]} className={`${INPUT_CLS} bg-white`}>
-            {LOCATION_OPTIONS.map((l) => (
-              <option key={l} value={l}>{l}</option>
-            ))}
-          </select>
+          <CustomSelect
+            name="location"
+            defaultValue={job?.location ?? LOCATION_OPTIONS[0]}
+            options={LOCATION_OPTIONS}
+          />
         </label>
         <label className={LABEL_CLS}>
           Salary
@@ -284,7 +285,7 @@ export default function JobsClient({ initialJobs }: JobsClientProps) {
   };
 
   return (
-    <section className="min-h-screen bg-[#f5f5ee] px-6 py-10 text-[#16140f] [font-family:Pretendard,system-ui,sans-serif]">
+    <section>
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <h1 className="font-[system-ui] text-[clamp(2rem,4vw,2.75rem)] font-black">Jobs</h1>

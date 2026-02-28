@@ -1,58 +1,87 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
 import { signUp } from "@/lib/actions/auth";
 
 const INPUT_CLASSNAME =
-  "w-full border-0 border-b border-[#ccc] rounded-none bg-transparent px-0 py-3 text-base outline-none transition-colors focus:border-[#ff6600] focus:ring-0";
+  "w-full border-0 border-b border-[#ccc] rounded-none bg-transparent px-0 py-3 text-base outline-none transition-colors focus:border-[#FF6C0F] focus:ring-0";
 
 export default function SignUpForm() {
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const handleSubmit = (formData: FormData) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [linkedinUrl, setLinkedinUrl] = useState("");
+
+  const handleSubmit = () => {
     setError(null);
 
-    const firstName = String(formData.get("first_name") ?? "").trim();
-    const lastName = String(formData.get("last_name") ?? "").trim();
-    const email = String(formData.get("email") ?? "").trim();
-    const username = String(formData.get("username") ?? "").trim();
-    const password = String(formData.get("password") ?? "").trim();
-    const linkedinUrl = String(formData.get("linkedin_url") ?? "").trim();
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
+    const trimmedEmail = email.trim();
+    const trimmedUsername = username.trim();
+    const trimmedPassword = password.trim();
+    const trimmedLinkedinUrl = linkedinUrl.trim();
 
-    if (!firstName || !lastName || !email || !username || !password || !linkedinUrl) {
+    if (!trimmedFirstName || !trimmedLastName || !trimmedEmail || !trimmedUsername || !trimmedPassword) {
       setError("Please fill out all fields.");
       return;
     }
 
-    if (password.length < 6) {
+    if (trimmedPassword.length < 6) {
       setError("Password must be at least 6 characters.");
       return;
     }
 
-    try {
-      const parsedLinkedInUrl = new URL(linkedinUrl);
-      if (!parsedLinkedInUrl.hostname.includes("linkedin.com")) {
+    let normalizedLinkedInUrl = trimmedLinkedinUrl || "";
+    if (trimmedLinkedinUrl) {
+      if (!trimmedLinkedinUrl.startsWith("http://") && !trimmedLinkedinUrl.startsWith("https://")) {
+        normalizedLinkedInUrl = "https://" + trimmedLinkedinUrl;
+      }
+
+      try {
+        const parsedLinkedInUrl = new URL(normalizedLinkedInUrl);
+        if (!parsedLinkedInUrl.hostname.includes("linkedin.com")) {
+          setError("Please enter a valid LinkedIn profile URL.");
+          return;
+        }
+      } catch {
         setError("Please enter a valid LinkedIn profile URL.");
         return;
       }
-    } catch {
-      setError("Please enter a valid LinkedIn profile URL.");
-      return;
     }
+
+    const formData = new FormData();
+    formData.set("first_name", trimmedFirstName);
+    formData.set("last_name", trimmedLastName);
+    formData.set("email", trimmedEmail);
+    formData.set("username", trimmedUsername);
+    formData.set("password", trimmedPassword);
+    formData.set("linkedin_url", normalizedLinkedInUrl);
 
     startTransition(async () => {
       const result = await signUp(formData);
       if (result?.error) {
         setError(result.error);
+      } else {
+        router.push("/login?registered=true");
       }
     });
   };
 
   return (
-    <form action={handleSubmit} className="space-y-5">
+    <form
+      action={handleSubmit}
+      className="space-y-5"
+    >
       {error ? <p className="rounded bg-[#fdecec] px-3 py-2 text-sm text-[#b42318]">{error}</p> : null}
 
       <div className="grid grid-cols-2 gap-4">
@@ -60,14 +89,14 @@ export default function SignUpForm() {
           <label htmlFor="first_name" className="block text-sm font-medium text-[#666]">
             First Name
           </label>
-          <input id="first_name" name="first_name" type="text" required className={INPUT_CLASSNAME} autoComplete="given-name" />
+          <input id="first_name" name="first_name" type="text" required className={INPUT_CLASSNAME} autoComplete="given-name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
         </div>
 
         <div className="space-y-1">
           <label htmlFor="last_name" className="block text-sm font-medium text-[#666]">
             Last Name
           </label>
-          <input id="last_name" name="last_name" type="text" required className={INPUT_CLASSNAME} autoComplete="family-name" />
+          <input id="last_name" name="last_name" type="text" required className={INPUT_CLASSNAME} autoComplete="family-name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
         </div>
       </div>
 
@@ -75,49 +104,50 @@ export default function SignUpForm() {
         <label htmlFor="email" className="block text-sm font-medium text-[#666]">
           Email
         </label>
-        <input id="email" name="email" type="email" required className={INPUT_CLASSNAME} autoComplete="email" />
+        <input id="email" name="email" type="email" required className={INPUT_CLASSNAME} autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </div>
 
       <div className="space-y-1">
         <label htmlFor="username" className="block text-sm font-medium text-[#666]">
           Username
         </label>
-        <input id="username" name="username" type="text" required className={INPUT_CLASSNAME} autoComplete="username" />
+        <input id="username" name="username" type="text" required className={INPUT_CLASSNAME} autoComplete="username" value={username} onChange={(e) => setUsername(e.target.value)} />
       </div>
 
       <div className="space-y-1">
         <label htmlFor="password" className="block text-sm font-medium text-[#666]">
           Password
         </label>
-        <input id="password" name="password" type="password" required className={INPUT_CLASSNAME} autoComplete="new-password" />
+        <input id="password" name="password" type="password" required className={INPUT_CLASSNAME} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
 
       <div className="space-y-1">
         <label htmlFor="linkedin_url" className="block text-sm font-medium text-[#666]">
-          Your LinkedIn Profile URL
+          Your LinkedIn Profile URL <span className="font-normal text-[#999]">(Optional)</span>
         </label>
         <input
           id="linkedin_url"
           name="linkedin_url"
           type="url"
-          required
           placeholder="https://www.linkedin.com/in/username/"
           className={INPUT_CLASSNAME}
           autoComplete="url"
+          value={linkedinUrl}
+          onChange={(e) => setLinkedinUrl(e.target.value)}
         />
       </div>
 
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded bg-[#ff6600] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#e55b00] disabled:cursor-not-allowed disabled:opacity-70"
+        className="w-full rounded bg-[#FF6C0F] px-6 py-3 font-semibold text-white transition-colors hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {isPending ? "Signing up..." : "Sign Up"}
       </button>
 
       <p className="text-center text-sm text-[#555]">
         Already have an account?{" "}
-        <Link href="/login" className="text-[#ff6600] hover:underline">
+        <Link href="/login" className="text-[#FF6C0F] hover:underline">
           Log in.
         </Link>
       </p>

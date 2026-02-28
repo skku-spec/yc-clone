@@ -1,19 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 import { useUser } from "@/hooks/useUser";
 import type { BlogPost, TagInfo } from "@/lib/api";
-import type { ProfileRole } from "@/lib/supabase/types";
+import type { UserRole } from "@/lib/auth";
 
-const WRITER_ROLES: ProfileRole[] = [
-  "pre_runner",
-  "runner",
-  "alumni",
-  "mentor",
-  "admin",
-];
+const WRITER_ROLES: UserRole[] = ["member", "admin"];
 
 type BlogPageClientProps = {
   posts: BlogPost[];
@@ -44,6 +38,8 @@ function getTagLabel(tags: TagInfo[], slug: string) {
 
 export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
   const [activeTab, setActiveTab] = useState<"all" | "news" | "blog">("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const { role, isAuthenticated } = useUser();
 
   const tabs = [
@@ -54,13 +50,33 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
 
   const canWrite = isAuthenticated && WRITER_ROLES.includes(role);
 
-  const filteredPosts = useMemo(() => {
-    if (activeTab === "all") {
-      return posts;
-    }
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedQuery(searchQuery), 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
-    return posts.filter((post) => post.type === activeTab);
-  }, [activeTab, posts]);
+  const filteredPosts = useMemo(() => {
+    let result = posts;
+    
+    // Search filter
+    if (debouncedQuery.trim()) {
+      const q = debouncedQuery.trim().toLowerCase();
+      result = result.filter(
+        (post) =>
+          post.title.toLowerCase().includes(q) ||
+          post.excerpt.toLowerCase().includes(q) ||
+          post.tags.some((tag) => tag.toLowerCase().includes(q))
+      );
+    }
+    
+    // Tab filter
+    if (activeTab !== "all") {
+      result = result.filter((post) => post.type === activeTab);
+    }
+    
+    return result;
+  }, [activeTab, posts, debouncedQuery]);
 
   const featuredPost = useMemo(
     () => filteredPosts.find((post) => post.featured) ?? filteredPosts[0],
@@ -78,9 +94,9 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
   );
 
   return (
-    <section className="min-h-screen pb-24">
-      <div className="border-b border-[#ddd9cc]">
-        <div className="mx-auto max-w-[1068px] px-6 pt-14 pb-8 text-center">
+    <section className="min-h-screen bg-[#f5f5ee] pb-24">
+      <div>
+        <div className="mx-auto max-w-[1100px] px-6 pt-14 pb-8 text-center">
           <h1
             className="text-[clamp(2.5rem,5vw,3.75rem)] font-black leading-[1.15] tracking-tight uppercase text-[#16140f]"
             style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
@@ -90,14 +106,14 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
         </div>
       </div>
 
-      <div className="border-b border-[#ddd9cc]">
-        <div className="mx-auto flex max-w-[1068px] items-center justify-between px-6 py-5">
-          <div className="flex gap-8">
+      <div>
+        <div className="mx-auto flex max-w-[1100px] flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between">
+          <div className="flex gap-4 md:gap-8">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`font-['Pretendard',sans-serif] text-[14px] font-[500] padding-[8px_4px] border-b-[2px] transition-colors ${
+                className={`whitespace-nowrap font-['Pretendard',sans-serif] text-[14px] font-[500] border-b-[2px] transition-colors ${
                   activeTab === tab.id
                     ? "border-b-[oklch(0.705_0.213_47.604)] text-[#16140f]"
                     : "border-b-transparent text-[#8a8a7e]"
@@ -108,26 +124,38 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
-            <input
-              type="text"
-              placeholder="검색..."
-              className="font-['Pretendard',sans-serif] w-[320px] h-[38px] rounded-[6px] border-[1px] border-[#ddd9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)]"
-            />
+          <div className="flex w-full items-center gap-3 md:w-auto">
+            <div className="relative flex-1 md:w-[320px] md:flex-none">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="검색..."
+                className="font-['Pretendard',sans-serif] h-[38px] w-full min-w-0 flex-1 rounded-[6px] border-[1px] border-[#d9d9cc] px-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-[oklch(0.705_0.213_47.604)] md:w-[320px] md:flex-none"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b6b5e] hover:text-[#16140f]"
+                  type="button"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
             {canWrite && (
               <Link
                 href="/blog/write"
-                className="inline-flex h-[38px] items-center rounded-[6px] bg-[#FF6C0F] px-4 font-['Pretendard',sans-serif] text-[14px] font-medium text-white transition-opacity hover:opacity-85"
+                className="inline-flex h-[38px] shrink-0 items-center rounded-[6px] bg-[#FF6C0F] px-4 font-['Pretendard',sans-serif] text-[14px] font-medium text-white transition-opacity hover:opacity-85"
               >
                 글쓰기
               </Link>
             )}
-          </div>
         </div>
       </div>
 
       {featuredPost && (
-        <div className="border-b border-[#ddd9cc]">
+        <div>
           <div className="mx-auto max-w-[1200px] px-6 py-12">
             <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
               <div className="max-w-[518px] shrink-0">
@@ -177,7 +205,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
         </div>
       )}
 
-      <div id="recent-posts" className="border-b border-[#ddd9cc]">
+      <div id="recent-posts">
         <div className="mx-auto max-w-[1200px] px-6 py-12">
           <h3 className="mb-8 font-['Pretendard',sans-serif] text-[20px] font-semibold text-[oklch(0.705_0.213_47.604)]">
             최근 소식
@@ -238,7 +266,14 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
             <h3 className="mb-6 font-['Pretendard',sans-serif] text-[20px] font-semibold text-[oklch(0.705_0.213_47.604)]">
               전체 글
             </h3>
-            <div className="space-y-0 divide-y divide-[#ddd9cc]">
+            {allPosts.length === 0 ? (
+              <div className="py-16 text-center">
+                <p className="text-[#6b6b5e] font-['Pretendard',sans-serif]">
+                  {debouncedQuery ? `"${debouncedQuery}"에 대한 검색 결과가 없습니다.` : "게시글이 없습니다."}
+                </p>
+              </div>
+            ) : (
+            <div className="space-y-0">
               {allPosts.map((post) => (
                 <article key={post.slug} className="py-7 first:pt-0">
                   <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -272,6 +307,8 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
                   </Link>
                 </article>
               ))}
+            </div>
+            )}
             </div>
           </div>
 

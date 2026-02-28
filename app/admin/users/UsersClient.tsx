@@ -4,7 +4,8 @@ import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { updateUserRole } from "@/lib/actions/admin";
-import type { Database, ProfileRole } from "@/lib/supabase/types";
+import CustomSelect from "@/components/ui/CustomSelect";
+import type { Database } from "@/lib/supabase/types";
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
@@ -12,30 +13,24 @@ type UsersClientProps = {
   initialProfiles: Profile[];
 };
 
-const ROLE_OPTIONS: ProfileRole[] = ["admin", "mentor", "alumni", "runner", "pre_runner", "outsider"];
+type UserRole = "outsider" | "member" | "admin";
 
-const ROLE_COLORS: Record<ProfileRole, string> = {
-  admin: "#FF6C0F",
-  mentor: "#8B5CF6",
-  alumni: "#10B981",
-  runner: "#3B82F6",
-  pre_runner: "#F59E0B",
-  outsider: "#9CA3AF",
+const ROLE_OPTIONS: UserRole[] = ["admin", "member", "outsider"];
+
+const ROLE_COLORS: Record<UserRole, string> = {
+  admin: "#DC2626",
+  member: "#2563EB",
+  outsider: "#6b6b5e",
 };
 
-function formatRoleLabel(role: ProfileRole) {
-  return role.replace("_", " ");
+function formatRoleLabel(role: UserRole) {
+  if (role === "outsider") return "외부인";
+  if (role === "member") return "부원";
+  return "관리자";
 }
 
-function isProfileRole(value: string): value is ProfileRole {
-  return (
-    value === "admin" ||
-    value === "mentor" ||
-    value === "alumni" ||
-    value === "runner" ||
-    value === "pre_runner" ||
-    value === "outsider"
-  );
+function isProfileRole(value: string): value is UserRole {
+  return value === "admin" || value === "member" || value === "outsider";
 }
 
 function formatJoinedDate(date: string) {
@@ -50,7 +45,7 @@ export default function UsersClient({ initialProfiles }: UsersClientProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const handleRoleChange = (userId: string, nextRole: ProfileRole) => {
+  const handleRoleChange = (userId: string, nextRole: UserRole) => {
     startTransition(() => {
       void (async () => {
         const result = await updateUserRole(userId, nextRole);
@@ -66,7 +61,7 @@ export default function UsersClient({ initialProfiles }: UsersClientProps) {
   };
 
   return (
-    <section className="min-h-screen bg-[#f5f5ee] px-6 py-10 text-[#16140f]">
+    <section>
       <div className="mx-auto max-w-6xl">
         <h1 className="mb-6 font-[system-ui] text-[clamp(2rem,4vw,2.75rem)] font-black">Users</h1>
 
@@ -104,27 +99,24 @@ export default function UsersClient({ initialProfiles }: UsersClientProps) {
                       <div className="flex flex-wrap items-center gap-2">
                         <span
                           className="inline-flex rounded-full px-2.5 py-1 font-['Pretendard',sans-serif] text-xs font-semibold text-white"
-                          style={{ backgroundColor: ROLE_COLORS[profile.role] }}
+                          style={{ backgroundColor: ROLE_COLORS[(profile.role as UserRole | null) ?? "outsider"] }}
                         >
-                          {formatRoleLabel(profile.role)}
+                          {formatRoleLabel((profile.role as UserRole | null) ?? "outsider")}
                         </span>
-                        <select
-                          value={profile.role}
-                          onChange={(event) => {
-                            const nextRole = event.target.value;
+                        <CustomSelect
+                          value={(profile.role as UserRole | null) ?? "outsider"}
+                          onChange={(nextRole) => {
                             if (isProfileRole(nextRole)) {
                               handleRoleChange(profile.id, nextRole);
                             }
                           }}
                           disabled={isPending}
-                          className="h-8 rounded-md border border-[#ddd9cc] bg-white px-2 font-['Pretendard',sans-serif] text-xs text-[#16140f] disabled:cursor-not-allowed disabled:opacity-60"
-                        >
-                          {ROLE_OPTIONS.map((role) => (
-                            <option key={role} value={role}>
-                              {formatRoleLabel(role)}
-                            </option>
-                          ))}
-                        </select>
+                          options={ROLE_OPTIONS.map((role) => ({
+                            value: role,
+                            label: formatRoleLabel(role),
+                          }))}
+                          className="w-[130px]"
+                        />
                       </div>
                     </td>
                     <td className="px-4 py-3 font-['Pretendard',sans-serif] text-sm text-[#4a4a40]">

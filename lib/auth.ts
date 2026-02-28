@@ -4,7 +4,14 @@ import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import type { Database } from "@/lib/supabase/types";
 
-export type UserRole = "outsider" | "pre_runner" | "runner" | "alumni" | "mentor" | "admin";
+export type UserRole = "outsider" | "member" | "admin";
+
+/** DB role 값을 UserRole로 변환. 알 수 없는 값은 outsider로 처리. */
+export function normalizeRole(role: string | null | undefined): UserRole {
+  if (role === "admin") return "admin";
+  if (role === "member") return "member";
+  return "outsider";
+}
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
@@ -15,11 +22,8 @@ type AuthResult = {
 
 const ROLE_LEVEL: Record<UserRole, number> = {
   outsider: 0,
-  pre_runner: 1,
-  runner: 2,
-  alumni: 3,
-  mentor: 4,
-  admin: 5,
+  member: 1,
+  admin: 2,
 };
 
 export async function getCurrentUser(): Promise<AuthResult | { user: null; profile: null }> {
@@ -56,7 +60,7 @@ export async function requireAuth(): Promise<AuthResult> {
 
 export async function requireRole(minRole: UserRole): Promise<AuthResult> {
   const currentUser = await requireAuth();
-  const currentRole = currentUser.profile?.role ?? "outsider";
+  const currentRole = normalizeRole(currentUser.profile?.role);
 
   if (ROLE_LEVEL[currentRole] < ROLE_LEVEL[minRole]) {
     redirect("/");
@@ -70,5 +74,5 @@ export function isAdmin(role: string | null): boolean {
 }
 
 export function canWrite(role: string | null): boolean {
-  return role === "pre_runner" || role === "runner" || role === "alumni" || role === "mentor" || role === "admin";
+  return role === "member" || role === "admin";
 }

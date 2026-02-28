@@ -2,9 +2,10 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { updateSession } from "@/lib/supabase/middleware";
-import type { Database, ProfileRole } from "@/lib/supabase/types";
+import type { Database } from "@/lib/supabase/types";
 
-const WRITER_ROLES: ProfileRole[] = ["pre_runner", "runner", "alumni", "mentor", "admin"];
+const WRITER_ROLES = ["member", "admin"];
+type UserRole = "outsider" | "member" | "admin";
 
 function isAdminRoute(pathname: string) {
   return pathname === "/admin" || pathname.startsWith("/admin/");
@@ -22,6 +23,26 @@ function isProfileRoute(pathname: string) {
   return pathname === "/profile" || pathname.startsWith("/profile/");
 }
 
+// Routes that exist as directories but are not linked in the header navigation.
+// Block access and redirect to home.
+const BLOCKED_ROUTES = [
+  "/jobs",
+  "/demoday",
+  "/contact",
+  "/cofounder-matching",
+  "/faq",
+  "/library",
+  "/press",
+  "/subscribe",
+  "/vcc",
+];
+
+function isBlockedRoute(pathname: string) {
+  return BLOCKED_ROUTES.some(
+    (route) => pathname === route || pathname.startsWith(route + "/"),
+  );
+}
+
 function redirectWithCookies(request: NextRequest, response: NextResponse, pathname: string) {
   const redirectResponse = NextResponse.redirect(new URL(pathname, request.url));
 
@@ -36,7 +57,7 @@ async function getUserRole(
   request: NextRequest,
   response: NextResponse,
   userId: string,
-): Promise<ProfileRole> {
+): Promise<UserRole> {
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -61,12 +82,17 @@ async function getUserRole(
     .eq("id", userId)
     .maybeSingle();
 
-  return profile?.role ?? "outsider";
+  return (profile?.role as UserRole | null) ?? "outsider";
 }
 
 export async function middleware(request: NextRequest) {
   const response = await updateSession(request);
   const pathname = request.nextUrl.pathname;
+
+  // Block access to orphan routes not in header navigation
+  if (isBlockedRoute(pathname)) {
+    return redirectWithCookies(request, response, "/");
+  }
 
   const needsAdmin = isAdminRoute(pathname);
   const needsWriter = isBlogWriteRoute(pathname) || isBlogEditRoute(pathname);

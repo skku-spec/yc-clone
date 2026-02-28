@@ -1,21 +1,176 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  type CompanyDetail,
-  type Founder,
-  getCompanyDetailBySlug,
-  getAllCompanyDetailSlugs,
-  getRelatedCompanies,
-} from "@/lib/company-details-data";
 
-/* ─── Static Params ─── */
+import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/lib/supabase/types";
 
-export function generateStaticParams() {
-  return getAllCompanyDetailSlugs();
+type ProjectRow = Database["public"]["Tables"]["projects"]["Row"];
+type MemberRow = Database["public"]["Tables"]["members"]["Row"];
+type MemberProjectRow = Database["public"]["Tables"]["member_projects"]["Row"];
+type ProjectNewsRow = Database["public"]["Tables"]["project_news"]["Row"];
+
+interface Founder {
+  name: string;
+  title: string;
+  linkedIn: string;
+  twitter?: string;
 }
 
-/* ─── Metadata ─── */
+interface Job {
+  title: string;
+  location: string;
+  experience: string;
+}
+
+interface NewsItem {
+  title: string;
+  url: string;
+  date: string;
+}
+
+interface CompanyDetail {
+  name: string;
+  slug: string;
+  oneLiner: string;
+  batch: string;
+  batchSeason: string;
+  status: ProjectRow["status"];
+  industries: string[];
+  location: string;
+  founded: number;
+  teamSize: string;
+  website: string;
+  linkedIn?: string;
+  twitter?: string;
+  github?: string;
+  description: string;
+  founders: Founder[];
+  jobs: Job[];
+  news: NewsItem[];
+  logoUrl: string | null;
+  isHiring: boolean;
+  isTopCompany: boolean;
+}
+
+interface RelatedCompany {
+  name: string;
+  slug: string;
+  oneLiner: string;
+}
+
+async function getCompanyPageData(
+  slug: string,
+): Promise<{ company: CompanyDetail; related: RelatedCompany[] } | null> {
+  const supabase = await createClient();
+
+  const { data: project } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (!project) {
+    return null;
+  }
+
+  const [{ data: projectMemberRows }, { data: projectNewsRows }, { data: relatedRows }] =
+    await Promise.all([
+      supabase
+        .from("member_projects")
+        .select("member_id, role")
+        .eq("project_id", project.id),
+      supabase
+        .from("project_news")
+        .select("title, url, date")
+        .eq("project_id", project.id)
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("projects")
+        .select("name, slug, one_liner")
+        .neq("slug", slug)
+        .order("created_at", { ascending: false })
+        .limit(4),
+    ]);
+
+  const memberIds = ((projectMemberRows ?? []) as Pick<
+    MemberProjectRow,
+    "member_id"
+  >[]).map((projectMember) => projectMember.member_id);
+
+  let memberRows: Array<Pick<MemberRow, "id" | "name" | "linkedin_url">> = [];
+  if (memberIds.length > 0) {
+    const { data } = await supabase
+      .from("members")
+      .select("id, name, linkedin_url")
+      .in("id", memberIds);
+    memberRows = data ?? [];
+  }
+
+  const memberById = new Map<string, Pick<MemberRow, "name" | "linkedin_url">>(
+    memberRows.map((member) => [member.id, member]),
+  );
+
+  const founders: Founder[] = ((projectMemberRows ?? []) as Pick<
+    MemberProjectRow,
+    "member_id" | "role"
+  >[])
+    .map((projectMember) => {
+      const member = memberById.get(projectMember.member_id);
+      if (!member) {
+        return null;
+      }
+
+      return {
+        name: member.name,
+        title: projectMember.role ?? "팀원",
+        linkedIn: member.linkedin_url ?? "#",
+      };
+    })
+    .filter((founder): founder is Founder => founder !== null)
+    .sort((a, b) => a.name.localeCompare(b.name, "ko"));
+
+  const news: NewsItem[] = ((projectNewsRows ?? []) as Pick<
+    ProjectNewsRow,
+    "title" | "url" | "date"
+  >[]).map((newsItem) => ({
+    title: newsItem.title,
+    url: newsItem.url ?? "#",
+    date: newsItem.date ?? "",
+  }));
+
+  const company: CompanyDetail = {
+    name: project.name,
+    slug: project.slug,
+    oneLiner: project.one_liner ?? "",
+    batch: project.batch ?? "",
+    batchSeason: project.batch ?? "",
+    status: project.status,
+    industries: project.industries ?? [],
+    location: project.region ?? "",
+    founded: project.founded_year ?? 0,
+    teamSize: project.team_size ? `${project.team_size}명` : "-",
+    website: project.website ?? "#",
+    linkedIn: project.linkedin_url ?? undefined,
+    twitter: project.twitter_url ?? undefined,
+    github: project.github_url ?? undefined,
+    description: project.description ?? "",
+    founders,
+    jobs: [],
+    news,
+    logoUrl: project.logo_url,
+    isHiring: project.is_hiring,
+    isTopCompany: project.is_top_company,
+  };
+
+  const related: RelatedCompany[] = (relatedRows ?? []).map((relatedProject) => ({
+    name: relatedProject.name,
+    slug: relatedProject.slug,
+    oneLiner: relatedProject.one_liner ?? "",
+  }));
+
+  return { company, related };
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -23,48 +178,48 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const company = getCompanyDetailBySlug(slug);
-  if (!company) {
+  const pageData = await getCompanyPageData(slug);
+
+  if (!pageData) {
     return { title: "Company Not Found | SPEC" };
   }
+
+  const { company } = pageData;
+  const descriptionSource = company.description || company.oneLiner;
+
   return {
     title: `${company.name}: ${company.oneLiner} | SPEC`,
-    description: company.description.slice(0, 160),
+    description: descriptionSource.slice(0, 160),
   };
 }
 
-/* ─── Page ─── */
-
 export default async function CompanyDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const company = getCompanyDetailBySlug(slug);
+  const pageData = await getCompanyPageData(slug);
 
-  if (!company) {
+  if (!pageData) {
     notFound();
   }
 
-  const related = getRelatedCompanies(company.slug);
+  const { company, related } = pageData;
 
-   return (
-     <div className="px-4 pb-24 pt-12 md:pt-16">
-       <div className="mx-auto max-w-[1100px]">
-         {/* Breadcrumb */}
-         <nav className="mb-8 flex items-center gap-2 font-['Pretendard',sans-serif] text-[13px] font-normal text-[#16140f]/50">
-           <Link href="/" className="transition-colors hover:text-[#FF6C0F]">
-             Home
-           </Link>
-           <span className="text-[#16140f]/30">&rsaquo;</span>
-           <Link href="/companies" className="transition-colors hover:text-[#FF6C0F]">
-             Companies
-           </Link>
-           <span className="text-[#16140f]/30">&rsaquo;</span>
-           <span className="text-[#16140f]/70">{company.name}</span>
-         </nav>
+  return (
+    <div className="px-4 pb-24 pt-12 md:pt-16">
+      <div className="mx-auto max-w-[1100px]">
+        <nav className="mb-8 flex items-center gap-2 font-['Pretendard',sans-serif] text-[13px] font-normal text-[#16140f]/50">
+          <Link href="/" className="transition-colors hover:text-[#FF6C0F]">
+            Home
+          </Link>
+          <span className="text-[#16140f]/30">&rsaquo;</span>
+          <Link href="/companies" className="transition-colors hover:text-[#FF6C0F]">
+            Companies
+          </Link>
+          <span className="text-[#16140f]/30">&rsaquo;</span>
+          <span className="text-[#16140f]/70">{company.name}</span>
+        </nav>
 
-         <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
-          {/* Main content */}
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
           <div className="min-w-0 flex-1">
-            {/* Header */}
             <div className="mb-6">
               <div className="mb-4 flex items-center gap-5">
                 <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-xl border border-[#16140f]/8 bg-white shadow-sm">
@@ -82,7 +237,6 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                 </div>
               </div>
 
-              {/* Tags */}
               <div className="flex flex-wrap items-center gap-2">
                 <Link
                   href={`/companies?batch=${encodeURIComponent(company.batchSeason)}`}
@@ -106,7 +260,6 @@ export default async function CompanyDetailPage({ params }: PageProps) {
               </div>
             </div>
 
-            {/* Nav links */}
             <div className="mb-6 border-y border-[#16140f]/8 py-3">
               <div className="flex items-center justify-between">
                 <div className="flex gap-6 font-['Pretendard',sans-serif] text-[14px] font-medium">
@@ -132,14 +285,12 @@ export default async function CompanyDetailPage({ params }: PageProps) {
               </div>
             </div>
 
-            {/* Description */}
             <section className="mb-10">
               <p className="font-['Pretendard',sans-serif] text-[16px] font-normal leading-[1.8] text-[#16140f]">
                 {company.description}
               </p>
             </section>
 
-            {/* News */}
             {company.news.length > 0 && (
               <section className="mb-10">
                 <h2 className="mb-4 font-['Pretendard',sans-serif] text-[18px] font-semibold text-[#16140f]">
@@ -147,7 +298,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                 </h2>
                 <div className="space-y-3">
                   {company.news.map((item) => (
-                    <div key={item.url} className="flex items-start justify-between gap-4">
+                    <div key={`${item.title}-${item.url}`} className="flex items-start justify-between gap-4">
                       <a
                         href={item.url}
                         target="_blank"
@@ -165,7 +316,6 @@ export default async function CompanyDetailPage({ params }: PageProps) {
               </section>
             )}
 
-            {/* Jobs */}
             {company.jobs.length > 0 && (
               <section className="mb-10">
                 <div className="mb-4 flex items-center justify-between">
@@ -198,7 +348,6 @@ export default async function CompanyDetailPage({ params }: PageProps) {
               </section>
             )}
 
-            {/* Founders */}
             <section className="mb-10">
               <h2 className="mb-5 font-['Pretendard',sans-serif] text-[18px] font-semibold text-[#16140f]">
                 창업자
@@ -255,10 +404,8 @@ export default async function CompanyDetailPage({ params }: PageProps) {
             </section>
           </div>
 
-          {/* Sidebar */}
           <aside className="w-full shrink-0 lg:w-[280px]">
             <div className="sticky top-24 space-y-6">
-              {/* Company card */}
               <div className="rounded-xl border border-[#16140f]/8 bg-white p-5 shadow-sm">
                 <div className="mb-4 flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#16140f]/8 bg-[#f5f5ee]">
@@ -272,14 +419,13 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                 </div>
 
                 <div className="space-y-3">
-                  <InfoRow label="설립" value={String(company.founded)} />
-                  <InfoRow label="기수" value={company.batchSeason} />
+                  <InfoRow label="설립" value={company.founded > 0 ? String(company.founded) : "-"} />
+                  <InfoRow label="기수" value={company.batchSeason || "-"} />
                   <InfoRow label="팀 규모" value={company.teamSize} />
                   <InfoRow label="상태" value={company.status} />
-                  <InfoRow label="위치" value={company.location} />
+                  <InfoRow label="위치" value={company.location || "-"} />
                 </div>
 
-                {/* Social links */}
                 <div className="mt-5 flex gap-2 border-t border-[#16140f]/8 pt-4">
                   <a
                     href={company.website}
@@ -326,29 +472,28 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                 </div>
               </div>
 
-              {/* Related Companies */}
               <div className="rounded-xl border border-[#16140f]/8 bg-white p-5 shadow-sm">
                 <h3 className="mb-3 font-['Pretendard',sans-serif] text-[12px] font-semibold uppercase tracking-[0.08em] text-[#16140f]/50">
                   관련 회사
                 </h3>
                 <div className="space-y-3">
-                  {related.map((r) => (
+                  {related.map((relatedCompany) => (
                     <Link
-                      key={r.slug}
-                      href={`/companies/${r.slug}`}
+                      key={relatedCompany.slug}
+                      href={`/companies/${relatedCompany.slug}`}
                       className="group flex items-center gap-3 rounded-md p-1 transition-colors hover:bg-[#FF6C0F]/5"
                     >
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[#16140f]/8 bg-[#f5f5ee]">
                         <span className="font-['Pretendard',sans-serif] text-[12px] font-bold text-[#FF6C0F]">
-                          {r.name.charAt(0)}
+                          {relatedCompany.name.charAt(0)}
                         </span>
                       </div>
                       <div className="min-w-0">
                         <p className="font-['Pretendard',sans-serif] text-[13px] font-semibold text-[#16140f] transition-colors group-hover:text-[#FF6C0F]">
-                          {r.name}
+                          {relatedCompany.name}
                         </p>
                         <p className="truncate font-['Pretendard',sans-serif] text-[11px] font-normal text-[#16140f]/50">
-                          {r.oneLiner}
+                          {relatedCompany.oneLiner}
                         </p>
                       </div>
                     </Link>
@@ -362,8 +507,6 @@ export default async function CompanyDetailPage({ params }: PageProps) {
     </div>
   );
 }
-
-/* ─── Small Components ─── */
 
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (

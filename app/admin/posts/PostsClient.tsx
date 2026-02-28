@@ -49,7 +49,7 @@ export default function PostsClient({ initialPosts }: PostsClientProps) {
   };
 
   return (
-    <section className="min-h-screen bg-[#f5f5ee] px-6 py-10 text-[#16140f]">
+    <section>
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <h1 className="font-[system-ui] text-[clamp(2rem,4vw,2.75rem)] font-black">Posts</h1>
@@ -101,7 +101,7 @@ export default function PostsClient({ initialPosts }: PostsClientProps) {
                       disabled={isPending}
                       onClick={() => runAction(() => togglePublished(post.id))}
                       className={`inline-flex h-8 min-w-16 items-center justify-center rounded-md px-3 font-['Pretendard',sans-serif] text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60 ${
-                        post.published ? "bg-[#10B981]" : "bg-[#9CA3AF]"
+                        post.published ? "bg-[#2f9e44]" : "bg-[#6b6b5e]"
                       }`}
                     >
                       {post.published ? "On" : "Off"}
@@ -113,7 +113,7 @@ export default function PostsClient({ initialPosts }: PostsClientProps) {
                       disabled={isPending}
                       onClick={() => runAction(() => toggleFeatured(post.id))}
                       className={`inline-flex h-8 min-w-16 items-center justify-center rounded-md px-3 font-['Pretendard',sans-serif] text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60 ${
-                        post.featured ? "bg-[#FF6C0F]" : "bg-[#9CA3AF]"
+                        post.featured ? "bg-[#FF6C0F]" : "bg-[#6b6b5e]"
                       }`}
                     >
                       {post.featured ? "On" : "Off"}
@@ -124,7 +124,7 @@ export default function PostsClient({ initialPosts }: PostsClientProps) {
                       type="button"
                       disabled={isPending}
                       onClick={() => handleDelete(post.id)}
-                      className="inline-flex h-8 items-center rounded-md bg-[#dc2626] px-3 font-['Pretendard',sans-serif] text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+                      className="text-sm font-semibold text-[#b42318] underline-offset-2 hover:underline disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       Delete
                     </button>

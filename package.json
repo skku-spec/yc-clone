@@ -6,22 +6,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@blocknote/code-block": "^0.47.0",
+    "@blocknote/core": "^0.47.0",
+    "@blocknote/mantine": "^0.47.0",
+    "@blocknote/react": "^0.47.0",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.95.3",
-    "@tiptap/extension-code-block-lowlight": "^3.19.0",
-    "@tiptap/extension-image": "^3.19.0",
-    "@tiptap/extension-link": "^3.19.0",
-    "@tiptap/extension-placeholder": "^3.19.0",
-    "@tiptap/extension-underline": "^3.19.0",
+    "@tiptap/extension-bubble-menu": "^3.20.0",
+    "@tiptap/extension-table": "^3.20.0",
+    "@tiptap/extension-table-cell": "^3.20.0",
+    "@tiptap/extension-table-header": "^3.20.0",
+    "@tiptap/extension-table-row": "^3.20.0",
     "@tiptap/pm": "^3.19.0",
-    "@tiptap/react": "^3.19.0",
-    "@tiptap/starter-kit": "^3.19.0",
-    "lowlight": "^3.3.0",
+    "isomorphic-dompurify": "^3.0.0",
     "next": "16.1.6",
-    "playwright": "^1.58.2",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
@@ -33,6 +36,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@playwright/test": "^1.50.0"
   }
 }

@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import DOMPurify from "isomorphic-dompurify";
+
+import "./blog-post-content.css";
 
 import CommentSection from "@/components/blog/CommentSection";
 import ReactionBar from "@/components/blog/ReactionBar";
@@ -100,10 +103,16 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  const [comments, reactions] = await Promise.all([
-    getCommentsByPost(post.id),
-    getReactionsByPost(post.id),
-  ]);
+  let comments: Awaited<ReturnType<typeof getCommentsByPost>> = [];
+  let reactions: Awaited<ReturnType<typeof getReactionsByPost>> = [];
+  try {
+    [comments, reactions] = await Promise.all([
+      getCommentsByPost(post.id),
+      getReactionsByPost(post.id),
+    ]);
+  } catch {
+    // Comments/reactions failure should not crash the page
+  }
 
   const tagLabelBySlug = new Map(tags.map((tag) => [tag.slug, tag.label]));
 
@@ -141,7 +150,7 @@ export default async function BlogPostPage({
               </div>
             </div>
 
-            <PostAuthorActions slug={post.slug} authorId={post.authorId} />
+            <PostAuthorActions slug={post.slug} authorId={post.authorId} postId={post.id} published={post.published} />
           </header>
 
           {post.imageUrl && (
@@ -156,7 +165,7 @@ export default async function BlogPostPage({
 
           <div
             className="prose-content mb-10"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
           />
 
           <div className="mb-10 border-t border-[#ddd9cc] pt-6">
@@ -216,44 +225,6 @@ export default async function BlogPostPage({
         </div>
       )}
 
-      <style dangerouslySetInnerHTML={{ __html: `
-        .prose-content {
-          font-family: "MaruBuri", serif;
-          font-size: 17px;
-          line-height: 1.8;
-          color: #16140f;
-        }
-        .prose-content h1,
-        .prose-content h2,
-        .prose-content h3,
-        .prose-content h4,
-        .prose-content h5,
-        .prose-content h6 {
-          font-family: system-ui, -apple-system, sans-serif;
-          font-weight: 700;
-          line-height: 1.35;
-          margin: 1em 0 0.45em;
-        }
-        .prose-content p { margin: 0.75em 0; }
-        .prose-content blockquote {
-          border-left: 3px solid #ff6c0f;
-          padding-left: 1em;
-          margin: 1em 0;
-          font-style: italic;
-          color: #6b6b5e;
-        }
-        .prose-content a { color: #ff6c0f; text-decoration: underline; }
-        .prose-content img { max-width: 100%; border-radius: 8px; }
-        .prose-content pre {
-          background: #1a1a1a;
-          color: #fff;
-          padding: 14px 16px;
-          border-radius: 8px;
-          overflow-x: auto;
-        }
-        .prose-content pre code { color: #fff; }
-        .prose-content code { font-family: "SF Mono", Menlo, monospace; }
-      ` }} />
     </section>
   );
 }

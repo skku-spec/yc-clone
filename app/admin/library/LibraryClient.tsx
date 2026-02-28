@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 import { createLibraryItem, deleteLibraryItem } from "@/lib/actions/library";
 import type { Database } from "@/lib/supabase/types";
@@ -70,7 +71,7 @@ export default function LibraryClient({ initialItems }: LibraryClientProps) {
   };
 
   return (
-    <section className="min-h-screen bg-[#f5f5ee] px-6 py-10 text-[#16140f] [font-family:Pretendard,system-ui,sans-serif]">
+    <section>
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <h1 className="font-[system-ui] text-[clamp(2rem,4vw,2.75rem)] font-black">Library</h1>
@@ -119,18 +120,12 @@ export default function LibraryClient({ initialItems }: LibraryClientProps) {
               </label>
               <label className="text-sm font-medium text-[#4a4a40]">
                 Type
-                <select
+                <CustomSelect
                   name="type"
-                  required
                   defaultValue={TYPE_OPTIONS[0]}
-                  className="mt-1 h-10 w-full rounded-md border border-[#ddd9cc] bg-white px-3 text-sm outline-none focus:border-[#FF6C0F]"
-                >
-                  {TYPE_OPTIONS.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
+                  options={TYPE_OPTIONS}
+                  className="mt-1"
+                />
               </label>
               <label className="text-sm font-medium text-[#4a4a40]">
                 Date

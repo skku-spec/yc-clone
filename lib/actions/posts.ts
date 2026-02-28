@@ -3,7 +3,8 @@
 import { revalidatePath } from "next/cache";
 
 import { createClient } from "@/lib/supabase/server";
-import type { Database, PostType, ProfileRole } from "@/lib/supabase/types";
+import type { Database, PostType } from "@/lib/supabase/types";
+import type { UserRole } from "@/lib/auth";
 
 type ActionResult = {
   success: boolean;
@@ -14,7 +15,7 @@ type ActionResult = {
 type PostRow = Database["public"]["Tables"]["posts"]["Row"];
 type TagRow = Database["public"]["Tables"]["tags"]["Row"];
 
-const WRITER_ROLES: ProfileRole[] = ["pre_runner", "runner", "alumni", "mentor", "admin"];
+const WRITER_ROLES: UserRole[] = ["member", "admin"];
 
 function isValidPostType(value: string): value is PostType {
   return value === "blog" || value === "news";
@@ -87,14 +88,14 @@ function revalidateBlogPaths(slug?: string) {
   }
 }
 
-async function getCurrentUserRole(supabase: Awaited<ReturnType<typeof createClient>>, userId: string): Promise<ProfileRole> {
+async function getCurrentUserRole(supabase: Awaited<ReturnType<typeof createClient>>, userId: string): Promise<UserRole> {
   const { data: profile, error } = await supabase.from("profiles").select("role").eq("id", userId).maybeSingle();
 
   if (error) {
     throw new Error(`Failed to verify user role: ${error.message}`);
   }
 
-  return profile?.role ?? "outsider";
+  return (profile?.role as UserRole | null) ?? "outsider";
 }
 
 async function getPostForPermissionCheck(

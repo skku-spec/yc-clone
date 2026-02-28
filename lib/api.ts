@@ -21,46 +21,112 @@
  */
 
 // ─── Re-export Types ────────────────────────────────────────────────
-export type { Company } from "./companies-data";
-export type { Person, PeopleSection } from "./people-data";
 export type { RoleCategory, LocationOption } from "../app/jobs/jobsData";
 export type {
   LibraryItem,
   ContentType,
   Category,
 } from "../app/library/library-data";
-export type { Founder as FounderDirectory } from "./founders-data";
-export type { Launch } from "./launches-data";
-export type {
-  CompanyDetail,
-  Founder as CompanyFounder,
-  Job as CompanyJob,
-  NewsItem,
-} from "./company-details-data";
+export type Launch = Database["public"]["Tables"]["launches"]["Row"];
 
-// ─── Internal Imports (mock data sources) ───────────────────────────
-import {
-  COMPANIES,
-  BATCH_OPTIONS,
-  INDUSTRY_OPTIONS,
-  REGION_OPTIONS,
-  getTopCompanies as _getTopCompanies,
-  getFeaturedCompanies as _getFeaturedCompanies,
-  getBreakthroughCompanies as _getBreakthroughCompanies,
-} from "./companies-data";
-import type { Company } from "./companies-data";
+export interface Company {
+  name: string;
+  slug: string;
+  oneLiner: string;
+  batch: string;
+  industry: string[];
+  region: string;
+  teamSize: number;
+  isHiring: boolean;
+  isTopCompany: boolean;
+  logoUrl: string | null;
+}
 
-import {
-  partners as _partners,
-  founders as _founders,
-  staffSections as _staffSections,
-  getPersonBySlug as _getPersonBySlug,
-  getAllPartnerSlugs as _getAllPartnerSlugs,
-} from "./people-data";
-import type { Person } from "./people-data";
+export interface Person {
+  name: string;
+  slug: string;
+  title: string;
+  bio: string;
+  photo: string;
+  isLead?: boolean;
+  isPartner?: boolean;
+  isMentor?: boolean;
+  twitter?: string;
+  linkedin?: string;
+  website?: string;
+  company?: string;
+  batch?: string;
+}
+
+export interface PeopleSection {
+  title: string;
+  people: Person[];
+}
+
+export interface TeamDescription {
+  name: string;
+  description: string;
+}
+
+export interface FounderDirectory {
+  id: string;
+  name: string;
+  slug: string;
+  major: string | null;
+  runnerBatch: string | null;
+  preneurBatch: string | null;
+  batchTags: string[];
+  memberType: "러너" | "프러너" | "alumni";
+  projects: string[];
+  photoUrl: string | null;
+  bio: string | null;
+}
+
+export interface CompanyFounder {
+  name: string;
+  title: string;
+  linkedIn: string;
+  twitter?: string;
+}
+
+export interface CompanyJob {
+  title: string;
+  location: string;
+  experience: string;
+}
+
+export interface NewsItem {
+  title: string;
+  url: string;
+  date: string;
+}
+
+export interface CompanyDetail {
+  name: string;
+  slug: string;
+  oneLiner: string;
+  batch: string;
+  batchSeason: string;
+  status: Database["public"]["Tables"]["projects"]["Row"]["status"];
+  industries: string[];
+  location: string;
+  founded: number;
+  teamSize: string;
+  website: string;
+  linkedIn?: string;
+  twitter?: string;
+  github?: string;
+  description: string;
+  founders: CompanyFounder[];
+  jobs: CompanyJob[];
+  news: NewsItem[];
+  logoUrl: string | null;
+  isHiring: boolean;
+  isTopCompany: boolean;
+}
 
 import { createClient } from "@/lib/supabase/server";
-import type { Database } from "@/lib/supabase/types";
+import type { Database, MemberType } from "@/lib/supabase/types";
 
 import {
   roleCategories,
@@ -69,32 +135,63 @@ import {
   getLocationLabel as _getLocationLabel,
 } from "../app/jobs/jobsData";
 type Job = Database["public"]["Tables"]["jobs"]["Row"];
+export type MemberRow = Database["public"]["Tables"]["members"]["Row"];
+export type ProjectRow = Database["public"]["Tables"]["projects"]["Row"];
 
 import {
   categories as _categories,
 } from "../app/library/library-data";
 import type { LibraryItem, Category, ContentType } from "../app/library/library-data";
 
-import {
-  FOUNDERS as _FOUNDERS,
-  BATCH_OPTIONS as _FOUNDER_BATCH_OPTIONS,
-  INDUSTRY_OPTIONS as _FOUNDER_INDUSTRY_OPTIONS,
-  LOCATION_OPTIONS as _FOUNDER_LOCATION_OPTIONS,
-} from "./founders-data";
-import type { Founder as FounderDirectory } from "./founders-data";
+function handleQueryResult<T>(
+  result: { data: T | null; error: { message: string; code?: string } | null },
+  context: string,
+  fallback: T
+): T {
+  if (result.error) {
+    if (process.env.NODE_ENV === "development") {
+      console.error(`[API] ${context}:`, result.error.message);
+    }
+    return fallback;
+  }
+  return result.data ?? fallback;
+}
 
-import {
-  CATEGORIES as _LAUNCH_CATEGORIES,
-} from "./launches-data";
-import type { Launch } from "./launches-data";
+const TEAM_DESCRIPTIONS: TeamDescription[] = [
+  {
+    name: "Contents",
+    description:
+      "창업가 인터뷰 영상 기획·제작, 알럼나이 성공 사례 콘텐츠화, 릴스·숏폼 제작, 유튜브·인스타그램 운영",
+  },
+  {
+    name: "Partnerships",
+    description:
+      "VC 네트워킹, IR 지원, 창업 멘토 섭외, 데모데이 심사위원·연사 섭외, 기관 협업",
+  },
+  {
+    name: "Engineering",
+    description:
+      "내부 소프트웨어 개발, 멘토링 신청·과제 관리·KPI 트래킹 시스템 구축, 운영 업무 자동화",
+  },
+  {
+    name: "Design",
+    description:
+      "포스터·카드뉴스 디자인, 브랜드 아이덴티티 관리, 홍보물 제작, SNS 콘텐츠 디자인",
+  },
+  {
+    name: "Community",
+    description: "멤버 간 네트워킹, 알럼나이·동문 모임 운영, 커뮤니티 활성화",
+  },
+];
 
-import {
-  COMPANY_DATA,
-  getCompanyDetailBySlug as _getCompanyDetailBySlug,
-  getAllCompanyDetailSlugs as _getAllCompanyDetailSlugs,
-  getRelatedCompanies as _getRelatedCompanies,
-} from "./company-details-data";
-import type { CompanyDetail } from "./company-details-data";
+const DEFAULT_PERSON_PHOTO =
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face";
+
+const FOUNDER_MEMBER_TYPE_OPTIONS: FounderDirectory["memberType"][] = [
+  "러너",
+  "프러너",
+  "alumni",
+];
 
 export interface BlogPost {
   slug: string;
@@ -141,7 +238,7 @@ async function getTagsByPostIds(
   const supabase = await createClient();
   const { data: postTags, error: postTagsError } = await supabase
     .from("post_tags")
-    .select("post_id, tag_id")
+    .select("post_id,tag_id")
     .in("post_id", postIds);
 
   if (postTagsError || !postTags || postTags.length === 0) {
@@ -151,7 +248,7 @@ async function getTagsByPostIds(
   const tagIds = [...new Set(postTags.map((postTag) => postTag.tag_id))];
   const { data: tags, error: tagsError } = await supabase
     .from("tags")
-    .select("id, slug")
+    .select("id,slug")
     .in("id", tagIds);
 
   if (tagsError || !tags) {
@@ -180,10 +277,15 @@ async function mapRowsToBlogPosts(rows: PostRow[]): Promise<BlogPost[]> {
   const supabase = await createClient();
   const authorIds = [...new Set(rows.map((row) => row.author_id))];
 
-  const [{ data: profiles }, tagsByPostId] = await Promise.all([
-    supabase.from("profiles").select("id, name, slug").in("id", authorIds),
+  const [profilesResult, tagsByPostId] = await Promise.all([
+    supabase.from("profiles").select("id,name,slug").in("id", authorIds),
     getTagsByPostIds(rows.map((row) => row.id)),
   ]);
+  const profiles = handleQueryResult(
+    profilesResult,
+    "Failed to fetch blog post author profiles",
+    []
+  );
 
   const profileById = new Map<string, Pick<ProfileRow, "name" | "slug">>(
     (profiles ?? []).map((profile) => [profile.id, profile])
@@ -219,78 +321,211 @@ export async function getCompanies(filters?: {
   query?: string;
   isHiring?: boolean;
 }): Promise<Company[]> {
-  let result = [...COMPANIES];
+  const projects = await getProjects({
+    batch: filters?.batch,
+    query: filters?.query,
+  });
+
+  let companies = projects.map((project) => ({
+    name: project.name,
+    slug: project.slug,
+    oneLiner: project.one_liner ?? "",
+    batch: project.batch ?? "미정",
+    industry: project.industries ?? [],
+    region: project.region ?? "미정",
+    teamSize: project.team_size ?? 0,
+    isHiring: project.is_hiring,
+    isTopCompany: project.is_top_company,
+    logoUrl: project.logo_url,
+  }));
+
   if (filters?.industry) {
-    result = result.filter((c) => c.industry.includes(filters.industry!));
-  }
-  if (filters?.batch) {
-    result = result.filter((c) => c.batch === filters.batch);
-  }
-  if (filters?.region) {
-    result = result.filter((c) => c.region === filters.region);
-  }
-  if (filters?.query) {
-    const q = filters.query.toLowerCase();
-    result = result.filter(
-      (c) =>
-        c.name.toLowerCase().includes(q) ||
-        c.oneLiner.toLowerCase().includes(q)
+    companies = companies.filter((company) =>
+      company.industry.includes(filters.industry as string),
     );
   }
-  if (filters?.isHiring) {
-    result = result.filter((c) => c.isHiring);
+
+  if (filters?.region) {
+    companies = companies.filter((company) => company.region === filters.region);
   }
-  return result;
+
+  if (filters?.isHiring) {
+    companies = companies.filter((company) => company.isHiring);
+  }
+
+  return companies;
 }
 
 export async function getCompanyBySlug(
   slug: string
 ): Promise<Company | undefined> {
-  return COMPANIES.find((c) => c.slug === slug);
+  const project = await getProjectBySlug(slug);
+  if (!project) {
+    return undefined;
+  }
+
+  return {
+    name: project.name,
+    slug: project.slug,
+    oneLiner: project.one_liner ?? "",
+    batch: project.batch ?? "미정",
+    industry: project.industries ?? [],
+    region: project.region ?? "미정",
+    teamSize: project.team_size ?? 0,
+    isHiring: project.is_hiring,
+    isTopCompany: project.is_top_company,
+    logoUrl: project.logo_url,
+  };
 }
 
 export async function getTopCompanies(): Promise<Company[]> {
-  return _getTopCompanies();
+  const companies = await getCompanies();
+  return companies.filter((company) => company.isTopCompany);
 }
 
 export async function getFeaturedCompanies(): Promise<Company[]> {
-  return _getFeaturedCompanies();
+  return getTopCompanies();
 }
 
 export async function getBreakthroughCompanies(): Promise<Company[]> {
-  return _getBreakthroughCompanies();
+  return getTopCompanies();
 }
 
 export async function getCompanyFilterOptions() {
+  const supabase = await createClient();
+  const projectRowsResult = await supabase
+    .from("projects")
+    .select("batch,industries,region");
+  const projectRows = handleQueryResult(
+    projectRowsResult,
+    "Failed to fetch company filter options",
+    []
+  );
+
+  const batches = Array.from(
+    new Set(
+      (projectRows ?? [])
+        .map((project) => project.batch)
+        .filter((batch): batch is string => Boolean(batch)),
+    ),
+  )
+    .sort((a, b) => Number.parseInt(a, 10) - Number.parseInt(b, 10))
+    .map((batch) => ({ value: batch, label: batch }));
+
+  const industries = Array.from(
+    new Set((projectRows ?? []).flatMap((project) => project.industries ?? [])),
+  ).sort((a, b) => a.localeCompare(b, "ko"));
+
+  const regions = Array.from(
+    new Set(
+      (projectRows ?? [])
+        .map((project) => project.region)
+        .filter((region): region is string => Boolean(region)),
+    ),
+  ).sort((a, b) => a.localeCompare(b, "ko"));
+
   return {
-    batches: BATCH_OPTIONS,
-    industries: INDUSTRY_OPTIONS,
-    regions: REGION_OPTIONS,
+    batches,
+    industries,
+    regions,
   };
 }
 
 // ─── People ─────────────────────────────────────────────────────────
 
-export async function getPartners(): Promise<Person[]> {
-  return _partners;
+function isManagingLeadMember(member: Pick<MemberRow, "name" | "batch_tags">): boolean {
+  if (member.name === "전도현" || member.name === "한지상") {
+    return true;
+  }
+
+  return (member.batch_tags ?? []).some(
+    (tag) => tag.includes("4기 회장") || tag.includes("4기 부회장"),
+  );
 }
 
-export async function getFounders(): Promise<Person[]> {
-  return _founders;
+function mapMemberToPerson(
+  member: Pick<
+    MemberRow,
+    "name" | "slug" | "role" | "bio" | "photo_url" | "batch_tags" | "linkedin_url"
+  >,
+): Person {
+  const isLead = isManagingLeadMember(member);
+  return {
+    name: member.name,
+    slug: member.slug,
+    title: member.role?.trim() || (isLead ? "Managing Lead" : "Preneur"),
+    bio: member.bio ?? "",
+    photo: member.photo_url ?? DEFAULT_PERSON_PHOTO,
+    isLead,
+    linkedin: member.linkedin_url ?? undefined,
+  };
 }
 
-export async function getStaffSections() {
-  return _staffSections;
+export async function getManagingLeads(): Promise<Person[]> {
+  const supabase = await createClient();
+  const membersResult = await supabase
+    .from("members")
+    .select("name,slug,role,bio,photo_url,batch_tags,linkedin_url")
+    .eq("preneur_batch", "4기")
+    .order("name", { ascending: true });
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch managing leads",
+    []
+  );
+
+  return (members ?? [])
+    .filter((member) => isManagingLeadMember(member))
+    .map((member) => mapMemberToPerson(member));
+}
+
+export async function getPreneurs(): Promise<Person[]> {
+  const supabase = await createClient();
+  const membersResult = await supabase
+    .from("members")
+    .select("name,slug,role,bio,photo_url,batch_tags,linkedin_url")
+    .eq("preneur_batch", "4기")
+    .order("name", { ascending: true });
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch preneurs",
+    []
+  );
+
+  return (members ?? [])
+    .filter((member) => !isManagingLeadMember(member))
+    .map((member) => mapMemberToPerson(member));
+}
+
+export async function getTeamDescriptions() {
+  return TEAM_DESCRIPTIONS;
 }
 
 export async function getPersonBySlug(
   slug: string
 ): Promise<Person | undefined> {
-  return _getPersonBySlug(slug);
+  const member = await getMemberBySlug(slug);
+  if (!member) {
+    return undefined;
+  }
+
+  return mapMemberToPerson(member);
 }
 
-export async function getAllPartnerSlugs(): Promise<string[]> {
-  return _getAllPartnerSlugs();
+export async function getAllPersonSlugs(): Promise<string[]> {
+  const supabase = await createClient();
+  const membersResult = await supabase
+    .from("members")
+    .select("slug")
+    .eq("preneur_batch", "4기")
+    .order("name", { ascending: true });
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch person slugs",
+    []
+  );
+
+  return (members ?? []).map((member) => member.slug);
 }
 
 // ─── Blog ───────────────────────────────────────────────────────────
@@ -303,20 +538,30 @@ export async function getBlogPosts(
 
   let postIdsByTag: string[] | null = null;
   if (tag) {
-    const { data: tagRow } = await supabase
+    const tagRowResult = await supabase
       .from("tags")
       .select("id")
       .eq("slug", tag)
       .maybeSingle();
+    const tagRow = handleQueryResult(
+      tagRowResult,
+      `Failed to fetch tag by slug: ${tag}`,
+      null
+    );
 
     if (!tagRow) {
       return [];
     }
 
-    const { data: postTags } = await supabase
+    const postTagsResult = await supabase
       .from("post_tags")
       .select("post_id")
       .eq("tag_id", tagRow.id);
+    const postTags = handleQueryResult(
+      postTagsResult,
+      `Failed to fetch post tags for tag id: ${tagRow.id}`,
+      []
+    );
 
     postIdsByTag = [...new Set((postTags ?? []).map((postTag) => postTag.post_id))];
     if (postIdsByTag.length === 0) {
@@ -338,7 +583,8 @@ export async function getBlogPosts(
     query = query.in("id", postIdsByTag);
   }
 
-  const { data: rows } = await query;
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch blog posts", []);
 
   return mapRowsToBlogPosts(rows ?? []);
 }
@@ -347,12 +593,17 @@ export async function getBlogPostBySlug(
   slug: string
 ): Promise<BlogPost | undefined> {
   const supabase = await createClient();
-  const { data: row } = await supabase
+  const rowResult = await supabase
     .from("posts")
     .select("*")
     .eq("slug", slug)
     .eq("published", true)
     .maybeSingle();
+  const row = handleQueryResult(
+    rowResult,
+    `Failed to fetch blog post by slug: ${slug}`,
+    null
+  );
 
   if (!row) {
     return undefined;
@@ -364,7 +615,8 @@ export async function getBlogPostBySlug(
 
 export async function getBlogTags(): Promise<TagInfo[]> {
   const supabase = await createClient();
-  const { data } = await supabase.from("tags").select("slug, label");
+  const result = await supabase.from("tags").select("slug,label");
+  const data = handleQueryResult(result, "Failed to fetch blog tags", []);
 
   return (data ?? []).map((tag: Pick<TagRow, "slug" | "label">) => ({
     slug: tag.slug,
@@ -374,11 +626,16 @@ export async function getBlogTags(): Promise<TagInfo[]> {
 
 export async function getTagLabel(slug: string): Promise<string> {
   const supabase = await createClient();
-  const { data } = await supabase
+  const dataResult = await supabase
     .from("tags")
     .select("label")
     .eq("slug", slug)
     .maybeSingle();
+  const data = handleQueryResult(
+    dataResult,
+    `Failed to fetch tag label for slug: ${slug}`,
+    null
+  );
 
   return data?.label ?? slug;
 }
@@ -390,30 +647,45 @@ export async function getRelatedPosts(
   const supabase = await createClient();
   const cappedLimit = limit ?? 3;
 
-  const { data: currentPost } = await supabase
+  const currentPostResult = await supabase
     .from("posts")
     .select("id")
     .eq("slug", currentSlug)
     .maybeSingle();
+  const currentPost = handleQueryResult(
+    currentPostResult,
+    `Failed to fetch current post for related posts: ${currentSlug}`,
+    null
+  );
 
   if (!currentPost) {
     return [];
   }
 
-  const { data: currentPostTags } = await supabase
+  const currentPostTagsResult = await supabase
     .from("post_tags")
     .select("tag_id")
     .eq("post_id", currentPost.id);
+  const currentPostTags = handleQueryResult(
+    currentPostTagsResult,
+    `Failed to fetch current post tags for related posts: ${currentPost.id}`,
+    []
+  );
 
   const tagIds = [...new Set((currentPostTags ?? []).map((postTag) => postTag.tag_id))];
   if (tagIds.length === 0) {
     return [];
   }
 
-  const { data: relatedPostTags } = await supabase
+  const relatedPostTagsResult = await supabase
     .from("post_tags")
     .select("post_id")
     .in("tag_id", tagIds);
+  const relatedPostTags = handleQueryResult(
+    relatedPostTagsResult,
+    `Failed to fetch related post tags for post: ${currentPost.id}`,
+    []
+  );
 
   const relatedPostIds = [...new Set((relatedPostTags ?? []).map((postTag) => postTag.post_id))]
     .filter((postId) => postId !== currentPost.id);
@@ -422,7 +694,7 @@ export async function getRelatedPosts(
     return [];
   }
 
-  const { data: rows } = await supabase
+  const rowsResult = await supabase
     .from("posts")
     .select("*")
     .eq("published", true)
@@ -430,6 +702,11 @@ export async function getRelatedPosts(
     .in("id", relatedPostIds)
     .order("created_at", { ascending: false })
     .limit(cappedLimit);
+  const rows = handleQueryResult(
+    rowsResult,
+    `Failed to fetch related posts for slug: ${currentSlug}`,
+    []
+  );
 
   return mapRowsToBlogPosts(rows ?? []);
 }
@@ -460,7 +737,8 @@ export async function getJobs(filters?: {
     }
   }
 
-  const { data: rows } = await query;
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch jobs", []);
 
   return rows ?? [];
 }
@@ -506,7 +784,8 @@ export async function getLibraryItems(filters?: {
     }
   }
 
-  const { data: rows } = await query;
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch library items", []);
 
   return (rows ?? []).map((row) => ({
     slug: row.slug,
@@ -530,7 +809,16 @@ export async function getLibraryItemBySlug(
   slug: string
 ): Promise<LibraryItem | undefined> {
   const supabase = await createClient();
-  const { data: row } = await supabase.from("library_items").select("*").eq("slug", slug).maybeSingle();
+  const rowResult = await supabase
+    .from("library_items")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+  const row = handleQueryResult(
+    rowResult,
+    `Failed to fetch library item by slug: ${slug}`,
+    null
+  );
 
   if (!row) {
     return undefined;
@@ -558,72 +846,183 @@ export async function getLibraryCategories(): Promise<Category[]> {
   return _categories;
 }
 
-// ─── Founder Directory ──────────────────────────────────────────────
+// ─── Member Directory ───────────────────────────────────────────────
 
 export async function getFounderDirectory(filters?: {
   batch?: string;
-  industry?: string;
-  location?: string;
+  memberType?: string;
+  project?: string;
   query?: string;
 }): Promise<FounderDirectory[]> {
-  let result = [..._FOUNDERS];
+  const supabase = await createClient();
+
+  const [membersResult, relationsResult, projectsResult] = await Promise.all([
+    supabase
+      .from("members")
+      .select(
+        "id, name, slug, major, runner_batch, preneur_batch, batch_tags, member_type, photo_url, bio",
+      ),
+    supabase.from("member_projects").select("member_id,project_id"),
+    supabase.from("projects").select("id,slug"),
+  ]);
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch founder directory members",
+    []
+  );
+  const relations = handleQueryResult(
+    relationsResult,
+    "Failed to fetch founder directory member-project relations",
+    []
+  );
+  const projects = handleQueryResult(
+    projectsResult,
+    "Failed to fetch founder directory projects",
+    []
+  );
+
+  const projectSlugById = new Map<string, string>(
+    (projects ?? []).map((project) => [project.id, project.slug]),
+  );
+
+  const projectsByMemberId = new Map<string, string[]>();
+  for (const relation of relations ?? []) {
+    const projectSlug = projectSlugById.get(relation.project_id);
+    if (!projectSlug) {
+      continue;
+    }
+
+    const currentProjects = projectsByMemberId.get(relation.member_id) ?? [];
+    currentProjects.push(projectSlug);
+    projectsByMemberId.set(relation.member_id, currentProjects);
+  }
+
+  let directory: FounderDirectory[] = (members ?? []).map((member) => {
+    const memberType = member.member_type as string;
+    return {
+      id: member.id,
+      name: member.name,
+      slug: member.slug,
+      major: member.major,
+      runnerBatch: member.runner_batch,
+      preneurBatch: member.preneur_batch,
+      batchTags: member.batch_tags ?? [],
+      memberType:
+        memberType === "프러너" || memberType === "alumni"
+          ? (memberType as FounderDirectory["memberType"])
+          : "러너",
+      projects: projectsByMemberId.get(member.id) ?? [],
+      photoUrl: member.photo_url,
+      bio: member.bio,
+    };
+  });
+
   if (filters?.batch) {
-    result = result.filter((f) => f.batch === filters.batch);
-  }
-  if (filters?.industry) {
-    result = result.filter((f) => f.industry === filters.industry);
-  }
-  if (filters?.location) {
-    result = result.filter((f) => f.location === filters.location);
-  }
-  if (filters?.query) {
-    const q = filters.query.toLowerCase();
-    result = result.filter(
-      (f) =>
-        f.name.toLowerCase().includes(q) ||
-        f.company.toLowerCase().includes(q)
+    directory = directory.filter((member) =>
+      member.batchTags.some((tag) => tag.startsWith(filters.batch as string)),
     );
   }
-  return result;
+
+  if (filters?.memberType) {
+    directory = directory.filter(
+      (member) => member.memberType === filters.memberType,
+    );
+  }
+
+  if (filters?.project) {
+    directory = directory.filter((member) =>
+      member.projects.includes(filters.project as string),
+    );
+  }
+
+  if (filters?.query) {
+    const query = filters.query.toLowerCase();
+    directory = directory.filter(
+      (member) =>
+        member.name.toLowerCase().includes(query) ||
+        (member.major?.toLowerCase().includes(query) ?? false),
+    );
+  }
+
+  return directory;
 }
 
 export async function getFounderDirectoryFilterOptions() {
+  const supabase = await createClient();
+  const [membersResult, projectsResult] = await Promise.all([
+    supabase.from("members").select("runner_batch,member_type"),
+    supabase.from("projects").select("slug,name"),
+  ]);
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch founder directory filter members",
+    []
+  );
+  const projects = handleQueryResult(
+    projectsResult,
+    "Failed to fetch founder directory filter projects",
+    []
+  );
+
+  const batches = Array.from(
+    new Set(
+      (members ?? [])
+        .map((member) => member.runner_batch)
+        .filter((batch): batch is string => Boolean(batch)),
+    ),
+  ).sort((a, b) => Number.parseInt(a, 10) - Number.parseInt(b, 10));
+
+  const memberTypes = FOUNDER_MEMBER_TYPE_OPTIONS.filter((memberType) =>
+    (members ?? []).some((member) => {
+      if (memberType === "러너") {
+        return member.member_type === "러너";
+      }
+      return member.member_type === memberType;
+    }),
+  );
+
+  const projectOptions = (projects ?? []).map((project) => ({
+    value: project.slug,
+    label: project.name,
+  }));
+
   return {
-    batches: _FOUNDER_BATCH_OPTIONS,
-    industries: _FOUNDER_INDUSTRY_OPTIONS,
-    locations: _FOUNDER_LOCATION_OPTIONS,
+    batches,
+    memberTypes,
+    projects: projectOptions,
   };
 }
 
 // ─── Launches ───────────────────────────────────────────────────────
 
+const LAUNCH_CATEGORIES = [
+  { emoji: "all", label: "전체" },
+  { emoji: "📚", label: "에듀테크" },
+  { emoji: "🍽️", label: "푸드테크" },
+  { emoji: "🏥", label: "헬스케어" },
+  { emoji: "💰", label: "핀테크" },
+  { emoji: "🛒", label: "커머스" },
+  { emoji: "💬", label: "소셜" },
+  { emoji: "🖥️", label: "SaaS" },
+  { emoji: "🚚", label: "물류" },
+  { emoji: "🤖", label: "AI/ML" },
+  { emoji: "📦", label: "기타" },
+] as const;
+
 export async function getLaunches(): Promise<Launch[]> {
   const supabase = await createClient();
-  const { data: rows } = await supabase.from("launches").select("*").order("votes", { ascending: false });
+  const rowsResult = await supabase
+    .from("launches")
+    .select("*")
+    .eq("active", true)
+    .order("created_at", { ascending: false });
+  const rows = handleQueryResult(rowsResult, "Failed to fetch launches", []);
 
-  return (rows ?? []).map((row, index) => {
-    const createdAtTime = new Date(row.created_at).getTime();
-    const daysAgo = Number.isNaN(createdAtTime)
-      ? 0
-      : Math.floor((Date.now() - createdAtTime) / 86400000);
-
-    return {
-      id: index + 1,
-      company: row.company,
-      slug: row.slug,
-      tagline: row.tagline,
-      description: row.description,
-      category: row.category,
-      batch: row.batch,
-      votes: row.votes,
-      datePosted: row.created_at,
-      daysAgo,
-    };
-  });
+  return rows ?? [];
 }
 
 export async function getLaunchCategories() {
-  return _LAUNCH_CATEGORIES;
+  return LAUNCH_CATEGORIES;
 }
 
 // ─── Company Details ────────────────────────────────────────────────
@@ -631,15 +1030,279 @@ export async function getLaunchCategories() {
 export async function getCompanyDetail(
   slug: string
 ): Promise<CompanyDetail | undefined> {
-  return _getCompanyDetailBySlug(slug);
+  const supabase = await createClient();
+  const projectResult = await supabase
+    .from("projects")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+  const project = handleQueryResult(
+    projectResult,
+    `Failed to fetch company detail project by slug: ${slug}`,
+    null
+  );
+
+  if (!project) {
+    return undefined;
+  }
+
+  const [relationRowsResult, newsRowsResult] = await Promise.all([
+    supabase
+      .from("member_projects")
+      .select("member_id,role")
+      .eq("project_id", project.id),
+    supabase
+      .from("project_news")
+      .select("title,url,date")
+      .eq("project_id", project.id)
+      .order("created_at", { ascending: false }),
+  ]);
+  const relationRows = handleQueryResult(
+    relationRowsResult,
+    `Failed to fetch company members for project: ${project.id}`,
+    []
+  );
+  const newsRows = handleQueryResult(
+    newsRowsResult,
+    `Failed to fetch company news for project: ${project.id}`,
+    []
+  );
+
+  const memberIds = (relationRows ?? []).map((relation) => relation.member_id);
+  let members: Array<Pick<MemberRow, "id" | "name" | "linkedin_url">> = [];
+
+  if (memberIds.length > 0) {
+    const memberRowsResult = await supabase
+      .from("members")
+      .select("id,name,linkedin_url")
+      .in("id", memberIds);
+    members = handleQueryResult(
+      memberRowsResult,
+      `Failed to fetch company member details for project: ${project.id}`,
+      []
+    );
+  }
+
+  const memberById = new Map<string, Pick<MemberRow, "name" | "linkedin_url">>(
+    members.map((member) => [member.id, member]),
+  );
+
+  const founders: CompanyFounder[] = (relationRows ?? [])
+    .map((relation) => {
+      const member = memberById.get(relation.member_id);
+      if (!member) {
+        return null;
+      }
+
+      return {
+        name: member.name,
+        title: relation.role ?? "팀원",
+        linkedIn: member.linkedin_url ?? "#",
+      };
+    })
+    .filter((founder): founder is CompanyFounder => founder !== null);
+
+  const news: NewsItem[] = (newsRows ?? []).map((newsItem) => ({
+    title: newsItem.title,
+    url: newsItem.url ?? "#",
+    date: newsItem.date ?? "",
+  }));
+
+  return {
+    name: project.name,
+    slug: project.slug,
+    oneLiner: project.one_liner ?? "",
+    batch: project.batch ?? "",
+    batchSeason: project.batch ?? "",
+    status: project.status,
+    industries: project.industries ?? [],
+    location: project.region ?? "",
+    founded: project.founded_year ?? 0,
+    teamSize: project.team_size ? `${project.team_size}명` : "-",
+    website: project.website ?? "#",
+    linkedIn: project.linkedin_url ?? undefined,
+    twitter: project.twitter_url ?? undefined,
+    github: project.github_url ?? undefined,
+    description: project.description ?? "",
+    founders,
+    jobs: [],
+    news,
+    logoUrl: project.logo_url,
+    isHiring: project.is_hiring,
+    isTopCompany: project.is_top_company,
+  };
 }
 
 export async function getAllCompanyDetailSlugs(): Promise<{ slug: string }[]> {
-  return _getAllCompanyDetailSlugs();
+  const supabase = await createClient();
+  const projectsResult = await supabase.from("projects").select("slug");
+  const projects = handleQueryResult(
+    projectsResult,
+    "Failed to fetch company detail slugs",
+    []
+  );
+  return (projects ?? []).map((project) => ({ slug: project.slug }));
 }
 
 export async function getRelatedCompanies(
   currentSlug: string
 ): Promise<CompanyDetail[]> {
-  return _getRelatedCompanies(currentSlug);
+  const supabase = await createClient();
+  const projectsResult = await supabase
+    .from("projects")
+    .select("*")
+    .neq("slug", currentSlug)
+    .order("created_at", { ascending: false })
+    .limit(4);
+  const projects = handleQueryResult(
+    projectsResult,
+    `Failed to fetch related companies for slug: ${currentSlug}`,
+    []
+  );
+
+  return (projects ?? []).map((project) => ({
+    name: project.name,
+    slug: project.slug,
+    oneLiner: project.one_liner ?? "",
+    batch: project.batch ?? "",
+    batchSeason: project.batch ?? "",
+    status: project.status,
+    industries: project.industries ?? [],
+    location: project.region ?? "",
+    founded: project.founded_year ?? 0,
+    teamSize: project.team_size ? `${project.team_size}명` : "-",
+    website: project.website ?? "#",
+    linkedIn: project.linkedin_url ?? undefined,
+    twitter: project.twitter_url ?? undefined,
+    github: project.github_url ?? undefined,
+    description: project.description ?? "",
+    founders: [],
+    jobs: [],
+    news: [],
+    logoUrl: project.logo_url,
+    isHiring: project.is_hiring,
+    isTopCompany: project.is_top_company,
+  }));
+}
+
+// ─── Members ────────────────────────────────────────────────────────
+
+export async function getMembers(filters?: {
+  batch?: string;
+  memberType?: MemberType;
+  query?: string;
+}): Promise<MemberRow[]> {
+  const supabase = await createClient();
+
+  let query = supabase.from("members").select("*");
+
+  if (filters?.batch) {
+    query = query.or(`runner_batch.eq.${filters.batch},preneur_batch.eq.${filters.batch}`);
+  }
+
+  if (filters?.memberType) {
+    query = query.eq("member_type", filters.memberType);
+  }
+
+  if (filters?.query) {
+    const q = filters.query.trim();
+    if (q) {
+      query = query.or(`name.ilike.%${q}%,email.ilike.%${q}%`);
+    }
+  }
+
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch members", []);
+
+  return rows ?? [];
+}
+
+export async function getMemberBySlug(slug: string): Promise<MemberRow | undefined> {
+  const supabase = await createClient();
+  const rowResult = await supabase
+    .from("members")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+  const row = handleQueryResult(
+    rowResult,
+    `Failed to fetch member by slug: ${slug}`,
+    null
+  );
+
+  return row ?? undefined;
+}
+
+// ─── Projects ───────────────────────────────────────────────────────
+
+export async function getProjects(filters?: {
+  batch?: string;
+  query?: string;
+}): Promise<ProjectRow[]> {
+  const supabase = await createClient();
+
+  let query = supabase.from("projects").select("*");
+
+  if (filters?.batch) {
+    query = query.eq("batch", filters.batch);
+  }
+
+  if (filters?.query) {
+    const q = filters.query.trim();
+    if (q) {
+      query = query.or(`name.ilike.%${q}%,one_liner.ilike.%${q}%`);
+    }
+  }
+
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch projects", []);
+
+  return rows ?? [];
+}
+
+export async function getProjectBySlug(slug: string): Promise<ProjectRow | undefined> {
+  const supabase = await createClient();
+  const rowResult = await supabase
+    .from("projects")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+  const row = handleQueryResult(
+    rowResult,
+    `Failed to fetch project by slug: ${slug}`,
+    null
+  );
+
+  return row ?? undefined;
+}
+
+export async function getMembersByProject(projectId: string): Promise<MemberRow[]> {
+  const supabase = await createClient();
+
+  const memberProjectsResult = await supabase
+    .from("member_projects")
+    .select("member_id")
+    .eq("project_id", projectId);
+  const memberProjects = handleQueryResult(
+    memberProjectsResult,
+    `Failed to fetch member-project relations for project: ${projectId}`,
+    []
+  );
+
+  if (!memberProjects || memberProjects.length === 0) {
+    return [];
+  }
+
+  const memberIds = memberProjects.map((mp) => mp.member_id);
+  const membersResult = await supabase
+    .from("members")
+    .select("*")
+    .in("id", memberIds);
+  const members = handleQueryResult(
+    membersResult,
+    `Failed to fetch members by project id: ${projectId}`,
+    []
+  );
+
+  return members ?? [];
 }

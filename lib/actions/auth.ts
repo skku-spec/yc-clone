@@ -39,14 +39,20 @@ export async function signUp(formData: FormData): Promise<AuthActionResult> {
   const email = readField(formData, "email").toLowerCase();
   const username = readField(formData, "username");
   const password = readField(formData, "password");
-  const linkedin_url = readField(formData, "linkedin_url");
+  let linkedin_url = readField(formData, "linkedin_url");
 
-  if (!first_name || !last_name || !email || !username || !password || !linkedin_url) {
+  if (!first_name || !last_name || !email || !username || !password) {
     return { error: "Please complete all required fields." };
   }
 
   if (password.length < 6) {
     return { error: "Password must be at least 6 characters." };
+  }
+
+  if (linkedin_url) {
+    if (!linkedin_url.startsWith("http://") && !linkedin_url.startsWith("https://")) {
+      linkedin_url = "https://" + linkedin_url;
+    }
   }
 
   const supabase = await createClient();
@@ -67,7 +73,7 @@ export async function signUp(formData: FormData): Promise<AuthActionResult> {
     return { error: error.message };
   }
 
-  redirect("/login?registered=true");
+  return { success: true };
 }
 
 export async function forgotPassword(formData: FormData): Promise<AuthActionResult> {

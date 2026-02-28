@@ -7,12 +7,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
 
+import ApplyButton from "@/components/ui/ApplyButton";
 const ROLE_LABEL: Record<string, string> = {
-  outsider: "외부",
-  pre_runner: "예비 Learner",
-  runner: "Learner",
-  alumni: "알럼나이",
-  mentor: "멘토",
+  outsider: "외부인",
+  member: "부원",
   admin: "관리자",
 };
 
@@ -53,6 +51,13 @@ export default function Navbar() {
   const initials = getInitials(displayName);
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
+
+  const handleComingSoon = () => {
+    setShowComingSoon(true);
+    setMenuOpen(false);
+    setTimeout(() => setShowComingSoon(false), 2000);
+  };
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -162,16 +167,16 @@ export default function Navbar() {
                   <Link href="/founders" className={`dropdown-item block px-4 py-2 ${dropdownText} rounded text-sm font-['Pretendard',sans-serif]`}>
                     팀원 디렉토리
                   </Link>
-                  <Link href="/launches" className={`dropdown-item block px-4 py-2 ${dropdownText} rounded text-sm font-['Pretendard',sans-serif]`}>
+                  <button onClick={handleComingSoon} className={`dropdown-item block w-full text-left px-4 py-2 ${dropdownText} rounded text-sm font-['Pretendard',sans-serif]`}>
                     런칭 소식
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
 
-            <Link href="/library" className={`nav-link ${textColor} ${hoverColor} font-['Pretendard',sans-serif] text-sm`}>
+{/* <Link href="/library" className={`nav-link ${textColor} ${hoverColor} font-['Pretendard',sans-serif] text-sm`}>
               라이브러리
-            </Link>
+            </Link> */}
           </div>
 
           <Link href="/" className="mx-8 shrink-0">
@@ -183,7 +188,7 @@ export default function Navbar() {
               파트너
             </Link>
 
-            <div className="nav-item relative">
+{/* <div className="nav-item relative">
               <button className={`nav-link ${textColor} ${hoverColor} flex items-center gap-1 font-['Pretendard',sans-serif] text-sm`}>
                 리소스
                 <svg
@@ -212,7 +217,7 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <Link href="/blog" className={`nav-link ${textColor} ${hoverColor} font-['Pretendard',sans-serif] text-sm`}>
               블로그
@@ -220,12 +225,10 @@ export default function Navbar() {
           </div>
 
           <div className="absolute right-8 flex items-center gap-3">
-            <Link
-              href={isAuthenticated ? "/apply" : "/login?redirect=/apply"}
-              className="inline-flex items-center rounded-full bg-[#FF6C0F] px-5 py-2 font-['MaruBuri',serif] text-sm italic text-white transition-opacity hover:opacity-85"
-            >
+           <ApplyButton href="/apply" size="sm">
               Apply
-            </Link>
+            </ApplyButton>
+
 
             {isAuthenticated ? (
               <div className="nav-item">
@@ -233,9 +236,13 @@ export default function Navbar() {
                   className={`nav-link ${textColor} ${hoverColor} inline-flex items-center gap-2 font-['Pretendard',sans-serif] text-sm`}
                   aria-label="계정 메뉴"
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6C0F] text-xs font-semibold text-white">
-                    {initials}
-                  </span>
+                  {profile?.photo ? (
+                    <img src={profile.photo} alt={displayName} className="h-8 w-8 rounded-full object-cover" />
+                  ) : (
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6C0F] text-xs font-semibold text-white">
+                      {initials}
+                    </span>
+                  )}
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="mt-0.5">
                     <path
                       d="M6 9L12 15L18 9"
@@ -257,11 +264,19 @@ export default function Navbar() {
                     <Link href="/profile" className="dropdown-item block px-4 py-2 text-[#16140f] hover:bg-gray-100 rounded text-sm font-['Pretendard',sans-serif]">
                       내 프로필
                     </Link>
+                    {role !== "outsider" && (
+                      <Link href="/dashboard/applications" className="dropdown-item block px-4 py-2 text-[#16140f] hover:bg-gray-100 rounded text-sm font-['Pretendard',sans-serif]">
+                        지원서 대시보드
+                      </Link>
+                    )}
                     {role === "admin" && (
                       <Link href="/admin" className="dropdown-item block px-4 py-2 text-[#16140f] hover:bg-gray-100 rounded text-sm font-['Pretendard',sans-serif]">
                         관리자
                       </Link>
                     )}
+
+
+
                     <button
                       type="button"
                       onClick={handleSignOut}
@@ -369,21 +384,21 @@ export default function Navbar() {
                 <Link href="/founders" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   팀원 디렉토리
                 </Link>
-                <Link href="/launches" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
+                <button onClick={handleComingSoon} className={`block w-full text-left rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   런칭 소식
-                </Link>
+                </button>
               </div>
 
               <div className="mb-6 flex flex-col gap-1">
-                <Link href="/library" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
+{/* <Link href="/library" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   라이브러리
-                </Link>
+                </Link> */}
                 <Link href="/partners" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   파트너
                 </Link>
               </div>
 
-              <p className={`mb-3 text-xs font-semibold uppercase tracking-widest font-['Pretendard',sans-serif] ${isHome ? "text-white/40" : "text-[#16140f]/40"}`}>
+{/* <p className={`mb-3 text-xs font-semibold uppercase tracking-widest font-['Pretendard',sans-serif] ${isHome ? "text-white/40" : "text-[#16140f]/40"}`}>
                 리소스
               </p>
               <div className="mb-6 flex flex-col gap-1">
@@ -393,30 +408,56 @@ export default function Navbar() {
                 <Link href="/cofounder-matching" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   팀원 찾기
                 </Link>
-              </div>
+              </div> */}
 
               <div className="mb-6 flex flex-col gap-1">
                 <Link href="/blog" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
                   블로그
                 </Link>
               </div>
+
+              {isAuthenticated && role !== "outsider" && (
+                <>
+                  <p className={`mb-3 mt-6 text-xs font-semibold uppercase tracking-widest font-['Pretendard',sans-serif] ${isHome ? "text-white/40" : "text-[#16140f]/40"}`}>
+                    멤버 메뉴
+                  </p>
+                  <div className="mb-6 flex flex-col gap-1">
+                    <Link href="/dashboard/applications" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
+                      지원서 대시보드
+                    </Link>
+                    {role === "admin" && (
+                      <Link href="/admin" onClick={() => setMenuOpen(false)} className={`block rounded-lg px-3 py-2.5 text-[15px] font-['Pretendard',sans-serif] font-medium transition-colors ${isHome ? "text-white/80 hover:text-white hover:bg-white/5" : "text-[#16140f]/80 hover:text-[#16140f] hover:bg-[#16140f]/5"}`}>
+                        관리자 패널
+                      </Link>
+                    )}
+                  </div>
+                </>
+              )}
+
             </div>
 
             <div className={`px-6 py-5 ${isHome ? "border-t border-white/10" : "border-t border-[#16140f]/10"}`}>
-              <Link
-                href={isAuthenticated ? "/apply" : "/login?redirect=/apply"}
+             <ApplyButton
+                href="/apply"
+                size="sm"
+                fullWidth
+                className="mb-4 py-3"
                 onClick={() => setMenuOpen(false)}
-                className="mb-4 flex w-full items-center justify-center rounded-full bg-[#FF6C0F] px-6 py-3 font-['MaruBuri',serif] text-sm italic text-white transition-opacity hover:opacity-85"
               >
                 Apply Now
-              </Link>
+              </ApplyButton>
+
 
               {isAuthenticated ? (
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FF6C0F] text-xs font-semibold text-white">
-                      {initials}
-                    </span>
+                    {profile?.photo ? (
+                      <img src={profile.photo} alt={displayName} className="h-8 w-8 shrink-0 rounded-full object-cover" />
+                    ) : (
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FF6C0F] text-xs font-semibold text-white">
+                        {initials}
+                      </span>
+                    )}
                     <div className="min-w-0">
                       <p className={`truncate text-sm font-medium font-['Pretendard',sans-serif] ${isHome ? "text-white" : "text-[#16140f]"}`}>
                         {displayName}
@@ -449,6 +490,21 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      <div
+        className={`fixed left-1/2 top-6 z-[100] -translate-x-1/2 transition-all duration-300 ${
+          showComingSoon
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
+      >
+        <div className="flex items-center gap-2.5 rounded-full bg-[#16140f] px-5 py-3 shadow-lg">
+          <span className="text-base">🚀</span>
+          <span className="font-['Pretendard',sans-serif] text-sm font-medium text-white">
+            Coming Soon
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

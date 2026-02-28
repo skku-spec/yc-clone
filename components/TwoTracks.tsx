@@ -17,39 +17,105 @@ const tracks: TrackCard[] = [
   {
     emoji: '\uD83D\uDE80',
     title: 'PRENEUR',
-    subtitle: '\uC870\uC9C1 \uB9AC\uB354\uC2ED \uD2B8\uB799 \u00B7 3\uC6D4\u201311\uC6D4',
+    subtitle: '조직 리더십 트랙 · 3월–11월',
     description:
-      'SPEC\uC744 \uD558\uB098\uC758 \uC2A4\uD0C0\uD2B8\uC5C5\uCC98\uB7FC \uC6B4\uC601\uD558\uACE0 \uC2A4\uCF00\uC77C\uC5C5\uD569\uB2C8\uB2E4. IR\uB85C \uD380\uB529\uACFC \uD30C\uD2B8\uB108\uC2ED\uC744 \uD655\uC7A5\uD558\uACE0, Learner \uD300\uC744 \uBA58\uD1A0\uB9C1\uD558\uBA70, \uB300\uD55C\uBBFC\uAD6D\uC744 \uBA39\uC744 \uC561\uC140\uB7EC\uB808\uC774\uD305 \uB3D9\uC544\uB9AC\uB97C \uB9CC\uB4E4\uC5B4\uAC11\uB2C8\uB2E4.',
+      'SPEC을 하나의 스타트업처럼 운영하고 스케일업합니다. IR로 펀딩과 파트너십을 확장하고, Learner 팀을 멘토링하며, 대한민국을 먹을 액셀러레이팅 동아리를 만들어갑니다.',
     bullets: [
-      'SPEC \uC870\uC9C1 \uC6B4\uC601 & \uC2A4\uCF00\uC77C\uC5C5',
-      '\uD22C\uC790\uC0AC IR & \uD30C\uD2B8\uB108\uC2ED \uD655\uC7A5',
-      'Learner \uD300 \uBA58\uD1A0\uB9C1 & \uC11C\uD3EC\uD2B8',
-      '\uB300\uD55C\uBBFC\uAD6D \uCD5C\uACE0\uC758 \uC561\uC140\uB7EC\uB808\uC774\uD305 \uB3D9\uC544\uB9AC \uAD6C\uCD95',
+      'SPEC 조직 운영 & 스케일업',
+      '투자사 IR & 파트너십 확장',
+      'Learner 팀 멘토링 & 서포트',
+      '대한민국 최고의 액셀러레이팅 동아리 구축',
     ],
-    cta: { href: '/curriculum?track=preneur', text: 'Preneur \uCEE4\uB9AC\uD050\uB7FC \uBCF4\uAE30 \u2192' },
+    cta: { href: '/curriculum?track=preneur', text: 'Preneur 커리큘럼 보기 →' },
     variant: 'preneur',
   },
   {
     emoji: '\uD83D\uDD25',
     title: 'LEARNER',
-    subtitle: '\uC2E4\uC804 \uCC3D\uC5C5 \uD2B8\uB799 \u00B7 3\uC6D4\u201311\uC6D4',
+    subtitle: '실전 창업 트랙 · 3월–11월',
     description:
-      '\uC774\uB860\uC774 \uC544\uB2C8\uB77C \uC2E4\uD589\uC73C\uB85C \uBC30\uC6C1\uB2C8\uB2E4. \u20A910\uB9CC\uC6D0\uBD80\uD130 \uB9E4\uCD9C\uC744 \uB9CC\uB4E4\uACE0, \uBAB8\uC73C\uB85C \uBD80\uB52A\uD788\uBA70 \uC131\uC7A5\uD569\uB2C8\uB2E4. \uD55C \uAE30\uC218 \uC548\uC5D0 \uC218\uC5B5 \uB9E4\uCD9C\uC744 \uB2EC\uC131\uD558\uB294 \uD300\uB3C4 \uB098\uC635\uB2C8\uB2E4.',
+      '이론이 아니라 실행으로 배웁니다. ₩10만원부터 매출을 만들고, 몸으로 부딪히며 성장합니다. 한 기수 안에 수억 매출을 달성하는 팀도 나옵니다.',
     bullets: [
-      '\u20A910\uB9CC\uC6D0\uBD80\uD130 \uC2DC\uC791\uD558\uB294 \uB9E4\uCD9C \uCC4C\uB9B0\uC9C0',
-      '\uC774\uB860 NO, \uC2E4\uD589 YES \u2014 \uBAB8\uC73C\uB85C \uBD80\uB52A\uD788\uBA70 \uBC30\uC6B0\uAE30',
-      '\uD55C \uAE30\uC218 \uC548\uC5D0 \uC218\uC5B5 \uB9E4\uCD9C \uB2EC\uC131 \uAC00\uB2A5',
-      '\uCCB4\uACC4\uC801 \uCEE4\uB9AC\uD050\uB7FC\uC73C\uB85C \uB2E8\uACC4\uBCC4 \uC131\uC7A5',
+      '₩10만원부터 시작하는 매출 챌린지',
+      '이론 NO, 실행 YES — 몸으로 부딪히며 배우기',
+      '한 기수 안에 수억 매출 달성 가능',
+      '체계적 커리큘럼으로 단계별 성장',
     ],
-    cta: { href: '/curriculum?track=learner', text: 'Learner \uCEE4\uB9AC\uD050\uB7FC \uBCF4\uAE30 \u2192' },
+    cta: { href: '/curriculum?track=learner', text: 'Learner 커리큘럼 보기 →' },
     variant: 'learner',
   },
 ];
 
+/* ── Shared card renderer ── */
+function TrackCardView({ track, isVisible }: { track: TrackCard; isVisible: boolean }) {
+  const isPreneur = track.variant === 'preneur';
+
+  return (
+    <div
+      className={`flex h-full flex-col rounded-xl border p-5 pb-8 sm:p-8 sm:pb-10 ${
+        isPreneur
+          ? 'border-[#FF6C0F]/25 bg-[#FF6C0F]/[0.03]'
+          : 'border-white/10 bg-white/[0.02]'
+      }`}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transition: 'opacity 0.6s ease, transform 0.6s ease',
+      }}
+    >
+      <h3
+        className="text-2xl font-black uppercase tracking-wide text-white sm:text-4xl"
+        style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+      >
+        {track.title}
+      </h3>
+
+      <p
+        className="mt-1 text-xs font-medium text-white/60 sm:text-sm"
+        style={{ fontFamily: "'Pretendard', sans-serif" }}
+      >
+        {track.subtitle}
+      </p>
+
+      <p
+        className="mt-4 text-sm leading-relaxed text-white/80 sm:text-base"
+        style={{ fontFamily: "'MaruBuri', serif" }}
+      >
+        {track.description}
+      </p>
+
+      <ul className="mt-4 space-y-2">
+        {track.bullets.map((bullet) => (
+          <li
+            key={bullet}
+            className="flex items-start gap-2 text-xs text-white/70 sm:gap-2.5 sm:text-sm"
+            style={{ fontFamily: "'Pretendard', sans-serif" }}
+          >
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF6C0F]/60" />
+            {bullet}
+          </li>
+        ))}
+      </ul>
+
+      <div className="min-h-6 flex-1" />
+      <Link
+        href={track.cta.href}
+        className={`flex h-11 items-center justify-center rounded-lg text-sm font-semibold transition-all duration-200 sm:h-12 ${
+          isPreneur
+            ? 'bg-[#FF6C0F] text-white hover:brightness-110'
+            : 'border border-white/20 bg-transparent text-white hover:bg-white/[0.06]'
+        }`}
+        style={{ fontFamily: "'Pretendard', sans-serif" }}
+      >
+        {track.cta.text}
+      </Link>
+    </div>
+  );
+}
+
 export default function TwoTracks() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [expandedTrack, setExpandedTrack] = useState<number | null>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -71,18 +137,21 @@ export default function TwoTracks() {
     return () => observer.disconnect();
   }, []);
 
+  /* Duplicate cards for seamless marquee loop */
+  const marqueeCards = [...tracks, ...tracks];
+
   return (
     <section className="relative w-full py-16 md:py-24 lg:py-32 bg-transparent">
       <div ref={sectionRef} className="mx-auto max-w-[1100px] px-6">
         <span
-          className="mb-4 block text-sm font-bold uppercase tracking-[0.2em] text-white/50"
+          className="mb-4 block text-center text-sm font-bold uppercase tracking-[0.2em] text-white/50"
           style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
         >
           Two Tracks
         </span>
 
         <h2
-          className="text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white lg:text-6xl"
+          className="text-center text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white lg:text-6xl"
           style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}
         >
           TWO TRACKS.
@@ -91,97 +160,48 @@ export default function TwoTracks() {
         </h2>
 
         <p
-          className="mt-4 mb-12 text-base sm:text-lg md:text-xl font-normal text-white/50"
+          className="mt-4 mb-12 text-center text-base sm:text-lg md:text-xl font-normal text-white/50"
           style={{ fontFamily: "'Pretendard', sans-serif" }}
         >
           Preneur는 SPEC을 성장시키고, Learner는 매출을 만듭니다.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {tracks.map((track, i) => {
-            const isPreneur = track.variant === 'preneur';
-            const isExpanded = expandedTrack === i;
-            return (
-              <div
-                key={track.title}
-                className={`flex flex-col rounded-xl border p-5 pb-8 sm:p-8 sm:pb-10 ${
-                  isPreneur
-                    ? 'border-[#FF6C0F]/25 bg-[#FF6C0F]/[0.03]'
-                    : 'border-white/10 bg-white/[0.02]'
-                }`}
-                style={{
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(32px)',
-                  transition: `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`,
-                }}
-              >
-                <span className="text-3xl sm:text-4xl">{track.emoji}</span>
-
-                <h3
-                  className="mt-3 text-xl font-black uppercase tracking-wide text-white sm:mt-4 sm:text-2xl"
-                  style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
-                >
-                  {track.title}
-                </h3>
-
-                <p
-                  className="mt-1 text-xs font-medium text-white/60 sm:text-sm"
-                  style={{ fontFamily: "'Pretendard', sans-serif" }}
-                >
-                  {track.subtitle}
-                </p>
-
-                <div
-                  className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out sm:!max-h-none sm:!opacity-100 ${
-                    isExpanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-                  }`}
-                >
-                  <p
-                    className="mt-4 text-sm leading-relaxed text-white/80 sm:text-base"
-                    style={{ fontFamily: "'MaruBuri', serif" }}
-                  >
-                    {track.description}
-                  </p>
-
-                  <ul className="mt-4 space-y-2">
-                    {track.bullets.map((bullet) => (
-                      <li
-                        key={bullet}
-                        className="flex items-start gap-2 text-xs text-white/70 sm:gap-2.5 sm:text-sm"
-                        style={{ fontFamily: "'Pretendard', sans-serif" }}
-                      >
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF6C0F]/60" />
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <button
-                  type="button"
-                  className="mt-3 self-start text-xs font-medium text-white/40 transition-colors hover:text-white/60 sm:hidden"
-                  onClick={() => setExpandedTrack(isExpanded ? null : i)}
-                >
-                  {isExpanded ? '접기 ↑' : '자세히 보기 ↓'}
-                </button>
-
-                <div className="min-h-6 sm:flex-1" />
-                <Link
-                  href={track.cta.href}
-                  className={`flex h-11 items-center justify-center rounded-lg text-sm font-semibold transition-all duration-200 sm:h-12 ${
-                    isPreneur
-                      ? 'bg-[#FF6C0F] text-white hover:brightness-110'
-                      : 'border border-white/20 bg-transparent text-white hover:bg-white/[0.06]'
-                  }`}
-                  style={{ fontFamily: "'Pretendard', sans-serif" }}
-                >
-                  {track.cta.text}
-                </Link>
-              </div>
-            );
-          })}
+        {/* ── Desktop: 2-col grid (sm+) ── */}
+        <div className="hidden sm:grid sm:grid-cols-2 gap-5">
+          {tracks.map((track) => (
+            <TrackCardView key={track.title} track={track} isVisible={isVisible} />
+          ))}
         </div>
       </div>
+
+      {/* ── Mobile: infinite marquee (<sm) ── */}
+      <div className="sm:hidden overflow-hidden">
+        <div
+          className="flex"
+          style={{
+            animation: isVisible ? 'two-tracks-marquee 20s linear infinite' : 'none',
+            opacity: isVisible ? 1 : 0,
+            transition: 'opacity 0.4s ease',
+          }}
+        >
+          {marqueeCards.map((track, i) => (
+            <div
+              key={`${track.title}-${i}`}
+              className="w-[82vw] shrink-0 pr-4"
+              style={{ marginLeft: i === 0 ? '24px' : 0 }}
+            >
+              <TrackCardView track={track} isVisible={isVisible} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes two-tracks-marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
     </section>
   );
 }
