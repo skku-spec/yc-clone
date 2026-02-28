@@ -3,12 +3,14 @@
 import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit } from "@/lib/rate-limit";
 
 export type ApplicationState = {
   success?: boolean;
   error?: string;
 };
+
 
 // ── Validation helpers ────────────────────────────────────────────────
 
@@ -101,6 +103,9 @@ export async function submitApplication(formData: FormData): Promise<Application
   // The INSERT policy is WITH CHECK (true), so silent failures cannot occur.
   const supabase = await createClient();
 
+  // Attempt to get authenticated user — if logged in, link application to account
+  const { data: { user } } = await supabase.auth.getUser();
+
   const { error } = await supabase
     .from("applications")
     .insert({
@@ -120,6 +125,7 @@ export async function submitApplication(formData: FormData): Promise<Application
       figma,
       illustrator,
       experience_extra: experience_extra || null,
+      user_id: user?.id ?? null,
     });
 
   if (error) {
@@ -190,4 +196,186 @@ export async function deleteApplication(id: string): Promise<ApplicationState> {
 
   revalidatePath("/dashboard/applications");
   return { success: true };
+}
+
+// ── Application Status Types ──────────────────────────────────────────
+
+export type ApplicationStatus = "pending" | "under_review" | "accepted" | "rejected";
+
+const VALID_STATUSES: ApplicationStatus[] = ["pending", "under_review", "accepted", "rejected"];
+
+function isValidStatus(value: string): value is ApplicationStatus {
+  return VALID_STATUSES.includes(value as ApplicationStatus);
+}
+
+// ── Update Application Status (Admin Only) ────────────────────────────
+
+export async function updateApplicationStatus(
+  id: string,
+  status: string,
+): Promise<ApplicationState> {
+  const supabase = await createClient();
+
+  // Verify admin permissions
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: "로그인이 필요합니다." };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (profile?.role !== "admin") {
+    return { error: "상태 변경 권한이 없습니다. 관리자만 변경 가능합니다." };
+  }
+
+  // Validate status value
+  if (!isValidStatus(status)) {
+    return { error: `유효하지 않은 상태입니다: ${status}` };
+  }
+
+  const { data, error } = await supabase
+    .from("applications")
+    .update({ status, updated_at: new Date().toISOString() })
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error updating application status:", error);
+    }
+    return { error: "상태 변경 중 오류가 발생했습니다." };
+  }
+
+  if (!data || data.length === 0) {
+    return { error: "해당 지원서를 찾을 수 없습니다." };
+  }
+
+  revalidatePath("/admin/applications");
+  revalidatePath("/dashboard/applications");
+  return { success: true };
+}
+
+// ── Get Application by Credentials (Public) ─────────────────────────
+
+export type ApplicationStatusResult = {
+  success?: boolean;
+  error?: string;
+  application?: {
+    status: string;
+    name: string;
+    batch: string;
+    created_at: string;
+    updated_at: string;
+  };
+};
+
+const STATUS_CHECK_RATE_LIMIT = {
+  maxRequests: 5,
+  windowMs: 10 * 60 * 1000, // 10 minutes
+} as const;
+
+export async function getApplicationByCredentials(
+  email: string,
+  studentId: string,
+): Promise<ApplicationStatusResult> {
+  // Rate limit check
+  const headerStore = await headers();
+  const ip = headerStore.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const rateLimitResult = rateLimit(`status-check:${ip}`, STATUS_CHECK_RATE_LIMIT);
+
+  if (!rateLimitResult.allowed) {
+    const retryMinutes = Math.ceil(rateLimitResult.retryAfterMs / 60_000);
+    return { error: `너무 많은 요청입니다. ${retryMinutes}분 후에 다시 시도해주세요.` };
+  }
+
+  // Validate inputs
+  const trimmedEmail = email.trim();
+  const trimmedStudentId = studentId.trim();
+
+  if (!trimmedEmail || !EMAIL_REGEX.test(trimmedEmail)) {
+    return { error: "올바른 이메일 형식을 입력해주세요." };
+  }
+
+  if (!trimmedStudentId || !STUDENT_ID_REGEX.test(trimmedStudentId)) {
+    return { error: "학번은 8~10자리 숫자여야 합니다." };
+  }
+
+  // Use admin client to bypass RLS (SELECT is admin-only)
+  const adminClient = createAdminClient();
+
+  const { data, error } = await adminClient
+    .from("applications")
+    .select("status, name, batch, created_at, updated_at")
+    .eq("email", trimmedEmail)
+    .eq("student_id", trimmedStudentId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error fetching application status:", error);
+    }
+    return { error: "조회 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요." };
+  }
+
+  if (!data) {
+    return { error: "해당 정보로 접수된 지원서를 찾을 수 없습니다." };
+  }
+
+  return {
+    success: true,
+    application: {
+      status: data.status,
+      name: data.name,
+      batch: data.batch,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
+    },
+  };
+}
+
+// ── Get My Application (Logged-in User) ──────────────────────────────
+
+export async function getMyApplication(): Promise<ApplicationStatusResult> {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return { error: "로그인이 필요합니다." };
+  }
+
+  // Explicitly filter by user_id — don't rely solely on RLS
+  // (admin users' RLS policy would see ALL rows, breaking .maybeSingle())
+  const { data, error } = await supabase
+    .from("applications")
+    .select("status, name, batch, created_at, updated_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error fetching own application:", error);
+    }
+    return { error: "조회 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요." };
+  }
+
+  if (!data) {
+    return { success: true }; // No application found — not an error
+  }
+
+  return {
+    success: true,
+    application: {
+      status: data.status,
+      name: data.name,
+      batch: data.batch,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
+    },
+  };
 }

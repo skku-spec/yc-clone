@@ -262,6 +262,9 @@ export default function Navbar() {
                     <Link href="/profile" className="dropdown-item block px-4 py-2 text-[#16140f] hover:bg-gray-100 rounded text-sm font-['Pretendard',sans-serif]">
                       내 프로필
                     </Link>
+                    <Link href="/apply/status" className="dropdown-item block px-4 py-2 text-[#16140f] hover:bg-gray-100 rounded text-sm font-['Pretendard',sans-serif]">
+                      지원 현황 확인
+                    </Link>
                     {role === "admin" && (
                       <Link href="/admin" className="dropdown-item block px-4 py-2 text-[#16140f] hover:bg-gray-100 rounded text-sm font-['Pretendard',sans-serif]">
                         관리자
@@ -419,6 +422,7 @@ export default function Navbar() {
               </ApplyButton>
 
               {isAuthenticated ? (
+                <>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FF6C0F] text-xs font-semibold text-white">
@@ -441,6 +445,27 @@ export default function Navbar() {
                     로그아웃
                   </button>
                 </div>
+                <div className="mt-3 flex flex-col gap-1">
+                  <Link
+                    href="/apply/status"
+                    onClick={() => setMenuOpen(false)}
+                    className={`block rounded-lg px-3 py-2 text-[13px] font-['Pretendard',sans-serif] font-medium transition-colors ${
+                      isHome ? "text-white/60 hover:text-white hover:bg-white/5" : "text-[#16140f]/60 hover:text-[#16140f] hover:bg-[#16140f]/5"
+                    }`}
+                  >
+                    지원 현황 확인
+                  </Link>
+                  <Link
+                    href="/profile"
+                    onClick={() => setMenuOpen(false)}
+                    className={`block rounded-lg px-3 py-2 text-[13px] font-['Pretendard',sans-serif] font-medium transition-colors ${
+                      isHome ? "text-white/60 hover:text-white hover:bg-white/5" : "text-[#16140f]/60 hover:text-[#16140f] hover:bg-[#16140f]/5"
+                    }`}
+                  >
+                    내 프로필
+                  </Link>
+                </div>
+                </>
               ) : (
                 <Link
                   href="/login"

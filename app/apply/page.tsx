@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import ApplyButton from "@/components/ui/ApplyButton";
+import { getCurrentUser } from "@/lib/auth";
+import { getMyApplication } from "@/lib/actions/applications";
+import ApplicationStatusCard from "./status/ApplicationStatusCard";
 
 export const metadata: Metadata = {
   title: "지원하기 | SPEC — 성균관대 창업학회",
@@ -7,7 +11,19 @@ export const metadata: Metadata = {
     "SPEC 4기 러너를 모집합니다. 30주 동안 팀을 만들고, 프로덕트를 런칭하고, 실제 매출을 만드는 실전 창업 트랙.",
 };
 
-export default function ApplyPage() {
+export default async function ApplyPage() {
+  const { user } = await getCurrentUser();
+
+  // Check if logged-in user already has a linked application
+  let hasApplication = false;
+  let applicationData: { status: string; name: string; batch: string; created_at: string; updated_at: string } | undefined;
+  if (user) {
+    const result = await getMyApplication();
+    if (result.success && result.application) {
+      hasApplication = true;
+      applicationData = result.application;
+    }
+  }
   return (
     <div className="min-h-screen bg-[#f5f5ee]">
       {/* ── Hero ──────────────────────────────────── */}
@@ -49,11 +65,33 @@ export default function ApplyPage() {
           </p>
         </div>
 
-        <div className="mt-10 flex justify-center">
-          <ApplyButton href="/apply/form" size="xl">
-            Apply
-          </ApplyButton>
-        </div>
+        {hasApplication && applicationData ? (
+          /* User already applied — show their status */
+          <div className="mt-10">
+            <ApplicationStatusCard application={applicationData} />
+            <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <Link
+                href="/apply/status"
+                className="inline-flex h-[44px] items-center rounded-full border border-[#d9d9cc] px-6 font-['Pretendard',sans-serif] text-[14px] font-semibold text-[#4a4a40] transition-colors hover:bg-white hover:text-[#16140f]"
+              >
+                지원 현황 상세
+              </Link>
+            </div>
+          </div>
+        ) : (
+          /* No application yet — show apply + status check buttons */
+          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <ApplyButton href="/apply/form" size="xl">
+              Apply
+            </ApplyButton>
+            <a
+              href="/apply/status"
+              className="inline-flex items-center rounded-full border border-[#d9d9cc] px-14 py-5 font-['Pretendard',sans-serif] text-[15px] font-semibold text-[#4a4a40] transition-colors hover:bg-white hover:text-[#16140f]"
+            >
+              지원 현황 확인
+            </a>
+          </div>
+        )}
       </section>
 
       {/* ── 지원 안내 ─────────────────────────────── */}
