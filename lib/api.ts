@@ -143,6 +143,20 @@ import {
 } from "../app/library/library-data";
 import type { LibraryItem, Category, ContentType } from "../app/library/library-data";
 
+function handleQueryResult<T>(
+  result: { data: T | null; error: { message: string; code?: string } | null },
+  context: string,
+  fallback: T
+): T {
+  if (result.error) {
+    if (process.env.NODE_ENV === "development") {
+      console.error(`[API] ${context}:`, result.error.message);
+    }
+    return fallback;
+  }
+  return result.data ?? fallback;
+}
+
 const TEAM_DESCRIPTIONS: TeamDescription[] = [
   {
     name: "Contents",
@@ -224,7 +238,7 @@ async function getTagsByPostIds(
   const supabase = await createClient();
   const { data: postTags, error: postTagsError } = await supabase
     .from("post_tags")
-    .select("post_id, tag_id")
+    .select("post_id,tag_id")
     .in("post_id", postIds);
 
   if (postTagsError || !postTags || postTags.length === 0) {
@@ -234,7 +248,7 @@ async function getTagsByPostIds(
   const tagIds = [...new Set(postTags.map((postTag) => postTag.tag_id))];
   const { data: tags, error: tagsError } = await supabase
     .from("tags")
-    .select("id, slug")
+    .select("id,slug")
     .in("id", tagIds);
 
   if (tagsError || !tags) {
@@ -263,10 +277,15 @@ async function mapRowsToBlogPosts(rows: PostRow[]): Promise<BlogPost[]> {
   const supabase = await createClient();
   const authorIds = [...new Set(rows.map((row) => row.author_id))];
 
-  const [{ data: profiles }, tagsByPostId] = await Promise.all([
-    supabase.from("profiles").select("id, name, slug").in("id", authorIds),
+  const [profilesResult, tagsByPostId] = await Promise.all([
+    supabase.from("profiles").select("id,name,slug").in("id", authorIds),
     getTagsByPostIds(rows.map((row) => row.id)),
   ]);
+  const profiles = handleQueryResult(
+    profilesResult,
+    "Failed to fetch blog post author profiles",
+    []
+  );
 
   const profileById = new Map<string, Pick<ProfileRow, "name" | "slug">>(
     (profiles ?? []).map((profile) => [profile.id, profile])
@@ -374,9 +393,14 @@ export async function getBreakthroughCompanies(): Promise<Company[]> {
 
 export async function getCompanyFilterOptions() {
   const supabase = await createClient();
-  const { data: projectRows } = await supabase
+  const projectRowsResult = await supabase
     .from("projects")
-    .select("batch, industries, region");
+    .select("batch,industries,region");
+  const projectRows = handleQueryResult(
+    projectRowsResult,
+    "Failed to fetch company filter options",
+    []
+  );
 
   const batches = Array.from(
     new Set(
@@ -439,11 +463,16 @@ function mapMemberToPerson(
 
 export async function getManagingLeads(): Promise<Person[]> {
   const supabase = await createClient();
-  const { data: members } = await supabase
+  const membersResult = await supabase
     .from("members")
-    .select("name, slug, role, bio, photo_url, batch_tags, linkedin_url")
+    .select("name,slug,role,bio,photo_url,batch_tags,linkedin_url")
     .eq("preneur_batch", "4기")
     .order("name", { ascending: true });
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch managing leads",
+    []
+  );
 
   return (members ?? [])
     .filter((member) => isManagingLeadMember(member))
@@ -452,11 +481,16 @@ export async function getManagingLeads(): Promise<Person[]> {
 
 export async function getPreneurs(): Promise<Person[]> {
   const supabase = await createClient();
-  const { data: members } = await supabase
+  const membersResult = await supabase
     .from("members")
-    .select("name, slug, role, bio, photo_url, batch_tags, linkedin_url")
+    .select("name,slug,role,bio,photo_url,batch_tags,linkedin_url")
     .eq("preneur_batch", "4기")
     .order("name", { ascending: true });
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch preneurs",
+    []
+  );
 
   return (members ?? [])
     .filter((member) => !isManagingLeadMember(member))
@@ -480,11 +514,16 @@ export async function getPersonBySlug(
 
 export async function getAllPersonSlugs(): Promise<string[]> {
   const supabase = await createClient();
-  const { data: members } = await supabase
+  const membersResult = await supabase
     .from("members")
     .select("slug")
     .eq("preneur_batch", "4기")
     .order("name", { ascending: true });
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch person slugs",
+    []
+  );
 
   return (members ?? []).map((member) => member.slug);
 }
@@ -499,20 +538,30 @@ export async function getBlogPosts(
 
   let postIdsByTag: string[] | null = null;
   if (tag) {
-    const { data: tagRow } = await supabase
+    const tagRowResult = await supabase
       .from("tags")
       .select("id")
       .eq("slug", tag)
       .maybeSingle();
+    const tagRow = handleQueryResult(
+      tagRowResult,
+      `Failed to fetch tag by slug: ${tag}`,
+      null
+    );
 
     if (!tagRow) {
       return [];
     }
 
-    const { data: postTags } = await supabase
+    const postTagsResult = await supabase
       .from("post_tags")
       .select("post_id")
       .eq("tag_id", tagRow.id);
+    const postTags = handleQueryResult(
+      postTagsResult,
+      `Failed to fetch post tags for tag id: ${tagRow.id}`,
+      []
+    );
 
     postIdsByTag = [...new Set((postTags ?? []).map((postTag) => postTag.post_id))];
     if (postIdsByTag.length === 0) {
@@ -534,7 +583,8 @@ export async function getBlogPosts(
     query = query.in("id", postIdsByTag);
   }
 
-  const { data: rows } = await query;
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch blog posts", []);
 
   return mapRowsToBlogPosts(rows ?? []);
 }
@@ -543,12 +593,17 @@ export async function getBlogPostBySlug(
   slug: string
 ): Promise<BlogPost | undefined> {
   const supabase = await createClient();
-  const { data: row } = await supabase
+  const rowResult = await supabase
     .from("posts")
     .select("*")
     .eq("slug", slug)
     .eq("published", true)
     .maybeSingle();
+  const row = handleQueryResult(
+    rowResult,
+    `Failed to fetch blog post by slug: ${slug}`,
+    null
+  );
 
   if (!row) {
     return undefined;
@@ -560,7 +615,8 @@ export async function getBlogPostBySlug(
 
 export async function getBlogTags(): Promise<TagInfo[]> {
   const supabase = await createClient();
-  const { data } = await supabase.from("tags").select("slug, label");
+  const result = await supabase.from("tags").select("slug,label");
+  const data = handleQueryResult(result, "Failed to fetch blog tags", []);
 
   return (data ?? []).map((tag: Pick<TagRow, "slug" | "label">) => ({
     slug: tag.slug,
@@ -570,11 +626,16 @@ export async function getBlogTags(): Promise<TagInfo[]> {
 
 export async function getTagLabel(slug: string): Promise<string> {
   const supabase = await createClient();
-  const { data } = await supabase
+  const dataResult = await supabase
     .from("tags")
     .select("label")
     .eq("slug", slug)
     .maybeSingle();
+  const data = handleQueryResult(
+    dataResult,
+    `Failed to fetch tag label for slug: ${slug}`,
+    null
+  );
 
   return data?.label ?? slug;
 }
@@ -586,30 +647,45 @@ export async function getRelatedPosts(
   const supabase = await createClient();
   const cappedLimit = limit ?? 3;
 
-  const { data: currentPost } = await supabase
+  const currentPostResult = await supabase
     .from("posts")
     .select("id")
     .eq("slug", currentSlug)
     .maybeSingle();
+  const currentPost = handleQueryResult(
+    currentPostResult,
+    `Failed to fetch current post for related posts: ${currentSlug}`,
+    null
+  );
 
   if (!currentPost) {
     return [];
   }
 
-  const { data: currentPostTags } = await supabase
+  const currentPostTagsResult = await supabase
     .from("post_tags")
     .select("tag_id")
     .eq("post_id", currentPost.id);
+  const currentPostTags = handleQueryResult(
+    currentPostTagsResult,
+    `Failed to fetch current post tags for related posts: ${currentPost.id}`,
+    []
+  );
 
   const tagIds = [...new Set((currentPostTags ?? []).map((postTag) => postTag.tag_id))];
   if (tagIds.length === 0) {
     return [];
   }
 
-  const { data: relatedPostTags } = await supabase
+  const relatedPostTagsResult = await supabase
     .from("post_tags")
     .select("post_id")
     .in("tag_id", tagIds);
+  const relatedPostTags = handleQueryResult(
+    relatedPostTagsResult,
+    `Failed to fetch related post tags for post: ${currentPost.id}`,
+    []
+  );
 
   const relatedPostIds = [...new Set((relatedPostTags ?? []).map((postTag) => postTag.post_id))]
     .filter((postId) => postId !== currentPost.id);
@@ -618,7 +694,7 @@ export async function getRelatedPosts(
     return [];
   }
 
-  const { data: rows } = await supabase
+  const rowsResult = await supabase
     .from("posts")
     .select("*")
     .eq("published", true)
@@ -626,6 +702,11 @@ export async function getRelatedPosts(
     .in("id", relatedPostIds)
     .order("created_at", { ascending: false })
     .limit(cappedLimit);
+  const rows = handleQueryResult(
+    rowsResult,
+    `Failed to fetch related posts for slug: ${currentSlug}`,
+    []
+  );
 
   return mapRowsToBlogPosts(rows ?? []);
 }
@@ -656,7 +737,8 @@ export async function getJobs(filters?: {
     }
   }
 
-  const { data: rows } = await query;
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch jobs", []);
 
   return rows ?? [];
 }
@@ -702,7 +784,8 @@ export async function getLibraryItems(filters?: {
     }
   }
 
-  const { data: rows } = await query;
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch library items", []);
 
   return (rows ?? []).map((row) => ({
     slug: row.slug,
@@ -726,7 +809,16 @@ export async function getLibraryItemBySlug(
   slug: string
 ): Promise<LibraryItem | undefined> {
   const supabase = await createClient();
-  const { data: row } = await supabase.from("library_items").select("*").eq("slug", slug).maybeSingle();
+  const rowResult = await supabase
+    .from("library_items")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+  const row = handleQueryResult(
+    rowResult,
+    `Failed to fetch library item by slug: ${slug}`,
+    null
+  );
 
   if (!row) {
     return undefined;
@@ -764,15 +856,30 @@ export async function getFounderDirectory(filters?: {
 }): Promise<FounderDirectory[]> {
   const supabase = await createClient();
 
-  const [{ data: members }, { data: relations }, { data: projects }] = await Promise.all([
+  const [membersResult, relationsResult, projectsResult] = await Promise.all([
     supabase
       .from("members")
       .select(
         "id, name, slug, major, runner_batch, preneur_batch, batch_tags, member_type, photo_url, bio",
       ),
-    supabase.from("member_projects").select("member_id, project_id"),
-    supabase.from("projects").select("id, slug"),
+    supabase.from("member_projects").select("member_id,project_id"),
+    supabase.from("projects").select("id,slug"),
   ]);
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch founder directory members",
+    []
+  );
+  const relations = handleQueryResult(
+    relationsResult,
+    "Failed to fetch founder directory member-project relations",
+    []
+  );
+  const projects = handleQueryResult(
+    projectsResult,
+    "Failed to fetch founder directory projects",
+    []
+  );
 
   const projectSlugById = new Map<string, string>(
     (projects ?? []).map((project) => [project.id, project.slug]),
@@ -842,10 +949,20 @@ export async function getFounderDirectory(filters?: {
 
 export async function getFounderDirectoryFilterOptions() {
   const supabase = await createClient();
-  const [{ data: members }, { data: projects }] = await Promise.all([
-    supabase.from("members").select("runner_batch, member_type"),
-    supabase.from("projects").select("slug, name"),
+  const [membersResult, projectsResult] = await Promise.all([
+    supabase.from("members").select("runner_batch,member_type"),
+    supabase.from("projects").select("slug,name"),
   ]);
+  const members = handleQueryResult(
+    membersResult,
+    "Failed to fetch founder directory filter members",
+    []
+  );
+  const projects = handleQueryResult(
+    projectsResult,
+    "Failed to fetch founder directory filter projects",
+    []
+  );
 
   const batches = Array.from(
     new Set(
@@ -894,11 +1011,12 @@ const LAUNCH_CATEGORIES = [
 
 export async function getLaunches(): Promise<Launch[]> {
   const supabase = await createClient();
-  const { data: rows } = await supabase
+  const rowsResult = await supabase
     .from("launches")
     .select("*")
     .eq("active", true)
     .order("created_at", { ascending: false });
+  const rows = handleQueryResult(rowsResult, "Failed to fetch launches", []);
 
   return rows ?? [];
 }
@@ -913,37 +1031,56 @@ export async function getCompanyDetail(
   slug: string
 ): Promise<CompanyDetail | undefined> {
   const supabase = await createClient();
-  const { data: project } = await supabase
+  const projectResult = await supabase
     .from("projects")
     .select("*")
     .eq("slug", slug)
     .maybeSingle();
+  const project = handleQueryResult(
+    projectResult,
+    `Failed to fetch company detail project by slug: ${slug}`,
+    null
+  );
 
   if (!project) {
     return undefined;
   }
 
-  const [{ data: relationRows }, { data: newsRows }] = await Promise.all([
+  const [relationRowsResult, newsRowsResult] = await Promise.all([
     supabase
       .from("member_projects")
-      .select("member_id, role")
+      .select("member_id,role")
       .eq("project_id", project.id),
     supabase
       .from("project_news")
-      .select("title, url, date")
+      .select("title,url,date")
       .eq("project_id", project.id)
       .order("created_at", { ascending: false }),
   ]);
+  const relationRows = handleQueryResult(
+    relationRowsResult,
+    `Failed to fetch company members for project: ${project.id}`,
+    []
+  );
+  const newsRows = handleQueryResult(
+    newsRowsResult,
+    `Failed to fetch company news for project: ${project.id}`,
+    []
+  );
 
   const memberIds = (relationRows ?? []).map((relation) => relation.member_id);
   let members: Array<Pick<MemberRow, "id" | "name" | "linkedin_url">> = [];
 
   if (memberIds.length > 0) {
-    const { data: memberRows } = await supabase
+    const memberRowsResult = await supabase
       .from("members")
-      .select("id, name, linkedin_url")
+      .select("id,name,linkedin_url")
       .in("id", memberIds);
-    members = memberRows ?? [];
+    members = handleQueryResult(
+      memberRowsResult,
+      `Failed to fetch company member details for project: ${project.id}`,
+      []
+    );
   }
 
   const memberById = new Map<string, Pick<MemberRow, "name" | "linkedin_url">>(
@@ -998,7 +1135,12 @@ export async function getCompanyDetail(
 
 export async function getAllCompanyDetailSlugs(): Promise<{ slug: string }[]> {
   const supabase = await createClient();
-  const { data: projects } = await supabase.from("projects").select("slug");
+  const projectsResult = await supabase.from("projects").select("slug");
+  const projects = handleQueryResult(
+    projectsResult,
+    "Failed to fetch company detail slugs",
+    []
+  );
   return (projects ?? []).map((project) => ({ slug: project.slug }));
 }
 
@@ -1006,12 +1148,17 @@ export async function getRelatedCompanies(
   currentSlug: string
 ): Promise<CompanyDetail[]> {
   const supabase = await createClient();
-  const { data: projects } = await supabase
+  const projectsResult = await supabase
     .from("projects")
     .select("*")
     .neq("slug", currentSlug)
     .order("created_at", { ascending: false })
     .limit(4);
+  const projects = handleQueryResult(
+    projectsResult,
+    `Failed to fetch related companies for slug: ${currentSlug}`,
+    []
+  );
 
   return (projects ?? []).map((project) => ({
     name: project.name,
@@ -1064,18 +1211,24 @@ export async function getMembers(filters?: {
     }
   }
 
-  const { data: rows } = await query;
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch members", []);
 
   return rows ?? [];
 }
 
 export async function getMemberBySlug(slug: string): Promise<MemberRow | undefined> {
   const supabase = await createClient();
-  const { data: row } = await supabase
+  const rowResult = await supabase
     .from("members")
     .select("*")
     .eq("slug", slug)
     .maybeSingle();
+  const row = handleQueryResult(
+    rowResult,
+    `Failed to fetch member by slug: ${slug}`,
+    null
+  );
 
   return row ?? undefined;
 }
@@ -1101,18 +1254,24 @@ export async function getProjects(filters?: {
     }
   }
 
-  const { data: rows } = await query;
+  const rowsResult = await query;
+  const rows = handleQueryResult(rowsResult, "Failed to fetch projects", []);
 
   return rows ?? [];
 }
 
 export async function getProjectBySlug(slug: string): Promise<ProjectRow | undefined> {
   const supabase = await createClient();
-  const { data: row } = await supabase
+  const rowResult = await supabase
     .from("projects")
     .select("*")
     .eq("slug", slug)
     .maybeSingle();
+  const row = handleQueryResult(
+    rowResult,
+    `Failed to fetch project by slug: ${slug}`,
+    null
+  );
 
   return row ?? undefined;
 }
@@ -1120,20 +1279,30 @@ export async function getProjectBySlug(slug: string): Promise<ProjectRow | undef
 export async function getMembersByProject(projectId: string): Promise<MemberRow[]> {
   const supabase = await createClient();
 
-  const { data: memberProjects } = await supabase
+  const memberProjectsResult = await supabase
     .from("member_projects")
     .select("member_id")
     .eq("project_id", projectId);
+  const memberProjects = handleQueryResult(
+    memberProjectsResult,
+    `Failed to fetch member-project relations for project: ${projectId}`,
+    []
+  );
 
   if (!memberProjects || memberProjects.length === 0) {
     return [];
   }
 
   const memberIds = memberProjects.map((mp) => mp.member_id);
-  const { data: members } = await supabase
+  const membersResult = await supabase
     .from("members")
     .select("*")
     .in("id", memberIds);
+  const members = handleQueryResult(
+    membersResult,
+    `Failed to fetch members by project id: ${projectId}`,
+    []
+  );
 
   return members ?? [];
 }
