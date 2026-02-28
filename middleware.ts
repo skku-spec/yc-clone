@@ -91,7 +91,7 @@ export async function middleware(request: NextRequest) {
 
   // Block access to orphan routes not in header navigation
   if (isBlockedRoute(pathname)) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return redirectWithCookies(request, response, "/");
   }
 
   const needsAdmin = isAdminRoute(pathname);
