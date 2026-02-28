@@ -65,10 +65,9 @@ export async function updateUserRole(userId: string, newRole: UserRole): Promise
 
 
 
-    // types.ts is auto-generated from pre-migration DB; "member" is valid after enum swap (007-enum-swap.sql)
     const { error: updateError } = await supabase
       .from("profiles")
-      .update({ role: newRole as unknown as import("@/lib/supabase/types").ProfileRole })
+      .update({ role: newRole })
       .eq("id", userId);
 
     if (updateError) {

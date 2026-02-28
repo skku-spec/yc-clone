@@ -524,7 +524,9 @@ export type Database = {
           category: string;
           batch: string;
           votes: number;
+          active: boolean;
           created_at: string;
+          updated_at: string;
         };
         Insert: {
           id?: string;
@@ -535,7 +537,9 @@ export type Database = {
           category: string;
           batch: string;
           votes?: number;
+          active?: boolean;
           created_at?: string;
+          updated_at?: string;
         };
         Update: {
           id?: string;
@@ -546,7 +550,9 @@ export type Database = {
           category?: string;
           batch?: string;
           votes?: number;
+          active?: boolean;
           created_at?: string;
+          updated_at?: string;
         };
         Relationships: [];
       };
