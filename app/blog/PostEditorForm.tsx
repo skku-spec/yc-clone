@@ -225,11 +225,11 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
     } else {
       setSaveStatus("error");
     }
-  }, [mode, post?.id, post?.published, title, slug, type, excerpt, imageUrl, content, selectedTags]);
+  }, [mode, post, title, slug, type, excerpt, imageUrl, content, selectedTags]);
 
   /* Keep a ref so the debounce timer always calls the latest version */
   const performAutoSaveRef = useRef(performAutoSave);
-  performAutoSaveRef.current = performAutoSave;
+  useEffect(() => { performAutoSaveRef.current = performAutoSave; });
 
   const triggerAutoSave = useCallback(() => {
     hasUnsavedChanges.current = true;
