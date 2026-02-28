@@ -12,7 +12,7 @@ import {
   type DragEvent,
 } from "react";
 
-import TiptapEditor from "@/components/blog/TiptapEditor";
+import BlockNoteEditor from "@/components/blog/BlockNoteEditor";
 import { useUser } from "@/hooks/useUser";
 import { createPost, updatePost } from "@/lib/actions/posts";
 import type { BlogPost, TagInfo } from "@/lib/api";
@@ -44,15 +44,6 @@ function slugify(value: string) {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
-}
-
-function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
-}
-
-function countWords(text: string): number {
-  if (!text) return 0;
-  return text.split(/\s+/).filter(Boolean).length;
 }
 
 function estimateReadingTime(words: number): number {
@@ -118,7 +109,7 @@ function CloseIcon() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   PostEditorForm — Medium/Ghost-style distraction-free editor
+   PostEditorForm — EO Planet-style two-column article editor
    ═══════════════════════════════════════════════════════════════════ */
 
 export default function PostEditorForm({ mode, post, initialTags = [] }: PostEditorFormProps) {
@@ -139,7 +130,6 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   /* ─── UI state ──────────────────────────────────────────────── */
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>(mode === "edit" ? "saved" : "idle");
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
   const [wordCount, setWordCount] = useState(0);
@@ -198,12 +188,6 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
     }
   }, [initialTags, mode]);
 
-  /* ─── Word count derived from content ───────────────────────── */
-  useEffect(() => {
-    const plainText = stripHtml(content);
-    setWordCount(countWords(plainText));
-  }, [content]);
-
   /* ─── beforeunload warning ──────────────────────────────────── */
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -214,16 +198,6 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
-
-  /* ─── Escape key closes drawer ──────────────────────────────── */
-  useEffect(() => {
-    if (!isDrawerOpen) return;
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsDrawerOpen(false);
-    };
-    window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, [isDrawerOpen]);
 
   /* ─── Auto-save (edit mode) ─────────────────────────────────── */
   const performAutoSave = useCallback(async () => {
@@ -488,194 +462,78 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
   /* ═══ Main Render ═════════════════════════════════════════════ */
 
   return (
-    <div className="relative min-h-screen bg-[#f5f5ee]">
-      {/* ── Header Bar ─────────────────────────────────────────── */}
-      <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-[#ddd9cc] bg-white px-4 md:px-6">
+    <div className="min-h-screen bg-[#f5f5ee]">
+      {/* ── Breadcrumb + Save Status ───────────────────────────── */}
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-4 pb-2 pt-6 md:px-6">
         <Link
           href="/blog"
           className="inline-flex items-center gap-1.5 font-['Pretendard',sans-serif] text-[14px] text-[#6b6b5e] transition-colors hover:text-[#16140f]"
         >
           <ChevronLeftIcon />
-          <span className="hidden sm:inline">돌아가기</span>
+          블로그
         </Link>
 
         <span
-          className={`absolute left-1/2 -translate-x-1/2 font-['Pretendard',sans-serif] text-[13px] ${saveStatusColor}`}
+          className={`font-['Pretendard',sans-serif] text-[13px] ${saveStatusColor}`}
         >
           {saveStatusText}
         </span>
+      </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setIsDrawerOpen(true)}
-            className="inline-flex h-[34px] items-center rounded-[6px] border border-[#ddd9cc] px-3 font-['Pretendard',sans-serif] text-[13px] font-medium text-[#16140f] transition-colors hover:border-[#FF6C0F] hover:text-[#FF6C0F]"
-          >
-            발행 설정
-          </button>
-          <button
-            type="button"
-            onClick={() => void submitForm(true)}
-            disabled={saveDisabled}
-            className="inline-flex h-[34px] items-center rounded-[8px] bg-[#FF6C0F] px-4 font-['Pretendard',sans-serif] text-[13px] font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            발행하기
-          </button>
-        </div>
-      </header>
-
-      {/* ── Main Content Area ──────────────────────────────────── */}
-      <main className="mx-auto max-w-[800px] px-4 py-8 pb-16 md:px-6">
-        <div className="rounded-[12px] bg-white px-5 py-8 shadow-[0_1px_3px_rgba(0,0,0,0.04)] md:px-12 md:py-10">
-          {/* Cover Image Zone */}
-          {imageUrl ? (
-            <div className="group relative mb-8 overflow-hidden rounded-[10px]">
-              <img
-                src={imageUrl}
-                alt="커버 이미지"
-                className="aspect-[16/9] w-full object-cover"
-              />
-              <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/0 opacity-0 transition-all group-hover:bg-black/30 group-hover:opacity-100">
-                <button
-                  type="button"
-                  onClick={() => coverInputRef.current?.click()}
-                  className="rounded-[6px] bg-white/90 px-3 py-1.5 font-['Pretendard',sans-serif] text-[13px] font-medium text-[#16140f] backdrop-blur-sm transition-colors hover:bg-white"
-                >
-                  변경
-                </button>
-                <button
-                  type="button"
-                  onClick={removeCoverImage}
-                  className="rounded-[6px] bg-white/90 px-3 py-1.5 font-['Pretendard',sans-serif] text-[13px] font-medium text-[#d63a19] backdrop-blur-sm transition-colors hover:bg-white"
-                >
-                  ✕ 삭제
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={() => coverInputRef.current?.click()}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") coverInputRef.current?.click();
-              }}
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              className={`mb-8 flex cursor-pointer flex-col items-center justify-center rounded-[10px] border-2 border-dashed py-12 transition-colors ${
-                isDraggingOver
-                  ? "border-[#FF6C0F] bg-[#FF6C0F]/5"
-                  : "border-[#ddd9cc] hover:border-[#FF6C0F]/50 hover:bg-[#f5f5ee]/50"
-              }`}
-            >
-              <ImagePlaceholderIcon />
-              <span className="font-['Pretendard',sans-serif] text-[14px] text-[#6b6b5e]">
-                커버 이미지를 드래그하거나 클릭하세요
-              </span>
-            </div>
-          )}
-
-          <input
-            ref={coverInputRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleCoverInputChange}
-          />
-
-          {/* Title */}
-          <input
-            value={title}
-            onChange={handleTitleChange}
-            placeholder="제목을 입력하세요"
-            className="mb-4 w-full bg-transparent font-[system-ui] text-[clamp(2rem,4vw,2.75rem)] font-black leading-tight text-[#16140f] placeholder:text-[#c5c2b8] focus:outline-none"
-          />
-
-          {/* Thin divider */}
-          <div className="mb-6 h-px w-12 bg-[#ddd9cc]" />
-
-          {/* Editor */}
-          <div className="min-h-[400px]">
-            <TiptapEditor
-              content={content}
-              onChange={handleContentChange}
-              onImageUpload={uploadBlogImage}
-              placeholder="본문을 작성하세요..."
+      {/* ── Two-Column Body ─────────────────────────────────────── */}
+      <div className="mx-auto flex max-w-[1200px] gap-8 px-4 pb-8 pt-4 md:px-6">
+        {/* ── Left Column: Editor & Settings (~70%) ───────────── */}
+        <div className="min-w-0 flex-1">
+          {/* Title + Editor Card */}
+          <div className="rounded-[12px] border border-[#ddd9cc] bg-white p-6 md:p-8">
+            <input
+              value={title}
+              onChange={handleTitleChange}
+              maxLength={60}
+              placeholder="제목을 입력해주세요 (최대 60자)"
+              className="mb-4 w-full bg-transparent font-[system-ui] text-[clamp(1.75rem,3.5vw,2.5rem)] font-black leading-tight text-[#16140f] placeholder:text-[#c5c2b8] focus:outline-none"
             />
-          </div>
-        </div>
 
-        {/* Error message */}
-        {errorMessage && (
-          <div className="mt-4 rounded-[8px] border border-[#d63a19]/20 bg-[#d63a19]/5 px-4 py-3">
-            <p className="font-['Pretendard',sans-serif] text-[13px] text-[#d63a19]">
-              {errorMessage}
+            <div className="mb-4 h-px bg-[#ddd9cc]" />
+
+            {/* Editor guide hint */}
+            <p className="mb-4 font-['Pretendard',sans-serif] text-[12px] text-[#b5b2a6]">
+              <kbd className="rounded border border-[#ddd9cc] bg-[#f5f5ee] px-1.5 py-0.5 font-mono text-[11px]">/</kbd> 를 입력하면 제목, 리스트, 이미지 등을 삽입할 수 있어요. 블록 좌측을 드래그해서 순서를 변경할 수도 있습니다.
             </p>
+
+            <div className="min-h-[400px]">
+              <BlockNoteEditor
+                initialHTML={content}
+                onChange={handleContentChange}
+                onWordCountChange={setWordCount}
+                uploadFile={uploadBlogImage}
+                placeholder="본문을 작성하세요..."
+              />
+            </div>
           </div>
-        )}
 
-        {/* Create mode hint */}
-        {mode === "create" && (
-          <p className="mt-4 text-center font-['Pretendard',sans-serif] text-[12px] text-[#b5b2a6]">
-            임시저장하면 서버에 저장됩니다
-          </p>
-        )}
-      </main>
+          {/* ── Publish Settings Card ─────────────────────────── */}
+          <div className="mt-6 space-y-6 rounded-[12px] border border-[#ddd9cc] bg-white p-6 md:p-8">
+            <h3 className="font-['Pretendard',sans-serif] text-[16px] font-bold text-[#16140f]">
+              발행 설정
+            </h3>
 
-      {/* ── Footer Bar ─────────────────────────────────────────── */}
-      <footer className="fixed bottom-0 left-0 right-0 flex items-center justify-center border-t border-[#ddd9cc]/50 bg-[#f5f5ee]/80 py-2 backdrop-blur-sm">
-        <span className="font-['Pretendard',sans-serif] text-xs text-[#6b6b5e]">
-          {wordCount.toLocaleString()} 단어 · ~{estimateReadingTime(wordCount)}분 읽기
-        </span>
-      </footer>
-
-      {/* ── Drawer Backdrop ────────────────────────────────────── */}
-      <div
-        className={`fixed inset-0 z-20 bg-black/30 transition-opacity duration-300 ${
-          isDrawerOpen ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-        onClick={() => setIsDrawerOpen(false)}
-        aria-hidden="true"
-      />
-
-      {/* ── Publish Settings Drawer ────────────────────────────── */}
-      <aside
-        className={`fixed right-0 top-0 z-30 flex h-full w-full flex-col border-l border-[#ddd9cc] bg-white shadow-xl transition-transform duration-300 ease-out md:w-[380px] ${
-          isDrawerOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        {/* Drawer header */}
-        <div className="flex h-14 shrink-0 items-center justify-between border-b border-[#ddd9cc] px-6">
-          <h2 className="font-['Pretendard',sans-serif] text-[16px] font-bold text-[#16140f]">
-            발행 설정
-          </h2>
-          <button
-            type="button"
-            onClick={() => setIsDrawerOpen(false)}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[#6b6b5e] transition-colors hover:bg-[#f5f5ee] hover:text-[#16140f]"
-          >
-            <CloseIcon />
-          </button>
-        </div>
-
-        {/* Drawer content */}
-        <div className="flex-1 overflow-y-auto p-6">
-          <div className="space-y-6">
-            {/* Slug */}
+            {/* 요약 (Excerpt) */}
             <label className="block">
               <span className="mb-1.5 block font-['Pretendard',sans-serif] text-[13px] font-semibold text-[#16140f]">
-                URL 슬러그
+                요약
               </span>
-              <input
-                value={slug}
-                onChange={handleSlugChange}
-                placeholder="example-post-slug"
-                className="h-10 w-full rounded-[8px] border border-[#ddd9cc] px-3 font-['Pretendard',sans-serif] text-[14px] text-[#16140f] transition-colors focus:border-[#FF6C0F] focus:outline-none"
+              <textarea
+                value={excerpt}
+                onChange={handleExcerptChange}
+                rows={3}
+                placeholder="포스트 요약을 입력하세요"
+                className="w-full rounded-[8px] border border-[#ddd9cc] px-3 py-2.5 font-['Pretendard',sans-serif] text-[14px] text-[#16140f] transition-colors focus:border-[#FF6C0F] focus:outline-none"
               />
             </label>
 
-            {/* Post type */}
+
+            {/* 포스트 유형 */}
             <fieldset>
               <legend className="mb-1.5 block font-['Pretendard',sans-serif] text-[13px] font-semibold text-[#16140f]">
                 포스트 유형
@@ -710,25 +568,14 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
               </div>
             </fieldset>
 
-            {/* Excerpt */}
-            <label className="block">
-              <span className="mb-1.5 block font-['Pretendard',sans-serif] text-[13px] font-semibold text-[#16140f]">
-                요약
-              </span>
-              <textarea
-                value={excerpt}
-                onChange={handleExcerptChange}
-                rows={3}
-                placeholder="포스트 요약을 입력하세요"
-                className="w-full rounded-[8px] border border-[#ddd9cc] px-3 py-2.5 font-['Pretendard',sans-serif] text-[14px] text-[#16140f] transition-colors focus:border-[#FF6C0F] focus:outline-none"
-              />
-            </label>
-
-            {/* Tags */}
+            {/* 카테고리 (Tags) */}
             <fieldset>
               <legend className="mb-1.5 block font-['Pretendard',sans-serif] text-[13px] font-semibold text-[#16140f]">
-                태그
+                카테고리
               </legend>
+              <p className="mb-2 font-['Pretendard',sans-serif] text-[12px] text-[#6b6b5e]">
+                최소 1개를 선택해주세요
+              </p>
               <div className="flex flex-wrap gap-2">
                 {sortedTags.map((tag) => {
                   const selected = selectedTags.includes(tag.slug);
@@ -753,35 +600,160 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
                 })}
               </div>
             </fieldset>
+
+            {/* 썸네일 (Cover Image) */}
+            <div>
+              <span className="mb-1.5 block font-['Pretendard',sans-serif] text-[13px] font-semibold text-[#16140f]">
+                썸네일
+              </span>
+
+              {imageUrl ? (
+                <div className="group relative max-w-[320px] overflow-hidden rounded-[8px]">
+                  <img
+                    src={imageUrl}
+                    alt="썸네일 이미지"
+                    className="aspect-[16/9] w-full rounded-[8px] object-cover"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center gap-2 rounded-[8px] bg-black/0 opacity-0 transition-all group-hover:bg-black/30 group-hover:opacity-100">
+                    <button
+                      type="button"
+                      onClick={() => coverInputRef.current?.click()}
+                      className="rounded-[6px] bg-white/90 px-3 py-1.5 font-['Pretendard',sans-serif] text-[13px] font-medium text-[#16140f] backdrop-blur-sm transition-colors hover:bg-white"
+                    >
+                      변경
+                    </button>
+                    <button
+                      type="button"
+                      onClick={removeCoverImage}
+                      className="inline-flex items-center gap-1 rounded-[6px] bg-white/90 px-3 py-1.5 font-['Pretendard',sans-serif] text-[13px] font-medium text-[#d63a19] backdrop-blur-sm transition-colors hover:bg-white"
+                    >
+                      <CloseIcon />
+                      삭제
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => coverInputRef.current?.click()}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") coverInputRef.current?.click();
+                  }}
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  className={`flex max-w-[320px] cursor-pointer flex-col items-center justify-center rounded-[8px] border-2 border-dashed px-6 py-8 transition-colors ${
+                    isDraggingOver
+                      ? "border-[#FF6C0F] bg-[#FF6C0F]/5"
+                      : "border-[#ddd9cc] hover:border-[#FF6C0F]/50 hover:bg-[#f5f5ee]/50"
+                  }`}
+                >
+                  <ImagePlaceholderIcon />
+                  <span className="font-['Pretendard',sans-serif] text-[13px] font-medium text-[#6b6b5e]">
+                    썸네일 이미지 (선택)
+                  </span>
+                  <span className="mt-1 font-['Pretendard',sans-serif] text-[12px] text-[#b5b2a6]">
+                    16:9 비율로 자동 크롭 후 적용됩니다
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Hidden file input for cover image */}
+          <input
+            ref={coverInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleCoverInputChange}
+          />
+
+          {/* Error message */}
+          {errorMessage && (
+            <div className="mt-4 rounded-[8px] border border-[#d63a19]/20 bg-[#d63a19]/5 px-4 py-3">
+              <p className="font-['Pretendard',sans-serif] text-[13px] text-[#d63a19]">
+                {errorMessage}
+              </p>
+            </div>
+          )}
+
+          {/* ── Action Buttons Row ────────────────────────────── */}
+          <div className="mt-6 flex flex-col-reverse items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <span className="font-['Pretendard',sans-serif] text-[13px] text-[#6b6b5e]">
+              {wordCount.toLocaleString()} 단어 · ~{estimateReadingTime(wordCount)}분 읽기
+            </span>
+
+            <div className="flex w-full items-center gap-3 sm:w-auto">
+              <button
+                type="button"
+                onClick={() => void submitForm(false)}
+                disabled={saveDisabled}
+                className="inline-flex h-[42px] flex-1 items-center justify-center rounded-[8px] border border-[#ddd9cc] bg-white px-5 font-['Pretendard',sans-serif] text-[14px] font-medium text-[#6b6b5e] transition-colors hover:border-[#16140f] hover:text-[#16140f] disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none"
+              >
+                임시저장
+              </button>
+              <button
+                type="button"
+                onClick={() => void submitForm(true)}
+                disabled={saveDisabled}
+                className="inline-flex h-[42px] flex-1 items-center justify-center rounded-[8px] bg-[#FF6C0F] px-6 font-['Pretendard',sans-serif] text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none"
+              >
+                발행하기
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Drawer footer */}
-        <div className="shrink-0 border-t border-[#ddd9cc] p-6">
-          <button
-            type="button"
-            onClick={() => {
-              setIsDrawerOpen(false);
-              void submitForm(true);
-            }}
-            disabled={saveDisabled}
-            className="mb-2 flex h-[42px] w-full items-center justify-center rounded-[8px] bg-[#FF6C0F] font-['Pretendard',sans-serif] text-[14px] font-medium text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            발행하기
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setIsDrawerOpen(false);
-              void submitForm(false);
-            }}
-            disabled={saveDisabled}
-            className="flex h-[42px] w-full items-center justify-center rounded-[8px] border border-[#ddd9cc] font-['Pretendard',sans-serif] text-[14px] font-medium text-[#16140f] transition-colors hover:border-[#FF6C0F] disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            임시저장
-          </button>
-        </div>
-      </aside>
+        {/* ── Right Column: Writing Tips Sidebar (~30%) ────────── */}
+        <aside className="hidden lg:block lg:w-[320px] lg:shrink-0">
+          <div className="sticky top-[100px] rounded-[12px] border border-[#ddd9cc] bg-white p-6">
+            <h3 className="mb-5 font-['Pretendard',sans-serif] text-[15px] font-bold text-[#16140f]">
+              글쓰기 가이드
+            </h3>
+
+            <div className="mb-5">
+              <p className="mb-2 font-['Pretendard',sans-serif] text-[13px] font-semibold text-[#3d8c40]">
+                이렇게 쓰면 좋아요
+              </p>
+              <ul className="space-y-1.5 pl-3">
+                <li className="relative font-['Pretendard',sans-serif] text-[13px] leading-relaxed text-[#6b6b5e] before:absolute before:-left-3 before:content-['·']">
+                  구체적인 경험과 사례를 공유해주세요
+                </li>
+                <li className="relative font-['Pretendard',sans-serif] text-[13px] leading-relaxed text-[#6b6b5e] before:absolute before:-left-3 before:content-['·']">
+                  한 가지 주제에 집중하면 더 좋아요
+                </li>
+                <li className="relative font-['Pretendard',sans-serif] text-[13px] leading-relaxed text-[#6b6b5e] before:absolute before:-left-3 before:content-['·']">
+                  실패 경험도 가치 있는 콘텐츠입니다
+                </li>
+                <li className="relative font-['Pretendard',sans-serif] text-[13px] leading-relaxed text-[#6b6b5e] before:absolute before:-left-3 before:content-['·']">
+                  독자가 바로 실천할 수 있는 팁을 넣어주세요
+                </li>
+              </ul>
+            </div>
+
+            <div className="h-px bg-[#ddd9cc]" />
+
+            <div className="mt-5">
+              <p className="mb-2 font-['Pretendard',sans-serif] text-[13px] font-semibold text-[#d63a19]">
+                이런 글은 안돼요
+              </p>
+              <ul className="space-y-1.5 pl-3">
+                <li className="relative font-['Pretendard',sans-serif] text-[13px] leading-relaxed text-[#6b6b5e] before:absolute before:-left-3 before:content-['·']">
+                  타인을 비방하거나 혐오하는 내용
+                </li>
+                <li className="relative font-['Pretendard',sans-serif] text-[13px] leading-relaxed text-[#6b6b5e] before:absolute before:-left-3 before:content-['·']">
+                  허위 정보나 과장된 내용
+                </li>
+                <li className="relative font-['Pretendard',sans-serif] text-[13px] leading-relaxed text-[#6b6b5e] before:absolute before:-left-3 before:content-['·']">
+                  광고나 홍보 목적의 글
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }

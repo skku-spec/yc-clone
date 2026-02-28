@@ -72,13 +72,12 @@ function JobCard({ job }: { job: Job }) {
           </div>
 
           {/* Job title — linkColor */}
-          <a
-            href="#"
-            className="mt-1 inline-block font-['Pretendard',sans-serif] text-base font-semibold hover:underline"
+          <span
+            className="mt-1 inline-block font-['Pretendard',sans-serif] text-base font-semibold hover:underline cursor-pointer"
             style={{ color: "rgb(38,139,210)" }}
           >
             {job.title}
-          </a>
+          </span>
 
           {/* Job metadata: Full-time | location | salary | remote */}
           <div className="mt-1 flex flex-wrap items-center gap-x-1 font-['Pretendard',sans-serif] text-sm text-gray-500">
@@ -98,23 +97,21 @@ function JobCard({ job }: { job: Job }) {
 
         {/* Apply button — right side on desktop */}
         <div className="hidden shrink-0 items-start pt-4 md:flex">
-          <a
-            href="#"
+          <button
             className="rounded-md bg-[#FF6C0F] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
           >
             지원하기
-          </a>
+          </button>
         </div>
       </div>
 
       {/* Mobile apply button */}
       <div className="mt-3 flex md:hidden">
-        <a
-          href="#"
+        <button
           className="rounded-md bg-[#FF6C0F] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white"
         >
           지원하기
-        </a>
+        </button>
       </div>
     </li>
   );
@@ -163,12 +160,11 @@ export default function JobsClient({ jobs }: { jobs: Job[] }) {
           </ul>
 
           <div className="mt-6">
-            <a
-              href="#"
+            <button
               className="inline-block rounded-md bg-[#FF6C0F] px-3 py-2 font-['Pretendard',sans-serif] text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
               지원하기
-            </a>
+            </button>
           </div>
         </div>
       </section>
