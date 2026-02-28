@@ -137,8 +137,6 @@ export default function TwoTracks() {
     return () => observer.disconnect();
   }, []);
 
-  /* Duplicate cards for seamless marquee loop */
-  const marqueeCards = [...tracks, ...tracks];
 
   return (
     <section className="relative w-full py-16 md:py-24 lg:py-32 bg-transparent">
@@ -172,36 +170,14 @@ export default function TwoTracks() {
             <TrackCardView key={track.title} track={track} isVisible={isVisible} />
           ))}
         </div>
-      </div>
 
-      {/* ── Mobile: infinite marquee (<sm) ── */}
-      <div className="sm:hidden overflow-hidden">
-        <div
-          className="flex"
-          style={{
-            animation: isVisible ? 'two-tracks-marquee 20s linear infinite' : 'none',
-            opacity: isVisible ? 1 : 0,
-            transition: 'opacity 0.4s ease',
-          }}
-        >
-          {marqueeCards.map((track, i) => (
-            <div
-              key={`${track.title}-${i}`}
-              className="w-[82vw] shrink-0 pr-4"
-              style={{ marginLeft: i === 0 ? '24px' : 0 }}
-            >
-              <TrackCardView track={track} isVisible={isVisible} />
-            </div>
+        {/* ── Mobile: stacked (<sm) ── */}
+        <div className="flex flex-col gap-4 sm:hidden">
+          {tracks.map((track) => (
+            <TrackCardView key={track.title} track={track} isVisible={isVisible} />
           ))}
         </div>
       </div>
-
-      <style>{`
-        @keyframes two-tracks-marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-      `}</style>
     </section>
   );
 }
