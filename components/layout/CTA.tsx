@@ -48,7 +48,7 @@ export default function CTA() {
              필요한 건 단 하나 — <span className="font-semibold text-white">실행할 의지.</span>
            </p>
 
-          <ApplyButton href="/apply" size="lg" className="mt-10">
+          <ApplyButton href="/apply" size="lg" className="mt-16">
             4기 지원하기
           </ApplyButton>
 

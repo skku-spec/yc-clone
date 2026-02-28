@@ -27,7 +27,7 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <Image src="/logo_ver1.png" alt="SPEC" width={40} height={40} />
             <h3 className="font-['Pretendard',sans-serif] text-base font-light text-white/90">
-              Execution is everything.
+              Execution over everything.
             </h3>
           </div>
 

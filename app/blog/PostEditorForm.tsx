@@ -34,18 +34,6 @@ type SaveStatus = "idle" | "saving" | "saved" | "error";
 
 /* ─── Utility Functions ─────────────────────────────────────────── */
 
-function slugify(value: string) {
-  return value
-    .trim()
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^\w\s-]/g, "")
-    .replace(/_/g, "-")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
 function estimateReadingTime(words: number): number {
   return Math.max(1, Math.ceil(words / 200));
 }
@@ -118,8 +106,6 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
 
   /* ─── Core form state ───────────────────────────────────────── */
   const [title, setTitle] = useState(post?.title ?? "");
-  const [slug, setSlug] = useState(post?.slug ?? "");
-  const [slugTouched, setSlugTouched] = useState(mode === "edit");
   const [type, setType] = useState<"blog" | "news">(post?.type ?? "blog");
   const [excerpt, setExcerpt] = useState(post?.excerpt ?? "");
   const [imageUrl, setImageUrl] = useState(post?.imageUrl ?? "");
@@ -148,8 +134,12 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
       ? isAuthenticated && (isAdmin || (Boolean(post.authorId) && post.authorId === profile?.id))
       : false;
 
-  const saveDisabled =
-    isSubmitting || !title.trim() || !slug.trim() || !excerpt.trim() || !content.trim();
+  const missingFields: string[] = [];
+  if (!title.trim()) missingFields.push("제목");
+  if (!excerpt.trim()) missingFields.push("요약");
+  if (!content.trim()) missingFields.push("본문");
+
+  const saveDisabled = isSubmitting || missingFields.length > 0;
 
   const sortedTags = useMemo(
     () => [...allTags].sort((a, b) => a.label.localeCompare(b.label, "ko")),
@@ -202,13 +192,12 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
   /* ─── Auto-save (edit mode) ─────────────────────────────────── */
   const performAutoSave = useCallback(async () => {
     if (mode !== "edit" || !post?.id) return;
-    if (!title.trim() || !slug.trim() || !excerpt.trim() || !content.trim()) return;
+    if (!title.trim() || !excerpt.trim() || !content.trim()) return;
 
     setSaveStatus("saving");
 
     const formData = new FormData();
     formData.set("title", title.trim());
-    formData.set("slug", slugify(slug));
     formData.set("type", type);
     formData.set("excerpt", excerpt.trim());
     formData.set("image_url", imageUrl.trim());
@@ -225,7 +214,7 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
     } else {
       setSaveStatus("error");
     }
-  }, [mode, post, title, slug, type, excerpt, imageUrl, content, selectedTags]);
+  }, [mode, post, title, type, excerpt, imageUrl, content, selectedTags]);
 
   /* Keep a ref so the debounce timer always calls the latest version */
   const performAutoSaveRef = useRef(performAutoSave);
@@ -265,7 +254,6 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
 
     const draft = JSON.stringify({
       title,
-      slug,
       type,
       excerpt,
       imageUrl,
@@ -279,24 +267,15 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
     } catch {
       /* localStorage full or unavailable */
     }
-  }, [mode, title, slug, type, excerpt, imageUrl, content, selectedTags]);
+  }, [mode, title, type, excerpt, imageUrl, content, selectedTags]);
 
   /* ─── Handlers ──────────────────────────────────────────────── */
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const nextTitle = event.target.value;
-    setTitle(nextTitle);
-    if (mode === "create" && !slugTouched) {
-      setSlug(slugify(nextTitle));
-    }
+    setTitle(event.target.value);
     triggerAutoSave();
   };
 
-  const handleSlugChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSlugTouched(true);
-    setSlug(event.target.value);
-    triggerAutoSave();
-  };
 
   const handleContentChange = (html: string) => {
     setContent(html);
@@ -367,7 +346,6 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
 
     const formData = new FormData();
     formData.set("title", title.trim());
-    formData.set("slug", slugify(slug));
     formData.set("type", type);
     formData.set("excerpt", excerpt.trim());
     formData.set("image_url", imageUrl.trim());
@@ -680,28 +658,36 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
           )}
 
           {/* ── Action Buttons Row ────────────────────────────── */}
-          <div className="mt-6 flex flex-col-reverse items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <span className="font-['Pretendard',sans-serif] text-[13px] text-[#6b6b5e]">
-              {wordCount.toLocaleString()} 단어 · ~{estimateReadingTime(wordCount)}분 읽기
-            </span>
+          <div className="mt-6 flex flex-col items-start gap-3">
+            {saveDisabled && !isSubmitting && missingFields.length > 0 && (
+              <p className="font-['Pretendard',sans-serif] text-[13px] text-[#d63a19]">
+                {missingFields.join(", ")}을(를) 입력해주세요
+              </p>
+            )}
 
-            <div className="flex w-full items-center gap-3 sm:w-auto">
-              <button
-                type="button"
-                onClick={() => void submitForm(false)}
-                disabled={saveDisabled}
-                className="inline-flex h-[42px] flex-1 items-center justify-center rounded-[8px] border border-[#ddd9cc] bg-white px-5 font-['Pretendard',sans-serif] text-[14px] font-medium text-[#6b6b5e] transition-colors hover:border-[#16140f] hover:text-[#16140f] disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none"
-              >
-                임시저장
-              </button>
-              <button
-                type="button"
-                onClick={() => void submitForm(true)}
-                disabled={saveDisabled}
-                className="inline-flex h-[42px] flex-1 items-center justify-center rounded-[8px] bg-[#FF6C0F] px-6 font-['Pretendard',sans-serif] text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none"
-              >
-                발행하기
-              </button>
+            <div className="flex w-full items-center justify-between gap-4 sm:w-auto">
+              <span className="font-['Pretendard',sans-serif] text-[13px] text-[#6b6b5e]">
+                {wordCount.toLocaleString()} 단어 · ~{estimateReadingTime(wordCount)}분 읽기
+              </span>
+
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => void submitForm(false)}
+                  disabled={saveDisabled}
+                  className="inline-flex h-[42px] items-center justify-center rounded-[8px] border border-[#ddd9cc] bg-white px-5 font-['Pretendard',sans-serif] text-[14px] font-medium text-[#6b6b5e] transition-colors hover:border-[#16140f] hover:text-[#16140f] disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  임시저장
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void submitForm(true)}
+                  disabled={saveDisabled}
+                  className="inline-flex h-[42px] items-center justify-center rounded-[8px] bg-[#FF6C0F] px-6 font-['Pretendard',sans-serif] text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  발행하기
+                </button>
+              </div>
             </div>
           </div>
         </div>

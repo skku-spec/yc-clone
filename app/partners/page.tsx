@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader";
 export const metadata: Metadata = {
   title: "멘토진 | SPEC — 성균관대 창업학회",
   description:
-    "카카오모빌리티, 맥킨지, 알토스벤처스 등 주요 기업 출신 현직자들이 SPEC 멤버들을 직접 지도합니다.",
+    "주요 기업 출신 현직자들이 SPEC 멤버들을 직접 지도합니다.",
 };
 
 const placeholderMentors = Array.from({ length: 6 }, (_, i) => i);
@@ -15,7 +15,7 @@ export default function PartnersPage() {
       <div className="mx-auto max-w-[1000px]">
         <PageHeader
           title="Mentors"
-          subtitle="카카오모빌리티, 맥킨지, 알토스벤처스 등 주요 기업 출신 현직자들이 SPEC 멤버들을 직접 지도합니다."
+          subtitle="주요 기업 출신 현직자들이 SPEC 멤버들을 직접 지도합니다."
         />
 
         <div className="mb-16 flex flex-col items-center gap-3 rounded-xl border border-[#FF6C0F]/20 bg-[#FF6C0F]/[0.03] px-6 py-10 text-center">

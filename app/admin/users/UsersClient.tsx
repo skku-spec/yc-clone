@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { updateUserRole } from "@/lib/actions/admin";
@@ -44,7 +44,18 @@ function formatJoinedDate(date: string) {
 export default function UsersClient({ initialProfiles }: UsersClientProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [search, setSearch] = useState("");
 
+  const filteredProfiles = initialProfiles.filter((profile) => {
+    if (!search.trim()) return true;
+    const q = search.trim().toLowerCase();
+    return (
+      profile.name.toLowerCase().includes(q) ||
+      (profile.slug?.toLowerCase().includes(q) ?? false) ||
+      (profile.batch?.toLowerCase().includes(q) ?? false) ||
+      (profile.company?.toLowerCase().includes(q) ?? false)
+    );
+  });
   const handleRoleChange = (userId: string, nextRole: UserRole) => {
     startTransition(() => {
       void (async () => {
@@ -61,9 +72,61 @@ export default function UsersClient({ initialProfiles }: UsersClientProps) {
   };
 
   return (
-    <section>
+    <section className="relative">
+      {/* Loading overlay */}
+      {isPending && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="flex flex-col items-center gap-4 rounded-xl bg-white px-10 py-8 shadow-xl">
+            <svg
+              className="h-8 w-8 animate-spin text-[#FF6C0F]"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+            <p className="font-['Pretendard',sans-serif] text-sm font-semibold text-[#16140f]">
+              권한을 변경하고 있습니다…
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="mx-auto max-w-6xl">
         <h1 className="mb-6 font-[system-ui] text-[clamp(2rem,4vw,2.75rem)] font-black">Users</h1>
+
+        {/* Search */}
+        <div className="mb-4 flex flex-wrap items-center gap-3">
+          <div className="relative w-full max-w-sm">
+            <svg
+              className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#6b6b5e]"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="이름, 슬러그, 기수, 회사로 검색…"
+              className="w-full rounded-lg border border-[#ddd9cc] bg-white py-2.5 pl-10 pr-4 font-['Pretendard',sans-serif] text-sm text-[#16140f] outline-none transition-colors placeholder:text-[#16140f]/40 focus:border-[#FF6C0F]/50 focus:ring-2 focus:ring-[#FF6C0F]/10"
+            />
+          </div>
+          <p className="font-['Pretendard',sans-serif] text-xs text-[#6b6b5e]">
+            {search.trim()
+              ? `${filteredProfiles.length}명 / 전체 ${initialProfiles.length}명`
+              : `전체 ${initialProfiles.length}명`}
+          </p>
+        </div>
 
         <div className="overflow-x-auto rounded-lg border border-[#ddd9cc] bg-white">
           <table className="min-w-full border-collapse">
@@ -77,7 +140,7 @@ export default function UsersClient({ initialProfiles }: UsersClientProps) {
               </tr>
             </thead>
             <tbody>
-              {initialProfiles.map((profile) => {
+              {filteredProfiles.map((profile) => {
                 const initial = profile.name.trim().charAt(0).toUpperCase() || "?";
 
                 return (
@@ -131,6 +194,16 @@ export default function UsersClient({ initialProfiles }: UsersClientProps) {
                   </tr>
                 );
               })}
+              {filteredProfiles.length === 0 && (
+                <tr className="border-t border-[#ece8db]">
+                  <td
+                    colSpan={5}
+                    className="px-4 py-8 text-center font-['Pretendard',sans-serif] text-sm text-[#6b6b5e]"
+                  >
+                    {search.trim() ? "검색 결과가 없습니다." : "등록된 유저가 없습니다."}
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
