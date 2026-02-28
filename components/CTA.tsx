@@ -46,7 +46,7 @@ export default function CTA() {
              완벽한 사업계획서도, 완성된 프로덕트도, 검증된 아이디어도 필요 없습니다. 필요한 건 단 하나 — <span className="font-semibold text-white">실행할 의지.</span>
            </p>
 
-          <ApplyButton href="/apply" size="lg">
+          <ApplyButton href="/apply" size="lg" className="mt-16">
             Apply
           </ApplyButton>
 

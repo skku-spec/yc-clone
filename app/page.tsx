@@ -13,7 +13,7 @@ import CTA from "@/components/CTA";
 export const metadata: Metadata = {
   title: "SKKU SPEC | 성균관대학교 창업 학회",
   description:
-    "Execution is everything. SPEC은 30주 안에 진짜 매출을 만드는 성균관대학교 창업 프로그램입니다.",
+    "Execution over everything. SPEC은 30주 안에 진짜 매출을 만드는 성균관대학교 창업 프로그램입니다.",
 };
 
 export default function Home() {
