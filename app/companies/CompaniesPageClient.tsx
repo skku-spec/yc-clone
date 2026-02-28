@@ -60,7 +60,7 @@ export default function CompaniesPageClient({
       counts[c.batch] = (counts[c.batch] || 0) + 1;
     }
     return counts;
-  }, []);
+  }, [COMPANIES]);
 
   const industryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -70,7 +70,7 @@ export default function CompaniesPageClient({
       }
     }
     return counts;
-  }, []);
+  }, [COMPANIES]);
 
 
   const filteredCompanies = useMemo(() => {
@@ -102,7 +102,7 @@ export default function CompaniesPageClient({
     return filtered;
   }, [
     searchQuery,
-    selectedBatches, selectedIndustries, sortBy,
+    selectedBatches, selectedIndustries, sortBy, COMPANIES, BATCH_OPTIONS,
   ]);
 
   const displayedCompanies = filteredCompanies.slice(0, visibleCount);

@@ -38,9 +38,9 @@ export default function FoundersPageClient({
   memberTypeOptions: MEMBER_TYPE_OPTIONS,
   projectOptions: PROJECT_OPTIONS,
 }: FoundersPageClientProps) {
-  const PROJECT_LABEL_MAP: Record<string, string> = Object.fromEntries(
+  const PROJECT_LABEL_MAP: Record<string, string> = useMemo(() => Object.fromEntries(
     PROJECT_OPTIONS.map((p) => [p.value, p.label])
-  );
+  ), [PROJECT_OPTIONS]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBatches, setSelectedBatches] = useState<string[]>([]);
@@ -73,7 +73,7 @@ export default function FoundersPageClient({
 
       return true;
     });
-  }, [searchQuery, selectedBatches, selectedMemberTypes, selectedProjects]);
+  }, [searchQuery, selectedBatches, selectedMemberTypes, selectedProjects, MEMBERS, PROJECT_LABEL_MAP]);
 
   const batchCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -85,7 +85,7 @@ export default function FoundersPageClient({
       }
     }
     return counts;
-  }, []);
+  }, [MEMBERS, BATCH_OPTIONS]);
 
   const memberTypeCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -93,7 +93,7 @@ export default function FoundersPageClient({
       counts[m.memberType] = (counts[m.memberType] || 0) + 1;
     }
     return counts;
-  }, []);
+  }, [MEMBERS]);
 
   const projectCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -103,7 +103,7 @@ export default function FoundersPageClient({
       }
     }
     return counts;
-  }, []);
+  }, [MEMBERS]);
 
   const hasActiveFilters =
     selectedBatches.length > 0 || selectedMemberTypes.length > 0 || selectedProjects.length > 0;
