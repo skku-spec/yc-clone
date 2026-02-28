@@ -50,7 +50,7 @@ export default function BlockNoteEditor({
       fontFamily: '"Pretendard", "MaruBuri", sans-serif',
       colors: {
         editor: {
-          background: "#ffffff",
+          background: "#fcfcf8",
           text: "#16140f",
         },
         menu: {
@@ -144,7 +144,7 @@ export default function BlockNoteEditor({
 
         .blocknote-editor-root .bn-editor {
           min-height: 400px;
-          background: #ffffff;
+          background: #fcfcf8;
           color: #16140f;
           padding: 0;
           font-family: "Pretendard", "MaruBuri", sans-serif;

@@ -485,7 +485,7 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
         {/* ── Left Column: Editor & Settings (~70%) ───────────── */}
         <div className="min-w-0 flex-1">
           {/* Title + Editor Card */}
-          <div className="rounded-[12px] border border-[#ddd9cc] bg-white p-6 md:p-8">
+          <div className="rounded-[12px] border border-[#ddd9cc] bg-[#fcfcf8] p-6 md:p-8">
             <input
               value={title}
               onChange={handleTitleChange}
@@ -498,7 +498,7 @@ export default function PostEditorForm({ mode, post, initialTags = [] }: PostEdi
 
             {/* Editor guide hint */}
             <p className="mb-4 font-['Pretendard',sans-serif] text-[12px] text-[#b5b2a6]">
-              <kbd className="rounded border border-[#ddd9cc] bg-[#f5f5ee] px-1.5 py-0.5 font-mono text-[11px]">/</kbd> 를 입력하면 제목, 리스트, 이미지 등을 삽입할 수 있어요. 블록 좌측을 드래그해서 순서를 변경할 수도 있습니다.
+              <kbd className="rounded border border-[#ddd9cc] bg-[#f5f5ee] px-1.5 py-0.5 font-mono text-[11px]">/</kbd> 를 입력하면 제목, 리스트, 이미지 등을 삽입할 수 있어요. 텍스트를 드래그하면 서식 도구가 나타납니다.
             </p>
 
             <div className="min-h-[400px]">
