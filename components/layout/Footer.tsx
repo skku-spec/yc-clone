@@ -6,20 +6,15 @@ export default function Footer() {
     programs: [
       { label: "SPEC 프로그램", href: "/about" },
       { label: "커리큘럼", href: "/curriculum" },
-      { label: "채용 정보", href: "/jobs" },
-// { label: "팀원 찾기", href: "/cofounder-matching" },
+      { label: "지원하기", href: "/apply" },
     ],
     resources: [
       { label: "프로젝트 목록", href: "/companies" },
-// { label: "라이브러리", href: "/library" },
       { label: "파트너", href: "/partners" },
-      { label: "데모데이", href: "/demoday" },
-      { label: "런칭 소식", href: "/launches" },
+      { label: "멤버", href: "/people" },
     ],
     company: [
       { label: "블로그", href: "/blog" },
-      { label: "문의하기", href: "/contact" },
-      { label: "멤버", href: "/people" },
       { label: "개인정보처리방침", href: "/legal#privacy" },
       { label: "이용약관", href: "/legal#tou" },
     ],
@@ -83,7 +78,7 @@ export default function Footer() {
         <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
           <div className="flex gap-4">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/skku_spec/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/50 transition-colors hover:text-white"
@@ -98,7 +93,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/109494240"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/50 transition-colors hover:text-white"
