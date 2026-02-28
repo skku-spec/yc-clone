@@ -22,7 +22,7 @@ export default function LoginForm({ registered, redirect }: LoginFormProps) {
       if (result?.error) {
         setError(result.error);
       } else {
-        const target = redirect && redirect.startsWith("/") ? redirect : "/";
+        const target = redirect && redirect.startsWith("/") && !redirect.startsWith("//") ? redirect : "/";
         window.location.href = target;
       }
     });

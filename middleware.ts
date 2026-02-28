@@ -4,6 +4,9 @@ import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 import type { Database } from "@/lib/supabase/types";
 
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
+
 const WRITER_ROLES = ["member", "admin"];
 type UserRole = "outsider" | "member" | "admin";
 
@@ -59,8 +62,8 @@ async function getUserRole(
   userId: string,
 ): Promise<UserRole> {
   const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {
@@ -86,6 +89,10 @@ async function getUserRole(
 }
 
 export async function middleware(request: NextRequest) {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    return NextResponse.next({ request });
+  }
+
   const response = await updateSession(request);
   const pathname = request.nextUrl.pathname;
 
@@ -103,8 +110,8 @@ export async function middleware(request: NextRequest) {
   }
 
   const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {
