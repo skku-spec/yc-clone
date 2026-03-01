@@ -77,7 +77,7 @@ export default function ApplicationsClient({ initialApplications }: Applications
         <h1 className="mb-6 font-[system-ui] text-[clamp(2rem,4vw,2.75rem)] font-black">Applications</h1>
         <p className="text-xs text-[#6b6b5e] sm:text-sm">총 {initialApplications.length}건</p>
 
-        <div className="mt-4 hidden overflow-x-auto rounded-lg border border-[#ddd9cc] bg-white lg:block">
+        <div className="mt-4 hidden rounded-lg border border-[#ddd9cc] bg-white lg:block">
           <table className="min-w-full border-collapse">
             <thead className="bg-[#f0efe6] text-left">
               <tr>

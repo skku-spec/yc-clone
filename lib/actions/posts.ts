@@ -239,6 +239,7 @@ function parsePostPayload(formData: FormData) {
   const image_url = parseStringField(formData, "image_url");
   const tags = parseTags(formData);
   const typeValue = parseStringField(formData, "type");
+  const publishedValue = parseStringField(formData, "published");
 
   if (!title || !excerpt || !content || !typeValue) {
     throw new Error("Missing required post fields.");
@@ -255,6 +256,7 @@ function parsePostPayload(formData: FormData) {
     image_url,
     tags,
     type: typeValue,
+    published: publishedValue === "true",
   };
 }
 
@@ -296,7 +298,7 @@ export async function createPost(formData: FormData): Promise<ActionResult> {
       image_url: payload.image_url,
       author_id: user.id,
       featured: false,
-      published: false,
+      published: payload.published,
     };
 
     const { data: post, error: insertError } = await supabase.from("posts").insert(postInsert).select("id, slug").single();
@@ -353,6 +355,7 @@ export async function updatePost(postId: string, formData: FormData): Promise<Ac
       content: payload.content,
       type: payload.type,
       image_url: payload.image_url,
+      published: payload.published,
     };
 
     const { data: updatedPost, error: updateError } = await supabase

@@ -116,7 +116,7 @@ function makeMaybeSingleChain(result: {
 }
 
 function makeAdminFallbackClient(options: {
-  data?: Record<string, string | null> | null;
+  data?: Record<string, unknown> | null;
   error?: { message?: string } | null;
   updateError?: { message?: string } | null;
 }) {
@@ -388,19 +388,40 @@ describe("getMyApplication", () => {
       batch: "4",
       created_at: "2026-01-01T00:00:00Z",
     };
-    const chain = makeMaybeSingleChain({ data: appData });
     const client = {
       auth: {
-        getUser: vi.fn().mockResolvedValue({ data: { user: { id: "user-1" } } }),
+        getUser: vi.fn().mockResolvedValue({ data: { user: { id: "user-1", email: "hong@skku.edu" } } }),
       },
-      from: vi.fn(() => chain),
+      from: vi.fn(),
     };
     mockedCreateClient.mockResolvedValue(client as never);
+
+    const detailData = {
+      id: "app-1",
+      user_id: "user-1",
+      ...appData,
+      email: "hong@skku.edu",
+      phone: null,
+      student_id: "20240001",
+      major: "컴퓨터공학과",
+      introduction: "intro",
+      vision: "vision",
+      startup_idea: "idea",
+      portfolio_url: "https://example.com",
+      experience_extra: null,
+      equip: false,
+      photo_exp: false,
+      design_exp: false,
+      figma: false,
+      illustrator: false,
+    };
+    const { adminClient } = makeAdminFallbackClient({ data: detailData });
+    mockedCreateAdminClient.mockReturnValue(adminClient as never);
 
     const result = await getMyApplication();
 
     expect(result).toEqual({ success: true, application: appData });
-    expect(mockedCreateAdminClient).not.toHaveBeenCalled();
+    expect(mockedCreateAdminClient).toHaveBeenCalledTimes(1);
   });
 
   it("returns success without application when user has no application", async () => {
@@ -440,9 +461,31 @@ describe("getMyApplication", () => {
       name: "홍길동",
       batch: "4",
       created_at: "2026-01-01T00:00:00Z",
+      email: "hong@skku.edu",
+      phone: null,
+      student_id: "20240001",
+      major: "컴퓨터공학과",
+      introduction: "intro",
+      vision: "vision",
+      startup_idea: "idea",
+      portfolio_url: "https://example.com",
+      experience_extra: null,
+      equip: false,
+      photo_exp: false,
+      design_exp: false,
+      figma: false,
+      illustrator: false,
     };
-    const { adminClient, update, updateEq } = makeAdminFallbackClient({ data: fallbackData });
-    mockedCreateAdminClient.mockReturnValue(adminClient as never);
+    const firstSelect = makeMaybeSingleChain({ data: null });
+    const secondSelect = makeMaybeSingleChain({ data: fallbackData as unknown as Record<string, string> });
+    const updateEq = vi.fn().mockResolvedValue({ error: null });
+    const update = vi.fn(() => ({ eq: updateEq }));
+    const from = vi
+      .fn()
+      .mockReturnValueOnce(firstSelect)
+      .mockReturnValueOnce(secondSelect)
+      .mockReturnValue({ update });
+    mockedCreateAdminClient.mockReturnValue({ from } as never);
 
     const result = await getMyApplication();
 
@@ -480,9 +523,30 @@ describe("getMyApplication", () => {
       name: "홍길동",
       batch: "4",
       created_at: "2026-01-01T00:00:00Z",
+      email: "hong@skku.edu",
+      phone: null,
+      student_id: "20240001",
+      major: "컴퓨터공학과",
+      introduction: "intro",
+      vision: "vision",
+      startup_idea: "idea",
+      portfolio_url: "https://example.com",
+      experience_extra: null,
+      equip: false,
+      photo_exp: false,
+      design_exp: false,
+      figma: false,
+      illustrator: false,
     };
-    const { adminClient, update } = makeAdminFallbackClient({ data: fallbackData });
-    mockedCreateAdminClient.mockReturnValue(adminClient as never);
+    const firstSelect = makeMaybeSingleChain({ data: null });
+    const secondSelect = makeMaybeSingleChain({ data: fallbackData as unknown as Record<string, string> });
+    const update = vi.fn(() => ({ eq: vi.fn() }));
+    const from = vi
+      .fn()
+      .mockReturnValueOnce(firstSelect)
+      .mockReturnValueOnce(secondSelect)
+      .mockReturnValue({ update });
+    mockedCreateAdminClient.mockReturnValue({ from } as never);
 
     const result = await getMyApplication();
 

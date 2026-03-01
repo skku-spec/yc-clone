@@ -225,7 +225,7 @@ export default function Navbar() {
           </div>
 
           <div className="absolute right-8 flex items-center gap-3">
-           <ApplyButton href="/apply" size="sm">
+           <ApplyButton href={isAuthenticated ? "/apply" : "/login?redirect=/apply"} size="sm">
               Apply
             </ApplyButton>
 
@@ -438,7 +438,7 @@ export default function Navbar() {
 
             <div className={`px-6 py-5 ${isHome ? "border-t border-white/10" : "border-t border-[#16140f]/10"}`}>
              <ApplyButton
-                href="/apply"
+                href={isAuthenticated ? "/apply" : "/login?redirect=/apply"}
                 size="sm"
                 fullWidth
                 className="mb-4 py-3"

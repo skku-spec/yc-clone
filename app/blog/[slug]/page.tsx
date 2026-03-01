@@ -4,8 +4,6 @@ import DOMPurify from "isomorphic-dompurify";
 
 import "./blog-post-content.css";
 
-import CommentSection from "@/components/blog/CommentSection";
-import ReactionBar from "@/components/blog/ReactionBar";
 import { getCurrentUser } from "@/lib/auth";
 import { getCommentsByPost } from "@/lib/actions/comments";
 import { getReactionsByPost } from "@/lib/actions/reactions";
@@ -15,6 +13,7 @@ import {
   getRelatedPosts,
 } from "@/lib/api";
 
+import InteractiveSection from "./InteractiveSection";
 import PostAuthorActions from "./PostAuthorActions";
 
 export const revalidate = 60;
@@ -115,6 +114,9 @@ export default async function BlogPostPage({
   }
 
   const tagLabelBySlug = new Map(tags.map((tag) => [tag.slug, tag.label]));
+  const sanitizedContent = DOMPurify.sanitize(post.content)
+    .replace(/<img(?![^>]*\bloading=)/gi, '<img loading="lazy"')
+    .replace(/<img(?![^>]*\bdecoding=)/gi, '<img decoding="async"');
 
   return (
     <section className="min-h-screen pb-24">
@@ -158,14 +160,17 @@ export default async function BlogPostPage({
               <img
                 src={post.imageUrl}
                 alt={post.title}
-                className="aspect-[16/9] w-full object-cover"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                className="aspect-[16/9] h-auto w-full object-cover"
               />
             </div>
           )}
 
           <div
             className="prose-content mb-10"
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+            dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
 
           <div className="mb-10 border-t border-[#ddd9cc] pt-6">
@@ -185,8 +190,12 @@ export default async function BlogPostPage({
             </div>
           </div>
 
-          <ReactionBar postId={post.id} initialReactions={reactions} userId={currentUser.user?.id} />
-          <CommentSection postId={post.id} initialComments={comments} />
+          <InteractiveSection
+            postId={post.id}
+            comments={comments}
+            reactions={reactions}
+            userId={currentUser.user?.id}
+          />
         </article>
       </div>
 
