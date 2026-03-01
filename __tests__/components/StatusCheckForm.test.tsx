@@ -104,7 +104,6 @@ describe("StatusCheckForm", () => {
         name: "홍길동",
         batch: "4",
         created_at: "2024-03-01",
-        updated_at: "2024-03-02",
       },
     });
 
