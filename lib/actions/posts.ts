@@ -26,6 +26,50 @@ function parseStringField(formData: FormData, key: string): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function slugify(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[^\w\s-]/g, "")
+    .replace(/_/g, "-")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+async function generateUniqueSlug(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  title: string,
+): Promise<string> {
+  const base = slugify(title);
+  if (!base) {
+    return `post-${Date.now()}`;
+  }
+
+  const { data: existing } = await supabase
+    .from("posts")
+    .select("slug")
+    .like("slug", `${base}%`);
+
+  if (!existing || existing.length === 0) {
+    return base;
+  }
+
+  const existingSlugs = new Set(existing.map((p) => p.slug));
+
+  if (!existingSlugs.has(base)) {
+    return base;
+  }
+
+  let suffix = 2;
+  while (existingSlugs.has(`${base}-${suffix}`)) {
+    suffix++;
+  }
+
+  return `${base}-${suffix}`;
+}
+
 function parseTags(formData: FormData): string[] {
   const fromArray = formData
     .getAll("tags")
@@ -190,14 +234,13 @@ async function upsertPostTags(
 
 function parsePostPayload(formData: FormData) {
   const title = parseStringField(formData, "title");
-  const slug = parseStringField(formData, "slug");
   const excerpt = parseStringField(formData, "excerpt");
   const content = parseStringField(formData, "content");
   const image_url = parseStringField(formData, "image_url");
   const tags = parseTags(formData);
   const typeValue = parseStringField(formData, "type");
 
-  if (!title || !slug || !excerpt || !content || !typeValue) {
+  if (!title || !excerpt || !content || !typeValue) {
     throw new Error("Missing required post fields.");
   }
 
@@ -207,7 +250,6 @@ function parsePostPayload(formData: FormData) {
 
   return {
     title,
-    slug,
     excerpt,
     content,
     image_url,
@@ -243,9 +285,11 @@ export async function createPost(formData: FormData): Promise<ActionResult> {
       throw new Error("Only admins can create news posts.");
     }
 
+    const generatedSlug = await generateUniqueSlug(supabase, payload.title);
+
     const postInsert: Database["public"]["Tables"]["posts"]["Insert"] = {
       title: payload.title,
-      slug: payload.slug,
+      slug: generatedSlug,
       excerpt: payload.excerpt,
       content: payload.content,
       type: payload.type,
@@ -305,7 +349,6 @@ export async function updatePost(postId: string, formData: FormData): Promise<Ac
 
     const updatePayload: Database["public"]["Tables"]["posts"]["Update"] = {
       title: payload.title,
-      slug: payload.slug,
       excerpt: payload.excerpt,
       content: payload.content,
       type: payload.type,
