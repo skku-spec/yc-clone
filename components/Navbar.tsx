@@ -14,6 +14,40 @@ const ROLE_LABEL: Record<string, string> = {
   admin: "관리자",
 };
 
+const APPLY_DEADLINE = {
+  year: 2026,
+  month: 3,
+  day: 12,
+} as const;
+
+function getApplyDdayLabel() {
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
+
+  const year = Number(parts.find((part) => part.type === "year")?.value);
+  const month = Number(parts.find((part) => part.type === "month")?.value);
+  const day = Number(parts.find((part) => part.type === "day")?.value);
+
+  const todayUtc = Date.UTC(year, month - 1, day);
+  const deadlineUtc = Date.UTC(APPLY_DEADLINE.year, APPLY_DEADLINE.month - 1, APPLY_DEADLINE.day);
+  const diffDays = Math.floor((deadlineUtc - todayUtc) / (1000 * 60 * 60 * 24));
+
+  if (diffDays > 0) {
+    return `D-${diffDays}`;
+  }
+
+  if (diffDays === 0) {
+    return "D-DAY";
+  }
+
+  return "마감";
+}
+
 function getInitials(name: string) {
   const trimmed = name.trim();
 
@@ -49,6 +83,7 @@ export default function Navbar() {
     "사용자";
   const roleLabel = ROLE_LABEL[role] ?? "외부";
   const initials = getInitials(displayName);
+  const applyDdayLabel = getApplyDdayLabel();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
@@ -80,7 +115,7 @@ export default function Navbar() {
           href="/apply"
           className="inline-flex items-center gap-1.5 font-['Pretendard',sans-serif] text-sm font-normal tracking-wide hover:opacity-80 transition-opacity no-underline text-white"
         >
-          SPEC 4기 파운더 모집 중 — 지원 마감 D-30
+          {`SPEC 4기 러너 모집 중 — 지원 마감 ${applyDdayLabel}`}
           <svg
             width="12"
             height="12"

@@ -37,7 +37,7 @@ export default function ScrollBackground() {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
-    if (prefersReducedMotion || isMobileViewport) {
+    if (prefersReducedMotion) {
       return;
     }
 
@@ -77,8 +77,12 @@ export default function ScrollBackground() {
         img.src = src;
       });
 
+    const preloadSources = isMobileViewport
+      ? [entrepreneurImages[0], entrepreneurImages[1], entrepreneurImages[2], specImages[0], specImages[1]]
+      : allBackgroundImages;
+
     const preloadInBackground = async () => {
-      for (const src of allBackgroundImages) {
+      for (const src of preloadSources) {
         if (preloadCancelled) {
           break;
         }
@@ -86,7 +90,7 @@ export default function ScrollBackground() {
         await preloadOne(src);
 
         await new Promise<void>((resolve) => {
-          preloadTimerId = window.setTimeout(resolve, 60);
+          preloadTimerId = window.setTimeout(resolve, isMobileViewport ? 120 : 60);
         });
       }
     };
