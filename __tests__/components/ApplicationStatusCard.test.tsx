@@ -7,7 +7,6 @@ const mockApplicationData = {
   name: "김철수",
   batch: "4",
   created_at: "2024-03-01",
-  updated_at: "2024-03-01",
 };
 
 describe("ApplicationStatusCard", () => {

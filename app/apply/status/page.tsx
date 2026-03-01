@@ -13,13 +13,15 @@ export default async function ApplicationStatusPage() {
     name: string;
     batch: string;
     created_at: string;
-    updated_at: string;
   } | null = null;
+  let lookupError: string | null = null;
 
   if (user) {
     const result = await getMyApplication();
     if (result.success && result.application) {
       linkedApplication = result.application;
+    } else if (result.error) {
+      lookupError = result.error;
     }
   }
 
@@ -36,18 +38,28 @@ export default async function ApplicationStatusPage() {
           {linkedApplication
             ? "로그인 계정에 연결된 지원서 현황입니다."
             : user
-              ? "현재 로그인한 계정으로 제출된 지원서가 없습니다."
+              ? lookupError
+                ? "지원서 조회 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요."
+                : "현재 로그인한 계정으로 제출된 지원서가 없습니다."
             : "지원서 제출 시 입력한 이메일과 학번으로 현재 지원 상태를 확인할 수 있습니다."}
         </p>
 
         {linkedApplication ? (
           <ApplicationStatusCard application={linkedApplication} />
         ) : user ? (
-          <div className="mt-10 rounded-lg border border-[#d9d9cc] bg-[#FFF0E5] px-5 py-4">
-            <p className="font-['Pretendard',sans-serif] text-sm text-[#4a4a40]">
-              현재 로그인한 계정으로 제출된 지원서가 없습니다.
-            </p>
-          </div>
+          lookupError ? (
+            <div className="mt-10 rounded-lg border border-[#f5c2c2] bg-[#FEE2E2] px-5 py-4">
+              <p className="font-['Pretendard',sans-serif] text-sm text-[#b42318]">
+                지원서 조회 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.
+              </p>
+            </div>
+          ) : (
+            <div className="mt-10 rounded-lg border border-[#d9d9cc] bg-[#FFF0E5] px-5 py-4">
+              <p className="font-['Pretendard',sans-serif] text-sm text-[#4a4a40]">
+                현재 로그인한 계정으로 제출된 지원서가 없습니다.
+              </p>
+            </div>
+          )
         ) : (
           <StatusCheckForm />
         )}

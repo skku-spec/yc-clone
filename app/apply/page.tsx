@@ -16,7 +16,7 @@ export default async function ApplyPage() {
 
   // Check if logged-in user already has a linked application
   let hasApplication = false;
-  let applicationData: { status: string; name: string; batch: string; created_at: string; updated_at: string } | undefined;
+  let applicationData: { status: string; name: string; batch: string; created_at: string } | undefined;
   if (user) {
     const result = await getMyApplication();
     if (result.success && result.application) {

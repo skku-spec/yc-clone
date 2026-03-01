@@ -328,7 +328,6 @@ describe("getApplicationByCredentials", () => {
       name: "홍길동",
       batch: "4",
       created_at: "2026-01-01T00:00:00Z",
-      updated_at: "2026-01-02T00:00:00Z",
     };
     const chain = makeMaybeSingleChain({ data: appData });
     mockedCreateAdminClient.mockReturnValue({ from: vi.fn(() => chain) } as never);
@@ -388,7 +387,6 @@ describe("getMyApplication", () => {
       name: "홍길동",
       batch: "4",
       created_at: "2026-01-01T00:00:00Z",
-      updated_at: "2026-01-03T00:00:00Z",
     };
     const chain = makeMaybeSingleChain({ data: appData });
     const client = {
@@ -442,7 +440,6 @@ describe("getMyApplication", () => {
       name: "홍길동",
       batch: "4",
       created_at: "2026-01-01T00:00:00Z",
-      updated_at: "2026-01-04T00:00:00Z",
     };
     const { adminClient, update, updateEq } = makeAdminFallbackClient({ data: fallbackData });
     mockedCreateAdminClient.mockReturnValue(adminClient as never);
@@ -456,7 +453,6 @@ describe("getMyApplication", () => {
         name: "홍길동",
         batch: "4",
         created_at: "2026-01-01T00:00:00Z",
-        updated_at: "2026-01-04T00:00:00Z",
       },
     });
     expect(update).toHaveBeenCalledWith(
@@ -484,7 +480,6 @@ describe("getMyApplication", () => {
       name: "홍길동",
       batch: "4",
       created_at: "2026-01-01T00:00:00Z",
-      updated_at: "2026-01-04T00:00:00Z",
     };
     const { adminClient, update } = makeAdminFallbackClient({ data: fallbackData });
     mockedCreateAdminClient.mockReturnValue(adminClient as never);
@@ -498,7 +493,6 @@ describe("getMyApplication", () => {
         name: "홍길동",
         batch: "4",
         created_at: "2026-01-01T00:00:00Z",
-        updated_at: "2026-01-04T00:00:00Z",
       },
     });
     expect(update).not.toHaveBeenCalled();

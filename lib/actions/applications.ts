@@ -234,7 +234,7 @@ export async function updateApplicationStatus(
 
   const { data, error } = await supabase
     .from("applications")
-    .update({ status, updated_at: new Date().toISOString() })
+    .update({ status })
     .eq("id", id)
     .select();
 
@@ -264,7 +264,6 @@ export type ApplicationStatusResult = {
     name: string;
     batch: string;
     created_at: string;
-    updated_at: string;
   };
 };
 
@@ -304,7 +303,7 @@ export async function getApplicationByCredentials(
 
   const { data, error } = await adminClient
     .from("applications")
-    .select("status, name, batch, created_at, updated_at")
+    .select("status, name, batch, created_at")
     .eq("email", trimmedEmail)
     .eq("student_id", trimmedStudentId)
     .order("created_at", { ascending: false })
@@ -329,7 +328,6 @@ export async function getApplicationByCredentials(
       name: data.name,
       batch: data.batch,
       created_at: data.created_at,
-      updated_at: data.updated_at,
     },
   };
 }
@@ -348,7 +346,7 @@ export async function getMyApplication(): Promise<ApplicationStatusResult> {
   // (admin users' RLS policy would see ALL rows, breaking .maybeSingle())
   const { data, error } = await supabase
     .from("applications")
-    .select("status, name, batch, created_at, updated_at")
+    .select("status, name, batch, created_at")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .limit(1)
@@ -369,7 +367,6 @@ export async function getMyApplication(): Promise<ApplicationStatusResult> {
         name: data.name,
         batch: data.batch,
         created_at: data.created_at,
-        updated_at: data.updated_at,
       },
     };
   }
@@ -382,7 +379,7 @@ export async function getMyApplication(): Promise<ApplicationStatusResult> {
   const adminClient = createAdminClient();
   const { data: emailMatched, error: emailMatchError } = await adminClient
     .from("applications")
-    .select("id, user_id, status, name, batch, created_at, updated_at")
+    .select("id, user_id, status, name, batch, created_at")
     .eq("email", userEmail)
     .order("created_at", { ascending: false })
     .limit(1)
@@ -402,7 +399,7 @@ export async function getMyApplication(): Promise<ApplicationStatusResult> {
   if (!emailMatched.user_id) {
     await adminClient
       .from("applications")
-      .update({ user_id: user.id, updated_at: new Date().toISOString() })
+      .update({ user_id: user.id })
       .eq("id", emailMatched.id);
   }
 
@@ -413,7 +410,6 @@ export async function getMyApplication(): Promise<ApplicationStatusResult> {
       name: emailMatched.name,
       batch: emailMatched.batch,
       created_at: emailMatched.created_at,
-      updated_at: emailMatched.updated_at,
     },
   };
 }
