@@ -35,26 +35,20 @@ export default async function ApplicationStatusPage() {
         <p className="mt-4 font-['Pretendard',sans-serif] text-[17px] leading-[1.75] text-[#4a4a40]">
           {linkedApplication
             ? "로그인 계정에 연결된 지원서 현황입니다."
+            : user
+              ? "현재 로그인한 계정으로 제출된 지원서가 없습니다."
             : "지원서 제출 시 입력한 이메일과 학번으로 현재 지원 상태를 확인할 수 있습니다."}
         </p>
 
         {linkedApplication ? (
-          /* Logged in + has linked application → show immediately */
           <ApplicationStatusCard application={linkedApplication} />
         ) : user ? (
-          /* Logged in but no linked application → show form with note */
-          <>
-            <div className="mt-10 rounded-lg border border-[#d9d9cc] bg-[#FFF0E5] px-5 py-4">
-              <p className="font-['Pretendard',sans-serif] text-sm text-[#4a4a40]">
-                현재 로그인한 계정에 연결된 지원서가 없습니다.
-                <br />
-                이전에 지원하셨다면 아래에서 이메일과 학번으로 조회할 수 있습니다.
-              </p>
-            </div>
-            <StatusCheckForm />
-          </>
+          <div className="mt-10 rounded-lg border border-[#d9d9cc] bg-[#FFF0E5] px-5 py-4">
+            <p className="font-['Pretendard',sans-serif] text-sm text-[#4a4a40]">
+              현재 로그인한 계정으로 제출된 지원서가 없습니다.
+            </p>
+          </div>
         ) : (
-          /* Not logged in → show form */
           <StatusCheckForm />
         )}
 

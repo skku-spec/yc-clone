@@ -115,6 +115,33 @@ function makeMaybeSingleChain(result: {
   return chain;
 }
 
+function makeAdminFallbackClient(options: {
+  data?: Record<string, string | null> | null;
+  error?: { message?: string } | null;
+  updateError?: { message?: string } | null;
+}) {
+  const selectChain = makeMaybeSingleChain({
+    data: (options.data as Record<string, string>) ?? null,
+    error: options.error ?? null,
+  });
+
+  const updateEq = vi
+    .fn()
+    .mockResolvedValue({ error: options.updateError ?? null });
+  const update = vi.fn(() => ({ eq: updateEq }));
+
+  const from = vi
+    .fn()
+    .mockReturnValueOnce(selectChain)
+    .mockReturnValue({ update });
+
+  return {
+    adminClient: { from },
+    update,
+    updateEq,
+  };
+}
+
 const mockedCreateClient = mockedDeps.createClient;
 const mockedCreateAdminClient = mockedDeps.createAdminClient;
 const mockedRateLimit = mockedDeps.rateLimit;
@@ -375,6 +402,7 @@ describe("getMyApplication", () => {
     const result = await getMyApplication();
 
     expect(result).toEqual({ success: true, application: appData });
+    expect(mockedCreateAdminClient).not.toHaveBeenCalled();
   });
 
   it("returns success without application when user has no application", async () => {
@@ -387,8 +415,92 @@ describe("getMyApplication", () => {
     };
     mockedCreateClient.mockResolvedValue(client as never);
 
+    const { adminClient } = makeAdminFallbackClient({ data: null });
+    mockedCreateAdminClient.mockReturnValue(adminClient as never);
+
     const result = await getMyApplication();
 
     expect(result).toEqual({ success: true });
+  });
+
+  it("returns fallback application by email and links user_id", async () => {
+    const chain = makeMaybeSingleChain({ data: null });
+    const client = {
+      auth: {
+        getUser: vi
+          .fn()
+          .mockResolvedValue({ data: { user: { id: "user-1", email: "hong@skku.edu" } } }),
+      },
+      from: vi.fn(() => chain),
+    };
+    mockedCreateClient.mockResolvedValue(client as never);
+
+    const fallbackData = {
+      id: "app-1",
+      user_id: null,
+      status: "under_review",
+      name: "홍길동",
+      batch: "4",
+      created_at: "2026-01-01T00:00:00Z",
+      updated_at: "2026-01-04T00:00:00Z",
+    };
+    const { adminClient, update, updateEq } = makeAdminFallbackClient({ data: fallbackData });
+    mockedCreateAdminClient.mockReturnValue(adminClient as never);
+
+    const result = await getMyApplication();
+
+    expect(result).toEqual({
+      success: true,
+      application: {
+        status: "under_review",
+        name: "홍길동",
+        batch: "4",
+        created_at: "2026-01-01T00:00:00Z",
+        updated_at: "2026-01-04T00:00:00Z",
+      },
+    });
+    expect(update).toHaveBeenCalledWith(
+      expect.objectContaining({ user_id: "user-1" }),
+    );
+    expect(updateEq).toHaveBeenCalledWith("id", "app-1");
+  });
+
+  it("returns fallback application by email without relinking when already linked", async () => {
+    const chain = makeMaybeSingleChain({ data: null });
+    const client = {
+      auth: {
+        getUser: vi
+          .fn()
+          .mockResolvedValue({ data: { user: { id: "user-1", email: "hong@skku.edu" } } }),
+      },
+      from: vi.fn(() => chain),
+    };
+    mockedCreateClient.mockResolvedValue(client as never);
+
+    const fallbackData = {
+      id: "app-2",
+      user_id: "user-1",
+      status: "pending",
+      name: "홍길동",
+      batch: "4",
+      created_at: "2026-01-01T00:00:00Z",
+      updated_at: "2026-01-04T00:00:00Z",
+    };
+    const { adminClient, update } = makeAdminFallbackClient({ data: fallbackData });
+    mockedCreateAdminClient.mockReturnValue(adminClient as never);
+
+    const result = await getMyApplication();
+
+    expect(result).toEqual({
+      success: true,
+      application: {
+        status: "pending",
+        name: "홍길동",
+        batch: "4",
+        created_at: "2026-01-01T00:00:00Z",
+        updated_at: "2026-01-04T00:00:00Z",
+      },
+    });
+    expect(update).not.toHaveBeenCalled();
   });
 });

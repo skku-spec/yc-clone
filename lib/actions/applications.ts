@@ -361,18 +361,59 @@ export async function getMyApplication(): Promise<ApplicationStatusResult> {
     return { error: "조회 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요." };
   }
 
-  if (!data) {
-    return { success: true }; // No application found — not an error
+  if (data) {
+    return {
+      success: true,
+      application: {
+        status: data.status,
+        name: data.name,
+        batch: data.batch,
+        created_at: data.created_at,
+        updated_at: data.updated_at,
+      },
+    };
+  }
+
+  const userEmail = user.email?.trim().toLowerCase();
+  if (!userEmail) {
+    return { success: true };
+  }
+
+  const adminClient = createAdminClient();
+  const { data: emailMatched, error: emailMatchError } = await adminClient
+    .from("applications")
+    .select("id, user_id, status, name, batch, created_at, updated_at")
+    .eq("email", userEmail)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (emailMatchError) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error fetching own application by email fallback:", emailMatchError);
+    }
+    return { error: "조회 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요." };
+  }
+
+  if (!emailMatched) {
+    return { success: true };
+  }
+
+  if (!emailMatched.user_id) {
+    await adminClient
+      .from("applications")
+      .update({ user_id: user.id, updated_at: new Date().toISOString() })
+      .eq("id", emailMatched.id);
   }
 
   return {
     success: true,
     application: {
-      status: data.status,
-      name: data.name,
-      batch: data.batch,
-      created_at: data.created_at,
-      updated_at: data.updated_at,
+      status: emailMatched.status,
+      name: emailMatched.name,
+      batch: emailMatched.batch,
+      created_at: emailMatched.created_at,
+      updated_at: emailMatched.updated_at,
     },
   };
 }
