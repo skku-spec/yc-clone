@@ -143,6 +143,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
       - name: Check Vercel secrets
         id: vercel
         run: |
@@ -155,15 +158,22 @@ jobs:
 
       - name: Pull Vercel preview settings
         if: steps.vercel.outputs.configured == 'true'
-        run: npx vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+        run: vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
 
       - name: Build Vercel preview artifact
         if: steps.vercel.outputs.configured == 'true'
-        run: npx vercel build --token="$VERCEL_TOKEN"
+        run: vercel build --token="$VERCEL_TOKEN"
 
       - name: Deploy preview
         if: steps.vercel.outputs.configured == 'true'
-        run: npx vercel deploy --prebuilt --token="$VERCEL_TOKEN"
+        run: |
+          for i in 1 2 3; do
+            vercel deploy --prebuilt --token="$VERCEL_TOKEN" && exit 0
+            echo "Deploy attempt $i failed, retrying in 15s..."
+            sleep 15
+          done
+          echo "All deploy attempts failed"
+          exit 1
 
   deploy_production:
     name: cd-production
@@ -193,6 +203,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
       - name: Check Vercel secrets
         id: vercel
         run: |
@@ -205,12 +218,19 @@ jobs:
 
       - name: Pull Vercel production settings
         if: steps.vercel.outputs.configured == 'true'
-        run: npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
 
       - name: Build Vercel production artifact
         if: steps.vercel.outputs.configured == 'true'
-        run: npx vercel build --prod --token="$VERCEL_TOKEN"
+        run: vercel build --prod --token="$VERCEL_TOKEN"
 
       - name: Deploy production
         if: steps.vercel.outputs.configured == 'true'
-        run: npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+        run: |
+          for i in 1 2 3; do
+            vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" && exit 0
+            echo "Deploy attempt $i failed, retrying in 15s..."
+            sleep 15
+          done
+          echo "All deploy attempts failed"
+          exit 1
