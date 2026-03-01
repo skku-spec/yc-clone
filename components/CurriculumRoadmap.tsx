@@ -108,7 +108,12 @@ export default function CurriculumRoadmap() {
     <section
       ref={ref}
       className="relative w-full py-16 md:py-24 lg:py-36"
-      style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.5s ease' }}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 12px, 0)',
+        transition: 'opacity 0.4s ease, transform 0.4s ease',
+        willChange: visible ? 'auto' : 'transform, opacity',
+      }}
     >
       <div className="mx-auto max-w-[1100px] px-6">
         {/* Header */}

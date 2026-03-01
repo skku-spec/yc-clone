@@ -29,7 +29,12 @@ export default function Manifesto() {
       <div
         ref={ref}
         className="mx-auto max-w-[540px] px-6 transition-opacity duration-700 ease-out"
-        style={{ opacity: visible ? 1 : 0 }}
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 12px, 0)',
+          transition: 'opacity 0.45s ease, transform 0.45s ease',
+          willChange: visible ? 'auto' : 'transform, opacity',
+        }}
       >
         <div
           className="text-center text-[1.1rem] sm:text-[1.25rem] leading-[1.85] text-white/80 md:text-[1.375rem]"

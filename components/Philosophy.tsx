@@ -77,9 +77,10 @@ export default function Philosophy() {
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible
-                  ? 'translateY(0)'
-                  : 'translateY(24px)',
-                transition: `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`,
+                  ? 'translate3d(0, 0, 0)'
+                  : 'translate3d(0, 16px, 0)',
+                transition: `opacity 0.4s ease ${i * 0.06}s, transform 0.4s ease ${i * 0.06}s`,
+                willChange: isVisible ? 'auto' : 'transform, opacity',
               }}
             >
               <h3

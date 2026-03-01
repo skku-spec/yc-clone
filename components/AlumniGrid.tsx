@@ -62,11 +62,23 @@ const alumni = [
 
 export default function AlumniGrid() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const isUserScrollingRef = useRef(false);
+  const scrollRafRef = useRef(0);
+  const reducedMotionInBrowser =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const [isVisible, setIsVisible] = useState(false);
+  const [isMarqueeRunning, setIsMarqueeRunning] = useState(false);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -78,6 +90,67 @@ export default function AlumniGrid() {
         }
       },
       { threshold: 0.1 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    let idleTimerId = 0;
+
+    const processScroll = () => {
+      scrollRafRef.current = 0;
+
+      if (!isUserScrollingRef.current) {
+        isUserScrollingRef.current = true;
+        setIsUserScrolling(true);
+      }
+
+      if (idleTimerId) {
+        window.clearTimeout(idleTimerId);
+      }
+
+      idleTimerId = window.setTimeout(() => {
+        if (isUserScrollingRef.current) {
+          isUserScrollingRef.current = false;
+          setIsUserScrolling(false);
+        }
+      }, 220);
+    };
+
+    const onScroll = () => {
+      if (scrollRafRef.current) return;
+      scrollRafRef.current = requestAnimationFrame(processScroll);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (scrollRafRef.current) {
+        cancelAnimationFrame(scrollRafRef.current);
+      }
+      if (idleTimerId) {
+        window.clearTimeout(idleTimerId);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsMarqueeRunning(entry.isIntersecting);
+      },
+      {
+        threshold: 0,
+        rootMargin: '120px 0px 120px 0px',
+      },
     );
 
     observer.observe(el);
@@ -125,8 +198,8 @@ export default function AlumniGrid() {
               className="group relative overflow-hidden rounded-xl border border-white/[0.08]"
               style={{
                 aspectRatio: '3 / 4',
-                opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'translateY(0)' : 'translateY(32px)',
+                opacity: reducedMotionInBrowser || isVisible ? 1 : 0,
+                transform: reducedMotionInBrowser || isVisible ? 'translateY(0)' : 'translateY(32px)',
                 transition: `opacity 0.6s ease ${i * 0.07}s, transform 0.6s ease ${i * 0.07}s`,
               }}
             >
@@ -189,10 +262,17 @@ export default function AlumniGrid() {
         <div
           className="flex w-max"
           style={{
-            animation: isVisible ? 'alumni-marquee 22s linear infinite' : 'none',
-            opacity: isVisible ? 1 : 0,
+            animation:
+              !reducedMotionInBrowser && isVisible && isMarqueeRunning
+                ? 'alumni-marquee 22s linear infinite'
+                : 'none',
+            animationPlayState: isUserScrolling ? 'paused' : 'running',
+            opacity: reducedMotionInBrowser || isVisible ? 1 : 0,
             transition: 'opacity 0.3s ease',
-            willChange: 'transform',
+            willChange:
+              !reducedMotionInBrowser && isVisible && isMarqueeRunning && !isUserScrolling
+                ? 'transform'
+                : 'auto',
             backfaceVisibility: 'hidden',
           }}
         >

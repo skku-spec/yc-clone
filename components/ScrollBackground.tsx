@@ -116,15 +116,8 @@ export default function ScrollBackground() {
         loadedImageSetRef.current.add(nextSrc);
       };
 
-      const revealAfterDecode = () => {
-        hiddenEl
-          .decode()
-          .then(reveal)
-          .catch(reveal);
-      };
-
       if (hiddenEl.getAttribute('src') === nextSrc && hiddenEl.complete) {
-        revealAfterDecode();
+        reveal();
         return;
       }
 
@@ -132,11 +125,11 @@ export default function ScrollBackground() {
       hiddenEl.onerror = null;
       hiddenEl.src = nextSrc;
       if (hiddenEl.complete) {
-        revealAfterDecode();
+        reveal();
         return;
       }
 
-      hiddenEl.onload = revealAfterDecode;
+      hiddenEl.onload = reveal;
       hiddenEl.onerror = reveal;
     };
 
@@ -204,13 +197,13 @@ export default function ScrollBackground() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-0 pointer-events-none bg-[#0a0a0a]"
+      className="fixed inset-0 z-0 pointer-events-none bg-[#0a0a0a] grayscale"
     >
       <img
         ref={layerARef}
         src={entrepreneurImages[0]}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover object-[48%_center] md:object-center grayscale"
+        className="absolute inset-0 h-full w-full object-cover object-[48%_center] md:object-center"
         style={{ opacity: 0.25, transition: 'opacity 0.65s ease-out', willChange: 'opacity' }}
         loading="eager"
         fetchPriority="high"
@@ -220,7 +213,7 @@ export default function ScrollBackground() {
         ref={layerBRef}
         src={entrepreneurImages[1]}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover object-[48%_center] md:object-center grayscale"
+        className="absolute inset-0 h-full w-full object-cover object-[48%_center] md:object-center"
         style={{ opacity: 0, transition: 'opacity 0.65s ease-out', willChange: 'opacity' }}
         loading="lazy"
         fetchPriority="low"

@@ -1,30 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import ApplyButton from "@/components/ui/ApplyButton";
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setMounted(true), 50);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <section
       id="hero"
       className="relative -ml-[calc(50vw-50%)] w-screen overflow-hidden"
     >
       <div className="relative flex h-[85vh] md:h-[90vh] flex-col items-center justify-center px-6">
-       <div
-           className="flex max-w-[1200px] flex-col items-center gap-8 mx-auto"
-           style={{
-             opacity: mounted ? 1 : 0,
-             transform: mounted ? "translateY(0)" : "translateY(20px)",
-             transition: "opacity 0.6s ease, transform 0.6s ease",
-           }}
-         >
+       <div className="flex max-w-[1200px] flex-col items-center gap-8 mx-auto">
           {/* Batch badge */}
           <div className="relative inline-flex rounded-full p-[1px]" style={{ background: 'linear-gradient(135deg, rgba(249,115,22,0.6) 0%, rgba(255,255,255,0.12) 100%)' }}>
             <span className="inline-block rounded-full bg-black/80 px-5 py-1.5 font-['Outfit',sans-serif] text-xs uppercase tracking-[0.1em] text-white/75">
