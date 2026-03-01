@@ -41,6 +41,11 @@ export default function Partners() {
       className={`relative w-full py-20 lg:py-28 transition-opacity duration-500 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
+      style={{
+        transform: isVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 10px, 0)',
+        transition: 'opacity 0.4s ease, transform 0.4s ease',
+        willChange: isVisible ? 'auto' : 'transform, opacity',
+      }}
     >
       <div className="mx-auto max-w-[900px] px-6">
         <p className="mb-10 text-center font-['Pretendard',sans-serif] text-sm font-semibold uppercase tracking-[0.06em] text-white/60">

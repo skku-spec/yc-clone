@@ -34,6 +34,9 @@ export default function CTA() {
          className="mx-auto flex max-w-4xl flex-col items-center px-6 transition-opacity duration-500 ease-in-out"
          style={{
            opacity: visible ? 1 : 0,
+           transform: visible ? "translate3d(0, 0, 0)" : "translate3d(0, 12px, 0)",
+           transition: "opacity 0.4s ease, transform 0.4s ease",
+           willChange: visible ? "auto" : "transform, opacity",
          }}
        >
          <h2 className="text-center font-['Outfit',sans-serif] text-[28px] sm:text-[36px] md:text-[44px] lg:text-[48px] font-black uppercase leading-[1.1] text-white">

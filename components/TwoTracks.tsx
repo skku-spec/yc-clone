@@ -47,7 +47,13 @@ const tracks: TrackCard[] = [
 ];
 
 /* ── Shared card renderer ── */
-function TrackCardView({ track, isVisible }: { track: TrackCard; isVisible: boolean }) {
+function TrackCardView({
+  track,
+  isVisible,
+}: {
+  track: TrackCard;
+  isVisible: boolean;
+}) {
   const isPreneur = track.variant === 'preneur';
 
   return (
@@ -59,8 +65,9 @@ function TrackCardView({ track, isVisible }: { track: TrackCard; isVisible: bool
       }`}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-        transition: 'opacity 0.6s ease, transform 0.6s ease',
+        transform: isVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 20px, 0)',
+        transition: 'opacity 0.45s ease, transform 0.45s ease',
+        willChange: isVisible ? 'auto' : 'transform, opacity',
       }}
     >
       <h3
