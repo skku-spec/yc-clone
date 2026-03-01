@@ -47,7 +47,7 @@ export async function submitApplication(formData: FormData): Promise<Application
   // 2. Extract form data
   const name = (formData.get("name") as string)?.trim() ?? "";
   const student_id = (formData.get("student_id") as string)?.trim() ?? "";
-  const email = (formData.get("email") as string)?.trim() ?? "";
+  const email = (formData.get("email") as string)?.trim().toLowerCase() ?? "";
   const phone = (formData.get("phone") as string)?.trim() ?? "";
   const major = (formData.get("major") as string)?.trim() ?? "";
   const batch = (formData.get("batch") as string)?.trim() ?? "";
@@ -234,7 +234,7 @@ export async function updateApplicationStatus(
 
   const { data, error } = await supabase
     .from("applications")
-    .update({ status, updated_at: new Date().toISOString() })
+    .update({ status })
     .eq("id", id)
     .select();
 
@@ -264,9 +264,35 @@ export type ApplicationStatusResult = {
     name: string;
     batch: string;
     created_at: string;
-    updated_at: string;
   };
 };
+
+export type MyApplicationDetailResult = {
+  success?: boolean;
+  error?: string;
+  application?: {
+    id: string;
+    status: string;
+    name: string;
+    email: string;
+    phone: string | null;
+    student_id: string | null;
+    major: string | null;
+    grade: string | null;
+    enrollment_status: string | null;
+    batch: string;
+    introduction: string;
+    vision: string | null;
+    startup_idea: string | null;
+    portfolio_url: string | null;
+    experience_extra: string | null;
+    additional_comments: string | null;
+    created_at: string;
+  };
+};
+
+const MY_APPLICATION_DETAIL_SELECT =
+  "id, user_id, status, name, email, phone, student_id, major, grade, enrollment_status, batch, introduction, vision, startup_idea, portfolio_url, experience_extra, additional_comments, created_at";
 
 const STATUS_CHECK_RATE_LIMIT = {
   maxRequests: 5,
@@ -288,7 +314,7 @@ export async function getApplicationByCredentials(
   }
 
   // Validate inputs
-  const trimmedEmail = email.trim();
+  const trimmedEmail = email.trim().toLowerCase();
   const trimmedStudentId = studentId.trim();
 
   if (!trimmedEmail || !EMAIL_REGEX.test(trimmedEmail)) {
@@ -304,7 +330,7 @@ export async function getApplicationByCredentials(
 
   const { data, error } = await adminClient
     .from("applications")
-    .select("status, name, batch, created_at, updated_at")
+    .select("status, name, batch, created_at")
     .eq("email", trimmedEmail)
     .eq("student_id", trimmedStudentId)
     .order("created_at", { ascending: false })
@@ -329,7 +355,6 @@ export async function getApplicationByCredentials(
       name: data.name,
       batch: data.batch,
       created_at: data.created_at,
-      updated_at: data.updated_at,
     },
   };
 }
@@ -337,6 +362,27 @@ export async function getApplicationByCredentials(
 // ── Get My Application (Logged-in User) ──────────────────────────────
 
 export async function getMyApplication(): Promise<ApplicationStatusResult> {
+  const detailResult = await getMyApplicationDetail();
+  if (detailResult.error) {
+    return { error: detailResult.error };
+  }
+
+  if (detailResult.success && detailResult.application) {
+    return {
+      success: true,
+      application: {
+        status: detailResult.application.status,
+        name: detailResult.application.name,
+        batch: detailResult.application.batch,
+        created_at: detailResult.application.created_at,
+      },
+    };
+  }
+
+  return { success: true };
+}
+
+export async function getMyApplicationDetail(): Promise<MyApplicationDetailResult> {
   const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
@@ -344,11 +390,10 @@ export async function getMyApplication(): Promise<ApplicationStatusResult> {
     return { error: "로그인이 필요합니다." };
   }
 
-  // Explicitly filter by user_id — don't rely solely on RLS
-  // (admin users' RLS policy would see ALL rows, breaking .maybeSingle())
-  const { data, error } = await supabase
+  const adminClient = createAdminClient();
+  const { data, error } = await adminClient
     .from("applications")
-    .select("status, name, batch, created_at, updated_at")
+    .select(MY_APPLICATION_DETAIL_SELECT)
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .limit(1)
@@ -361,18 +406,82 @@ export async function getMyApplication(): Promise<ApplicationStatusResult> {
     return { error: "조회 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요." };
   }
 
-  if (!data) {
-    return { success: true }; // No application found — not an error
+  if (data) {
+    return {
+      success: true,
+      application: {
+        id: data.id,
+        status: data.status,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        student_id: data.student_id,
+        major: data.major,
+        grade: data.grade,
+        enrollment_status: data.enrollment_status,
+        batch: data.batch,
+        introduction: data.introduction,
+        vision: data.vision,
+        startup_idea: data.startup_idea,
+        portfolio_url: data.portfolio_url,
+        experience_extra: data.experience_extra,
+        additional_comments: data.additional_comments,
+        created_at: data.created_at,
+      },
+    };
+  }
+
+  const userEmail = user.email?.trim().toLowerCase();
+  if (!userEmail) {
+    return { success: true };
+  }
+
+  const { data: emailMatched, error: emailMatchError } = await adminClient
+    .from("applications")
+    .select(MY_APPLICATION_DETAIL_SELECT)
+    .eq("email", userEmail)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (emailMatchError) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error fetching own application by email fallback:", emailMatchError);
+    }
+    return { error: "조회 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요." };
+  }
+
+  if (!emailMatched) {
+    return { success: true };
+  }
+
+  if (!emailMatched.user_id) {
+    await adminClient
+      .from("applications")
+      .update({ user_id: user.id })
+      .eq("id", emailMatched.id);
   }
 
   return {
     success: true,
     application: {
-      status: data.status,
-      name: data.name,
-      batch: data.batch,
-      created_at: data.created_at,
-      updated_at: data.updated_at,
+      id: emailMatched.id,
+      status: emailMatched.status,
+      name: emailMatched.name,
+      email: emailMatched.email,
+      phone: emailMatched.phone,
+      student_id: emailMatched.student_id,
+      major: emailMatched.major,
+      grade: emailMatched.grade,
+      enrollment_status: emailMatched.enrollment_status,
+      batch: emailMatched.batch,
+      introduction: emailMatched.introduction,
+      vision: emailMatched.vision,
+      startup_idea: emailMatched.startup_idea,
+      portfolio_url: emailMatched.portfolio_url,
+      experience_extra: emailMatched.experience_extra,
+      additional_comments: emailMatched.additional_comments,
+      created_at: emailMatched.created_at,
     },
   };
 }

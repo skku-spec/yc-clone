@@ -85,7 +85,11 @@ export default function AlumniGrid() {
   }, []);
 
   /* Duplicate cards for seamless horizontal marquee loop */
-  const marqueeCards = [...alumni, ...alumni];
+  const marqueeCards = [...alumni, ...alumni].map((person, i) => ({
+    person,
+    index: i,
+    isClone: i >= alumni.length,
+  }));
 
   return (
     <section className="relative w-full py-16 md:py-24 lg:py-32 bg-transparent">
@@ -181,20 +185,23 @@ export default function AlumniGrid() {
       </div>
 
       {/* ── Mobile: horizontal marquee (<md) ── */}
-      <div className="md:hidden overflow-hidden">
+      <div className="md:hidden overflow-hidden px-6">
         <div
-          className="flex"
+          className="flex w-max"
           style={{
-            animation: isVisible ? 'alumni-marquee 18s linear infinite' : 'none',
+            animation: isVisible ? 'alumni-marquee 22s linear infinite' : 'none',
             opacity: isVisible ? 1 : 0,
-            transition: 'opacity 0.4s ease',
+            transition: 'opacity 0.3s ease',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
           }}
         >
-          {marqueeCards.map((person, i) => (
+          {marqueeCards.map(({ person, index, isClone }) => (
             <div
-              key={`m-${person.name}-${i}`}
+              key={`m-${person.name}-${index}`}
               className="group relative w-[65vw] max-w-[260px] shrink-0 overflow-hidden rounded-xl border border-white/[0.08]"
-              style={{ aspectRatio: '3 / 4', marginLeft: i === 0 ? '24px' : '0', marginRight: '16px' }}
+              style={{ aspectRatio: '3 / 4', marginRight: '16px' }}
+              aria-hidden={isClone}
             >
               <Image
                 src={person.photo}
@@ -202,6 +209,8 @@ export default function AlumniGrid() {
                 fill
                 className="object-cover"
                 sizes="65vw"
+                loading={isClone ? 'lazy' : index < 2 ? 'eager' : 'lazy'}
+                priority={!isClone && index === 0}
               />
               <div
                 className="absolute inset-0"
@@ -254,8 +263,8 @@ export default function AlumniGrid() {
 
       <style>{`
         @keyframes alumni-marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+          from { transform: translate3d(0, 0, 0); }
+          to { transform: translate3d(-50%, 0, 0); }
         }
       `}</style>
     </section>

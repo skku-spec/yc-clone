@@ -3,6 +3,7 @@
   font-size: 17px;
   line-height: 1.8;
   color: #16140f;
+  contain: layout style;
 }
 
 .prose-content h1,
@@ -21,6 +22,11 @@
   margin: 0.75em 0;
 }
 
+.prose-content strong,
+.prose-content b {
+  font-weight: 700;
+}
+
 .prose-content blockquote {
   border-left: 3px solid #ff6c0f;
   padding-left: 1em;
@@ -35,8 +41,12 @@
 }
 
 .prose-content img {
+  display: block;
+  height: auto;
   max-width: 100%;
   border-radius: 8px;
+  content-visibility: auto;
+  contain-intrinsic-size: 700px 394px;
 }
 
 .prose-content pre {
@@ -45,6 +55,8 @@
   padding: 14px 16px;
   border-radius: 8px;
   overflow-x: auto;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 220px;
 }
 
 .prose-content pre code {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import ApplyButton from "@/components/ui/ApplyButton";
 import { getCurrentUser } from "@/lib/auth";
 import { getMyApplication } from "@/lib/actions/applications";
@@ -14,9 +15,13 @@ export const metadata: Metadata = {
 export default async function ApplyPage() {
   const { user } = await getCurrentUser();
 
+  if (!user) {
+    redirect("/login?redirect=/apply");
+  }
+
   // Check if logged-in user already has a linked application
   let hasApplication = false;
-  let applicationData: { status: string; name: string; batch: string; created_at: string; updated_at: string } | undefined;
+  let applicationData: { status: string; name: string; batch: string; created_at: string } | undefined;
   if (user) {
     const result = await getMyApplication();
     if (result.success && result.application) {
@@ -76,6 +81,12 @@ export default async function ApplyPage() {
               >
                 지원 현황 상세
               </Link>
+              <Link
+                href="/apply/submitted"
+                className="inline-flex h-[44px] items-center rounded-full border border-[#d9d9cc] px-6 font-['Pretendard',sans-serif] text-[14px] font-semibold text-[#4a4a40] transition-colors hover:bg-white hover:text-[#16140f]"
+              >
+                제출한 지원서 다시 보기
+              </Link>
             </div>
           </div>
         ) : (
@@ -130,7 +141,7 @@ export default async function ApplyPage() {
           <div className="mt-6 font-['Pretendard',sans-serif] text-[16px]">
             {(
               [
-                { title: "1차 서류 접수", date: "3/5(목) ~ 3/12(목)", status: "completed", highlight: false },
+                { title: "1차 서류 접수", date: "3/1(일) ~ 3/12(목)", status: "completed", highlight: false },
                 { title: "서류 심사", date: "3/13(금) ~ 3/14(토)", status: "completed", highlight: false },
                 { title: "1차 결과 발표", date: "3/15(일)", status: "completed", highlight: false },
                 { title: "2차 온라인 면접", date: "3/16(월) ~ 3/22(일)", status: "completed", highlight: false },

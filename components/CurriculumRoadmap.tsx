@@ -152,7 +152,7 @@ export default function CurriculumRoadmap() {
           {phases.map((phase, i) => (
             <div key={phase.num} className="relative flex gap-4 pb-16 last:pb-0 md:gap-8 lg:gap-10">
               {/* Timeline spine */}
-                <div className="relative flex flex-col items-center">
+                <div className="relative hidden flex-col items-center md:flex">
                 <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-white/20 md:h-16 md:w-16">
                   <span className="font-['Outfit',sans-serif] text-base font-black tracking-tight text-white/70 md:text-lg">
                     {phase.num}

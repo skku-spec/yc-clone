@@ -27,7 +27,6 @@ type ApplicationInfo = {
   name: string;
   batch: string;
   created_at: string;
-  updated_at: string;
 };
 
 export default function ApplicationStatusCard({

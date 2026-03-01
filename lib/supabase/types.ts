@@ -564,6 +564,8 @@ export type Database = {
           student_id: string | null;
           phone: string | null;
           major: string | null;
+          grade: string | null;
+          enrollment_status: string | null;
           batch: string;
           introduction: string;
           vision: string | null;
@@ -575,6 +577,7 @@ export type Database = {
           figma: boolean;
           illustrator: boolean;
           experience_extra: string | null;
+          additional_comments: string | null;
           status: string;
           created_at: string;
           updated_at: string;
@@ -587,6 +590,8 @@ export type Database = {
           student_id?: string | null;
           phone?: string | null;
           major?: string | null;
+          grade?: string | null;
+          enrollment_status?: string | null;
           batch: string;
           introduction: string;
           vision?: string | null;
@@ -598,6 +603,7 @@ export type Database = {
           figma?: boolean;
           illustrator?: boolean;
           experience_extra?: string | null;
+          additional_comments?: string | null;
           status?: string;
           created_at?: string;
           updated_at?: string;
@@ -610,6 +616,8 @@ export type Database = {
           student_id?: string | null;
           phone?: string | null;
           major?: string | null;
+          grade?: string | null;
+          enrollment_status?: string | null;
           batch?: string;
           introduction?: string;
           vision?: string | null;
@@ -621,6 +629,7 @@ export type Database = {
           figma?: boolean;
           illustrator?: boolean;
           experience_extra?: string | null;
+          additional_comments?: string | null;
           status?: string;
           created_at?: string;
           updated_at?: string;

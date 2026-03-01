@@ -154,7 +154,7 @@ export default function ApplicationFormPage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-[#FF6C0F]"></span> 모집 절차
               </h3>
               <div className="space-y-3 text-[#4a4a40]">
-                <div className="flex justify-between"><span>1차 서류 접수</span><span className="font-semibold text-[#16140f]">3/5(목) ~ 3/12(목)</span></div>
+                <div className="flex justify-between"><span>1차 서류 접수</span><span className="font-semibold text-[#16140f]">3/1(일) ~ 3/12(목)</span></div>
                 <div className="flex justify-between"><span>서류 결과 발표</span><span className="font-semibold text-[#16140f]">3/15(일)</span></div>
                 <div className="h-px bg-[#eae9e2] my-1"></div>
                 <div className="flex justify-between"><span>2차 온라인 면접</span><span className="font-semibold text-[#16140f]">3/16(월) ~ 3/22(일)</span></div>
@@ -314,6 +314,7 @@ export default function ApplicationFormPage() {
                       { value: "재학", label: "재학" },
                       { value: "휴학", label: "휴학" },
                       { value: "졸업유예", label: "졸업유예" },
+                      { value: "대학원생", label: "대학원생" },
                     ]}
                     placeholder="재학 상태 선택"
                     className="h-12"

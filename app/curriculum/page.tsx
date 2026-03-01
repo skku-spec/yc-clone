@@ -771,9 +771,6 @@ function LearnerTrack() {
               <th className="w-[220px] px-4 py-3 text-left font-['Pretendard',sans-serif] text-[13px] font-bold uppercase tracking-wider text-[#f5f5ee]/70">
                 챌린지 KPI
               </th>
-              <th className="w-[120px] px-4 py-3 text-left font-['Pretendard',sans-serif] text-[13px] font-bold uppercase tracking-wider text-[#f5f5ee]/70">
-                마일스톤
-              </th>
             </tr>
           </thead>
 
@@ -812,16 +809,6 @@ function LearnerTrack() {
                     {row.assignment}
                   </td>
 
-                  {/* Notes */}
-                  <td className="px-4 py-3.5 font-['Pretendard',sans-serif] text-[13px] text-[#16140f]/40">
-                    {row.notes ? (
-                      <span className="inline-block rounded bg-[#FF6C0F]/8 px-2 py-0.5 text-[12px] font-medium text-[#FF6C0F]">
-                        {row.notes}
-                      </span>
-                    ) : (
-                      <span className="text-[#d9d9cc]">&mdash;</span>
-                    )}
-                  </td>
                 </tr>
               );
             })}

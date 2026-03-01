@@ -36,7 +36,8 @@ export default function ScrollBackground() {
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
+    const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
+    if (prefersReducedMotion || isMobileViewport) {
       return;
     }
 
@@ -206,7 +207,7 @@ export default function ScrollBackground() {
         src={entrepreneurImages[0]}
         alt=""
         className="absolute inset-0 h-full w-full object-cover object-[48%_center] md:object-center grayscale"
-        style={{ opacity: 0.25, transition: 'opacity 0.8s ease-out', willChange: 'opacity' }}
+        style={{ opacity: 0.25, transition: 'opacity 0.65s ease-out', willChange: 'opacity' }}
         loading="eager"
         fetchPriority="high"
         decoding="async"
@@ -216,8 +217,8 @@ export default function ScrollBackground() {
         src={entrepreneurImages[1]}
         alt=""
         className="absolute inset-0 h-full w-full object-cover object-[48%_center] md:object-center grayscale"
-        style={{ opacity: 0, transition: 'opacity 0.8s ease-out', willChange: 'opacity' }}
-        loading="eager"
+        style={{ opacity: 0, transition: 'opacity 0.65s ease-out', willChange: 'opacity' }}
+        loading="lazy"
         fetchPriority="low"
         decoding="async"
       />
