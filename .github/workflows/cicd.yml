@@ -168,7 +168,7 @@ jobs:
         if: steps.vercel.outputs.configured == 'true'
         run: |
           for i in 1 2 3; do
-            vercel deploy --prebuilt --token="$VERCEL_TOKEN" && exit 0
+            vercel deploy --prebuilt --archive=tgz --token="$VERCEL_TOKEN" && exit 0
             echo "Deploy attempt $i failed, retrying in 15s..."
             sleep 15
           done
@@ -228,7 +228,7 @@ jobs:
         if: steps.vercel.outputs.configured == 'true'
         run: |
           for i in 1 2 3; do
-            vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" && exit 0
+            vercel deploy --prebuilt --prod --archive=tgz --token="$VERCEL_TOKEN" && exit 0
             echo "Deploy attempt $i failed, retrying in 15s..."
             sleep 15
           done
